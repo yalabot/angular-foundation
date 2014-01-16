@@ -20,15 +20,16 @@ describe("alert", function () {
 
     scope.alerts = [
       { msg:'foo', type:'success'},
-      { msg:'bar', type:'error'},
-      { msg:'baz'}
+      { msg:'bar', type:'warning round'},
+      { msg:'baz', type:'info radius'},
+      { msg:'qux'}
     ];
   }));
 
   function createAlerts() {
     $compile(element)(scope);
     scope.$digest();
-    return element.find('.alert');
+    return element.find('.alert-box');
   }
 
   function findCloseButton(index) {
@@ -36,19 +37,20 @@ describe("alert", function () {
   }
 
   function findContent(index) {
-    return element.find('span').eq(index);
+    return element.find('div > span').eq(index);
   }
 
   it("should generate alerts using ng-repeat", function () {
     var alerts = createAlerts();
-    expect(alerts.length).toEqual(3);
+    expect(alerts.length).toEqual(4);
   });
 
   it("should use correct classes for different alert types", function () {
     var alerts = createAlerts();
-    expect(alerts.eq(0)).toHaveClass('alert-success');
-    expect(alerts.eq(1)).toHaveClass('alert-error');
-    expect(alerts.eq(2)).toHaveClass('alert-warning');
+    expect(alerts.eq(0).is('.alert-box.success')).toBe(true);
+    expect(alerts.eq(1).is('.alert-box.warning.round')).toBe(true);
+    expect(alerts.eq(2).is('.alert-box.info.radius')).toBe(true);
+    expect(alerts.eq(3).is('.alert-box')).toBe(true);
   });
 
   it('should show the alert content', function() {
@@ -91,7 +93,7 @@ describe("alert", function () {
     var element = $compile('<alert class="alert-block" type="\'info\'">Default alert!</alert>')(scope);
     scope.$digest();
     expect(element).toHaveClass('alert-block');
-    expect(element).toHaveClass('alert-info');
+    expect(element).toHaveClass('info');
   });
 
 });

@@ -1,4 +1,4 @@
-Alert is an AngularJS-version of bootstrap's alert.
+Alert is an AngularJS-version of Foundation's alert.
 
 This directive can be used to generate alerts from the dynamic model data (using the ng-repeat directive);
 
