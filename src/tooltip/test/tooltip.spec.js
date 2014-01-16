@@ -388,7 +388,7 @@ describe('tooltipWithDifferentSymbols', function() {
       elmInput = elmBody.find('input');
       elmInput.trigger('focus');
 
-      expect( elmInput.next().find('div').next().html() ).toBe('My tooltip');
+      expect( elmInput.next().find('span').html() ).toBe('My tooltip');
 
     }));
 
@@ -419,7 +419,7 @@ describe( 'tooltipHtmlUnsafe', function() {
 
   it( 'should render html properly', inject( function () {
     elm.trigger( 'mouseenter' );
-    expect( elmBody.find('.tooltip-inner').html() ).toBe( scope.html );
+    expect( elm.next().find('span').html() ).toBe( scope.html );
   }));
 
   it( 'should show on mouseenter and hide on mouseleave', inject( function () {

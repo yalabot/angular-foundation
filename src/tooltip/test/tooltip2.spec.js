@@ -14,7 +14,7 @@ describe('tooltip directive', function () {
   beforeEach(function(){
     this.addMatchers({
       toHaveOpenTooltips: function(noOfOpened) {
-        var ttipElements = this.actual.find('div.tooltip');
+        var ttipElements = this.actual.find('span.tooltip');
         noOfOpened = noOfOpened || 1;
 
         this.message = function() {
@@ -91,9 +91,9 @@ describe('tooltip directive', function () {
         var fragment = compileTooltip('<span tooltip="tooltip text" tooltip-placement="left">Trigger here</span>');
         fragment.find('span').trigger( 'mouseenter' );
 
-        var ttipElement = fragment.find('div.tooltip');
+        var ttipElement = fragment.find('span.tooltip');
         expect(fragment).toHaveOpenTooltips();
-        expect(ttipElement).toHaveClass('left');
+        expect(ttipElement).toHaveClass('tip-left');
 
         closeTooltip(fragment.find('span'));
         expect(fragment).not.toHaveOpenTooltips();

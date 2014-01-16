@@ -138,25 +138,25 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
                 case 'right':
                   ttPosition = {
                     top: position.top + position.height / 2 - ttHeight / 2,
-                    left: position.left + position.width
+                    left: position.left + position.width + 10
                   };
                   break;
                 case 'bottom':
                   ttPosition = {
-                    top: position.top + position.height,
-                    left: position.left + position.width / 2 - ttWidth / 2
+                    top: position.top + position.height + 10,
+                    left: position.left
                   };
                   break;
                 case 'left':
                   ttPosition = {
                     top: position.top + position.height / 2 - ttHeight / 2,
-                    left: position.left - ttWidth
+                    left: position.left - ttWidth - 10
                   };
                   break;
                 default:
                   ttPosition = {
-                    top: position.top - ttHeight,
-                    left: position.left + position.width / 2 - ttWidth / 2
+                    top: position.top - ttHeight - 10,
+                    left: position.left
                   };
                   break;
               }
