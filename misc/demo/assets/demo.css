@@ -1,84 +1,84 @@
 body {
-    opacity: 1;
-    -webkit-transition: opacity 1s ease;
-    -moz-transition: opacity 1s ease;
-    transition: opacity 1s;
+  opacity: 1;
+  -webkit-transition: opacity 1s ease;
+  -moz-transition: opacity 1s ease;
+  transition: opacity 1s;
 }
 
 .ng-cloak {
-    opacity: 0;
+  opacity: 0;
 }
 
 .ng-invalid {
-    border: 1px solid red !important;
+  border: 1px solid red !important;
 }
 
-section {
-    padding-top: 30px;
+div[role=main] section {
+  padding-top: 30px;
 }
 
 .page-header h1 > small > a {
-    color: #999;
+  color: #999;
 }
 .page-header h1 > small > a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .footer {
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 70px;
-    border-top: 1px solid #e5e5e5;
-    background-color: #f5f5f5;
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 70px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
 }
 
 .bs-social {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 @media (min-width: 768px) {
 
-    .bs-social {
-        text-align: left;
-    }
+  .bs-social {
+    text-align: left;
+  }
 
 }
 
 .nav, .pagination, .carousel, .panel-title a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .bs-social-buttons {
-    display: inline-block;
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
+  display: inline-block;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
 }
 .bs-social-buttons li {
-    display: inline-block;
-    padding: 5px 8px;
-    line-height: 1;
+  display: inline-block;
+  padding: 5px 8px;
+  line-height: 1;
 }
 
 @media (max-width: 767px) {
 
-    .visible-xs.collapse.in {
-        display: block!important;
-    }
-    .visible-xs.collapse {
-        display: none!important;
-    }
+  .visible-xs.collapse.in {
+    display: block!important;
+  }
+  .visible-xs.collapse {
+    display: none!important;
+  }
 
 }
 
 .navbar .collapse {
-    border-top: 1px solid #e7e7e7;
-    margin-left: -15px;
-    margin-right: -15px;
-    padding-right: 15px;
-    padding-left: 15px;
+  border-top: 1px solid #e7e7e7;
+  margin-left: -15px;
+  margin-right: -15px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .show-grid {
@@ -92,9 +92,9 @@ section {
  */
 
 /*@media (min-width: 1200px) {
-    .container{
-        max-width: 970px;
-    }
+  .container{
+    max-width: 970px;
+  }
 }*/
 
 /*
@@ -103,20 +103,25 @@ section {
  * Tweaks to the Tabs.
  */
 
-.code .nav-tabs {
-border-bottom: 1px solid #ccc;
+.code .tabs {
+  border-bottom: 1px solid #ccc;
 }
 
 .code pre, .code code {
-    border-top: none;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
-.code .nav-tabs>li.active>a, .code .nav-tabs>li.active>a:hover, .code .nav-tabs>li.active>a:focus {
-background-color: #f8f8f8;
-border: 1px solid #ccc;
-border-bottom-color: transparent;
+.code .tabs>li.active>a, .code .tabs>li.active>a:hover, .code .tabs>li.active>a:focus {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-bottom-color: transparent;
+}
+
+.code .tabs-content>.content {
+  padding: 0;
+  width: 100%;
 }
 
 /*
@@ -126,28 +131,28 @@ border-bottom-color: transparent;
  */
 
 .btn-outline-inverse {
-color: #fff;
-background-color: transparent;
-border-color: #cdbfe3;
-margin: 10px;
+  color: #fff;
+  background-color: transparent;
+  border-color: #cdbfe3;
+  margin: 10px;
 }
 
 @media (min-width: 768px) {
 
-    .btn-outline-inverse {
-        width: auto;
-        margin: 20px 5px 20px 0;
-        padding: 18px 24px;
-        font-size: 21px;
-    }
+  .btn-outline-inverse {
+    width: auto;
+    margin: 20px 5px 20px 0;
+    padding: 18px 24px;
+    font-size: 21px;
+  }
 
 }
 
 .btn-outline-inverse:hover, .btn-outline-inverse:focus, .btn-outline-inverse:active {
-color: #563d7c;
-text-shadow: none;
-background-color: #fff;
-border-color: #fff;
+  color: #563d7c;
+  text-shadow: none;
+  background-color: #fff;
+  border-color: #fff;
 }
 
 
@@ -194,8 +199,8 @@ border-color: #fff;
 }
 
 .navbar-inner {
-    -webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.175);
-    box-shadow: 0 3px 3px rgba(0,0,0,0.175);
+  -webkit-box-shadow: 0 3px 3px rgba(0,0,0,0.175);
+  box-shadow: 0 3px 3px rgba(0,0,0,0.175);
 }
 
 /*
@@ -287,37 +292,46 @@ border-color: #fff;
 
 
 /* Not enough room on mobile for markup tab, js tab, and plunk btn.
-  And no one cares about plunk button on a phone anyway */
+And no one cares about plunk button on a phone anyway */
 @media only screen and (max-device-width: 480px) {
-    #plunk-btn {
-        display: none;
-    }
+  #plunk-btn {
+    display: none;
+  }
 }
 
 .navbar-nav .dropdown .navbar-brand {
-    max-width: 100%;
-    margin-right: inherit;
-    margin-left: inherit;
+  max-width: 100%;
+  margin-right: inherit;
+  margin-left: inherit;
 }
 
 .header-placeholder {
-    height: 50px;
+  height: 50px;
 }
 
 @media screen and (min-width: 768px) {
 
-    .dropdown.open > .navbar-brand + .dropdown-menu {
-        left: 10px;
-    }
+  .dropdown.open > .navbar-brand + .dropdown-menu {
+    left: 10px;
+  }
 
-    .header-placeholder {
-        height: 50px;
-    }
+  .header-placeholder {
+    height: 50px;
+  }
 
-    .navbar-nav .dropdown .navbar-brand {
-        max-width: 200px;
-        margin-right: 5px;
-        margin-left: 10px;
-    }
+  .navbar-nav .dropdown .navbar-brand {
+    max-width: 200px;
+    margin-right: 5px;
+    margin-left: 10px;
+  }
 
 }
+
+#tabs div[ng-controller=TabsDemoCtrl] .tabs:not(.vertical) dd>a {
+  padding: 0.5em 1em;
+}
+
+#tabs div[ng-controller=TabsDemoCtrl] .tabs.vertical {
+  width: 30%;
+}
+
