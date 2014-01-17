@@ -4,19 +4,22 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Angular directives for Bootstrap using Foundation templates</title>
+  <title>Angular directives for Bootstrap</title>
   <meta name="description" content="AngularJS (Angular) native
-  directives for Bootstrap using Foundation templates. Small footprint (5kB gzipped!), no 3rd party JS dependencies (jQuery, bootstrap JS) required! Widgets: Accordion, Alert, Buttons, Carousel, Collapse, Datepicker, Dropdown Toggle, Modal, Pagination, Popover, Progressbar, Rating, Tabs, Timepicker, Tooltip, Typeahead, ">
+  directives for Foundation. Small footprint (5kB gzipped!),
+  no 3rd party JS dependencies (jQuery, Foundation JS) required!
+  Widgets: <% demoModules.forEach(function(module) { %><%= module.displayName %>, <% }); %>">
 
   <script src="http://cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
-  <script src="mm-foundation-tpls-0.10.0.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/<%= ngversion %>/angular.min.js"></script>
+  <script src="mm-foundation-tpls-<%= pkg.version%>.js"></script>
   <script src="assets/plunker.js"></script>
   <script src="assets/app.js"></script>
 
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.0.2/css/foundation.min.css" rel="stylesheet"/>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/foundation/<%= bsversion %>/css/foundation.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/rainbow.css"/>
   <link rel="stylesheet" href="assets/demo.css"/>
+  <link rel="author" href="https://github.com/madmimi/angular-bootstrap/graphs/contributors">
 </head>
 <body class="ng-cloak" ng-controller="MainCtrl">
 <div class="fixed">
@@ -45,18 +48,20 @@
   <header class="bs-header text-center" id="overview">
     <div class="container">
       <h1>
-        UI Bootstrap
+        Angular Foundation
       </h1>
 
-      <p>Bootstrap components written in pure <a href="http://angularjs.org">AngularJS</a> by the <a
-          href="http://angular-ui.github.io">AngularUI Team</a></p>
+      <p>Components written in pure <a href="http://angularjs.org">AngularJS</a>
+        by the <a href="http://angular-ui.github.io">AngularUI Team</a> for use
+        with <a href="http://getbootstrap.com/">Bootstrap</a> and converted for
+        <a href="http://foundation.zurb.com/">Foundation</a>
+        by the <a href="http://madmimi.com/">Mad Mimi Team</a></p>
 
       <p>
-        <a class="btn btn-outline-inverse btn-lg" href="https://github.com/angular-ui/bootstrap"><i class="icon-github"></i>Code on Github</a>
-        <a class="btn btn-outline-inverse btn-lg" ng-click="showDownloadModal()">
-          <i class="glyphicon glyphicon-download-alt"></i> Download <small>(0.10.0)</small>
+        <a class="button large" href="https://github.com/madmimi/angular-foundation"><i class="icon-github"></i>Code on Github</a>
+        <a class="button large" ng-click="showDownloadModal()">
+          <i class="glyphicon glyphicon-download-alt"></i> Download <small>(<%= pkg.version%>)</small>
         </a>
-        <a class="btn btn-outline-inverse btn-lg" ng-click="showBuildModal()"><i class="glyphicon glyphicon-wrench"></i> Create a Build</a>
       </p>
     </div>
   </header>
@@ -70,24 +75,23 @@
           <h3>Dependencies</h3>
           <p>
             This repository contains a set of <strong>native AngularJS directives</strong> based on
-            Bootstrap's markup and CSS. As a result no dependency on jQuery or Bootstrap's
+            Foundation's markup and CSS. As a result no dependency on
+            jQuery or Foundation's
             JavaScript is required. The <strong>only required dependencies</strong> are:
           </p>
           <ul>
-            <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (minimal version 1.0.8)</li>
-            <li><a href="http://getbootstrap.com" target="_blank">Bootstrap CSS</a> (tested with version 5.0.2).
-              This version of the library (0.10.0) works only with Bootstrap CSS in version 3.x.
-              0.8.0 is the last version of this library that supports Bootstrap CSS in version 2.3.x.
+            <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (minimal version <%= pkg.version%>)</li>
+            <li><a href="http://foundation.zurb.com"
+              target="_blank">Foundation CSS</a> (tested with version <%= bsversion %>).
+              This version of the library (<%= pkg.version%>) works only with
+              Foundation CSS in version 5.x.
             </li>
           </ul>
           <h3>Files to download</h3>
           <p>
             Build files for all directives are distributed in several flavours: minified for production usage, un-minified
             for development, with or without templates. All the options are described and can be
-            <a href="https://github.com/angular-ui/bootstrap/tree/gh-pages">downloaded from here</a>.
-          </p>
-          <p>Alternativelly, if you are only interested in a subset of directives, you can
-            <a ng-click="showBuildModal()">create your own build</a>.
+            <a href="https://github.com/madmimi/angular-foundation/tree/gh-pages">downloaded from here</a>.
           </p>
           <p>Whichever method you choose the good news that the overall size of a download is very small:
              &lt;20kB for all directives (~5kB with gzip compression!)</p>
@@ -97,16 +101,12 @@
              <pre><code>angular.module('myModule', ['mm.foundation']);</code></pre>
           </p>
           <p>You can fork one of the plunkers from this page to see a working example of what is described here.</p>
-          <h3>CSS</h3>
-          <p>Original Bootstrap's CSS depends on empty <code>href</code> attributes to style cursors for several components (pagination, tabs etc.).
-          But in AngularJS adding empty <code>href</code> attributes to link tags will cause unwanted route changes. This is why we need to remove empty <code>href</code> attributes from directive templates and as a result styling is not applied correctly. The remedy is simple, just add the following styling to your application: <pre><code>.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }</code></pre>
-          </p>
         </section>
         <% demoModules.forEach(function(module) { %>
           <section id="<%= module.name %>">
             <div class="page-header">
               <h1><%= module.displayName %><small>
-                (<a target="_blank" href="https://github.com/angular-ui/bootstrap/tree/master/src/<%= module.name %>">mm.foundation.<%= module.name %></a>)
+                (<a target="_blank" href="https://github.com/madmimi/angular-foundation/tree/master/src/<%= module.name %>">mm.foundation.<%= module.name %></a>)
               </small></h1>
             </div>
             <div class="row">
@@ -146,9 +146,8 @@
 </div><!-- /.main -->
 <footer class="footer">
   <div class="container">
-    <p>Designed and built by <a href="https://github.com/angular-ui?tab=members" target="_blank">Angular-UI team</a> and <a href="https://github.com/angular-ui/bootstrap/graphs/contributors" target="_blank">contributors</a>.</p>
-    <p>Code licensed under <a href="https://github.com/angular-ui/bootstrap/blob/master/LICENSE"><%= pkg.license %> License</a>.</p>
-    <p><a href="https://github.com/angular-ui/bootstrap/issues?state=open">Issues</a></p>
+    <p>Code licensed under <a href="https://github.com/madmimi/angular-foundation/blob/master/LICENSE"><%= pkg.license %> License</a>.</p>
+    <p><a href="https://github.com/madmimi/angular-foundation/issues?state=open">Issues</a></p>
   </div>
 </footer>
 <script src="assets/rainbow.js"></script>
@@ -192,44 +191,6 @@
   <div class="modal-footer">
     <a class="btn btn-default" ng-click="cancel()">Cancel</a>
     <a class="btn btn-primary" ng-click="download('<%= pkg.version%>')"><i class="glyphicon glyphicon-download-alt"></i> Download <%= pkg.version %></a>
-  </div>
-</script>
-<script type="text/ng-template" id="buildModal.html">
-  <div class="modal-header">
-    <h4>
-    Create a Custom Build
-    <br>
-    <small>Select the modules you wish to download</small>
-    </h4>
-  </div>
-  <div class="modal-body">
-    <div ng-show="buildErrorText">
-      <h4 style="text-align: center;">{{buildErrorText}}</h4>
-    </div>
-    <div ng-hide="buildErrorText">
-      <% modules.forEach(function(module,i) { %>
-        <% if (i % 3 === 0) {%>
-          <div class="btn-group" style="width: 100%;">
-        <% } %>
-        <button type="button" class="btn btn-default" 
-         style="width: 33%; border-radius: 0;"
-         ng-class="{'btn-primary': module.<%= module.name %>}" 
-         ng-model="module.<%= module.name %>" 
-         btn-checkbox 
-         ng-change="selectedChanged('<%= module.name %>', module.<%= module.name %>)">
-            <%= module.displayName %>
-        </button>
-        <% if ((i+1) % 3 === 0) { //end button group%>
-          </div>
-        <% } %>
-      <% }); %>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <a class="btn btn-primary" ng-disabled="!selectedModules.length" ng-click="selectedModules.length && downloadBuild()">
-      <i class="glyphicon glyphicon-download-alt"></i> Download {{selectedModules.length}} Modules
-    </a>
-    <a class="btn" ng-click="cancel()">Cancel</a>
   </div>
 </script>
 
