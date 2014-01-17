@@ -381,26 +381,20 @@
             <div class="row">
               <div class="columns medium-6 show-grid">
                 <div ng-controller="ModalDemoCtrl">
-    <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
-            <h3>I'm a modal!</h3>
-        </div>
-        <div class="modal-body">
-            <ul>
-                <li ng-repeat="item in items">
-                    <a ng-click="selected.item = item">{{ item }}</a>
-                </li>
-            </ul>
-            <p>Selected: <b>{{ selected.item }}</b></p>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
-    </script>
+  <script type="text/ng-template" id="myModalContent.html">
+    <h3>I'm a modal!</h3>
+    <ul>
+      <li ng-repeat="item in items">
+        <a ng-click="selected.item = item">{{ item }}</a>
+      </li>
+    </ul>
+    <p>Selected: <b>{{ selected.item }}</b></p>
+    <button class="button" ng-click="ok()">OK</button>
+    <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
+  </script>
 
-    <button class="btn btn-default" ng-click="open()">Open me!</button>
-    <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+  <button class="btn btn-default" ng-click="open()">Open me!</button>
+  <div ng-show="selected">Selection from a modal: {{ selected }}</div>
 </div>
 
               </div>
@@ -446,26 +440,20 @@ Those methods make it easy to close a modal window without a need to create a de
                   <tab heading="Markup">
                     <div plunker-content="markup">
                       <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;ModalDemoCtrl&quot;&gt;
-    &lt;script type=&quot;text/ng-template&quot; id=&quot;myModalContent.html&quot;&gt;
-        &lt;div class=&quot;modal-header&quot;&gt;
-            &lt;h3&gt;I&#x27;m a modal!&lt;/h3&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;modal-body&quot;&gt;
-            &lt;ul&gt;
-                &lt;li ng-repeat=&quot;item in items&quot;&gt;
-                    &lt;a ng-click=&quot;selected.item = item&quot;&gt;{{ item }}&lt;/a&gt;
-                &lt;/li&gt;
-            &lt;/ul&gt;
-            &lt;p&gt;Selected: &lt;b&gt;{{ selected.item }}&lt;/b&gt;&lt;/p&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;modal-footer&quot;&gt;
-            &lt;button class=&quot;btn btn-primary&quot; ng-click=&quot;ok()&quot;&gt;OK&lt;/button&gt;
-            &lt;button class=&quot;btn btn-warning&quot; ng-click=&quot;cancel()&quot;&gt;Cancel&lt;/button&gt;
-        &lt;/div&gt;
-    &lt;/script&gt;
+  &lt;script type=&quot;text/ng-template&quot; id=&quot;myModalContent.html&quot;&gt;
+    &lt;h3&gt;I&#x27;m a modal!&lt;/h3&gt;
+    &lt;ul&gt;
+      &lt;li ng-repeat=&quot;item in items&quot;&gt;
+        &lt;a ng-click=&quot;selected.item = item&quot;&gt;{{ item }}&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;Selected: &lt;b&gt;{{ selected.item }}&lt;/b&gt;&lt;/p&gt;
+    &lt;button class=&quot;button&quot; ng-click=&quot;ok()&quot;&gt;OK&lt;/button&gt;
+    &lt;a class=&quot;close-reveal-modal&quot; ng-click=&quot;cancel()&quot;&gt;&amp;#215;&lt;/a&gt;
+  &lt;/script&gt;
 
-    &lt;button class=&quot;btn btn-default&quot; ng-click=&quot;open()&quot;&gt;Open me!&lt;/button&gt;
-    &lt;div ng-show=&quot;selected&quot;&gt;Selection from a modal: {{ selected }}&lt;/div&gt;
+  &lt;button class=&quot;btn btn-default&quot; ng-click=&quot;open()&quot;&gt;Open me!&lt;/button&gt;
+  &lt;div ng-show=&quot;selected&quot;&gt;Selection from a modal: {{ selected }}&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
                     </div>
@@ -1163,6 +1151,55 @@ appendToBody: false
 };
 </script>
         
+        <section id="animations">
+          <div class="page-header">
+            <h1>Animations</h1>
+            <p>Foundation includes animations in its JavaScript files but
+            the components above don't use Foundation's JavaScript.
+            You can use the official Angular module ngAnimate in your project
+            or simple CSS animations like the example below.</p>
+          </div>
+          <div class="row">
+            <div class="columns medium-12">
+            </div>
+          </div>
+          <hr>
+          <div class="row code">
+            <div class="columns medium-12">
+              <pre><code data-language="css">.fade {
+  opacity: 0;
+  -webkit-transition: opacity .15s linear;
+          transition: opacity .15s linear;
+}
+.fade.in {
+  opacity: 1;
+}
+
+.reveal-modal.fade {
+  -webkit-transition: -webkit-transform .3s ease-out;
+     -moz-transition:    -moz-transform .3s ease-out;
+       -o-transition:      -o-transform .3s ease-out;
+          transition:         transform .3s ease-out;
+  -webkit-transform: translate(0, -25%);
+      -ms-transform: translate(0, -25%);
+          transform: translate(0, -25%);
+}
+.reveal-modal.in {
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+
+.reveal-modal-bg.fade {
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+.reveal-modal-bg.in {
+  filter: alpha(opacity=50);
+  opacity: .5;
+}</code></pre>
+            </div>
+          </div>
       </div>
     </div> 
   </div><!-- /.container -->
