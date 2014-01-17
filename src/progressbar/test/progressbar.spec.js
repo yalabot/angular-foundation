@@ -10,7 +10,7 @@ describe('progressbar directive', function () {
     $rootScope.$digest();
   }));
 
-  var BAR_CLASS = 'progress-bar';
+  var BAR_CLASS = 'meter';
 
   function getBar(i) {
     return element.children().eq(i);
@@ -34,11 +34,11 @@ describe('progressbar directive', function () {
   });
 
   it('it should be possible to add additional classes', function () {
-    element = $compile('<progress class="progress-striped active" max="200"><bar class="pizza"></bar></progress>')($rootScope);
+    element = $compile('<progress class="secondary radius" max="200"><bar class="pizza"></bar></progress>')($rootScope);
     $rootScope.$digest();
 
-    expect(element).toHaveClass('progress-striped');
-    expect(element).toHaveClass('active');
+    expect(element).toHaveClass('secondary');
+    expect(element).toHaveClass('radius');
 
     expect(getBar(0)).toHaveClass('pizza');
   });
@@ -81,87 +81,18 @@ describe('progressbar directive', function () {
     }));
 
     it('should use correct classes', function() {
-      expect(getBar(0)).toHaveClass(BAR_CLASS);
-      expect(getBar(0)).toHaveClass(BAR_CLASS + '-success');
+      expect(element).toHaveClass('progress');
+      expect(element).toHaveClass('success');
     });
 
     it('should change classes if type changed', function() {
-      $rootScope.type = 'warning';
+      $rootScope.type = 'alert';
       $rootScope.value += 1;
       $rootScope.$digest();
 
-      var barEl = getBar(0); 
-      expect(barEl).toHaveClass(BAR_CLASS);
-      expect(barEl).not.toHaveClass(BAR_CLASS + '-success');
-      expect(barEl).toHaveClass(BAR_CLASS + '-warning');
-    });
-  });
-
-  describe('stacked', function () {
-    beforeEach(inject(function() {
-      $rootScope.objects = [
-        { value: 10, type: 'success' },
-        { value: 50, type: 'warning' },
-        { value: 20 }
-      ];
-      element = $compile('<progress animate="false"><bar ng-repeat="o in objects" value="o.value" type="{{o.type}}">{{o.value}}</bar></progress>')($rootScope);
-      $rootScope.$digest();
-    }));
-
-    it('contains the right number of bars', function() {
-      expect(element.children().length).toBe(3);
-      for (var i = 0; i < 3; i++) {
-        expect(getBar(i)).toHaveClass(BAR_CLASS);
-      }
-    });
-
-    it('renders each bar with the appropriate width', function() {
-      expect(getBar(0).css('width')).toBe('10%');
-      expect(getBar(1).css('width')).toBe('50%');
-      expect(getBar(2).css('width')).toBe('20%');
-    });
-
-    it('uses correct classes', function() {
-      expect(getBar(0)).toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(0)).not.toHaveClass(BAR_CLASS + '-warning');
-
-      expect(getBar(1)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(1)).toHaveClass(BAR_CLASS + '-warning');
-
-      expect(getBar(2)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(2)).not.toHaveClass(BAR_CLASS + '-warning');
-    });
-
-    it('should change classes if type changed', function() {
-      $rootScope.objects = [
-        { value: 20, type: 'warning' },
-        { value: 50 },
-        { value: 30, type: 'info' }
-      ];
-      $rootScope.$digest();
-
-      expect(getBar(0)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(0)).toHaveClass(BAR_CLASS + '-warning');
-
-      expect(getBar(1)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(1)).not.toHaveClass(BAR_CLASS + '-warning');
-
-      expect(getBar(2)).toHaveClass(BAR_CLASS + '-info');
-      expect(getBar(2)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(2)).not.toHaveClass(BAR_CLASS + '-warning');
-    });
-
-    it('should change classes if type changed', function() {
-      $rootScope.objects = [
-        { value: 70, type: 'info' }
-      ];
-      $rootScope.$digest();
-
-      expect(element.children().length).toBe(1);
-
-      expect(getBar(0)).toHaveClass(BAR_CLASS + '-info');
-      expect(getBar(0)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(0)).not.toHaveClass(BAR_CLASS + '-warning');
+      expect(element).toHaveClass('progress');
+      expect(element).not.toHaveClass('success');
+      expect(element).toHaveClass('alert');
     });
   });
 });

@@ -21,9 +21,3 @@ It supports multiple (stacked) bars into the same `<progress>` element or a sing
  * `animate`
  	_(Default: true)_ :
  	Whether bars use transitions to achieve the width change.
-
-
-### Stacked ###
-
-Place multiple `<bars>` into the same `<progress>` element to stack them.
-`<progress>` supports `max` and `animate` &  `<bar>` supports  `value` and `type` attributes.

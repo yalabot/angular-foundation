@@ -13,27 +13,13 @@ var ProgressDemoCtrl = function ($scope) {
     } else if (value < 75) {
       type = 'warning';
     } else {
-      type = 'danger';
+      type = 'alert';
     }
 
-    $scope.showWarning = (type === 'danger' || type === 'warning');
+    $scope.showWarning = (type === 'alert' || type === 'warning');
 
     $scope.dynamic = value;
     $scope.type = type;
   };
   $scope.random();
-  
-  $scope.randomStacked = function() {
-    $scope.stacked = [];
-    var types = ['success', 'info', 'warning', 'danger'];
-    
-    for (var i = 0, n = Math.floor((Math.random() * 4) + 1); i < n; i++) {
-        var index = Math.floor((Math.random() * 4));
-        $scope.stacked.push({
-          value: Math.floor((Math.random() * 30) + 1),
-          type: types[index]
-        });
-    }
-  };
-  $scope.randomStacked();
 };
