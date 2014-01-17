@@ -12,14 +12,19 @@
    </li>
  */
 
-angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle', ['$document', '$location', function ($document, $location) {
+angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle', ['$document', '$location', '$position', function ($document, $location, $position) {
   var openElement = null,
       closeMenu   = angular.noop;
   return {
     restrict: 'CA',
+    scope: {
+      dropdownToggle: '='
+    },
     link: function(scope, element, attrs) {
+      var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
+
       scope.$watch('$location.path', function() { closeMenu(); });
-      element.parent().bind('click', function() { closeMenu(); });
+      dropdown.addClass('ng-hide').bind('click', function() { closeMenu(); });
       element.bind('click', function (event) {
 
         var elementWasOpen = (element === openElement);
@@ -32,7 +37,16 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle', ['
         }
 
         if (!elementWasOpen && !element.hasClass('disabled') && !element.prop('disabled')) {
-          element.parent().addClass('open');
+          dropdown.removeClass('ng-hide');
+
+          var offset = $position.offset(element);
+          var parentOffset = $position.offset(angular.element(dropdown[0].offsetParent));
+
+          dropdown.css({
+            left: offset.left - parentOffset.left + 'px',
+            top: offset.top - parentOffset.top + offset.height + 'px'
+          });
+
           openElement = element;
           closeMenu = function (event) {
             if (event) {
@@ -40,7 +54,7 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle', ['
               event.stopPropagation();
             }
             $document.unbind('click', closeMenu);
-            element.parent().removeClass('open');
+            dropdown.addClass('ng-hide');
             closeMenu = angular.noop;
             openElement = null;
           };
