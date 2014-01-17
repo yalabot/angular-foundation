@@ -54,7 +54,7 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle', ['
               event.stopPropagation();
             }
             $document.unbind('click', closeMenu);
-            dropdown.css('display', 'hide');
+            dropdown.css('display', 'none');
             closeMenu = angular.noop;
             openElement = null;
           };
