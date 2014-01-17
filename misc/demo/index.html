@@ -140,6 +140,55 @@
           </section>
           <script><%= module.docs.js %></script>
         <% }); %>
+        <section id="animations">
+          <div class="page-header">
+            <h1>Animations</h1>
+            <p>Foundation includes animations in its JavaScript files but
+            the components above don't use Foundation's JavaScript.
+            You can use the official Angular module ngAnimate in your project
+            or simple CSS animations like the example below.</p>
+          </div>
+          <div class="row">
+            <div class="columns medium-12">
+            </div>
+          </div>
+          <hr>
+          <div class="row code">
+            <div class="columns medium-12">
+              <pre><code data-language="css">.fade {
+  opacity: 0;
+  -webkit-transition: opacity .15s linear;
+          transition: opacity .15s linear;
+}
+.fade.in {
+  opacity: 1;
+}
+
+.reveal-modal.fade {
+  -webkit-transition: -webkit-transform .3s ease-out;
+     -moz-transition:    -moz-transform .3s ease-out;
+       -o-transition:      -o-transform .3s ease-out;
+          transition:         transform .3s ease-out;
+  -webkit-transform: translate(0, -25%);
+      -ms-transform: translate(0, -25%);
+          transform: translate(0, -25%);
+}
+.reveal-modal.in {
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+
+.reveal-modal-bg.fade {
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+.reveal-modal-bg.in {
+  filter: alpha(opacity=50);
+  opacity: .5;
+}</code></pre>
+            </div>
+          </div>
       </div>
     </div> 
   </div><!-- /.container -->
