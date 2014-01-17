@@ -1,8 +1,12 @@
-<div class="popover {{placement}}" ng-class="{ in: isOpen(), fade: animation() }">
-  <div class="arrow"></div>
-
-  <div class="popover-inner">
-      <h3 class="popover-title" ng-bind="title" ng-show="title"></h3>
-      <div class="popover-content" ng-bind="content"></div>
+<div class="joyride-tip-guide" ng-class="{ in: isOpen(), fade: animation() }">
+  <span class="joyride-nub" ng-class="{
+    bottom: placement === 'top',
+    left: placement === 'right',
+    right: placement === 'left',
+    top: placement === 'bottom'
+  }"></span>
+  <div class="joyride-content-wrapper">
+    <h3 class="popover-title" ng-bind="title" ng-show="title"></h3>
+    <div class="popover-content" ng-bind="content"></div>
   </div>
 </div>
