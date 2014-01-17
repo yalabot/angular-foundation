@@ -24,7 +24,7 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle', ['
       var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
 
       scope.$watch('$location.path', function() { closeMenu(); });
-      dropdown.addClass('ng-hide').bind('click', function() { closeMenu(); });
+      dropdown.css('display', 'none').bind('click', function() { closeMenu(); });
       element.bind('click', function (event) {
 
         var elementWasOpen = (element === openElement);
@@ -37,7 +37,7 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle', ['
         }
 
         if (!elementWasOpen && !element.hasClass('disabled') && !element.prop('disabled')) {
-          dropdown.removeClass('ng-hide');
+          dropdown.css('display', 'block');
 
           var offset = $position.offset(element);
           var parentOffset = $position.offset(angular.element(dropdown[0].offsetParent));
@@ -54,7 +54,7 @@ angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle', ['
               event.stopPropagation();
             }
             $document.unbind('click', closeMenu);
-            dropdown.addClass('ng-hide');
+            dropdown.css('display', 'hide');
             closeMenu = angular.noop;
             openElement = null;
           };
