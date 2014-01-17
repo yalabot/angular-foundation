@@ -1,4 +1,4 @@
-angular.module('bootstrapDemoApp', ['ui.bootstrap', 'plunker'], function($httpProvider){
+angular.module('bootstrapDemoApp', ['mm.foundation', 'plunker'], function($httpProvider){
   FastClick.attach(document.body);
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
@@ -43,7 +43,7 @@ function MainCtrl($scope, $http, $document, $modal, orderByFilter) {
     });
 
     modalInstance.result.then(function(options) {
-      var downloadUrl = ['http://angular-ui.github.io/bootstrap/ui-bootstrap-'];
+      var downloadUrl = ['http://madmimi.github.io/angular-foundation/mm-foundation-'];
       if (options.tpls) {
         downloadUrl.push('tpls-');
       }

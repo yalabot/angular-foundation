@@ -5,7 +5,7 @@ describe('tooltip', function() {
       elmScope;
 
   // load the tooltip code
-  beforeEach(module('ui.bootstrap.tooltip'));
+  beforeEach(module('mm.foundation.tooltip'));
 
   // load the template
   beforeEach(module('template/tooltip/tooltip-popup.html'));
@@ -367,7 +367,7 @@ describe('tooltipWithDifferentSymbols', function() {
         elmScope;
 
     // load the tooltip code
-    beforeEach(module('ui.bootstrap.tooltip'));
+    beforeEach(module('mm.foundation.tooltip'));
 
     // load the template
     beforeEach(module('template/tooltip/tooltip-popup.html'));
@@ -398,7 +398,7 @@ describe( 'tooltipHtmlUnsafe', function() {
   var elm, elmBody, scope;
 
   // load the tooltip code
-  beforeEach(module('ui.bootstrap.tooltip', function ( $tooltipProvider ) {
+  beforeEach(module('mm.foundation.tooltip', function ( $tooltipProvider ) {
     $tooltipProvider.options({ animation: false });
   }));
 
@@ -445,7 +445,7 @@ describe( '$tooltipProvider', function() {
       body;
 
   describe( 'popupDelay', function() {
-    beforeEach(module('ui.bootstrap.tooltip', function($tooltipProvider){
+    beforeEach(module('mm.foundation.tooltip', function($tooltipProvider){
       $tooltipProvider.options({popupDelay: 1000});
     }));
 
@@ -478,7 +478,7 @@ describe( '$tooltipProvider', function() {
 
   describe('appendToBody', function() {
     // load the tooltip code
-    beforeEach(module('ui.bootstrap.tooltip', function ( $tooltipProvider ) {
+    beforeEach(module('mm.foundation.tooltip', function ( $tooltipProvider ) {
         $tooltipProvider.options({ appendToBody: true });
     }));
 
@@ -528,7 +528,7 @@ describe( '$tooltipProvider', function() {
 
   describe( 'triggers', function() {
     describe( 'triggers with a mapped value', function() {
-      beforeEach(module('ui.bootstrap.tooltip', function($tooltipProvider){
+      beforeEach(module('mm.foundation.tooltip', function($tooltipProvider){
         $tooltipProvider.options({trigger: 'focus'});
       }));
 
@@ -573,7 +573,7 @@ describe( '$tooltipProvider', function() {
     });
 
     describe( 'triggers with a custom mapped value', function() {
-      beforeEach(module('ui.bootstrap.tooltip', function($tooltipProvider){
+      beforeEach(module('mm.foundation.tooltip', function($tooltipProvider){
         $tooltipProvider.setTriggers({ 'customOpenTrigger': 'customCloseTrigger' });
         $tooltipProvider.options({trigger: 'customOpenTrigger'});
       }));
@@ -601,7 +601,7 @@ describe( '$tooltipProvider', function() {
     });
 
     describe( 'triggers without a mapped value', function() {
-      beforeEach(module('ui.bootstrap.tooltip', function($tooltipProvider){
+      beforeEach(module('mm.foundation.tooltip', function($tooltipProvider){
         $tooltipProvider.options({trigger: 'fakeTrigger'});
       }));
 

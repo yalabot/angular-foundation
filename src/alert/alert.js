@@ -1,4 +1,4 @@
-angular.module("ui.bootstrap.alert", [])
+angular.module("mm.foundation.alert", [])
 
 .controller('AlertController', ['$scope', '$attrs', function ($scope, $attrs) {
   $scope.closeable = 'close' in $attrs;

@@ -1,6 +1,6 @@
 {
-  "author": "https://github.com/angular-ui/bootstrap/graphs/contributors",
-  "name": "angular-ui-bootstrap",
+  "author": "https://github.com/madmimi/angular-foundation/graphs/contributors",
+  "name": "angular-mm-foundation",
   "version": "0.10.0",
   "homepage": "http://angular-ui.github.io/bootstrap/",
   "dependencies": {},

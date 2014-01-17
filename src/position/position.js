@@ -1,4 +1,4 @@
-angular.module('ui.bootstrap.position', [])
+angular.module('mm.foundation.position', [])
 
 /**
  * A set of utility methods that can be use to retrieve position of DOM elements.

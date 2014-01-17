@@ -10,15 +10,15 @@ Do you want to see directives in action? Visit http://angular-ui.github.io/boots
 
 ## Installation
 
-Installation is easy as angular-ui-bootstrap has minimal dependencies - only the AngularJS and Bootstrap's CSS are required.
+Installation is easy as angular-mm-foundation has minimal dependencies - only the AngularJS and Bootstrap's CSS are required.
 After downloading dependencies (or better yet, referencing them from your favourite CDN) you need to download build version of this project. All the files and their purposes are described here: 
 https://github.com/angular-ui/bootstrap/tree/gh-pages#build-files
-Don't worry, if you are not sure which file to take, opt for `ui-bootstrap-tpls-[version].min.js`.
+Don't worry, if you are not sure which file to take, opt for `mm-foundation-tpls-[version].min.js`.
 
-When you are done downloading all the dependencies and project files the only remaining part is to add dependencies on the `ui.bootstrap` AngularJS module:
+When you are done downloading all the dependencies and project files the only remaining part is to add dependencies on the `mm.foundation` AngularJS module:
 
 ```javascript
-angular.module('myModule', ['ui.bootstrap']);
+angular.module('myModule', ['mm.foundation']);
 ```
 
 Project files are also available through your favourite package manager:
@@ -117,7 +117,7 @@ If you want to override more templates it makes sense to store them as individua
 For people using Grunt as the build tool it can be easily done using the `grunt-html2js` plugin. You can also configure your own template url.
 Let's have a look:
 
-Your own template url is `views/partials/ui-bootstrap-tpls/alert/alert.html`.
+Your own template url is `views/partials/mm-foundation-tpls/alert/alert.html`.
 
 Add "html2js" task to your Gruntfile
 ```
@@ -126,12 +126,12 @@ html2js: {
     base: '.',
     module: 'ui-templates',
     rename: function (modulePath) {
-      var moduleName = modulePath.replace('app/views/partials/ui-bootstrap-tpls/', '').replace('.html', '');
+      var moduleName = modulePath.replace('app/views/partials/mm-foundation-tpls/', '').replace('.html', '');
       return 'template' + '/' + moduleName + '.html';
     }
   },
   main: {
-    src: ['app/views/partials/ui-bootstrap-tpls/**/*.html'],
+    src: ['app/views/partials/mm-foundation-tpls/**/*.html'],
     dest: '.tmp/ui-templates.js'
   }
 }
@@ -143,7 +143,7 @@ Make sure to load your template.js file
 Inject the `ui-templates` module in your `app.js`
 ```
 angular.module('myApp', [
-  'ui.bootstrap',
+  'mm.foundation',
   'ui-templates'
 ]);
 ```

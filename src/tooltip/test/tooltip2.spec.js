@@ -2,7 +2,7 @@ describe('tooltip directive', function () {
 
   var $rootScope, $compile, $document, $timeout;
 
-  beforeEach(module('ui.bootstrap.tooltip'));
+  beforeEach(module('mm.foundation.tooltip'));
   beforeEach(module('template/tooltip/tooltip-popup.html'));
   beforeEach(inject(function (_$rootScope_, _$compile_, _$document_, _$timeout_) {
     $rootScope = _$rootScope_;

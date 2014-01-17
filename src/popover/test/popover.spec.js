@@ -5,7 +5,7 @@ describe('popover', function() {
       elmScope;
 
   // load the popover code
-  beforeEach(module('ui.bootstrap.popover'));
+  beforeEach(module('mm.foundation.popover'));
 
   // load the template
   beforeEach(module('template/popover/popover.html'));

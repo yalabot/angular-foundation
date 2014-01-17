@@ -21,12 +21,12 @@ module.exports = function(grunt) {
     modules: [],//to be filled in by build task
     pkg: grunt.file.readJSON('package.json'),
     dist: 'dist',
-    filename: 'ui-bootstrap',
+    filename: 'mm-foundation',
     filenamecustom: '<%= filename %>-custom',
     meta: {
-      modules: 'angular.module("ui.bootstrap", [<%= srcModules %>]);',
-      tplmodules: 'angular.module("ui.bootstrap.tpls", [<%= tplModules %>]);',
-      all: 'angular.module("ui.bootstrap", ["ui.bootstrap.tpls", <%= srcModules %>]);',
+      modules: 'angular.module("mm.foundation", [<%= srcModules %>]);',
+      tplmodules: 'angular.module("mm.foundation.tpls", [<%= tplModules %>]);',
+      all: 'angular.module("mm.foundation", ["mm.foundation.tpls", <%= srcModules %>]);',
       banner: ['/*', 
                ' * <%= pkg.name %>',
                ' * <%= pkg.homepage %>\n',
@@ -160,7 +160,7 @@ module.exports = function(grunt) {
       options: {
         dest: 'CHANGELOG.md',
         templateFile: 'misc/changelog.tpl.md',
-        github: 'angular-ui/bootstrap'
+        github: 'madmimi/angular-foundation'
       }
     },
     shell: {
@@ -191,7 +191,7 @@ module.exports = function(grunt) {
           'docs/css/style.css'
         ],
         navTemplate: 'docs/nav.html',
-        title: 'ui-bootstrap',
+        title: 'mm-foundation',
         html5Mode: false
       },
       api: {
@@ -221,7 +221,7 @@ module.exports = function(grunt) {
     }
   });
 
-  //Common ui.bootstrap module containing all modules for src and templates
+  //Common mm.foundation module containing all modules for src and templates
   //findModule: Adds a given module to config
   var foundModules = {};
   function findModule(name) {
@@ -244,7 +244,7 @@ module.exports = function(grunt) {
 
     var module = {
       name: name,
-      moduleName: enquote('ui.bootstrap.' + name),
+      moduleName: enquote('mm.foundation.' + name),
       displayName: ucwords(breakup(name, ' ')),
       srcFiles: grunt.file.expand("src/"+name+"/*.js"),
       tplFiles: grunt.file.expand("template/"+name+"/*.html"),
@@ -276,8 +276,8 @@ module.exports = function(grunt) {
       var depArrayEnd = contents.indexOf(']', depArrayStart);
       var dependencies = contents.substring(depArrayStart + 1, depArrayEnd);
       dependencies.split(',').forEach(function(dep) {
-        if (dep.indexOf('ui.bootstrap.') > -1) {
-          var depName = dep.trim().replace('ui.bootstrap.','').replace(/['"]/g,'');
+        if (dep.indexOf('mm.foundation.') > -1) {
+          var depName = dep.trim().replace('mm.foundation.','').replace(/['"]/g,'');
           if (deps.indexOf(depName) < 0) {
             deps.push(depName);
             //Get dependencies for this new dependency

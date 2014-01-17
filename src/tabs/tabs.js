@@ -1,13 +1,13 @@
 
 /**
  * @ngdoc overview
- * @name ui.bootstrap.tabs
+ * @name mm.foundation.tabs
  *
  * @description
  * AngularJS version of the tabs directive.
  */
 
-angular.module('ui.bootstrap.tabs', [])
+angular.module('mm.foundation.tabs', [])
 
 .controller('TabsetController', ['$scope', function TabsetCtrl($scope) {
   var ctrl = this,
@@ -41,7 +41,7 @@ angular.module('ui.bootstrap.tabs', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.tabs.directive:tabset
+ * @name mm.foundation.tabs.directive:tabset
  * @restrict EA
  *
  * @description
@@ -51,7 +51,7 @@ angular.module('ui.bootstrap.tabs', [])
  * @param {boolean=} justified Whether or not to use justified styling for the tabs.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="mm.foundation">
   <file name="index.html">
     <tabset>
       <tab heading="Tab 1"><b>First</b> Content!</tab>
@@ -87,19 +87,19 @@ angular.module('ui.bootstrap.tabs', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.tabs.directive:tab
+ * @name mm.foundation.tabs.directive:tab
  * @restrict EA
  *
- * @param {string=} heading The visible heading, or title, of the tab. Set HTML headings with {@link ui.bootstrap.tabs.directive:tabHeading tabHeading}.
+ * @param {string=} heading The visible heading, or title, of the tab. Set HTML headings with {@link mm.foundation.tabs.directive:tabHeading tabHeading}.
  * @param {string=} select An expression to evaluate when the tab is selected.
  * @param {boolean=} active A binding, telling whether or not this tab is selected.
  * @param {boolean=} disabled A binding, telling whether or not this tab is disabled.
  *
  * @description
- * Creates a tab with a heading and content. Must be placed within a {@link ui.bootstrap.tabs.directive:tabset tabset}.
+ * Creates a tab with a heading and content. Must be placed within a {@link mm.foundation.tabs.directive:tabset tabset}.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="mm.foundation">
   <file name="index.html">
     <div ng-controller="TabsDemoCtrl">
       <button class="btn btn-small" ng-click="items[0].active = true">
@@ -143,14 +143,14 @@ angular.module('ui.bootstrap.tabs', [])
 
 /**
  * @ngdoc directive
- * @name ui.bootstrap.tabs.directive:tabHeading
+ * @name mm.foundation.tabs.directive:tabHeading
  * @restrict EA
  *
  * @description
- * Creates an HTML heading for a {@link ui.bootstrap.tabs.directive:tab tab}. Must be placed as a child of a tab element.
+ * Creates an HTML heading for a {@link mm.foundation.tabs.directive:tab tab}. Must be placed as a child of a tab element.
  *
  * @example
-<example module="ui.bootstrap">
+<example module="mm.foundation">
   <file name="index.html">
     <tabset>
       <tab>

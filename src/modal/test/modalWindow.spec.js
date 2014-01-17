@@ -2,7 +2,7 @@ describe('modal window', function () {
 
   var $rootScope, $compile;
 
-  beforeEach(module('ui.bootstrap.modal'));
+  beforeEach(module('mm.foundation.modal'));
   beforeEach(module('template/modal/window.html'));
   beforeEach(inject(function (_$rootScope_, _$compile_) {
     $rootScope = _$rootScope_;

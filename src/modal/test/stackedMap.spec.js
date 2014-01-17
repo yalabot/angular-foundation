@@ -2,7 +2,7 @@ describe('stacked map', function () {
 
   var stackedMap;
 
-  beforeEach(module('ui.bootstrap.modal'));
+  beforeEach(module('mm.foundation.modal'));
   beforeEach(inject(function ($$stackedMap) {
     stackedMap = $$stackedMap.createNew();
   }));

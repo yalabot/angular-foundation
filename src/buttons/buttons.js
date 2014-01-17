@@ -1,4 +1,4 @@
-angular.module('ui.bootstrap.buttons', [])
+angular.module('mm.foundation.buttons', [])
 
 .constant('buttonConfig', {
   activeClass: 'active',

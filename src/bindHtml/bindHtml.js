@@ -1,4 +1,4 @@
-angular.module('ui.bootstrap.bindHtml', [])
+angular.module('mm.foundation.bindHtml', [])
 
   .directive('bindHtmlUnsafe', function () {
     return function (scope, element, attr) {

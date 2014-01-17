@@ -16,7 +16,7 @@ angular.module('plunker', [])
           '<html ng-app="plunker">\n' +
           '  <head>\n' +
           '    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular.js"></script>\n' +
-          '    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-'+version+'.js"></script>\n' +
+          '    <script src="http://madmimi.github.io/angular-foundation/mm-foundation-tpls-'+version+'.js"></script>\n' +
           '    <script src="example.js"></script>\n' +
           '    <link href="//netdna.bootstrapcdn.com/bootstrap/'+bsVersion+'/css/bootstrap.min.css" rel="stylesheet">\n' +
           '  </head>\n' +
@@ -27,7 +27,7 @@ angular.module('plunker', [])
       };
 
       var scriptContent = function(content) {
-        return "angular.module('plunker', ['ui.bootstrap']);" + "\n" + content;
+        return "angular.module('plunker', ['mm.foundation']);" + "\n" + content;
       };
 
       addField('description', 'http://angular-ui.github.io/bootstrap/');

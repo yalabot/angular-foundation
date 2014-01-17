@@ -1,5 +1,5 @@
 describe('tabs', function() {
-  beforeEach(module('ui.bootstrap.tabs', 'template/tabs/tabset.html', 'template/tabs/tab.html'));
+  beforeEach(module('mm.foundation.tabs', 'template/tabs/tabset.html', 'template/tabs/tab.html'));
 
   var elm, scope;
   function titles() {

@@ -1,4 +1,4 @@
-angular.module('ui.bootstrap.progressbar', ['ui.bootstrap.transition'])
+angular.module('mm.foundation.progressbar', ['mm.foundation.transition'])
 
 .constant('progressConfig', {
   animate: true,

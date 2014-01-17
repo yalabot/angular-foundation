@@ -12,7 +12,7 @@
    </li>
  */
 
-angular.module('ui.bootstrap.dropdownToggle', []).directive('dropdownToggle', ['$document', '$location', '$position', function ($document, $location, $position) {
+angular.module('mm.foundation.dropdownToggle', []).directive('dropdownToggle', ['$document', '$location', '$position', function ($document, $location, $position) {
   var openElement = null,
       closeMenu   = angular.noop;
   return {

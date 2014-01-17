@@ -16,7 +16,7 @@ describe('$modal', function () {
     });
   };
 
-  beforeEach(module('ui.bootstrap.modal'));
+  beforeEach(module('mm.foundation.modal'));
   beforeEach(module('template/modal/backdrop.html'));
   beforeEach(module('template/modal/window.html'));
   beforeEach(module(function(_$modalProvider_){
