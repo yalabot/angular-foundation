@@ -12,8 +12,8 @@ describe('dropdownToggle', function() {
   }));
 
   function dropdown() {
-    return $compile('<li><a dropdown-toggle="\'#target\'">Trigger</a>' +
-                    '<ul id="target" dropdown-toggle="\'#target\'"><li>Hello</li></ul></li>')($rootScope);
+    return $compile('<li><a dropdown-toggle="#target">Trigger</a>' +
+                    '<ul id="target" dropdown-toggle="#target"><li>Hello</li></ul></li>')($rootScope);
   }
   
   it('should toggle on `a` click', function() {

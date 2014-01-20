@@ -18,7 +18,7 @@ angular.module('mm.foundation.dropdownToggle', []).directive('dropdownToggle', [
   return {
     restrict: 'CA',
     scope: {
-      dropdownToggle: '='
+      dropdownToggle: '@'
     },
     link: function(scope, element, attrs) {
       var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
