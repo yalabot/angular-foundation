@@ -11,8 +11,9 @@
      </ul>
    </li>
  */
+angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
 
-angular.module('mm.foundation.dropdownToggle', []).directive('dropdownToggle', ['$document', '$location', '$position', function ($document, $location, $position) {
+.directive('dropdownToggle', ['$document', '$location', '$position', function ($document, $location, $position) {
   var openElement = null,
       closeMenu   = angular.noop;
   return {
