@@ -2,11 +2,11 @@
  * angular-mm-foundation
  * http://angular-ui.github.io/bootstrap/
 
- * Version: 0.0.0 - 2014-01-17
+ * Version: 0.0.0 - 2014-01-21
  * License: MIT
  */
-angular.module("mm.foundation", ["mm.foundation.tpls", "mm.foundation.alert","mm.foundation.bindHtml","mm.foundation.buttons","mm.foundation.dropdownToggle","mm.foundation.transition","mm.foundation.modal","mm.foundation.position","mm.foundation.tooltip","mm.foundation.popover","mm.foundation.progressbar","mm.foundation.tabs"]);
-angular.module("mm.foundation.tpls", ["template/alert/alert.html","template/modal/backdrop.html","template/modal/window.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/progressbar/progressbar.html","template/tabs/tab.html","template/tabs/tabset.html"]);
+angular.module("mm.foundation", ["mm.foundation.tpls", "mm.foundation.alert","mm.foundation.bindHtml","mm.foundation.buttons","mm.foundation.position","mm.foundation.dropdownToggle","mm.foundation.transition","mm.foundation.modal","mm.foundation.tooltip","mm.foundation.popover","mm.foundation.progressbar","mm.foundation.tabs","mm.foundation.tour"]);
+angular.module("mm.foundation.tpls", ["template/alert/alert.html","template/modal/backdrop.html","template/modal/window.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/progressbar/progressbar.html","template/tabs/tab.html","template/tabs/tabset.html","template/tour/tour.html"]);
 angular.module("mm.foundation.alert", [])
 
 .controller('AlertController', ['$scope', '$attrs', function ($scope, $attrs) {
@@ -111,6 +111,87 @@ angular.module('mm.foundation.buttons', [])
   };
 });
 
+angular.module('mm.foundation.position', [])
+
+/**
+ * A set of utility methods that can be use to retrieve position of DOM elements.
+ * It is meant to be used where we need to absolute-position DOM elements in
+ * relation to other, existing elements (this is the case for tooltips, popovers,
+ * typeahead suggestions etc.).
+ */
+  .factory('$position', ['$document', '$window', function ($document, $window) {
+
+    function getStyle(el, cssprop) {
+      if (el.currentStyle) { //IE
+        return el.currentStyle[cssprop];
+      } else if ($window.getComputedStyle) {
+        return $window.getComputedStyle(el)[cssprop];
+      }
+      // finally try and get inline style
+      return el.style[cssprop];
+    }
+
+    /**
+     * Checks if a given element is statically positioned
+     * @param element - raw DOM element
+     */
+    function isStaticPositioned(element) {
+      return (getStyle(element, "position") || 'static' ) === 'static';
+    }
+
+    /**
+     * returns the closest, non-statically positioned parentOffset of a given element
+     * @param element
+     */
+    var parentOffsetEl = function (element) {
+      var docDomEl = $document[0];
+      var offsetParent = element.offsetParent || docDomEl;
+      while (offsetParent && offsetParent !== docDomEl && isStaticPositioned(offsetParent) ) {
+        offsetParent = offsetParent.offsetParent;
+      }
+      return offsetParent || docDomEl;
+    };
+
+    return {
+      /**
+       * Provides read-only equivalent of jQuery's position function:
+       * http://api.jquery.com/position/
+       */
+      position: function (element) {
+        var elBCR = this.offset(element);
+        var offsetParentBCR = { top: 0, left: 0 };
+        var offsetParentEl = parentOffsetEl(element[0]);
+        if (offsetParentEl != $document[0]) {
+          offsetParentBCR = this.offset(angular.element(offsetParentEl));
+          offsetParentBCR.top += offsetParentEl.clientTop - offsetParentEl.scrollTop;
+          offsetParentBCR.left += offsetParentEl.clientLeft - offsetParentEl.scrollLeft;
+        }
+
+        var boundingClientRect = element[0].getBoundingClientRect();
+        return {
+          width: boundingClientRect.width || element.prop('offsetWidth'),
+          height: boundingClientRect.height || element.prop('offsetHeight'),
+          top: elBCR.top - offsetParentBCR.top,
+          left: elBCR.left - offsetParentBCR.left
+        };
+      },
+
+      /**
+       * Provides read-only equivalent of jQuery's offset function:
+       * http://api.jquery.com/offset/
+       */
+      offset: function (element) {
+        var boundingClientRect = element[0].getBoundingClientRect();
+        return {
+          width: boundingClientRect.width || element.prop('offsetWidth'),
+          height: boundingClientRect.height || element.prop('offsetHeight'),
+          top: boundingClientRect.top + ($window.pageYOffset || $document[0].body.scrollTop || $document[0].documentElement.scrollTop),
+          left: boundingClientRect.left + ($window.pageXOffset || $document[0].body.scrollLeft  || $document[0].documentElement.scrollLeft)
+        };
+      }
+    };
+  }]);
+
 /*
  * dropdownToggle - Provides dropdown menu functionality in place of bootstrap js
  * @restrict class or attribute
@@ -124,14 +205,15 @@ angular.module('mm.foundation.buttons', [])
      </ul>
    </li>
  */
+angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
 
-angular.module('mm.foundation.dropdownToggle', []).directive('dropdownToggle', ['$document', '$location', '$position', function ($document, $location, $position) {
+.directive('dropdownToggle', ['$document', '$location', '$position', function ($document, $location, $position) {
   var openElement = null,
       closeMenu   = angular.noop;
   return {
     restrict: 'CA',
     scope: {
-      dropdownToggle: '='
+      dropdownToggle: '@'
     },
     link: function(scope, element, attrs) {
       var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
@@ -636,87 +718,6 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
     return $modalProvider;
   });
 
-angular.module('mm.foundation.position', [])
-
-/**
- * A set of utility methods that can be use to retrieve position of DOM elements.
- * It is meant to be used where we need to absolute-position DOM elements in
- * relation to other, existing elements (this is the case for tooltips, popovers,
- * typeahead suggestions etc.).
- */
-  .factory('$position', ['$document', '$window', function ($document, $window) {
-
-    function getStyle(el, cssprop) {
-      if (el.currentStyle) { //IE
-        return el.currentStyle[cssprop];
-      } else if ($window.getComputedStyle) {
-        return $window.getComputedStyle(el)[cssprop];
-      }
-      // finally try and get inline style
-      return el.style[cssprop];
-    }
-
-    /**
-     * Checks if a given element is statically positioned
-     * @param element - raw DOM element
-     */
-    function isStaticPositioned(element) {
-      return (getStyle(element, "position") || 'static' ) === 'static';
-    }
-
-    /**
-     * returns the closest, non-statically positioned parentOffset of a given element
-     * @param element
-     */
-    var parentOffsetEl = function (element) {
-      var docDomEl = $document[0];
-      var offsetParent = element.offsetParent || docDomEl;
-      while (offsetParent && offsetParent !== docDomEl && isStaticPositioned(offsetParent) ) {
-        offsetParent = offsetParent.offsetParent;
-      }
-      return offsetParent || docDomEl;
-    };
-
-    return {
-      /**
-       * Provides read-only equivalent of jQuery's position function:
-       * http://api.jquery.com/position/
-       */
-      position: function (element) {
-        var elBCR = this.offset(element);
-        var offsetParentBCR = { top: 0, left: 0 };
-        var offsetParentEl = parentOffsetEl(element[0]);
-        if (offsetParentEl != $document[0]) {
-          offsetParentBCR = this.offset(angular.element(offsetParentEl));
-          offsetParentBCR.top += offsetParentEl.clientTop - offsetParentEl.scrollTop;
-          offsetParentBCR.left += offsetParentEl.clientLeft - offsetParentEl.scrollLeft;
-        }
-
-        var boundingClientRect = element[0].getBoundingClientRect();
-        return {
-          width: boundingClientRect.width || element.prop('offsetWidth'),
-          height: boundingClientRect.height || element.prop('offsetHeight'),
-          top: elBCR.top - offsetParentBCR.top,
-          left: elBCR.left - offsetParentBCR.left
-        };
-      },
-
-      /**
-       * Provides read-only equivalent of jQuery's offset function:
-       * http://api.jquery.com/offset/
-       */
-      offset: function (element) {
-        var boundingClientRect = element[0].getBoundingClientRect();
-        return {
-          width: boundingClientRect.width || element.prop('offsetWidth'),
-          height: boundingClientRect.height || element.prop('offsetHeight'),
-          top: boundingClientRect.top + ($window.pageYOffset || $document[0].body.scrollTop || $document[0].documentElement.scrollTop),
-          left: boundingClientRect.left + ($window.pageXOffset || $document[0].body.scrollLeft  || $document[0].documentElement.scrollLeft)
-        };
-      }
-    };
-  }]);
-
 /**
  * The following features are still outstanding: animation as a
  * function, placement as a function, inside, support for more triggers than
@@ -1025,16 +1026,27 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               }
             };
 
+            var unregisterTriggerFunction = function () {};
+
             attrs.$observe( prefix+'Trigger', function ( val ) {
               unregisterTriggers();
+              unregisterTriggerFunction();
 
               triggers = getTriggers( val );
 
-              if ( triggers.show === triggers.hide ) {
-                element.bind( triggers.show, toggleTooltipBind );
+              if ( angular.isFunction( triggers.show ) ) {
+                unregisterTriggerFunction = scope.$watch( function () {
+                  return triggers.show( scope, element, attrs );
+                }, function ( val ) {
+                  return val ? $timeout( show ) : $timeout( hide );
+                });
               } else {
-                element.bind( triggers.show, showTooltipBind );
-                element.bind( triggers.hide, hideTooltipBind );
+                if ( triggers.show === triggers.hide ) {
+                  element.bind( triggers.show, toggleTooltipBind );
+                } else {
+                  element.bind( triggers.show, showTooltipBind );
+                  element.bind( triggers.hide, hideTooltipBind );
+                }
               }
 
               hasRegisteredTriggers = true;
@@ -1063,6 +1075,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               $timeout.cancel( transitionTimeout );
               $timeout.cancel( popupTimeout );
               unregisterTriggers();
+              unregisterTriggerFunction();
               removeTooltip();
             });
           };
@@ -1508,6 +1521,113 @@ angular.module('mm.foundation.tabs', [])
 
 ;
 
+angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation.tooltip' ] )
+
+.service( '$tour', [ '$window', function ( $window ) {
+  var currentIndex = getCurrentStep();
+  var ended = false;
+  var steps = {};
+
+  function getCurrentStep() {
+    return parseInt( $window.localStorage.getItem( 'mm.tour.step' ), 10 );
+  }
+
+  function setCurrentStep(step) {
+    currentIndex = step;
+    $window.localStorage.setItem( 'mm.tour.step', step );
+  }
+
+  this.add = function ( index, attrs ) {
+    steps[ index ] = attrs;
+  };
+
+  this.has = function ( index ) {
+    return !!steps[ index ];
+  };
+
+  this.isActive = function () {
+    return currentIndex > 0;
+  };
+
+  this.current = function ( index ) {
+    if ( index ) {
+      setCurrentStep( currentIndex );
+    } else {
+      return currentIndex;
+    }
+  };
+
+  this.start = function () {
+    setCurrentStep( 1 );
+  };
+
+  this.next = function () {
+    setCurrentStep( currentIndex + 1 );
+  };
+
+  this.end = function () {
+    setCurrentStep( 0 );
+  };
+}])
+
+.directive( 'stepPopup', ['$tour', function ( $tour ) {
+  return {
+    restrict: 'EA',
+    replace: true,
+    scope: { title: '@', content: '@', placement: '@', animation: '&', isOpen: '&' },
+    templateUrl: 'template/tour/tour.html',
+    link: function (scope, element) {
+      scope.isLastStep = function () {
+        return !$tour.has( $tour.current() + 1 );
+      };
+
+      scope.endTour = function () {
+        element.remove();
+        $tour.end();
+      };
+
+      scope.nextStep = function () {
+        element.remove();
+        $tour.next();
+      };
+    }
+  };
+}])
+
+.directive( 'step', [ '$position', '$tooltip', '$tour', '$window', function ( $position, $tooltip, $tour, $window ) {
+  function isElementInViewport( element ) {
+    var rect = element[0].getBoundingClientRect();
+
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= ($window.innerHeight - 80) &&
+      rect.right <= $window.innerWidth
+    );
+  }
+
+  function show( scope, element, attrs ) {
+    var index = parseInt( attrs.stepIndex, 10);
+
+    if ( $tour.isActive() && index ) {
+      $tour.add( index, attrs );
+
+      if ( index === $tour.current() ) {
+        if ( !isElementInViewport( element ) ) {
+          var offset = $position.offset( element );
+          $window.scrollTo( 0, offset.top - $window.innerHeight / 2 );
+        }
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  return $tooltip( 'step', 'step', show );
+}]);
+
 angular.module("template/alert/alert.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/alert/alert.html",
     "<div class='alert-box' ng-class='(type || \"\")'>\n" +
@@ -1565,8 +1685,8 @@ angular.module("template/popover/popover.html", []).run(["$templateCache", funct
     "    top: placement === 'bottom'\n" +
     "  }\"></span>\n" +
     "  <div class=\"joyride-content-wrapper\">\n" +
-    "    <h3 class=\"popover-title\" ng-bind=\"title\" ng-show=\"title\"></h3>\n" +
-    "    <div class=\"popover-content\" ng-bind=\"content\"></div>\n" +
+    "    <h4 ng-bind=\"title\" ng-show=\"title\"></h4>\n" +
+    "    <p ng-bind=\"content\"></p>\n" +
     "  </div>\n" +
     "</div>\n" +
     "");
@@ -1610,6 +1730,26 @@ angular.module("template/tabs/tabset.html", []).run(["$templateCache", function(
     "      ng-class=\"{active: tab.active}\">\n" +
     "      <div tab-content-transclude=\"tab\"></div>\n" +
     "    </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("template/tour/tour.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/tour/tour.html",
+    "<div class=\"joyride-tip-guide\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
+    "  <span class=\"joyride-nub\" ng-class=\"{\n" +
+    "    bottom: placement === 'top',\n" +
+    "    left: placement === 'right',\n" +
+    "    right: placement === 'left',\n" +
+    "    top: placement === 'bottom'\n" +
+    "  }\"></span>\n" +
+    "  <div class=\"joyride-content-wrapper\">\n" +
+    "    <h4 ng-bind=\"title\" ng-show=\"title\"></h4>\n" +
+    "    <p ng-bind=\"content\"></p>\n" +
+    "    <a class=\"small button joyride-next-tip\" ng-show=\"!isLastStep()\" ng-click=\"nextStep()\">Next</a>\n" +
+    "    <a class=\"small button joyride-next-tip\" ng-show=\"isLastStep()\" ng-click=\"endTour()\">End</a>\n" +
+    "    <a class=\"joyride-close-tip\" ng-click=\"endTour()\">&times;</a>\n" +
     "  </div>\n" +
     "</div>\n" +
     "");

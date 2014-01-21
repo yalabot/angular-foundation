@@ -8,7 +8,7 @@
   <meta name="description" content="AngularJS (Angular) native
   directives for Foundation. Small footprint (5kB gzipped!),
   no 3rd party JS dependencies (jQuery, Foundation JS) required!
-  Widgets: Alert, Buttons, Dropdown Toggle, Modal, Popover, Progressbar, Tabs, Tooltip, ">
+  Widgets: Alert, Buttons, Dropdown Toggle, Modal, Popover, Progressbar, Tabs, Tooltip, Tour, ">
 
   <script src="http://cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
@@ -34,9 +34,9 @@
       <ul class="left">
         <li><a href="#getting_started">Getting started</a></li>
         <li class="has-dropdown">
-          <a dropdown-toggle="'#directives-list'">Directives</a>
+          <a dropdown-toggle="#directives-list">Directives</a>
           <ul id="directives-list" class="dropdown">
-            <li><a href="#alert">Alert</a></li><li><a href="#buttons">Buttons</a></li><li><a href="#dropdownToggle">Dropdown Toggle</a></li><li><a href="#modal">Modal</a></li><li><a href="#popover">Popover</a></li><li><a href="#progressbar">Progressbar</a></li><li><a href="#tabs">Tabs</a></li><li><a href="#tooltip">Tooltip</a></li>
+            <li><a href="#alert">Alert</a></li><li><a href="#buttons">Buttons</a></li><li><a href="#dropdownToggle">Dropdown Toggle</a></li><li><a href="#modal">Modal</a></li><li><a href="#popover">Popover</a></li><li><a href="#progressbar">Progressbar</a></li><li><a href="#tabs">Tabs</a></li><li><a href="#tooltip">Tooltip</a></li><li><a href="#tour">Tour</a></li>
           </ul>
         </li>
         <li><a href="#animations">Animations</a></li>
@@ -291,7 +291,7 @@
             <div class="row">
               <div class="columns medium-6 show-grid">
                 <div ng-controller="DropdownCtrl">
-  <a dropdown-toggle="'#dropdown-example-1'">Click me for a dropdown, yo!</a>
+  <a dropdown-toggle="#dropdown-example-1">Click me for a dropdown, yo!</a>
   <ul id="dropdown-example-1" class="f-dropdown">
     <li ng-repeat="choice in items">
       <a>{{choice}}</a>
@@ -302,7 +302,7 @@
 
   <a class="button split">
     Split Button
-    <span dropdown-toggle="'#dropdown-example-2'"></span>
+    <span dropdown-toggle="#dropdown-example-2"></span>
   </a>
   <ul id="dropdown-example-2" class="f-dropdown">
     <li ng-repeat="choice in items">
@@ -326,7 +326,7 @@
                   <tab heading="Markup">
                     <div plunker-content="markup">
                       <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DropdownCtrl&quot;&gt;
-  &lt;a dropdown-toggle=&quot;&#x27;#dropdown-example-1&#x27;&quot;&gt;Click me for a dropdown, yo!&lt;/a&gt;
+  &lt;a dropdown-toggle=&quot;#dropdown-example-1&quot;&gt;Click me for a dropdown, yo!&lt;/a&gt;
   &lt;ul id=&quot;dropdown-example-1&quot; class=&quot;f-dropdown&quot;&gt;
     &lt;li ng-repeat=&quot;choice in items&quot;&gt;
       &lt;a&gt;{{choice}}&lt;/a&gt;
@@ -337,7 +337,7 @@
 
   &lt;a class=&quot;button split&quot;&gt;
     Split Button
-    &lt;span dropdown-toggle=&quot;&#x27;#dropdown-example-2&#x27;&quot;&gt;&lt;/span&gt;
+    &lt;span dropdown-toggle=&quot;#dropdown-example-2&quot;&gt;&lt;/span&gt;
   &lt;/a&gt;
   &lt;ul id=&quot;dropdown-example-2&quot; class=&quot;f-dropdown&quot;&gt;
     &lt;li ng-repeat=&quot;choice in items&quot;&gt;
@@ -1149,6 +1149,114 @@ appendToBody: false
   $scope.dynamicTooltip = "Hello, World!";
   $scope.dynamicTooltipText = "dynamic";
   $scope.htmlTooltip = "I've been made <b>bold</b>!";
+};
+</script>
+        
+          <section id="tour">
+            <div class="page-header">
+              <h1>Tour<small>
+                (<a target="_blank" href="https://github.com/madmimi/angular-foundation/tree/master/src/tour">mm.foundation.tour</a>)
+              </small></h1>
+            </div>
+            <div class="row">
+              <div class="columns medium-6 show-grid">
+                <div ng-controller="TourDemoCtrl">
+  <button ng-click="startTour()">Start tour</button>
+  <div class="panel"
+    step="Hello, this is the first step of the tour."
+    step-index="1"
+    step-placement="bottom">
+    First tour step points here
+  </div>
+  <div class="panel"
+    step="This is another step of the tour."
+    step-index="2"
+    step-placement="right">
+    Second tour step points here
+  </div>
+  <div class="panel"
+    step="Last step. Finally."
+    step-index="3">
+    Third tour step points here
+  </div>
+</div>
+
+              </div>
+              <div class="columns medium-6">
+                <p>A <code>$tour</code> service to give users of your website or app a tour when they
+visit. It works in conjunction with a <code>step</code> directive.</p>
+
+<p>The step directive <strong>requires</strong> the tooltip module and supports multiple
+placements, optional transition animation, and more.</p>
+
+<p>The step directive provides several optional attributes to control how it
+will display:</p>
+
+<ul>
+<li><code>step-title</code>: A string to display as a fancy title.</li>
+<li><code>step-placement</code>: Where to place it? Defaults to "top", but also accepts
+"bottom", "left", "right".</li>
+<li><code>step-animation</code>: Should it fade in and out? Defaults to "true".</li>
+<li><code>step-popup-delay</code>: For how long should the user have to have the mouse
+over the element before the step shows (in milliseconds)? Defaults to 0.</li>
+<li><code>step-trigger</code>: What should trigger the show of the step? See the
+<code>tooltip</code> directive for supported values.</li>
+<li><code>step-append-to-body</code>: Should the tooltip be appended to <code>$body</code> instead of
+the parent element?</li>
+</ul>
+
+<p>The step directive requires the <code>$position</code> service.</p>
+
+<p>The step directive also supports various default configurations through the
+$tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more information.</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row code">
+              <div class="columns medium-12" ng-controller="PlunkerCtrl">
+                <div class="pull-right">
+                  <button class="btn btn-info" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.0.0', 'tour')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                </div>
+                <tabset>
+                  <tab heading="Markup">
+                    <div plunker-content="markup">
+                      <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;TourDemoCtrl&quot;&gt;
+  &lt;button ng-click=&quot;startTour()&quot;&gt;Start tour&lt;/button&gt;
+  &lt;div class=&quot;panel&quot;
+    step=&quot;Hello, this is the first step of the tour.&quot;
+    step-index=&quot;1&quot;
+    step-placement=&quot;bottom&quot;&gt;
+    First tour step points here
+  &lt;/div&gt;
+  &lt;div class=&quot;panel&quot;
+    step=&quot;This is another step of the tour.&quot;
+    step-index=&quot;2&quot;
+    step-placement=&quot;right&quot;&gt;
+    Second tour step points here
+  &lt;/div&gt;
+  &lt;div class=&quot;panel&quot;
+    step=&quot;Last step. Finally.&quot;
+    step-index=&quot;3&quot;&gt;
+    Third tour step points here
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                    </div>
+                  </tab>
+                  <tab heading="JavaScript">
+                    <div plunker-content="javascript">
+                      <pre ng-non-bindable><code data-language="javascript">var TourDemoCtrl = function ($scope, $tour) {
+  $scope.startTour = $tour.start;
+};
+</code></pre>
+                    </div>
+                  </tab>
+                </tabset>
+              </div>
+            </div>
+          </section>
+          <script>var TourDemoCtrl = function ($scope, $tour) {
+  $scope.startTour = $tour.start;
 };
 </script>
         
