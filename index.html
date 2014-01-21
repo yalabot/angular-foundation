@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="bootstrapDemoApp" id="top">
+<html lang="en" ng-app="foundationDemoApp" id="top">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Angular directives for Bootstrap</title>
+  <title>Angular directives for Foundation</title>
   <meta name="description" content="AngularJS (Angular) native
   directives for Foundation. Small footprint (5kB gzipped!),
   no 3rd party JS dependencies (jQuery, Foundation JS) required!
@@ -19,14 +19,14 @@
   <link href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.0.2/css/foundation.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/rainbow.css"/>
   <link rel="stylesheet" href="assets/demo.css"/>
-  <link rel="author" href="https://github.com/madmimi/angular-bootstrap/graphs/contributors">
+  <link rel="author" href="https://github.com/madmimi/angular-foundation/graphs/contributors">
 </head>
 <body class="ng-cloak" ng-controller="MainCtrl">
 <div class="fixed">
   <nav class="top-bar">
     <ul class="title-area">
       <li class="name">
-        <h1><a href="#">Angular Foundation</a></h1>
+        <h1>Angular Foundation</h1>
       </li>
     </ul>
     
@@ -49,20 +49,18 @@
   <header class="bs-header text-center" id="overview">
     <div class="container">
       <h1>
-        Angular Foundation
+        Angular Foundation <small>from <a href="http://github.com/madmimi/">Mad Mimi</a></small>
       </h1>
 
-      <p>Components written in pure <a href="http://angularjs.org">AngularJS</a>
-        by the <a href="http://angular-ui.github.io">AngularUI Team</a> for use
-        with <a href="http://getbootstrap.com/">Bootstrap</a> and converted for
-        <a href="http://foundation.zurb.com/">Foundation</a>
-        by the <a href="http://madmimi.com/">Mad Mimi Team</a></p>
+      <p>
+        Components written in pure <a href="http://angularjs.org">AngularJS</a> for use in the <a href="http://foundation.zurb.com/">Foundation framework</a>.
+      </p>
 
       <p>
+        Most components were originaly written by the <a href="http://angular-ui.github.io">AngularUI Team</a> for use with <a href="http://angular-ui.github.io/bootstrap/">Twitter Bootstrap</a>.
+      </p>
+      <p>
         <a class="button large" href="https://github.com/madmimi/angular-foundation"><i class="icon-github"></i>Code on Github</a>
-        <a class="button large" ng-click="showDownloadModal()">
-          <i class="glyphicon glyphicon-download-alt"></i> Download <small>(0.0.0)</small>
-        </a>
       </p>
     </div>
   </header>
@@ -94,8 +92,6 @@
             for development, with or without templates. All the options are described and can be
             <a href="https://github.com/madmimi/angular-foundation/tree/gh-pages">downloaded from here</a>.
           </p>
-          <p>Whichever method you choose the good news that the overall size of a download is very small:
-             &lt;20kB for all directives (~5kB with gzip compression!)</p>
           <h3>Installation</h3>
           <p>As soon as you've got all the files downloaded and included in your page you just need to declare
              a dependency on the <code>mm.foundation</code> <a href="http://docs.angularjs.org/guide/module">module</a>:<br>
@@ -400,7 +396,7 @@
 
               </div>
               <div class="columns medium-6">
-                <p><code>$modal</code> is a service to quickly create AngularJS-powered modal windows.
+                <p><code>$modal</code> is a service to quickly create AngularJS-powered modal windows. It is the equivalent of the <a href="http://foundation.zurb.com/docs/components/reveal.html">Foundation Reveal</a> component.
 Creating custom modals is straightforward: create a partial view, its controller and reference them when using the service.</p>
 
 <p>The <code>$modal</code> service has only one method: <code>open(options)</code> where available options are like follows:</p>
@@ -1184,7 +1180,8 @@ appendToBody: false
               </div>
               <div class="columns medium-6">
                 <p>A <code>$tour</code> service to give users of your website or app a tour when they
-visit. It works in conjunction with a <code>step</code> directive.</p>
+visit. It works in conjunction with a <code>step</code> directive. This is the equivalent
+of the <a href="http://foundation.zurb.com/docs/components/joyride.html">Foundation Joyride</a> component.</p>
 
 <p>The step directive <strong>requires</strong> the tooltip module and supports multiple
 placements, optional transition animation, and more.</p>
@@ -1351,7 +1348,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
         <label class="col-sm-3 control-label"><strong>Bower</strong></label>
         <div class="col-sm-9">
           <small>If you are using Bower just run:</small>
-          <pre>bower install angular-bootstrap</pre>
+          <pre>bower install angular-foundation</pre>
           <small class="help-block"><a href="http://bower.io/" target="_blank">Bower</a> is a package manager for the web.</small>
         </div>
       </div>
