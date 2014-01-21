@@ -294,7 +294,7 @@ module.exports = function(grunt) {
     if (dir) { grunt.config('dist', dir); }
   });
 
-  grunt.registerTask('build', 'Create bootstrap build files', function() {
+  grunt.registerTask('build', 'Create foundation build files', function() {
     var _ = grunt.util._;
 
     //If arguments define what modules to build, build those. Else, everything
