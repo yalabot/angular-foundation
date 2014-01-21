@@ -1,5 +1,6 @@
 A `$tour` service to give users of your website or app a tour when they
-visit. It works in conjunction with a `step` directive.
+visit. It works in conjunction with a `step` directive. This is the equivalent
+of the [Foundation Joyride](http://foundation.zurb.com/docs/components/joyride.html) component.
 
 The step directive **requires** the tooltip module and supports multiple
 placements, optional transition animation, and more.
