@@ -1,18 +1,18 @@
-# bootstrap - [AngularJS](http://angularjs.org/) directives specific to [Bootstrap](http://getbootstrap.com)
+# Angular Components for [Foundation](http://foundation.zurb.com/)
 
 ***
 
-[![Build Status](https://secure.travis-ci.org/angular-ui/bootstrap.png)](http://travis-ci.org/angular-ui/bootstrap) [![devDependency Status](https://david-dm.org/angular-ui/bootstrap/dev-status.png?branch=master)](https://david-dm.org/angular-ui/bootstrap#info=devDependencies)
+This project is a port of the AngularUI team's excellent [angular-bootstrap](https://github.com/angular-ui/bootstrap) project for use in the [Foundation](http://foundation.zurb.com/) framework.
 
 ## Demo
 
-Do you want to see directives in action? Visit http://angular-ui.github.io/bootstrap/!
+Do you want to see this in action? Visit http://madmimi.github.io/angular-foundation/
 
 ## Installation
 
-Installation is easy as angular-mm-foundation has minimal dependencies - only the AngularJS and Bootstrap's CSS are required.
+Installation is easy as angular-mm-foundation has minimal dependencies - only the AngularJS and Foundation's CSS are required.
 After downloading dependencies (or better yet, referencing them from your favourite CDN) you need to download build version of this project. All the files and their purposes are described here: 
-https://github.com/angular-ui/bootstrap/tree/gh-pages#build-files
+https://github.com/madmimi/angular-foundation/tree/gh-pages
 Don't worry, if you are not sure which file to take, opt for `mm-foundation-tpls-[version].min.js`.
 
 When you are done downloading all the dependencies and project files the only remaining part is to add dependencies on the `mm.foundation` AngularJS module:
@@ -21,13 +21,22 @@ When you are done downloading all the dependencies and project files the only re
 angular.module('myModule', ['mm.foundation']);
 ```
 
-Project files are also available through your favourite package manager:
-* **Bower**: `bower install angular-bootstrap`
-* **NuGet**: https://nuget.org/packages/Angular.UI.Bootstrap/
+## Supported Foundation components
 
-## Supported browsers
+* Top Bar
+* Split Buttons
+* Reveal Modal
+* Alerts
+* Joyride
+* Dropdowns
+* Tabs
 
-Directives from this repository are automatically tested with the following browsers:
+We'd gladly accept contributions for any remaining components.
+
+## Supported Browsers 
+
+Directives **should** work with the following browsers:
+
 * Chrome (stable and canary channel)
 * Firefox
 * IE 9 and 10
@@ -50,18 +59,20 @@ We are simply not regularly testing against IE8.
 
 ### Native, lightweight directives
 
-We are aiming at providing a set of AngularJS directives based on Bootstrap's markup and CSS. The goal is to provide **native AngularJS directives** without any dependency on jQuery or Bootstrap's JavaScript.
+We are aiming at providing a set of AngularJS directives based on Foundation's markup and CSS. The goal is to provide **native AngularJS directives** without any dependency on jQuery or Foundation's JavaScript.
 It is often better to rewrite an existing JavaScript code and create a new, pure AngularJS directive. Most of the time the resulting directive is smaller as compared to the orginal JavaScript code size and better integrated into the AngularJS ecosystem.
 
 ### Customizability
 
-All the directives in this repository should have their markup externalized as templates (loaded via `templateUrl`). In practice it means that you can **customize directive's markup at will**. One could even imagine providing a non-Boostrap version of the templates!
+All the directives in this repository should have their markup externalized as templates (loaded via `templateUrl`). In practice it means that you can **customize directive's markup at will**. One could even imagine providing a non-Foundation version of the templates!
 
 ### Take what you need and not more
 
 Each directive has its own AngularJS module without any dependencies on other modules or third-pary JavaScript code. In practice it means that you can **just grab the code for the directives you need** and you are not obliged to drag the whole repository.
 
 ### Quality and stability
+
+**Note:** Full test coverage is pending
 
 Directives should work. All the time and in all browsers. This is why all the directives have a comprehensive suite of unit tests. All the automated tests are executed on each checkin in several browsers: Chrome, ChromeCanary, Firefox, Opera, Safari, IE9.
 In fact we are fortunate enough to **benefit from the same testing infrastructure as AngularJS**!
@@ -74,7 +85,7 @@ We are always looking for the quality contributions! Please check the [CONTRIBUT
 #### Prepare your environment
 * Install [Node.js](http://nodejs.org/) and NPM (should come with)
 * Install global dev dependencies: `npm install -g grunt-cli karma`
-* Instal local dev dependencies: `npm install` while current directory is bootstrap repo
+* Instal local dev dependencies: `npm install` while current directory is foundation repo
 
 #### Build
 * Build the whole project: `grunt` - this will run `lint`, `test`, and `concat` targets
@@ -166,3 +177,7 @@ For more information visit: https://github.com/karlgoldstein/grunt-html2js
 * publish Bower and NuGet packages
 
 Well done! (If you don't like repeating yourself open a PR with a grunt task taking care of the above!)
+
+## Credits
+
+Again, many thanks to the AngularUI team for the angular-bootstrap project.
