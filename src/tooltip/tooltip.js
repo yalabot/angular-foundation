@@ -306,16 +306,27 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               }
             };
 
+            var unregisterTriggerFunction = function () {};
+
             attrs.$observe( prefix+'Trigger', function ( val ) {
               unregisterTriggers();
+              unregisterTriggerFunction();
 
               triggers = getTriggers( val );
 
-              if ( triggers.show === triggers.hide ) {
-                element.bind( triggers.show, toggleTooltipBind );
+              if ( angular.isFunction( triggers.show ) ) {
+                unregisterTriggerFunction = scope.$watch( function () {
+                  return triggers.show( scope, element, attrs );
+                }, function ( val ) {
+                  return val ? $timeout( show ) : $timeout( hide );
+                });
               } else {
-                element.bind( triggers.show, showTooltipBind );
-                element.bind( triggers.hide, hideTooltipBind );
+                if ( triggers.show === triggers.hide ) {
+                  element.bind( triggers.show, toggleTooltipBind );
+                } else {
+                  element.bind( triggers.show, showTooltipBind );
+                  element.bind( triggers.hide, hideTooltipBind );
+                }
               }
 
               hasRegisteredTriggers = true;
@@ -344,6 +355,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               $timeout.cancel( transitionTimeout );
               $timeout.cancel( popupTimeout );
               unregisterTriggers();
+              unregisterTriggerFunction();
               removeTooltip();
             });
           };

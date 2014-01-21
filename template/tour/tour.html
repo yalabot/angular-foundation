@@ -1,0 +1,15 @@
+<div class="joyride-tip-guide" ng-class="{ in: isOpen(), fade: animation() }">
+  <span class="joyride-nub" ng-class="{
+    bottom: placement === 'top',
+    left: placement === 'right',
+    right: placement === 'left',
+    top: placement === 'bottom'
+  }"></span>
+  <div class="joyride-content-wrapper">
+    <h4 ng-bind="title" ng-show="title"></h4>
+    <p ng-bind="content"></p>
+    <a class="small button joyride-next-tip" ng-show="!isLastStep()" ng-click="nextStep()">Next</a>
+    <a class="small button joyride-next-tip" ng-show="isLastStep()" ng-click="endTour()">End</a>
+    <a class="joyride-close-tip" ng-click="endTour()">&times;</a>
+  </div>
+</div>
