@@ -3,6 +3,72 @@ body {
   -webkit-transition: opacity 1s ease;
   -moz-transition: opacity 1s ease;
   transition: opacity 1s;
+  background-color: #E1E9F1;
+  font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;
+}
+
+.columns {
+  background-color: white;
+}
+
+.container { padding: 50px;}
+
+.container .columns.border {
+  border: 2px solid #B7C3D0;
+ 
+}
+
+.button {
+  background-color: #4882AC;
+  font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;
+}
+
+header {
+  background-color: #E1E9F1;
+}
+
+header .columns {
+          background-color: #fff;
+          border: 2px solid #B7C3D0;
+          border-radius: 8px;
+            }
+
+
+header .container > :last-child { margin-bottom: 0 !important; }
+header .container > :first-child { margin-top: 0 !important; }
+header > .columns { background-color: #FFF; }
+
+.title-area .name h1 {
+}
+
+figure {margin-top: 0 }
+
+img.logo {
+  margin: 50px auto 50px auto;
+  width: 275px;
+  height:275px;
+}
+
+/* Some Foundation color overrides */
+
+.top-bar { 
+            box-shadow: 0 1px #266784, 0 4px #A9C2D0 }
+
+.top-bar, .top-bar-section li a:not(.button) {
+  background-color: #5592BB;
+}
+
+.top-bar-section li a:not(.button):hover {
+background-color: #4783A9;
+}
+
+.top-bar-section ul li:hover>a {
+  background-color: #5592BB;
+}
+
+.top-bar-section ul li>a {
+  font-size: 16px;
+  font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;;
 }
 
 .ng-cloak {
@@ -17,8 +83,8 @@ div[role=main] section {
   padding-top: 30px;
 }
 
-.page-header h1 > small > a {
-  color: #999;
+.page-header h1, .page-header h1 > small > a {
+  color: #266784;
 }
 .page-header h1 > small > a:hover {
   text-decoration: none;
