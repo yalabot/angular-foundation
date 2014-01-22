@@ -62,6 +62,10 @@ img.logo {
 background-color: #4783A9;
 }
 
+.top-bar-section ul li:hover>a {
+  background-color: #5592BB;
+}
+
 .top-bar-section ul li>a {
   font-size: 16px;
   font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;;
