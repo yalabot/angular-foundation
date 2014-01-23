@@ -26,7 +26,6 @@
   <nav class="top-bar">
     <ul class="title-area">
       <li class="name">
-        <h1>Angular Foundation</h1>
       </li>
     </ul>
     
@@ -47,112 +46,112 @@
 <div class="header-placeholder"></div>
 <div role="main">
   <header class="bs-header text-center" id="overview">
-    <div class="container">
-      <h1>
-        Angular Foundation <small>from <a href="http://github.com/madmimi/">Mad Mimi</a></small>
-      </h1>
-
-      <p>
-        Components written in pure <a href="http://angularjs.org">AngularJS</a> for use in the <a href="http://foundation.zurb.com/">Foundation framework</a>.
-      </p>
-
-      <p>
-        Most components were originaly written by the <a href="http://angular-ui.github.io">AngularUI Team</a> for use with <a href="http://angular-ui.github.io/bootstrap/">Twitter Bootstrap</a>.
-      </p>
-      <p>
-        <a class="button large" href="https://github.com/madmimi/angular-foundation"><i class="icon-github"></i>Code on Github</a>
-      </p>
+    <figure>
+      <img src="http://f.cl.ly/items/2Z2R3L2S1B15332H1f1a/angular_foundation.png" class="logo" />
+    </figure>
+    <div class="row">
+      <div class="columns medium-11 small-centered">
+        <div class="container">
+          <h1>Angular Foundation</h1>
+          <h3>With love, from <a href="http://github.com/madmimi/">Mad Mimi</a></h3>
+          <hr>
+          <p>
+            <a class="button radius large" href="https://github.com/madmimi/angular-foundation"><i class="icon-github"></i>Code on Github</a>
+          </p>
+        </div>
+      </div>
     </div>
   </header>
   <div class="container">
     <div class="row">
-      <div class="columns medium-12">
-        <section id="getting_started">
-          <div class="page-header">
-            <h1>Getting started</h1>
-          </div>
-          <h3>Dependencies</h3>
-          <p>
-            This repository contains a set of <strong>native AngularJS directives</strong> based on
-            Foundation's markup and CSS. As a result no dependency on
-            jQuery or Foundation's
-            JavaScript is required. The <strong>only required dependencies</strong> are:
-          </p>
-          <ul>
-            <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (minimal version <%= pkg.version%>)</li>
-            <li><a href="http://foundation.zurb.com"
-              target="_blank">Foundation CSS</a> (tested with version <%= bsversion %>).
-              This version of the library (<%= pkg.version%>) works only with
-              Foundation CSS in version 5.x.
-            </li>
-          </ul>
-          <h3>Files to download</h3>
-          <p>
-            Build files for all directives are distributed in several flavours: minified for production usage, un-minified
-            for development, with or without templates. All the options are described and can be
-            <a href="https://github.com/madmimi/angular-foundation/tree/gh-pages">downloaded from here</a>.
-          </p>
-          <h3>Installation</h3>
-          <p>As soon as you've got all the files downloaded and included in your page you just need to declare
-             a dependency on the <code>mm.foundation</code> <a href="http://docs.angularjs.org/guide/module">module</a>:<br>
-             <pre><code>angular.module('myModule', ['mm.foundation']);</code></pre>
-          </p>
-          <p>You can fork one of the plunkers from this page to see a working example of what is described here.</p>
-        </section>
-        <% demoModules.forEach(function(module) { %>
-          <section id="<%= module.name %>">
+      <div class="columns medium-11 small-centered border">
+        <div class="columns medium-11 small-centered">
+          <section id="getting_started">
             <div class="page-header">
-              <h1><%= module.displayName %><small>
-                (<a target="_blank" href="https://github.com/madmimi/angular-foundation/tree/master/src/<%= module.name %>">mm.foundation.<%= module.name %></a>)
-              </small></h1>
+              <h1>Getting started</h1>
+            </div>
+            <h3>Dependencies</h3>
+            <p>
+              This repository contains a set of <strong>native AngularJS directives</strong> based on
+              Foundation's markup and CSS. As a result no dependency on
+              jQuery or Foundation's
+              JavaScript is required. The <strong>only required dependencies</strong> are:
+            </p>
+            <ul>
+              <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (minimal version <%= pkg.version%>)</li>
+              <li><a href="http://foundation.zurb.com"
+                target="_blank">Foundation CSS</a> (tested with version <%= bsversion %>).
+                This version of the library (<%= pkg.version%>) works only with
+                Foundation CSS in version 5.x.
+              </li>
+            </ul>
+            <h3>Files to download</h3>
+            <p>
+              Build files for all directives are distributed in several flavours: minified for production usage, un-minified
+              for development, with or without templates. All the options are described and can be
+              <a href="https://github.com/madmimi/angular-foundation/tree/gh-pages">downloaded from here</a>.
+            </p>
+            <h3>Installation</h3>
+            <p>As soon as you've got all the files downloaded and included in your page you just need to declare
+               a dependency on the <code>mm.foundation</code> <a href="http://docs.angularjs.org/guide/module">module</a>:<br>
+               <pre><code>angular.module('myModule', ['mm.foundation']);</code></pre>
+            </p>
+            <p>You can fork one of the plunkers from this page to see a working example of what is described here.</p>
+          </section>
+          <% demoModules.forEach(function(module) { %>
+            <section id="<%= module.name %>">
+              <div class="page-header">
+                <h1><%= module.displayName %><small>
+                  (<a target="_blank" href="https://github.com/madmimi/angular-foundation/tree/master/src/<%= module.name %>">mm.foundation.<%= module.name %></a>)
+                </small></h1>
+              </div>
+              <div class="row">
+                <div class="columns medium-6 show-grid">
+                  <%= module.docs.html %>
+                </div>
+                <div class="columns medium-6">
+                  <%= module.docs.md %>
+                </div>
+              </div>
+              <hr>
+              <div class="row code">
+                <div class="columns medium-12" ng-controller="PlunkerCtrl">
+                  <div class="pull-right">
+                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('<%= ngversion%>', '<%= bsversion %>', '<%= pkg.version%>', '<%= module.name %>')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                  </div>
+                  <tabset>
+                    <tab heading="Markup">
+                      <div plunker-content="markup">
+                        <pre ng-non-bindable><code data-language="html"><%- module.docs.html %></code></pre>
+                      </div>
+                    </tab>
+                    <tab heading="JavaScript">
+                      <div plunker-content="javascript">
+                        <pre ng-non-bindable><code data-language="javascript"><%- module.docs.js %></code></pre>
+                      </div>
+                    </tab>
+                  </tabset>
+                </div>
+              </div>
+            </section>
+            <script><%= module.docs.js %></script>
+          <% }); %>
+          <section id="animations">
+            <div class="page-header">
+              <h1>Animations</h1>
+              <p>Foundation includes animations in its JavaScript files but
+              the components above don't use Foundation's JavaScript.
+              You can use the official Angular module ngAnimate in your project
+              or simple CSS animations like the example below.</p>
             </div>
             <div class="row">
-              <div class="columns medium-6 show-grid">
-                <%= module.docs.html %>
-              </div>
-              <div class="columns medium-6">
-                <%= module.docs.md %>
+              <div class="columns medium-12">
               </div>
             </div>
             <hr>
             <div class="row code">
-              <div class="columns medium-12" ng-controller="PlunkerCtrl">
-                <div class="pull-right">
-                  <button class="btn btn-info" id="plunk-btn" ng-click="edit('<%= ngversion%>', '<%= bsversion %>', '<%= pkg.version%>', '<%= module.name %>')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
-                </div>
-                <tabset>
-                  <tab heading="Markup">
-                    <div plunker-content="markup">
-                      <pre ng-non-bindable><code data-language="html"><%- module.docs.html %></code></pre>
-                    </div>
-                  </tab>
-                  <tab heading="JavaScript">
-                    <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript"><%- module.docs.js %></code></pre>
-                    </div>
-                  </tab>
-                </tabset>
-              </div>
-            </div>
-          </section>
-          <script><%= module.docs.js %></script>
-        <% }); %>
-        <section id="animations">
-          <div class="page-header">
-            <h1>Animations</h1>
-            <p>Foundation includes animations in its JavaScript files but
-            the components above don't use Foundation's JavaScript.
-            You can use the official Angular module ngAnimate in your project
-            or simple CSS animations like the example below.</p>
-          </div>
-          <div class="row">
-            <div class="columns medium-12">
-            </div>
-          </div>
-          <hr>
-          <div class="row code">
-            <div class="columns medium-12">
-              <pre><code data-language="css">.fade {
+              <div class="columns medium-12">
+                <pre><code data-language="css">.fade {
   opacity: 0;
   -webkit-transition: opacity .15s linear;
           transition: opacity .15s linear;
@@ -184,8 +183,10 @@
   filter: alpha(opacity=50);
   opacity: .5;
 }</code></pre>
+              </div>
             </div>
-          </div>
+          </section>
+        </div>
       </div>
     </div> 
   </div><!-- /.container -->

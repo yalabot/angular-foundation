@@ -3,6 +3,67 @@ body {
   -webkit-transition: opacity 1s ease;
   -moz-transition: opacity 1s ease;
   transition: opacity 1s;
+  background-color: #E1E9F1;
+  font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;
+}
+
+.columns {
+  background-color: white;
+}
+
+.container { padding: 50px;}
+
+.container .columns.border {
+  border: 2px solid #B7C3D0;
+ 
+}
+
+header {
+  background-color: #E1E9F1;
+}
+
+header .columns {
+          background-color: #fff;
+          border: 2px solid #B7C3D0;
+          border-radius: 8px;
+            }
+
+
+header .container > :last-child { margin-bottom: 0 !important; }
+header .container > :first-child { margin-top: 0 !important; }
+header > .columns { background-color: #FFF; }
+
+.title-area .name h1 {
+}
+
+figure {margin-top: 0 }
+
+img.logo {
+  margin: 50px auto 50px auto;
+  width: 275px;
+  height:275px;
+}
+
+/* Some Foundation color overrides */
+
+.top-bar { 
+            box-shadow: 0 1px #266784, 0 4px #A9C2D0 }
+
+.top-bar, .top-bar-section li a:not(.button) {
+  background-color: #5592BB;
+}
+
+.top-bar-section li a:not(.button):hover {
+background-color: #4783A9;
+}
+
+.top-bar-section ul li:hover>a {
+  background-color: #5592BB;
+}
+
+.top-bar-section ul li>a {
+  font-size: 16px;
+  font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;;
 }
 
 .ng-cloak {
@@ -17,8 +78,8 @@ div[role=main] section {
   padding-top: 30px;
 }
 
-.page-header h1 > small > a {
-  color: #999;
+.page-header h1, .page-header h1 > small > a {
+  color: #266784;
 }
 .page-header h1 > small > a:hover {
   text-decoration: none;
@@ -103,20 +164,21 @@ div[role=main] section {
  * Tweaks to the Tabs.
  */
 
-.code .tabs {
-  border-bottom: 1px solid #ccc;
-}
 
 .code pre, .code code {
-  border-top: none;
+  border: none;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
 .code .tabs>li.active>a, .code .tabs>li.active>a:hover, .code .tabs>li.active>a:focus {
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  border-bottom-color: transparent;
+  background-color: #FAFAFA;
+}
+
+
+.tabs dd.active a {
+  background-color: #F8F8F8; 
+    border: none !important;
 }
 
 .code .tabs-content>.content {
@@ -125,8 +187,19 @@ div[role=main] section {
 }
 
 /*
- * Button Inverse
- *
+ * Buttons
+*/
+
+.button, button{
+  background-color: #4882AC;
+  font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;
+}
+
+/* tabs */
+
+
+
+ /*
  * Buttons in the masthead.
  */
 
@@ -238,4 +311,8 @@ And no one cares about plunk button on a phone anyway */
 .reveal-modal-bg.in {
   filter: alpha(opacity=50);
   opacity: .5;
+}
+
+.alert-box {
+  background-color: #5592BB;
 }
