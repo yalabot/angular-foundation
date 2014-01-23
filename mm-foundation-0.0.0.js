@@ -2,7 +2,7 @@
  * angular-mm-foundation
  * http://angular-ui.github.io/bootstrap/
 
- * Version: 0.0.0 - 2014-01-21
+ * Version: 0.0.0 - 2014-01-23
  * License: MIT
  */
 angular.module("mm.foundation", ["mm.foundation.alert","mm.foundation.bindHtml","mm.foundation.buttons","mm.foundation.position","mm.foundation.dropdownToggle","mm.foundation.transition","mm.foundation.modal","mm.foundation.tooltip","mm.foundation.popover","mm.foundation.progressbar","mm.foundation.tabs","mm.foundation.tour"]);
@@ -401,7 +401,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
 /**
  * A helper directive for the $modal service. It creates a backdrop element.
  */
-  .directive('modalBackdrop', ['$timeout', function ($timeout) {
+  .directive('modalBackdrop', ['$modalStack', '$timeout', function ($modalStack, $timeout) {
     return {
       restrict: 'EA',
       replace: true,
@@ -414,6 +414,15 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         $timeout(function () {
           scope.animate = true;
         });
+
+        scope.close = function (evt) {
+          var modal = $modalStack.getTop();
+          if (modal && modal.value.backdrop && modal.value.backdrop != 'static' && (evt.target === evt.currentTarget)) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            $modalStack.dismiss(modal.key, 'backdrop click');
+          }
+        };
       }
     };
   }])
@@ -437,15 +446,6 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
           // focus a freshly-opened modal
           element[0].focus();
         });
-
-        scope.close = function (evt) {
-          var modal = $modalStack.getTop();
-          if (modal && modal.value.backdrop && modal.value.backdrop != 'static' && (evt.target === evt.currentTarget)) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            $modalStack.dismiss(modal.key, 'backdrop click');
-          }
-        };
       }
     };
   }])

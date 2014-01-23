@@ -18,11 +18,6 @@ body {
  
 }
 
-.button {
-  background-color: #4882AC;
-  font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;
-}
-
 header {
   background-color: #E1E9F1;
 }
@@ -169,20 +164,21 @@ div[role=main] section {
  * Tweaks to the Tabs.
  */
 
-.code .tabs {
-  border-bottom: 1px solid #ccc;
-}
 
 .code pre, .code code {
-  border-top: none;
+  border: none;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
 .code .tabs>li.active>a, .code .tabs>li.active>a:hover, .code .tabs>li.active>a:focus {
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  border-bottom-color: transparent;
+  background-color: #FAFAFA;
+}
+
+
+.tabs dd.active a {
+  background-color: #F8F8F8; 
+    border: none !important;
 }
 
 .code .tabs-content>.content {
@@ -191,8 +187,19 @@ div[role=main] section {
 }
 
 /*
- * Button Inverse
- *
+ * Buttons
+*/
+
+.button, button{
+  background-color: #4882AC;
+  font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;
+}
+
+/* tabs */
+
+
+
+ /*
  * Buttons in the masthead.
  */
 
@@ -304,4 +311,8 @@ And no one cares about plunk button on a phone anyway */
 .reveal-modal-bg.in {
   filter: alpha(opacity=50);
   opacity: .5;
+}
+
+.alert-box {
+  background-color: #5592BB;
 }
