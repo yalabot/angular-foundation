@@ -57,7 +57,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
 /**
  * A helper directive for the $modal service. It creates a backdrop element.
  */
-  .directive('modalBackdrop', ['$timeout', function ($timeout) {
+  .directive('modalBackdrop', ['$modalStack', '$timeout', function ($modalStack, $timeout) {
     return {
       restrict: 'EA',
       replace: true,
@@ -70,6 +70,15 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         $timeout(function () {
           scope.animate = true;
         });
+
+        scope.close = function (evt) {
+          var modal = $modalStack.getTop();
+          if (modal && modal.value.backdrop && modal.value.backdrop != 'static' && (evt.target === evt.currentTarget)) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            $modalStack.dismiss(modal.key, 'backdrop click');
+          }
+        };
       }
     };
   }])
@@ -93,15 +102,6 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
           // focus a freshly-opened modal
           element[0].focus();
         });
-
-        scope.close = function (evt) {
-          var modal = $modalStack.getTop();
-          if (modal && modal.value.backdrop && modal.value.backdrop != 'static' && (evt.target === evt.currentTarget)) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            $modalStack.dismiss(modal.key, 'backdrop click');
-          }
-        };
       }
     };
   }])
