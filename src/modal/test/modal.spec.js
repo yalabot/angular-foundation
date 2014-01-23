@@ -168,7 +168,7 @@ describe('$modal', function () {
       var modal = open({template: '<div>Content</div>'});
       expect($document).toHaveModalsOpen(1);
 
-      $document.find('body > div.reveal-modal').click();
+      $document.find('body > div.reveal-modal-bg').click();
       $timeout.flush();
       $rootScope.$digest();
 
