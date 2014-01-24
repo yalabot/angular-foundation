@@ -14,7 +14,7 @@ Foundation version of the tabs directive.
  	:
  	Heading text or HTML markup.
 
- * `active` <i class="glyphicon glyphicon-eye-open"></i>
+ * `active` <i class="fi-eye"></i>
  	_(Defaults: false)_ :
  	Whether tab is currently selected.
 

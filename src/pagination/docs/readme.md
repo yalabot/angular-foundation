@@ -5,19 +5,19 @@ A lightweight pagination directive that is focused on ... providing pagination &
 
 Settings can be provided as attributes in the `<pagination>` or globally configured through the `paginationConfig`.
 
- * `page` <i class="glyphicon glyphicon-eye-open"></i>
+ * `page` <i class="fi-eye"></i>
  	:
  	Current page number. First page is 1.
 
- * `total-items` <i class="glyphicon glyphicon-eye-open"></i>
+ * `total-items` <i class="fi-eye"></i>
  	:
  	Total number of items in all pages.
 
- * `items-per-page` <i class="glyphicon glyphicon-eye-open"></i>
+ * `items-per-page` <i class="fi-eye"></i>
  	_(Defaults: 10)_ :
  	Maximum number of items per page. A value less than one indicates all items on one page.
 
- * `max-size` <i class="glyphicon glyphicon-eye-open"></i>
+ * `max-size` <i class="fi-eye"></i>
  	_(Defaults: null)_ :
  	Limit number for pagination size.
 

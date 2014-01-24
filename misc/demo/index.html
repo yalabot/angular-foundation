@@ -17,6 +17,7 @@
   <script src="assets/app.js"></script>
 
   <link href="http://cdnjs.cloudflare.com/ajax/libs/foundation/<%= fdversion %>/css/foundation.min.css" rel="stylesheet"/>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/<%= fdiversion %>/foundation-icons.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/rainbow.css"/>
   <link rel="stylesheet" href="assets/demo.css"/>
   <link rel="author" href="https://github.com/madmimi/angular-foundation/graphs/contributors">
@@ -56,7 +57,7 @@
           <h3>With love, from <a href="http://github.com/madmimi/">Mad Mimi</a></h3>
           <hr>
           <p>
-            <a class="button radius large" href="https://github.com/madmimi/angular-foundation"><i class="icon-github"></i>Code on Github</a>
+            <a class="button radius large" href="https://github.com/madmimi/angular-foundation"><i class="fi-social-github"></i> Code on Github</a>
           </p>
         </div>
       </div>
@@ -116,8 +117,8 @@
               <hr>
               <div class="row code">
                 <div class="columns medium-12" ng-controller="PlunkerCtrl">
-                  <div class="pull-right">
-                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('<%= ngversion%>', '<%= fdversion %>', '<%= pkg.version%>', '<%= module.name %>')"><i class="glyphicon glyphicon-edit"></i> Edit in plunker</button>
+                  <div class="right">
+                    <button class="btn btn-info" id="plunk-btn" ng-click="edit('<%= ngversion%>', '<%= fdversion %>', '<%= pkg.version%>', '<%= module.name %>')"><i class="fi-page-edit"></i> Edit in plunker</button>
                   </div>
                   <tabset>
                     <tab heading="Markup">
@@ -237,7 +238,7 @@
   </div>
   <div class="modal-footer">
     <a class="btn btn-default" ng-click="cancel()">Cancel</a>
-    <a class="btn btn-primary" ng-click="download('<%= pkg.version%>')"><i class="glyphicon glyphicon-download-alt"></i> Download <%= pkg.version %></a>
+    <a class="btn btn-primary" ng-click="download('<%= pkg.version%>')"><i class="fi-download"></i> Download <%= pkg.version %></a>
   </div>
 </script>
 
