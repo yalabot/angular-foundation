@@ -5,7 +5,7 @@
  * Version: 0.0.0 - 2014-01-24
  * License: MIT
  */
-angular.module("mm.foundation", ["mm.foundation.tpls", "mm.foundation.accordion","mm.foundation.alert","mm.foundation.bindHtml","mm.foundation.buttons","mm.foundation.datepicker","mm.foundation.position","mm.foundation.dropdownToggle","mm.foundation.transition","mm.foundation.modal","mm.foundation.pagination","mm.foundation.tooltip","mm.foundation.popover","mm.foundation.progressbar","mm.foundation.rating","mm.foundation.tabs","mm.foundation.tour","mm.foundation.typeahead"]);
+angular.module("mm.foundation", ["mm.foundation.tpls", "mm.foundation.accordion","mm.foundation.alert","mm.foundation.bindHtml","mm.foundation.buttons","mm.foundation.position","mm.foundation.dropdownToggle","mm.foundation.transition","mm.foundation.modal","mm.foundation.pagination","mm.foundation.tooltip","mm.foundation.popover","mm.foundation.progressbar","mm.foundation.rating","mm.foundation.tabs","mm.foundation.tour","mm.foundation.typeahead"]);
 angular.module("mm.foundation.tpls", ["template/accordion/accordion-group.html","template/accordion/accordion.html","template/alert/alert.html","template/modal/backdrop.html","template/modal/window.html","template/pagination/pager.html","template/pagination/pagination.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/progressbar/progressbar.html","template/rating/rating.html","template/tabs/tab.html","template/tabs/tabset.html","template/tour/tour.html","template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]);
 angular.module('mm.foundation.accordion', [])
 
@@ -2453,48 +2453,6 @@ angular.module("template/alert/alert.html", []).run(["$templateCache", function(
     "  <span ng-transclude></span>\n" +
     "  <a ng-show='closeable' class='close' ng-click='close()'>&times;</a>\n" +
     "</div>\n" +
-    "");
-}]);
-
-angular.module("template/datepicker/datepicker.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/datepicker/datepicker.html",
-    "<table>\n" +
-    "  <thead>\n" +
-    "    <tr>\n" +
-    "      <th><button type=\"button\" class=\"button tiny left\" ng-click=\"move(-1)\"><i class=\"fa fa-chevron-left\"></i></button></th>\n" +
-    "      <th colspan=\"{{rows[0].length - 2 + showWeekNumbers}}\"><button type=\"button\" class=\"button tiny btn-block\" ng-click=\"toggleMode()\"><strong>{{title}}</strong></button></th>\n" +
-    "      <th><button type=\"button\" class=\"button tiny right\" ng-click=\"move(1)\"><i class=\"fa fa-chevron-right\"></i></button></th>\n" +
-    "    </tr>\n" +
-    "    <tr ng-show=\"labels.length > 0\" class=\"h6\">\n" +
-    "      <th ng-show=\"showWeekNumbers\" class=\"text-center\">#</th>\n" +
-    "      <th ng-repeat=\"label in labels\" class=\"text-center\">{{label}}</th>\n" +
-    "    </tr>\n" +
-    "  </thead>\n" +
-    "  <tbody>\n" +
-    "    <tr ng-repeat=\"row in rows\">\n" +
-    "      <td ng-show=\"showWeekNumbers\" class=\"text-center\"><em>{{ getWeekNumber(row) }}</em></td>\n" +
-    "      <td ng-repeat=\"dt in row\" class=\"text-center\">\n" +
-    "        <button type=\"button\" style=\"width:100%;\" class=\"button tiny\" ng-class=\"{'btn-info': dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{'text-muted': dt.secondary}\">{{dt.label}}</span></button>\n" +
-    "      </td>\n" +
-    "    </tr>\n" +
-    "  </tbody>\n" +
-    "</table>\n" +
-    "");
-}]);
-
-angular.module("template/datepicker/popup.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/datepicker/popup.html",
-    "<ul class=\"dropdown-menu\" ng-style=\"{display: (isOpen && 'block') || 'none', top: position.top+'px', left: position.left+'px'}\">\n" +
-    "	<li ng-transclude></li>\n" +
-    "	<li ng-show=\"showButtonBar\" style=\"padding:10px 9px 2px\">\n" +
-    "		<span class=\"button-group\">\n" +
-    "			<button type=\"button\" class=\"button tiny secondary\" ng-click=\"today()\">{{currentText}}</button>\n" +
-    "			<button type=\"button\" class=\"button tiny\" ng-click=\"showWeeks = ! showWeeks\" ng-class=\"{active: showWeeks}\">{{toggleWeeksText}}</button>\n" +
-    "			<button type=\"button\" class=\"button tiny alert\" ng-click=\"clear()\">{{clearText}}</button>\n" +
-    "		</span>\n" +
-    "		<button type=\"button\" class=\"button tiny success right\" ng-click=\"isOpen = false\">{{closeText}}</button>\n" +
-    "	</li>\n" +
-    "</ul>\n" +
     "");
 }]);
 
