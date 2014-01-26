@@ -6,8 +6,8 @@ angular.module('mm.foundation.buttons', [])
 })
 
 .controller('ButtonsController', ['buttonConfig', function(buttonConfig) {
-  this.activeClass = buttonConfig.activeClass || 'active';
-  this.toggleEvent = buttonConfig.toggleEvent || 'click';
+  this.activeClass = buttonConfig.activeClass;
+  this.toggleEvent = buttonConfig.toggleEvent;
 }])
 
 .directive('btnRadio', function () {

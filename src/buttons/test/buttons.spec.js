@@ -118,6 +118,21 @@ describe('buttons', function () {
       expect(btns.eq(0)).not.toHaveClass('active');
     });
 
+    it('should work correctly when clicking the active button', function () {
+      var btns = compileButtons('<button ng-model="model" btn-radio="1">click1</button><button ng-model="model" btn-radio="2">click2</button>', $scope);
+      expect($scope.model).toBeUndefined();
+
+      btns.eq(0).click();
+      expect($scope.model).toEqual(1);
+      expect(btns.eq(0)).toHaveClass('active');
+      expect(btns.eq(1)).not.toHaveClass('active');
+
+      btns.eq(0).click();
+      expect($scope.model).toEqual(1);
+      expect(btns.eq(0)).toHaveClass('active');
+      expect(btns.eq(1)).not.toHaveClass('active');
+    });
+
     it('should watch btn-radio values and update state accordingly', function () {
       $scope.values = ["value1", "value2"];
 
