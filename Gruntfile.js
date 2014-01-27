@@ -2,15 +2,7 @@ var markdown = require('node-markdown').Markdown;
 
 module.exports = function(grunt) {
 
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-html2js');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-conventional-changelog');
-  grunt.loadNpmTasks('grunt-ngdocs');
+  require('load-grunt-tasks')(grunt);
 
   // Project configuration.
   grunt.util.linefeed = '\n';
@@ -199,6 +191,19 @@ module.exports = function(grunt) {
         src: ["src/**/*.js", "src/**/*.ngdoc"],
         title: "API Documentation"
       }
+    },
+    connect: {
+      docs: {
+        options: {
+          port: 3000,
+          base: "dist"
+        }
+      }
+    },
+    open: {
+      docs: {
+        path: "http://localhost:<%= connect.docs.options.port %>"
+      }
     }
   });
 
@@ -211,6 +216,8 @@ module.exports = function(grunt) {
   //task build things, then start test server
   grunt.renameTask('watch', 'delta');
   grunt.registerTask('watch', ['before-test', 'after-test', 'karma:watch', 'delta']);
+
+  grunt.registerTask('docs', ['before-test', 'after-test', 'connect', 'open', 'delta']);
 
   // Default task.
   grunt.registerTask('default', ['before-test', 'test', 'after-test']);
