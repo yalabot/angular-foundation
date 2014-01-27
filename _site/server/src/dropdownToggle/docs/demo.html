@@ -1,0 +1,20 @@
+<div ng-controller="DropdownCtrl">
+  <a dropdown-toggle="#dropdown-example-1">Click me for a dropdown, yo!</a>
+  <ul id="dropdown-example-1" class="f-dropdown">
+    <li ng-repeat="choice in items">
+      <a>{{choice}}</a>
+    </li>
+  </ul>
+  <br>
+  <br>
+
+  <a class="button split">
+    Split Button
+    <span dropdown-toggle="#dropdown-example-2"></span>
+  </a>
+  <ul id="dropdown-example-2" class="f-dropdown">
+    <li ng-repeat="choice in items">
+      <a>{{choice}}</a>
+    </li>
+  </ul>
+</div>

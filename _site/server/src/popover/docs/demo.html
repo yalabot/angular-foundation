@@ -1,0 +1,32 @@
+<div ng-controller="PopoverDemoCtrl">
+    <h4>Dynamic</h4>
+    <div class="form-group">
+      <label>Popup Text:</label>
+      <input type="text" ng-model="dynamicPopover" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Popup Title:</label>
+      <input type="text" ng-model="dynamicPopoverTitle" class="form-control">
+    </div>
+    <button popover="{{dynamicPopover}}"
+      popover-title="{{dynamicPopoverTitle}}" class="button">Dynamic Popover</button>
+    
+    <hr />
+    <h4>Positional</h4>
+    <button popover-placement="top" popover="On the Top!" class="button">Top</button>
+    <button popover-placement="left" popover="On the Left!" class="button">Left</button>
+    <button popover-placement="right" popover="On the Right!" class="button">Right</button>
+    <button popover-placement="bottom" popover="On the Bottom!" class="button">Bottom</button>
+    
+    <hr />
+    <h4>Triggers</h4>
+    <p>
+      <button popover="I appeared on mouse enter!" popover-trigger="mouseenter" class="button">Mouseenter</button>
+    </p>
+    <input type="text" value="Click me!" popover="I appeared on focus! Click away and I'll vanish..."  popover-trigger="focus" class="form-control">
+
+    <hr />
+    <h4>Other</h4>
+    <button Popover-animation="true" popover="I fade in and out!" class="button">fading</button>
+    <button popover="I have a title!" popover-title="The title." class="button">title</button>
+</div>

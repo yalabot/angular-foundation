@@ -1,0 +1,10 @@
+<div class="tabbable">
+  <dl class="tabs" ng-class="{'vertical': vertical}" ng-transclude></dl>
+  <div class="tabs-content">
+    <div class="content" 
+      ng-repeat="tab in tabs" 
+      ng-class="{active: tab.active}">
+      <div tab-content-transclude="tab"></div>
+    </div>
+  </div>
+</div>

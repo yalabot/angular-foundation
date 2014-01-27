@@ -1,0 +1,20 @@
+<div ng-controller="ProgressDemoCtrl">
+
+    <h3>Static</h3>
+    <div class="row">
+        <div class="col-sm-4"><progressbar value="55"></progressbar></div>
+        <div class="col-sm-4"><progressbar value="22" type="warning">22%</progressbar></div>
+        <div class="col-sm-4"><progressbar max="200" value="166" type="alert"><i>166 / 200</i></progressbar></div>
+    </div>
+
+    <hr />
+    <h3>Dynamic <button class="button small" type="button" ng-click="random()">Randomize</button></h3>
+    <progressbar max="max" value="dynamic"><span style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span></progressbar>
+    
+    <small><em>No animation</em></small>
+    <progressbar animate="false" value="dynamic" type="success"><b>{{dynamic}}%</b></progressbar>
+
+    <small><em>Object (changes type based on value)</em></small>
+    <progressbar class="progress-striped active" value="dynamic" type="{{type}}">{{type}} <i ng-show="showWarning">!!! Watch out !!!</i></progressbar>
+
+</div>
