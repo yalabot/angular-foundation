@@ -30,7 +30,7 @@ angular.module('plunker', [])
         return "angular.module('plunker', ['mm.foundation']);" + "\n" + content;
       };
 
-      addField('description', 'http://angular-ui.github.io/bootstrap/');
+      addField('description', 'http://madmimi.github.io/angular-foundation/');
       addField('files[index.html]', indexContent(content.markup, version));
       addField('files[example.js]', scriptContent(content.javascript));
 
