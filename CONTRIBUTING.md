@@ -7,6 +7,3 @@ We are always looking for the quality contributions and will be happy to accept 
         * templates should be referred to using the `templateUrl` property
         * it should be easy to change a default template to a custom one
         * directives shouldn't manipulate DOM structure directly (when possible)
-* Please assure that you are submitting quality code, specifically make sure that:
-  * your directive has accompanying tests and all the tests are passing; don't hesitate to contact us (angular-ui@googlegroups.com) if you need any help with unit testing
-  * your PR doesn't break the build; check the Travis-CI build status after opening a PR and push corrective commits if anything goes wrong
