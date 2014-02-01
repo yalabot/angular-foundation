@@ -7,18 +7,22 @@ body {
   font-family: "Open Sans","Helvetica",Helvetica,Arial,sans-serif;
 }
 
-.columns.small-centered {
+.columns {
   background-color: white;
-  padding: 50px;
 }
 
-.container { padding-bottom: 50px;}
+.container { padding: 50px;}
+
+.container .columns.border {
+  border: 2px solid #B7C3D0;
+ 
+}
 
 header {
   background-color: #E1E9F1;
 }
 
-header .columns, .columns.border  {
+header .columns {
           background-color: #fff;
           border: 2px solid #B7C3D0;
           border-radius: 8px;
@@ -37,6 +41,7 @@ figure {margin-top: 0 }
 img.logo {
   margin: 50px auto 50px auto;
   width: 275px;
+  height:275px;
 }
 
 /* Some Foundation color overrides */
@@ -166,11 +171,14 @@ div[role=main] section {
   border-top-right-radius: 0;
 }
 
-
+.code .tabs>li.active>a, .code .tabs>li.active>a:hover, .code .tabs>li.active>a:focus {
+  background-color: #FAFAFA;
+}
 
 
 .tabs dd.active a {
-  background-color: #FFF; 
+  background-color: #F8F8F8; 
+    border: none !important;
 }
 
 .code .tabs-content>.content {
