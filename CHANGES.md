@@ -2,15 +2,20 @@
 
 ## 0.1.0
 
-* Typeahead
+* accordion
+* typeahead
+* pagination
+* rating
 
 ## 0.0.0
 
-Initial release. Supported the following directives and their Foundation equivalents:
+Initial release. Contains the following components:
 
-* Top Bar
-* Modal (Reveal)
-* Alert
-* Tour (Joyride)
-* Dropdowns and split buttons
-* Tabs
+* modal (Reveal)
+* alert
+* tour (Joyride)
+* dropdownToggle
+* tabs
+* progressbar
+* popover
+* tooltip
