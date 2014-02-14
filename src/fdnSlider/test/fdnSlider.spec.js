@@ -27,6 +27,16 @@ describe('fdnSlider', function() {
     return element;
   }
 
+  function clickNext() {
+    nextButton.click();
+    scope.$digest();
+  }
+
+  function clickPrev() {
+    prevButton.click();
+    scope.$digest(); 
+  }
+
   describe('fdnSliderController', function() {
     var ctrl, $element, $attrs;
 
@@ -104,15 +114,118 @@ describe('fdnSlider', function() {
         slide3 = slidesContainer.find('#slide3');
       });
 
-      describe('when the first slide is active', function() {
+      describe('when the first slide is active', function() {  
         it('hides the prev button', function() {
-          // debugger
           expect(prevButton.hasClass('ng-hide')).toBe(true);
         });
-        describe('when next is clicked', function() {
-          it('removes the active class from the first slide');
-          it('adds the active class to the second slide');
-          it('un-hides the prev button');
+
+        it('shows the next button', function() {
+          expect(nextButton.hasClass('ng-hide')).toBe(false);
+        });
+        describe('when the next button is clicked', function() {
+          it('removes the active class from the first slide', function() {
+            expect(slide1.hasClass('active')).toBe(true);
+            clickNext();
+            expect(slide1.hasClass('active')).toBe(false);
+          });
+
+          it('sets margin-left to 100% on the first slide', function() {
+            expect(slide1[0].style['margin-left']).toEqual('0%');
+            clickNext();
+            expect(slide1[0].style['margin-left']).toEqual('100%');
+          });
+
+          it('sets margin-left to 0% on the second slide', function() {
+            expect(slide2[0].style['margin-left']).toEqual('');
+            clickNext();
+            expect(slide2[0].style['margin-left']).toEqual('0%');
+          });
+
+          it('adds the active class to the second slide', function() {
+            expect(slide2.hasClass('active')).toBe(false);
+            clickNext();
+            expect(slide2.hasClass('active')).toBe(true);
+          });
+
+          it('sets the z-index of the second slide to 4', function() {
+            expect(slide2.css('zIndex')).toEqual('2');
+            clickNext();
+            expect(slide2.css('zIndex')).toEqual('4');
+          });
+
+          it('sets the z-index of the first slide to 2', function() {
+            expect(slide1.css('zIndex')).toEqual('4');
+            clickNext();
+            expect(slide1.css('zIndex')).toEqual('2');
+          });
+
+          it('un-hides the prev button', function() {
+            expect(prevButton.hasClass('ng-hide')).toBe(true);
+            clickNext();
+            expect(prevButton.hasClass('ng-hide')).toBe(false);
+          });
+        });
+      });
+
+      describe('when the second slide is active', function() {
+
+        beforeEach(function() {
+          scope.show(1);
+          scope.$digest();
+        });
+
+        it('shows the prev button', function() {
+          expect(prevButton.hasClass('ng-hide')).toBe(false);
+        });
+
+        it('shows the next button', function() {
+          expect(nextButton.hasClass('ng-hide')).toBe(false);
+        });
+
+        describe('when the prev button is clicked', function() {
+          it('removes the active class from the second slide', function() {
+            expect(slide2.hasClass('active')).toBe(true);
+            clickPrev();
+            expect(slide2.hasClass('active')).toBe(false);
+          });
+
+          it('sets margin-left to 100% on the second slide', function() {
+            expect(slide2[0].style['margin-left']).toEqual('0%');
+            clickPrev();
+            expect(slide2[0].style['margin-left']).toEqual('100%');
+          });
+
+          it('sets margin-left to 0% on the first slide', function() {
+            expect(slide1[0].style['margin-left']).toEqual('100%');
+            clickPrev();
+            expect(slide1[0].style['margin-left']).toEqual('0%');
+          });
+
+          it('adds the active class to the first slide', function() {
+            expect(slide1.hasClass('active')).toBe(false);
+            clickPrev();
+            expect(slide1.hasClass('active')).toBe(true);
+          });
+
+          it('sets the z-index of the first slide to 4', function() {
+            expect(slide1.css('zIndex')).toEqual('2');
+            clickPrev();
+            expect(slide1.css('zIndex')).toEqual('4');
+          });
+
+          it('sets the z-index of the second slide to 2', function() {
+            expect(slide2.css('zIndex')).toEqual('4');
+            clickPrev();
+            expect(slide2.css('zIndex')).toEqual('2');
+          });
+        });
+
+        describe('when the next button is clicked', function() {
+          it('hides the next button', function() {
+            expect(nextButton.hasClass('ng-hide')).toBe(false);
+            clickNext();
+            expect(nextButton.hasClass('ng-hide')).toBe(true);
+          });
         });
       });
     });

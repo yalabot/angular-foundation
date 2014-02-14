@@ -25,31 +25,42 @@ angular.module('mm.foundation.fdnSlider', ['mm.foundation.transition'])
         var slideElements = slideContainer.children('li');
         var currentSlideElement;
 
-        function resetSlides() {
-          slideElements.removeClass('active');
+        function setup() {
           slideElements.css('zIndex', 2);
         }
 
         scope.show = function(index) {
-          // if (currentSlideElement) {
-
-          // }
+          if (currentSlideElement) {
+            currentSlideElement.removeClass('active');
+            currentSlideElement.css({zIndex: 2, marginLeft: "100%"});
+          }
           scope.index = index;
-          resetSlides();
           currentSlideElement = slideElements.eq(index);
-          currentSlideElement.addClass('active').css('zIndex', 4);
+          currentSlideElement
+            .addClass('active')
+            .css({zIndex: 4, marginLeft: "0%"});
         };
+
+        scope.next = function() {
+          if (this.index == slideElements.length - 1) { return; };
+          this.show(this.index + 1);
+        };
+
+        scope.prev = function() {
+          if (this.index == 0) { return; };
+          this.show(this.index - 1);
+        }
 
         scope.atFirstSlide = function() {
           return scope.index == 0;
         };
 
         scope.atLastSlide = function() {
-          return scope.index == slideElments.length - 1;
+          return scope.index == slideElements.length - 1;
         };
 
+        setup();
         scope.show(0);
-
       }
     };
   })
