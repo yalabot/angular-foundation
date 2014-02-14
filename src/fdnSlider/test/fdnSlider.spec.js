@@ -1,28 +1,29 @@
 describe('fdnSlider', function() {
   
-  var scope, $compile;
-  var element, container, slidesContainer, slides, activeSlide, prevButton, nextButton;
+  var $scope, $compile;
+  var scope, element, container, slidesContainer, slides, activeSlide, prevButton, nextButton;
 
   beforeEach(module('mm.foundation.fdnSlider'));
   beforeEach(module('template/fdnSlider/fdnSlider.html'));
   beforeEach(module('template/fdnSlider/fdnSlides.html'));
 
   beforeEach(inject(function($rootScope, _$compile_) {
-    scope = $rootScope;
+    $scope = $rootScope;
     $compile = _$compile_;
 
   }));
 
   function createSlider(innerMarkup) {
     var markup = "<div><fdn-slider>" + innerMarkup + "</fdn-slider></div>";
-    element = $compile(markup)(scope);
-    scope.$digest();
+    element = $compile(markup)($scope);
+    $scope.$digest();
     findElements();
     return element;
   }
 
   function findElements() {
     container = element.find(".orbit-container");
+    scope = container.scope();
     slidesContainer = element.find('.orbit-slides-container');
     slides = slidesContainer.children();
     activeSlide = function() { return slides.filter('li.active'); };
@@ -60,13 +61,13 @@ describe('fdnSlider', function() {
 
       $element = {}; $attrs = {};
 
-      ctrl = $controller('fdnSliderController', { $scope: scope, $element: $element, $attrs: $attrs });
+      ctrl = $controller('fdnSliderController', { $scope: $scope, $element: $element, $attrs: $attrs });
     }));
 
     describe('index()', function() {
       it('returns the scope.index value', function() {
-        scope.index = 1;
-        expect(ctrl.index()).toEqual(scope.index);
+        $scope.index = 1;
+        expect(ctrl.index()).toEqual($scope.index);
       });
     });
 
@@ -265,8 +266,8 @@ describe('fdnSlider', function() {
                      '</fdn-slides>' +
                    '</fdn-slider>';
 
-          element = $compile(markup)(scope);
-          scope.$digest();
+          element = $compile(markup)($scope);
+          $scope.$digest();
           findElements();
         });
 

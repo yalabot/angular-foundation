@@ -20,6 +20,7 @@ angular.module('mm.foundation.fdnSlider', ['mm.foundation.transition'])
       transclude: true,
       templateUrl: "template/fdnSlider/fdnSlider.html",
       controller: 'fdnSliderController',
+      scope: {},
       link: function(scope, element, attrs) {
         var slideContainer = angular.element(element[0].querySelector('.orbit-slides-container'));
         var slideElements = slideContainer.children('li');
