@@ -42,21 +42,21 @@ angular.module('mm.foundation.fdnSlider', ['mm.foundation.transition'])
         };
 
         scope.next = function() {
-          if (this.index == slideElements.length - 1) { return; };
+          if (this.index === slideElements.length - 1) { return; }
           this.show(this.index + 1);
         };
 
         scope.prev = function() {
-          if (this.index == 0) { return; };
+          if (this.atFirstSlide()) { return; }
           this.show(this.index - 1);
-        }
+        };
 
         scope.atFirstSlide = function() {
-          return scope.index == 0;
+          return this.index === 0;
         };
 
         scope.atLastSlide = function() {
-          return scope.index == slideElements.length - 1;
+          return this.index === slideElements.length - 1;
         };
 
         setup();
