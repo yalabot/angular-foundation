@@ -24,8 +24,12 @@ angular.module('mm.foundation.fdnSlider', ['mm.foundation.transition'])
         var slideContainer = angular.element(element[0].querySelector('.orbit-slides-container'));
         var slideElements = slideContainer.children('li');
         var currentSlideElement;
+        scope.wraparoundDisabled = false;
 
         function setup() {
+          if(!angular.isUndefined(attrs['fdnSliderDisableWraparound'])) {
+            scope.wraparoundDisabled = true;
+          }
           slideElements.css('zIndex', 2);
         }
 
@@ -42,13 +46,46 @@ angular.module('mm.foundation.fdnSlider', ['mm.foundation.transition'])
         };
 
         scope.next = function() {
-          if (this.index === slideElements.length - 1) { return; }
-          this.show(this.index + 1);
+          if (this.hideNext()) { return; }
+
+          var newIndex;
+
+          if (this.atLastSlide()) {
+            newIndex = 0;
+          } else {
+            newIndex = this.index + 1;
+          }
+
+          this.show(newIndex);
         };
 
         scope.prev = function() {
-          if (this.atFirstSlide()) { return; }
-          this.show(this.index - 1);
+          if (this.hidePrev()) { return; }
+
+          var newIndex;
+
+          if (this.atFirstSlide()) {
+            newIndex = this.lastIndex();
+          } else {
+            newIndex = this.index - 1; 
+          }
+          this.show(newIndex);
+        };
+
+        scope.hideNext = function() {
+          if (scope.wraparoundDisabled === true) {
+            return this.atLastSlide();
+          } else {
+            return false;
+          }
+        };
+
+        scope.hidePrev = function() {
+          if (scope.wraparoundDisabled === true) {
+            return this.atFirstSlide();
+          } else {
+            return false;
+          }
         };
 
         scope.atFirstSlide = function() {
@@ -56,7 +93,11 @@ angular.module('mm.foundation.fdnSlider', ['mm.foundation.transition'])
         };
 
         scope.atLastSlide = function() {
-          return this.index === slideElements.length - 1;
+          return this.index === this.lastIndex();
+        };
+
+        scope.lastIndex = function() {
+          return slideElements.length - 1;
         };
 
         setup();
