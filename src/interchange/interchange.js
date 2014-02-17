@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('mm.foundation.interchange', [])
 
 	/**
@@ -101,27 +99,48 @@ angular.module('mm.foundation.interchange', [])
 	 * data-interchange directive
 	 * using interchangeTools
 	 */
-	.directive('interchange', ['$window', 'interchangeTools', function ($window, interchangeTools) {
+	.directive('interchange', ['$window', '$rootScope', 'interchangeTools', function ($window, $rootScope, interchangeTools) {
 
 		return {
 			restrict: 'A',
-			scope: {},
-			link: function postLink(scope, element) {
-				
-				var replace = function () {
-					var currentFile = interchangeTools.findCurrentMediaFile(scope.files);
-					if (!!scope.currentFile && scope.currentFile === currentFile) {
-						return;
-					}
-					element.attr(scope.attrName, currentFile);
-					scope.currentFile = currentFile;
-				};
+			scope: true,
+			priority: 450,
+			template: '<ng-include src="currentFile"></ng-include>',
+			link: function preLink($scope, $element) {
+				// Test
+				if (!$element.attr('data-interchange')) {
+					return;
+				}
 
 				// Set up the attribute to update
-				scope.attrName = (/IMG/.test(element[0].nodeName)) ? 'src' : 'href';
-				scope.attrName = (/DIV/.test(element[0].nodeName)) ? 'ng-include' : scope.attrName;
-				scope.files = interchangeTools.parseAttribute(element.attr('data-interchange'));
+				$scope.files = interchangeTools.parseAttribute($element.attr('data-interchange'));
 
+				// Remove the child item if the item is not necessary
+				if (!/DIV/.test($element[0].nodeName)) {
+					$scope.attrName = (/IMG/.test($element[0].nodeName)) ? 'src' : 'href';
+					$element.html('');
+				}
+
+				var replace = function (e) {
+					// The the new file to display (exit if the same)
+					var currentFile = interchangeTools.findCurrentMediaFile($scope.files);
+					if (!!$scope.currentFile && $scope.currentFile === currentFile) {
+						return;
+					}
+
+					// Set up the new file
+					$scope.currentFile = currentFile;
+					if (!!$scope.attrName) {
+						$element.attr($scope.attrName, $scope.currentFile);
+					}
+					
+					// Trigger events
+					$rootScope.$emit('replace', $element, $scope);
+					if (!!e) {
+						$scope.$apply();
+					}
+				};
+				
 				// Start
 				replace();
 				$window.addEventListener('resize', replace);
