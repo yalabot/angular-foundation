@@ -6,7 +6,7 @@ angular.module('mm.foundation.interchange', [])
 	 * by simulating angular.elements objects
 	 * @return {object} Queries list name => mediaQuery
 	 */
-	.factory('interchangeQueries', [function () {
+	.factory('interchangeQueries', ['$document', function ($document) {
 		var element,
 			mediaSize,
 			formatList = {
@@ -21,9 +21,14 @@ angular.module('mm.foundation.interchange', [])
 				'only screen and (min-resolution: 2dppx)'
 		},
 		classPattern = 'meta.foundation-mq-',
-		classList = ['small', 'medium', 'large', 'xlarge', 'xxlarge'];
+		classList = ['small', 'medium', 'large', 'xlarge', 'xxlarge'],
+		document = $document[0];
 		
 		for (var i = 0; i < classList.length; i++) {
+			element = document.createElement('meta');
+      element.className = 'foundation-mq-' + classList[i];
+      document.head.appendChild(element);
+      
 			element = angular.element(classPattern + classList[i]);
 			mediaSize = element.css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '');
 			formatList[classList[i]] = mediaSize;
@@ -39,12 +44,13 @@ angular.module('mm.foundation.interchange', [])
 	.factory('interchangeQueriesManager', ['interchangeQueries', function (interchangeQueries) {
 		return {
 			add: function (name, media) {
-				interchangeQueries[name] = media;
-			},
-			remove: function (name) {
-				if (!!interchangeQueries[name]) {
-					delete interchangeQueries[name];
+				if (!name || !media ||
+					name.constructor !== String || media.constructor !== String ||
+					!!interchangeQueries[name]) {
+					return false;
 				}
+				interchangeQueries[name] = media;
+				return true;
 			}
 		};
 	}])
@@ -67,7 +73,7 @@ angular.module('mm.foundation.interchange', [])
 			while (i--) {
 				if (raw[i].replace(/[\W\d]+/, '').length > 4) {
 					breaked = breaker.exec(raw[i]);
-					if (breaked.length === 3) {
+					if (!!breaked && breaked.length === 3) {
 						output[breaked[2]] = breaked[1];
 					}
 				}
