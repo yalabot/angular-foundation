@@ -71,7 +71,7 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
   };
 }])
 
-.directive( 'step', [ '$position', '$tooltip', '$tour', '$window', function ( $position, $tooltip, $tour, $window ) {
+.directive( 'stepText', [ '$position', '$tooltip', '$tour', '$window', function ( $position, $tooltip, $tour, $window ) {
   function isElementInViewport( element ) {
     var rect = element[0].getBoundingClientRect();
 
