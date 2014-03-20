@@ -1,0 +1,39 @@
+<div ng-controller="DropdownCtrl">
+  <!-- Simple dropdown -->
+  <div dropdown on-toggle="toggled(open)">
+    <a dropdown-toggle>
+      Click me for a dropdown, yo!
+    </a>
+    <div dropdown-menu>
+      <p>Here's a plain dropdown</p>
+    </div>
+  </div>
+  <hr />
+
+  <!-- Single button -->
+  <div dropdown is-open="status.isopen">
+    <button dropdown-toggle type="button">
+      Button dropdown
+    </button>
+    <ul dropdown-menu>
+      <li ng-repeat="choice in items"><a>{{choice}}</a></li>
+    </ul>
+  </div>
+  <hr />
+
+  <!-- Split button -->
+  <div class="dropdown">
+    <a class="button split">
+      Action
+      <span class="dropdown-toggle"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li ng-repeat="choice in items"><a>{{choice}}</a></li>
+    </ul>
+  </div>
+  <hr />
+
+  <p>
+    <button type="button" ng-click="toggleDropdown($event)">Toggle button dropdown</button>
+  </p>
+</div>
