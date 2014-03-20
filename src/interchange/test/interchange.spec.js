@@ -15,10 +15,6 @@ describe("interchange", function () {
 
   beforeEach(module('mm.foundation.interchange'));
 
-  afterEach(function () {
-    //domObj.remove();
-  });
-
   describe("interchangeQueries", function () {
 
     var interchangeQueries;
@@ -131,17 +127,6 @@ describe("interchange", function () {
       expect(interchangeTools.findCurrentMediaFile(files)).toBeUndefined();
     });
 
-
-    /**
-     *
-     *
-     *
-     *
-     *
-     *
-     * 
-     */
-
     describe("interchange directive", function () {
 
       var element, $httpBackend;
@@ -208,9 +193,7 @@ describe("interchange", function () {
         expect(element.attr('src')).toBeUndefined();
         expect(element.children().length).toEqual(0);
       });
-
     });
-
-
   });
+
 });
