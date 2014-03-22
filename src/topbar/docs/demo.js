@@ -1,0 +1,3 @@
+var TopBarDemoCtrl = function ($scope) {
+
+};
