@@ -1,14 +1,12 @@
-A lightweight directive that provides the [Foundation Offcanvas](http://foundation.zurb.com/docs/components/offcanvas.html) component.
+A directive that provides the [Foundation Offcanvas](http://foundation.zurb.com/docs/components/topbar.html) component.
 
-There are no settings. You simply need to include the foundation off canvas CSS component in your page.
+The directive works out of the box with Foundation's CSS and has virtually itentical behavour. The following settings can be passed in as an object with the "options" attribute:
 
-The off canvas module expects the use of several nested elements with the following classes:
+- `sticky_class`: Class name that will trigger sticky behaviour.
+- `custom_back_text`: Set this to false and it will pull the top level link name as the back text.
+- `back_text`: Define what you want your custom back text to be if custom_back_text.
+- `is_hover`: Toggle drop down menus on hover.
+- `mobile_show_parent_link`: will copy parent links into dropdowns for mobile navigation.
+- `scrolltop`: jump to top when sticky nav menu toggle is clicked
 
-- `off-canvas-wrap`: The most outter page wrapper.
-- 'inner-wrap': Second page wrapper nested directly inside off-canvas-wrap.
-- `left-off-canvas-toggle`: Wraps the left off canvas menu.
-- `right-off-canvas-toggle`: Wraps the right off canvas menu.
-- `exit-off-canvas`: Occludes the main page content when an off canvas menu is visible. Hides the menu when clicked.
-- `off-canvas-list`: Contains off canvas menu items. Hides the menu after a nested link is clicked.
-
-See the demo page for example on how to use this and see the [Foundation docs](http://foundation.zurb.com/docs/components/offcanvas.html) for more details.
+See the demo page for example on how to use this and see the [Foundation docs](http://foundation.zurb.com/docs/components/topbar.html) for more details.

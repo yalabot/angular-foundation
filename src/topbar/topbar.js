@@ -33,6 +33,80 @@ angular.module("mm.foundation.topbar", [])
 
         }( $document ));
 
+        // https://github.com/jonathantneal/Polyfills-for-IE8/blob/master/getComputedStyle.js
+        // getComputedStyle
+        this.getComputedStyle = this.getComputedStyle || (function () {
+            function getPixelSize(element, style, property, fontSize) {
+                var
+                sizeWithSuffix = style[property],
+                size = parseFloat(sizeWithSuffix),
+                suffix = sizeWithSuffix.split(/\d/)[0],
+                rootSize;
+
+                fontSize = fontSize != null ? fontSize : /%|em/.test(suffix) && element.parentElement ? getPixelSize(element.parentElement, element.parentElement.currentStyle, 'fontSize', null) : 16;
+                rootSize = property == 'fontSize' ? fontSize : /width/i.test(property) ? element.clientWidth : element.clientHeight;
+
+                return (suffix == 'em') ? size * fontSize : (suffix == 'in') ? size * 96 : (suffix == 'pt') ? size * 96 / 72 : (suffix == '%') ? size / 100 * rootSize : size;
+            }
+
+            function setShortStyleProperty(style, property) {
+                var
+                borderSuffix = property == 'border' ? 'Width' : '',
+                t = property + 'Top' + borderSuffix,
+                r = property + 'Right' + borderSuffix,
+                b = property + 'Bottom' + borderSuffix,
+                l = property + 'Left' + borderSuffix;
+
+                style[property] = (style[t] == style[r] == style[b] == style[l] ? [style[t]]
+                : style[t] == style[b] && style[l] == style[r] ? [style[t], style[r]]
+                : style[l] == style[r] ? [style[t], style[r], style[b]]
+                : [style[t], style[r], style[b], style[l]]).join(' ');
+            }
+
+            function CSSStyleDeclaration(element) {
+                var
+                currentStyle = element.currentStyle,
+                style = this,
+                fontSize = getPixelSize(element, currentStyle, 'fontSize', null);
+
+                for (var property in currentStyle) {
+                    if (/width|height|margin.|padding.|border.+W/.test(property) && style[property] !== 'auto') {
+                        style[property] = getPixelSize(element, currentStyle, property, fontSize) + 'px';
+                    } else if (property === 'styleFloat') {
+                        style['float'] = currentStyle[property];
+                    } else {
+                        style[property] = currentStyle[property];
+                    }
+                }
+
+                setShortStyleProperty(style, 'margin');
+                setShortStyleProperty(style, 'padding');
+                setShortStyleProperty(style, 'border');
+
+                style.fontSize = fontSize + 'px';
+
+                return style;
+            }
+
+            CSSStyleDeclaration.prototype = {
+                constructor: CSSStyleDeclaration,
+                getPropertyPriority: function () {},
+                getPropertyValue: function ( prop ) {
+                    return this[prop] || '';
+                },
+                item: function () {},
+                removeProperty: function () {},
+                setProperty: function () {},
+                getPropertyCSSValue: function () {}
+            };
+
+            function getComputedStyle(element) {
+                return new CSSStyleDeclaration(element);
+            }
+
+            return getComputedStyle;
+        })(this);
+
         // https://gist.github.com/jonathantneal/3062955
         (this.Element && function(ElementPrototype) {
             ElementPrototype.matchesSelector = ElementPrototype.matchesSelector || 
@@ -78,10 +152,10 @@ angular.module("mm.foundation.topbar", [])
         head.append('<meta class="foundation-mq-large" />');
 
         var media_queries = {
-            topbar: angular.element('.foundation-mq-topbar').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-            small : angular.element('.foundation-mq-small').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-            medium : angular.element('.foundation-mq-medium').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-            large : angular.element('.foundation-mq-large').css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
+            topbar: getComputedStyle(head[0].querySelector('meta.foundation-mq-topbar'))['font-family'].replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+            small : getComputedStyle(head[0].querySelector('meta.foundation-mq-small'))['font-family'].replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+            medium : getComputedStyle(head[0].querySelector('meta.foundation-mq-medium'))['font-family'].replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+            large : getComputedStyle(head[0].querySelector('meta.foundation-mq-large'))['font-family'].replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
         };
 
         var breakpoint = function () {
@@ -114,6 +188,14 @@ angular.module("mm.foundation.topbar", [])
             }
 
             return false;
+        };
+
+        var outerHeight = function(el){
+          var height = el.offsetHeight;
+          var style = el.currentStyle || getComputedStyle(el);
+
+          height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+          return height;
         };
 
         return {
@@ -155,9 +237,9 @@ angular.module("mm.foundation.topbar", [])
                         $scope.index = $scope.index -1;
 
                         if($scope.index === 0){
-                            topbar.css('height', '');
+                            $scope.height = '';
                         } else {
-                            $scope.height = topbar_height + $previousLevelUl.outerHeight(true);
+                            $scope.height = topbar_height + outerHeight($previousLevelUl[0]);
                         }
 
                         $timeout(function () {
@@ -173,7 +255,7 @@ angular.module("mm.foundation.topbar", [])
                         $link = angular.element(event.toElement);
                         $selectedLi = $link.closest('li');
                         $selectedLi.addClass('moved');
-                        $scope.height = topbar_height + $link.siblings('ul').outerHeight(true);
+                        $scope.height = topbar_height + outerHeight($link.parent()[0].querySelector('ul'));
                         $scope.index = $scope.index + 1;
                     };
 
@@ -199,24 +281,37 @@ angular.module("mm.foundation.topbar", [])
                             topbar.removeClass('expanded');
                         }
 
-                        topbar.css('height', '');
-                        
+                        $scope.height = '';
                     };
+
+                    win.bind('resize', function(){
+                        var sections = angular.element(topbar[0].querySelectorAll('section'));
+                        angular.forEach(sections, function(section){
+                            angular.element(section.querySelectorAll('li.moved')).removeClass('moved');
+                        });
+                        topbar.removeClass('expanded');
+                        $scope.height = '';
+                        $scope.$apply();
+                    });
 
                     if(topbarContainer.hasClass('fixed') || is_sticky(topbar, topbarContainer, settings) ) {
                         settings.sticky_class = settings.sticky_class;
                         settings.sticky_topbar = topbar;
-                        $scope.height = topbarContainer.outerHeight();
-                        var stickyoffset = topbarContainer.offset().top;
+                        $scope.height = topbarContainer[0].offsetHeight;
+                        var stickyoffset = topbarContainer[0].getBoundingClientRect().top;
                     } else {
-                        $scope.height = topbar.outerHeight();
+                        $scope.height = topbar[0].offsetHeight;
                     }
 
                     var topbar_height = $scope.height;
 
-                    $scope.$watch('height', function(h){
-                        topbar.css('height', h);
-                    }, true);
+                     $scope.$watch('height', function(h){
+                        if(h){
+                            topbar.css('height', h + 'px');
+                        } else {
+                            topbar.css('height', '');
+                        }
+                    });
                     
                     // Pad body when sticky (scrolled) or fixed.
                     head.append('<style>.f-topbar-fixed { padding-top: ' + topbar_height + 'px }</style>');
@@ -265,8 +360,15 @@ angular.module("mm.foundation.topbar", [])
                             var $link = angular.element(link);
                             var url = $link.attr('href');
 
-                            $link.attr('ng-click', 'forward($event)');
-                            $compile($link)($scope);
+                            $link.bind('click', function(event){
+                                $scope.forward(event);
+                                $scope.$apply();
+                            });
+                            $scope.$on('$destroy', function(){
+                                $link.unbind('click');
+                            });
+                            //$link.attr('ng-click', 'forward($event)');
+                            //$compile($link)($scope);
 
                             angular.forEach(dropdowns, function(dropdown){
                                 var $dropdown = angular.element(dropdown);
@@ -309,6 +411,7 @@ angular.module("mm.foundation.topbar", [])
 
                             $link.bind('click', function(){
                                 $scope.toggle(false);
+                                $scope.$apply();
                             });
                         });
 
@@ -404,6 +507,8 @@ angular.module("mm.foundation.topbar", [])
                             }
                         }
                     }
+
+                    $scope.$apply();
 
                 };
 

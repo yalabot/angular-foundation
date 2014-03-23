@@ -1,4 +1,4 @@
-angular.module("mm.foundation.offCanvas", [])
+angular.module("mm.foundation.offcanvas", [])
     .directive('offCanvasWrap', ['$window', function ($window) {
         return {
             scope: {},
