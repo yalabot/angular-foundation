@@ -45,7 +45,7 @@ angular.module('mm.foundation.interchange', [])
     return {
       add: function (name, media) {
         if (!name || !media ||
-          name.constructor !== String || media.constructor !== String ||
+          !angular.isString(name) || !angular.isString(media) ||
           !!interchangeQueries[name]) {
           return false;
         }
@@ -102,17 +102,17 @@ angular.module('mm.foundation.interchange', [])
 
   /**
    * interchange
-   * data-interchange directive
+   * interchange directive
    * using interchangeTools
    */
   .directive('interchange', ['$window', '$rootScope', 'interchangeTools', function ($window, $rootScope, interchangeTools) {
 
     return {
       restrict: 'A',
-      scope: true,
+      scope: {},
       priority: 450,
-      template: '<ng-include src="currentFile"></ng-include>',
-      link: function preLink($scope, $element, attrs) {
+      templateUrl: 'template/interchange/interchange.html',
+      link: function ($scope, $element, attrs) {
         // Test if the attribute used is 'data-interchange'
         if (attrs.$attr.interchange !== 'data-interchange') {
           return;

@@ -3,6 +3,7 @@ describe("interchange", function () {
   var scope, $compile, domObj;
   var element;
 
+  beforeEach(module('template/interchange/interchange.html'));
   beforeEach(function () {
     domObj = domObj || document.createElement('style');
     domObj.innerHTML = 'meta.foundation-mq-small {font-family: "/only screen and (max-width:40em)/";}' +
