@@ -152,10 +152,10 @@ angular.module("mm.foundation.topbar", [])
         head.append('<meta class="foundation-mq-large" />');
 
         var media_queries = {
-            topbar: getComputedStyle(head[0].querySelector('meta.foundation-mq-topbar'))['font-family'].replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-            small : getComputedStyle(head[0].querySelector('meta.foundation-mq-small'))['font-family'].replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-            medium : getComputedStyle(head[0].querySelector('meta.foundation-mq-medium'))['font-family'].replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-            large : getComputedStyle(head[0].querySelector('meta.foundation-mq-large'))['font-family'].replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
+            topbar: getComputedStyle(head[0].querySelector('meta.foundation-mq-topbar')).fontFamily.replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+            small : getComputedStyle(head[0].querySelector('meta.foundation-mq-small')).fontFamily.replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+            medium : getComputedStyle(head[0].querySelector('meta.foundation-mq-medium')).fontFamily.replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
+            large : getComputedStyle(head[0].querySelector('meta.foundation-mq-large')).fontFamily.replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
         };
 
         var breakpoint = function () {
