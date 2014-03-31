@@ -37,7 +37,6 @@ angular.module("mm.foundation.offcanvas", [])
     }])
     .directive('leftOffCanvasToggle', [function () {
         return {
-            scope: {},
             require: '^offCanvasWrap',
             restrict: 'C',
             link: function ($scope, element, attrs, offCanvasWrap) {
@@ -49,7 +48,6 @@ angular.module("mm.foundation.offcanvas", [])
     }])
     .directive('rightOffCanvasToggle', [function () {
         return {
-            scope: {},
             require: '^offCanvasWrap',
             restrict: 'C',
             link: function ($scope, element, attrs, offCanvasWrap) {
@@ -61,7 +59,6 @@ angular.module("mm.foundation.offcanvas", [])
     }])
        .directive('exitOffCanvas', [function () {
         return {
-            scope: {},
             require: '^offCanvasWrap',
             restrict: 'C',
             link: function ($scope, element, attrs, offCanvasWrap) {
@@ -73,7 +70,6 @@ angular.module("mm.foundation.offcanvas", [])
     }])
     .directive('offCanvasList', [function () {
         return {
-            scope: {},
             require: '^offCanvasWrap',
             restrict: 'C',
             link: function ($scope, element, attrs, offCanvasWrap) {
