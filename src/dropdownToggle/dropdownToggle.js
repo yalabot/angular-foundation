@@ -22,12 +22,10 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
       dropdownToggle: '@'
     },
     link: function(scope, element, attrs) {
-      var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
 
       scope.$watch('$location.path', function() { closeMenu(); });
-      dropdown.css('display', 'none').bind('click', function() { closeMenu(); });
       element.bind('click', function (event) {
-
+        var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
         var elementWasOpen = (element === openElement);
 
         event.preventDefault();
