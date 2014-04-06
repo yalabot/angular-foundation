@@ -49,7 +49,7 @@ describe('offcanvas directive', function () {
       isClosed: function() {
         return !this.actual.hasClass('move-left') &&
             !this.actual.hasClass('move-right');
-      },
+      }
     });
   }));
 
