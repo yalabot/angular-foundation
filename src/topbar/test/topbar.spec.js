@@ -20,35 +20,26 @@ describe('topbar directive', function () {
     $rootScope = _$rootScope_;
     $document = _$document_;
 
-    $rootScope.settings = {
-        sticky_class : 'sticky',
-        custom_back_text: true,
-        back_text: 'Back',
-        is_hover: true,
-        mobile_show_parent_link: true,
-        scrolltop : false,
-        sticky_on : 'all'
-    };
     element = $compile(
           '<body>' +
             '<div class="fixed" id="container">' +
-              '<nav class="top-bar" options="settings">' +
+              '<top-bar scrolltop="false">' +
                 '<ul class="title-area">' + 
                   '<li class="name">' + 
                     '<h1><a href="#">My Site</a></h1>' + 
                   '</li>' + 
-                  '<li id="menu-toggle" class="toggle-topbar menu-icon">' +
+                  '<li toggle-top-bar id="menu-toggle" class="menu-icon">' +
                     '<a href="#">Menu</a>' +
                   '</li>' +
                 '</ul>' +
-                '<section class="top-bar-section">' +
+                '<top-bar-section id="top-section">' +
                     '<ul class="right">' +
                       '<li class="active">' +
                         '<a href="#">Active</a>' +
                       '</li>' +
-                      '<li class="has-dropdown">' +
+                      '<li has-dropdown>' +
                         '<a id="dropdown" href="#">Dropdown</a>' +
-                        '<ul class="dropdown">' +
+                        '<ul top-bar-dropdown>' +
                           '<li><a id="alink" href="#">First link in dropdown</a></li>' +
                         '</ul>' +
                       '</li>' +
@@ -56,8 +47,8 @@ describe('topbar directive', function () {
                     '<ul class="left">' +
                       '<li><a href="#">Left</a></li>' +
                     '</ul>' +
-                '</section>' +
-              '</nav>' +
+                '</top-bar-section>' +
+              '</top-bar>' +
               '<div>Content</div>' +
             '</div>' +
           '</body>')($rootScope);
@@ -110,6 +101,17 @@ describe('topbar directive', function () {
     expect(element).toHaveMobileMenuOpen();
     $('#menu-toggle', element).trigger('click');
     expect(element).not.toHaveMobileMenuOpen();
+  }));
+
+  it('opens the submenu when a dropdown is clicked on mobile', inject(function($window) {
+    setMobile($window);
+    $('#menu-toggle', element).trigger('click');
+    expect($window.matchMedia).toHaveBeenCalled();
+    var before_height = $('.top-bar', element)[0].style.height;
+    $('#dropdown', element).trigger('click');
+    var after_height = $('.top-bar', element)[0].style.height;
+    expect(after_height).toNotEqual(before_height);
+    expect($('#top-section', element)[0].style.left).toEqual('-100%');
   }));
 
   it('has f-topbar-fixed class on body after link is clicked on a fixed mobile topbar', inject(function($window) {

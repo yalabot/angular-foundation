@@ -1,19 +1,19 @@
 <div ng-controller="TopBarDemoCtrl">
-  <nav class="top-bar" options="settings">
+  <top-bar>
     <ul class="title-area">
       <li class="name">
         <h1><a href="#">My Site</a></h1>
       </li>
-      <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+      <li toggle-top-bar class="menu-icon"><a href="#">Menu</a></li>
     </ul>
 
-    <section class="top-bar-section">
+    <top-bar-section>
       <!-- Right Nav Section -->
       <ul class="right">
         <li class="active"><a href="#">Active</a></li>
-        <li class="has-dropdown">
+        <li has-dropdown>
           <a href="#">Dropdown</a>
-          <ul class="dropdown">
+          <ul top-bar-dropdown>
             <li><a href="#">First link in dropdown</a></li>
           </ul>
         </li>
@@ -23,6 +23,6 @@
       <ul class="left">
         <li><a href="#">Left</a></li>
       </ul>
-    </section>
-  </nav>
+    </top-bar-section>
+  </top-bar>
 </div>
