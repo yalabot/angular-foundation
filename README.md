@@ -30,6 +30,7 @@ angular.module('myModule', ['mm.foundation']);
 * Joyride
 * Dropdowns
 * Tabs
+* Off Canvas
 
 We'd gladly accept contributions for any remaining components.
 
