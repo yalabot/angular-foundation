@@ -9,6 +9,12 @@ describe('topbar directive', function () {
     windowMock.matchMedia.andReturn({matches: true});
   };
 
+  beforeEach(module('template/topbar/top-bar.html'));
+  beforeEach(module('template/topbar/has-dropdown.html'));
+  beforeEach(module('template/topbar/toggle-top-bar.html'));
+  beforeEach(module('template/topbar/top-bar-section.html'));
+  beforeEach(module('template/topbar/top-bar-dropdown.html'));
+
   beforeEach(module('mm.foundation.topbar', function($provide){
     window.matchMedia = jasmine.createSpy('matchMedia');
     $provide.value('$window', window);

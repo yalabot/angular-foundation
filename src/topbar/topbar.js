@@ -75,7 +75,7 @@ angular.module("mm.foundation.topbar", [])
             },
             restrict: 'E',
             replace: true,
-            template: '<nav class="top-bar" ng-transclude></nav>',
+            templateUrl: 'template/topbar/top-bar.html',
             transclude: true,
             link: function ($scope, element, attrs) {
                 var topbar = $scope.topbar = element;
@@ -326,7 +326,7 @@ angular.module("mm.foundation.topbar", [])
             require: '^topBar',
             restrict: 'A',
             replace: true,
-            template: '<li class="toggle-topbar menu-icon" ng-transclude></li>',
+            templateUrl: 'template/topbar/toggle-top-bar.html',
             transclude: true,
             link: function ($scope, element, attrs, topBar) {
                 element.bind('click', function(event) {
@@ -348,7 +348,7 @@ angular.module("mm.foundation.topbar", [])
             require: '^topBar',
             restrict: 'E',
             replace: true,
-            template: '<section class="top-bar-section" ng-transclude></section>',
+            templateUrl: 'template/topbar/top-bar-section.html',
             transclude: true,
             link: function ($scope, element, attrs, topBar) {
                 var section = element;
@@ -398,7 +398,7 @@ angular.module("mm.foundation.topbar", [])
             scope: {},
             require: ['^topBar'],
             restrict: 'A',
-            template: '<li class="has-dropdown" ng-transclude></li>',
+            templateUrl: 'template/topbar/has-dropdown.html',
             replace: true,
             transclude: true,
             link: function ($scope, element, attrs, ctrls) {
@@ -449,7 +449,7 @@ angular.module("mm.foundation.topbar", [])
             require: ['^topBar', '^hasDropdown'],
             restrict: 'A',
             replace: true,
-            template: '<ul class="dropdown" ng-transclude></ul>',
+            templateUrl: 'template/topbar/top-bar-dropdown.html',
             transclude: true,
             link: function ($scope, element, attrs, ctrls) {
 
