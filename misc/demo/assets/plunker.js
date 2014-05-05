@@ -2,7 +2,7 @@ angular.module('plunker', [])
 
   .factory('plunkGenerator', function ($document) {
 
-    return function (ngVersion, bsVersion, version, module, content) {
+    return function (ngVersion, fdVersion, version, module, content) {
 
       var form = angular.element('<form style="display: none;" method="post" action="http://plnkr.co/edit/?p=preview" target="_blank"></form>');
       var addField = function (name, value) {
@@ -18,10 +18,14 @@ angular.module('plunker', [])
           '    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular.js"></script>\n' +
           '    <script src="http://madmimi.github.io/angular-foundation/mm-foundation-tpls-'+version+'.js"></script>\n' +
           '    <script src="example.js"></script>\n' +
-          '    <link href="//netdna.bootstrapcdn.com/bootstrap/'+bsVersion+'/css/bootstrap.min.css" rel="stylesheet">\n' +
+          '    <link href="//cdn.jsdelivr.net/foundation/'+fdVersion+'/css/foundation.css" rel="stylesheet">\n' +
           '  </head>\n' +
           '  <body>\n\n' +
-          content + '\n' +
+          '    <div class="row">\n' +
+          '      <div class="small-12.columns">\n' +
+                   content + '\n' +
+          '      </div>\n' +
+          '    </div>\n'
           '  </body>\n' +
           '</html>\n';
       };
@@ -44,8 +48,8 @@ angular.module('plunker', [])
 
     $scope.content = {};
 
-    $scope.edit = function (ngVersion, bsVersion, version, module) {
-      plunkGenerator(ngVersion, bsVersion, version, module, $scope.content);
+    $scope.edit = function (ngVersion, fdVersion, version, module) {
+      plunkGenerator(ngVersion, fdVersion, version, module, $scope.content);
     };
   })
 
