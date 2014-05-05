@@ -23,13 +23,13 @@ angular.module('myModule', ['mm.foundation']);
 
 ## Supported Foundation components
 
-* Top Bar
 * Split Buttons
 * Reveal Modal
 * Alerts
 * Joyride
 * Dropdowns
 * Tabs
+* Offcanvas
 
 We'd gladly accept contributions for any remaining components.
 
