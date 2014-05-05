@@ -10,14 +10,14 @@
   no 3rd party JS dependencies (jQuery, Foundation JS) required!
   Widgets: <% demoModules.forEach(function(module) { %><%= module.displayName %>, <% }); %>">
 
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/<%= ngversion %>/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/<%= ngversion %>/angular.min.js"></script>
   <script src="mm-foundation-tpls-<%= pkg.version%>.js"></script>
   <script src="assets/plunker.js"></script>
   <script src="assets/app.js"></script>
 
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/foundation/<%= fdversion %>/css/foundation.min.css" rel="stylesheet"/>
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/<%= faversion %>/css/font-awesome.min.css" rel="stylesheet"/>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/<%= fdversion %>/css/foundation.min.css" rel="stylesheet"/>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/<%= faversion %>/css/font-awesome.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/rainbow.css"/>
   <link rel="stylesheet" href="assets/demo.css"/>
   <link rel="author" href="https://github.com/madmimi/angular-foundation/graphs/contributors">
@@ -50,7 +50,7 @@
 <div role="main">
   <header class="bs-header text-center" id="overview">
     <figure>
-      <img src="http://css.madmimi.com/img/logo.png" class="logo" />
+      <img src="assets/logo.png" class="logo" />
     </figure>
     <div class="container">
       <div class="row">
@@ -102,7 +102,7 @@
           <p>You can fork one of the plunkers from this page to see a working example of what is described here.</p>
         </section>
         <% demoModules.forEach(function(module) { %>
-          <section id="<%= module.name %>">
+          <section class="demo" id="<%= module.name %>">
             <div class="page-header">
               <h1><%= module.displayName %><small>
                 (<a target="_blank" href="https://github.com/madmimi/angular-foundation/tree/master/src/<%= module.name %>">mm.foundation.<%= module.name %></a>)

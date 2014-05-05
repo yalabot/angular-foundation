@@ -111,7 +111,7 @@ box-shadow: 0 10px 0 1px #FFF,0 16px 0 1px #FFF,0 22px 0 1px #FFF;
   border: 1px solid red !important;
 }
 
-div[role=main] section {
+div[role=main] section.demo {
   padding-top: 30px;
 }
 
