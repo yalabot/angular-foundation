@@ -15,10 +15,10 @@ angular.module('plunker', [])
         return '<!doctype html>\n' +
           '<html ng-app="plunker">\n' +
           '  <head>\n' +
-          '    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular.js"></script>\n' +
-          '    <script src="http://madmimi.github.io/angular-foundation/mm-foundation-tpls-'+version+'.js"></script>\n' +
+          '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular.js"></script>\n' +
+          '    <script src="//madmimi.github.io/angular-foundation/mm-foundation-tpls-'+version+'.js"></script>\n' +
           '    <script src="example.js"></script>\n' +
-          '    <link href="//cdn.jsdelivr.net/foundation/'+fdVersion+'/css/foundation.css" rel="stylesheet">\n' +
+          '    <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/'+fdVersion+'/css/foundation.css" rel="stylesheet">\n' +
           '  </head>\n' +
           '  <body>\n\n' +
           '    <div class="row">\n' +
