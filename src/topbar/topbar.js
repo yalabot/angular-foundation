@@ -73,7 +73,7 @@ angular.module("mm.foundation.topbar", [])
                 scrolltop : '&',
                 stickyOn : '&'
             },
-            restrict: 'E',
+            restrict: 'EA',
             replace: true,
             templateUrl: 'template/topbar/top-bar.html',
             transclude: true,
@@ -232,7 +232,7 @@ angular.module("mm.foundation.topbar", [])
                     var height = el.offsetHeight;
                     var style = el.currentStyle || getComputedStyle(el);
 
-                    height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+                    height += parseInt(style.marginTop, 10) + parseInt(style.marginBottom, 10);
                     return height;
                 };
 
@@ -346,7 +346,7 @@ angular.module("mm.foundation.topbar", [])
         return {
             scope: {},
             require: '^topBar',
-            restrict: 'E',
+            restrict: 'EA',
             replace: true,
             templateUrl: 'template/topbar/top-bar-section.html',
             transclude: true,

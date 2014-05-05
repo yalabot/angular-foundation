@@ -71,7 +71,7 @@ describe('topbar directive', function () {
       toHaveMobileMenuOpen: function() {
         var els = this.actual.find('nav.top-bar.expanded');
         return !!els.length;
-      },
+      }
     });
   }));
 
