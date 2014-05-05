@@ -29,11 +29,7 @@ angular.module('myModule', ['mm.foundation']);
 * Joyride
 * Dropdowns
 * Tabs
-<<<<<<< HEAD
-* Off Canvas
-=======
 * Offcanvas
->>>>>>> e368797c70c3c52d77f552fcfcb050477a100bbb
 
 We'd gladly accept contributions for any remaining components.
 
