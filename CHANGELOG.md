@@ -1,3 +1,20 @@
+# 0.2.0 (2014-05-05)
+
+## Features
+
+- **offcanvas:** 
+  - New offcanvas component ([1f6f3bd9](http://github.com/madmimi/angular-foundation/commit/1f6f3bd9))   
+
+## Bug Fixes
+
+- **all:** 
+  - fix plunker ([aebade40](http://github.com/madmimi/angular-foundation/commit/aebade40))  
+- **dropdownToggle:** 
+  - Refactor test and fix initial hiding of dropdown target ([26e8c5a0](http://github.com/madmimi/angular-foundation/commit/26e8c5a0))  
+- **offcanvas:** 
+  - Removed unused isolated scopes that may conflict with other diretives. ([980624cf](http://github.com/madmimi/angular-foundation/commit/980624cf))  
+  - Fix spec ([0fe989ad](http://github.com/madmimi/angular-foundation/commit/0fe989ad))   
+
 <a name="0.1.0"></a>
 ## 0.1.0 (2014-02-06)
 
