@@ -69,7 +69,7 @@ background-color: #4783A9;
   border: 1px solid red !important;
 }
 
-div[role=main] section {
+div[role=main] section.demo {
   padding-top: 30px;
 }
 
