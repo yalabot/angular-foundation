@@ -1,7 +1,17 @@
+/**
+ * @ngdoc service
+ * @name mm.foundation.interchange
+ * @description
+ *
+ * Package containing all services and directives
+ * about the `interchange` module
+ */
 angular.module('mm.foundation.interchange', [])
 
   /**
-   * interchageQuery
+   * @ngdoc service
+   * @name mm.foundation.interchange.interchageQuery
+   * @description
    * this service get the different medias
    * by simulating angular.elements objects
    * @return {object} Queries list name => mediaQuery
@@ -20,24 +30,24 @@ angular.module('mm.foundation.interchange', [])
         'only screen and (min-resolution: 192dpi),' +
         'only screen and (min-resolution: 2dppx)'
     },
-    classPattern = 'meta.foundation-mq-',
+    classPrefix = 'foundation-mq-',
     classList = ['small', 'medium', 'large', 'xlarge', 'xxlarge'],
-    document = $document[0];
+    head = angular.element($document[0].querySelector('head'));
     
     for (var i = 0; i < classList.length; i++) {
-      element = document.createElement('meta');
-      element.className = 'foundation-mq-' + classList[i];
-      document.head.appendChild(element);
-      
-      element = angular.element(classPattern + classList[i]);
-      mediaSize = element.css('font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '');
+      head.append('<meta class="' + classPrefix + classList[i] + '" />');
+      element = getComputedStyle(head[0].querySelector('meta.' + classPrefix + classList[i]));
+      mediaSize = element.fontFamily.replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '');
       formatList[classList[i]] = mediaSize;
     }
     return formatList;
   }])
 
   /**
-   * interchangeQueriesManager
+   * @ngdoc service
+   * @name mm.foundation.interchange.interchangeQueriesManager
+   * @description
+   * 
    * interface to add and remove named queries
    * in the interchangeQueries list
    */
@@ -56,7 +66,10 @@ angular.module('mm.foundation.interchange', [])
   }])
 
   /**
-   * interchangeTools
+   * @ngdoc service
+   * @name mm.foundation.interchange.interchangeTools
+   * @description
+   * 
    * interface to add and remove named queries
    * in the interchangeQueries list
    */
@@ -101,58 +114,100 @@ angular.module('mm.foundation.interchange', [])
   }])
 
   /**
-   * interchange
+   * @ngdoc directive
+   * @name mm.foundation.interchange.directive:interchange
+   * @restrict A
+   * @element DIV|IMG
+   * @priority 450
+   * @scope
+   * @description
+   * 
    * interchange directive
    * using interchangeTools
    */
   .directive('interchange', ['$window', '$rootScope', 'interchangeTools', function ($window, $rootScope, interchangeTools) {
 
+    var pictureFilePattern = /[A-Za-z0-9-_]+\.(jpg|jpeg|png|gif|bmp|tiff)\ *,/i;
+
     return {
       restrict: 'A',
-      scope: {},
+      scope: true,
       priority: 450,
-      templateUrl: 'template/interchange/interchange.html',
-      link: function ($scope, $element, attrs) {
+      compile: function compile($element, attrs) {
         // Test if the attribute used is 'data-interchange'
         if (attrs.$attr.interchange !== 'data-interchange') {
           return;
         }
 
         // Set up the attribute to update
-        $scope.files = interchangeTools.parseAttribute(attrs.interchange);
-
-        // Remove the child item if the item is not necessary
-        if (!/DIV/.test($element[0].nodeName)) {
-          $scope.attrName = (/IMG/.test($element[0].nodeName)) ? 'src' : 'href';
-          $element.html('');
+        if ($element[0].nodeName === 'DIV' && !pictureFilePattern.test(attrs.interchange)) {
+          $element.html('<ng-include src="currentFile"></ng-include>');
         }
 
-        var replace = function (e) {
-          // The the new file to display (exit if the same)
-          var currentFile = interchangeTools.findCurrentMediaFile($scope.files);
-          if (!!$scope.currentFile && $scope.currentFile === currentFile) {
-            return;
-          }
+        return {
+          pre: function preLink($scope, $element, attrs) {},
+          post: function postLink($scope, $element, attrs) {
+            var currentFile, nodeName;
+            
+            // Set up the attribute to update
+            nodeName = $element && $element[0] && $element[0].nodeName;
+            $scope.fileMap = interchangeTools.parseAttribute(attrs.interchange);
 
-          // Set up the new file
-          $scope.currentFile = currentFile;
-          if (!!$scope.attrName) {
-            $element.attr($scope.attrName, $scope.currentFile);
-          }
-          
-          // Trigger events
-          $rootScope.$emit('replace', $element, $scope);
-          if (!!e) {
-            $scope.$apply();
+            // Find the type of interchange 
+            switch (nodeName) {
+            case 'DIV':
+              // If the tag is a div, we test the current file to see if it's picture
+              currentFile = interchangeTools.findCurrentMediaFile($scope.fileMap);
+              if (/[A-Za-z0-9-_]+\.(jpg|jpeg|png|gif|bmp|tiff)$/i.test(currentFile)) {
+                $scope.type = 'background';
+              }
+              else {
+                $scope.type = 'include';
+              }
+              break;
+
+            case 'IMG':
+              $scope.type = 'image';
+              break;
+
+            default:
+              return;
+            }
+
+            var replace = function (e) {
+              // The the new file to display (exit if the same)
+              var currentFile = interchangeTools.findCurrentMediaFile($scope.fileMap);
+              if (!!$scope.currentFile && $scope.currentFile === currentFile) {
+                return;
+              }
+
+              // Set up the new file
+              $scope.currentFile = currentFile;
+              switch ($scope.type) {
+              case 'image':
+                $element.attr('src', $scope.currentFile);
+                break;
+
+              case 'background':
+                $element.css('background-image', 'url(' + $scope.currentFile + ')');
+                break;
+              }
+
+              // Trigger events
+              $rootScope.$emit('replace', $element, $scope);
+              if (!!e) {
+                $scope.$apply();
+              }
+            };
+            
+            // Start
+            replace();
+            $window.addEventListener('resize', replace);
+            $scope.$on('$destroy', function () {
+              $window.removeEventListener('resize', replace);
+            });
           }
         };
-        
-        // Start
-        replace();
-        $window.addEventListener('resize', replace);
-        $scope.$on('$destroy', function () {
-          $window.removeEventListener('resize', replace);
-        });
       }
     };
   }]);

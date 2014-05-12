@@ -139,7 +139,7 @@ describe("interchange", function () {
       }));
 
       it('should insert the correct template for the good window size', function () {
-        element = angular.element('<div data-interchange="[default.html, (small)], [large.html, (large)]">');
+        element = angular.element('<div data-interchange="[default.html, (small)], [large.html, (large)]"></div>');
 
         $httpBackend.expectGET('default.html').respond('default template');
         matchMediaMock = 'only screen and (max-width:40em)';
@@ -156,32 +156,49 @@ describe("interchange", function () {
         expect(element.text()).toEqual('large template');
       });
 
-      it('should insert the correct picture for the good window size', function () {
-        element = angular.element('<img data-interchange="[default.jpg, (small)], [large.jpg, (large)]">');
-        
-        $httpBackend.expectGET('default.jpg').respond('');
+      it('should insert the correct background picture for the good window size', function () {
+        element = angular.element('<div data-interchange="[default.jpg, (small)], [large.TIFF, (large)]">hi</div>');
+
         matchMediaMock = 'only screen and (max-width:40em)';
         $compile(element)(scope);
         scope.$digest();
-        $httpBackend.flush();
+        expect(element.attr('src')).toBeUndefined();
+        expect(element.attr('style')).toMatch(/background-image:\ ?url\([a-zA-Z0-9\.\\\/\@\:]*default\.jpg\)/);
+
+        matchMediaMock = 'only screen and (min-width:64.063em)';
+        window.dispatchEvent(new Event('resize'));
+        expect(element.attr('style')).toMatch(/background-image:\ ?url\([a-zA-Z0-9\.\\\/\@\:]*large\.TIFF\)/);
+      });
+
+      it('should not change the content when the interchange is for dynamic background', function () {
+        element = angular.element('<div data-interchange="[default.jpg, (small)], [large.TIFF, (large)]">hi</div>');
+
+        matchMediaMock = 'only screen and (max-width:40em)';
+        $compile(element)(scope);
+        scope.$digest();
+        expect(element.text()).toEqual('hi');
+      });
+
+      it('should insert the correct picture for the good window size', function () {
+        element = angular.element('<img data-interchange="[default.jpg, (small)], [large.jpg, (large)]">');
+        
+        matchMediaMock = 'only screen and (max-width:40em)';
+        $compile(element)(scope);
+        scope.$digest();
         expect(element.attr('src')).toEqual('default.jpg');
         expect(element.children().length).toEqual(0);
 
-        $httpBackend.expectGET('large.jpg').respond('');
         matchMediaMock = 'only screen and (min-width:64.063em)';
         window.dispatchEvent(new Event('resize'));
-        $httpBackend.flush();
         expect(element.attr('src')).toEqual('large.jpg');
       });
 
       it('should insert the correct picture for the custom media size', function () {
         element = angular.element('<img data-interchange="[default.jpg, (small)], [large.jpg, (only print)]">');
         
-        $httpBackend.expectGET('large.jpg').respond('');
         matchMediaMock = 'only print';
         $compile(element)(scope);
         scope.$digest();
-        $httpBackend.flush();
         expect(element.attr('src')).toEqual('large.jpg');
         expect(element.children().length).toEqual(0);
       });
