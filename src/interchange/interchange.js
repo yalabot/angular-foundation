@@ -9,11 +9,15 @@
 angular.module('mm.foundation.interchange', [])
 
   /**
-   * @ngdoc service
+   * @ngdoc function
    * @name mm.foundation.interchange.interchageQuery
+   * @function interchageQuery
    * @description
-   * this service get the different medias
-   * by simulating angular.elements objects
+   * 
+   * this service inject meta tags objects in the head
+   * to get the list of media queries from Foundation
+   * stylesheets.
+   * 
    * @return {object} Queries list name => mediaQuery
    */
   .factory('interchangeQueries', ['$document', function ($document) {
@@ -44,8 +48,9 @@ angular.module('mm.foundation.interchange', [])
   }])
 
   /**
-   * @ngdoc service
+   * @ngdoc function
    * @name mm.foundation.interchange.interchangeQueriesManager
+   * @function interchangeQueriesManager
    * @description
    * 
    * interface to add and remove named queries
@@ -53,6 +58,20 @@ angular.module('mm.foundation.interchange', [])
    */
   .factory('interchangeQueriesManager', ['interchangeQueries', function (interchangeQueries) {
     return {
+      /**
+       * @ngdoc method
+       * @name interchangeQueriesManager#add
+       * @methodOf mm.foundation.interchange.interchangeQueriesManager
+       * @description
+       * 
+       * Add a custom media query in the `interchangeQueries`
+       * factory. This method does not allow to update an existing
+       * media query.
+       * 
+       * @param {string} name MediaQuery name
+       * @param {string} media MediaQuery
+       * @returns {boolean} True if the insert is a success
+       */
       add: function (name, media) {
         if (!name || !media ||
           !angular.isString(name) || !angular.isString(media) ||
@@ -66,16 +85,35 @@ angular.module('mm.foundation.interchange', [])
   }])
 
   /**
-   * @ngdoc service
+   * @ngdoc function
    * @name mm.foundation.interchange.interchangeTools
+   * @function interchangeTools
    * @description
    * 
-   * interface to add and remove named queries
-   * in the interchangeQueries list
+   * Tools to help with the `interchange` module.
    */
   .factory('interchangeTools', ['$window', 'interchangeQueries', function ($window, namedQueries) {
 
-    // Attribute parser
+    /**
+     * @ngdoc method
+     * @name interchangeTools#parseAttribute
+     * @methodOf mm.foundation.interchange.interchangeTools
+     * @description
+     * 
+     * Attribute parser to transform an `interchange` attribute
+     * value to an object with media query (name or query) as key,
+     * and file to use as value.
+     *
+     * ```
+     * {
+     *   small: 'bridge-500.jpg',
+     *   large: 'bridge-1200.jpg'
+     * }
+     * ```
+     * 
+     * @param {string} value Interchange query string
+     * @returns {object} Attribute parsed
+     */
     var parseAttribute = function (value) {
       var raw = value.split(/\[(.*?)\]/),
         i = raw.length,
@@ -94,7 +132,26 @@ angular.module('mm.foundation.interchange', [])
       return output;
     };
 
-    // Find the current item to display form a file list
+    /**
+     * @ngdoc method
+     * @name interchangeTools#findCurrentMediaFile
+     * @methodOf mm.foundation.interchange.interchangeTools
+     * @description
+     * 
+     * Find the current item to display from a file list
+     * (object returned by `parseAttribute`) and the
+     * current page dimensions.
+     *
+     * ```
+     * {
+     *   small: 'bridge-500.jpg',
+     *   large: 'bridge-1200.jpg'
+     * }
+     * ```
+     * 
+     * @param {object} files Parsed version of `interchange` attribute
+     * @returns {string} File to display (or `undefined`)
+     */
     var findCurrentMediaFile = function (files) {
       var file, media, match;
       for (file in files) {
@@ -119,11 +176,26 @@ angular.module('mm.foundation.interchange', [])
    * @restrict A
    * @element DIV|IMG
    * @priority 450
-   * @scope
+   * @scope true
    * @description
    * 
-   * interchange directive
-   * using interchangeTools
+   * Interchange directive, following the same features as
+   * ZURB documentation. The directive is splitted in 3 parts.
+   *
+   * 1. This directive use `compile` and not `link` for a simple
+   * reason: if the method is applied on a DIV element to
+   * display a template, the compile method will inject an ng-include.
+   * Because using a `templateUrl` or `template` to do it wouldn't
+   * be appropriate for all cases (`IMG` or dynamic backgrounds).
+   * And doing it in `link` is too late to be applied.
+   *
+   * 2. In the `compile:post`, the attribute is parsed to find
+   * out the type of content to display.
+   *
+   * 3. At the start and on event `resize`, the method `replace`
+   * is called to reevaluate which file is supposed to be displayed
+   * and update the value if necessary. The methd will also
+   * trigger a `replace` event.
    */
   .directive('interchange', ['$window', '$rootScope', 'interchangeTools', function ($window, $rootScope, interchangeTools) {
 

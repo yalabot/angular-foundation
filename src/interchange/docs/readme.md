@@ -8,4 +8,4 @@ Using Interchange with different contents:
 
 Custom named queries are available via the method `add` of the factory `interchangeQueriesManager`. You just need to provide the name and media type desired.
 
-Like the original, events are available when an interchange element switch to another media query.
+Like the original, `replace` events are available when an interchange element switch to another media query.
