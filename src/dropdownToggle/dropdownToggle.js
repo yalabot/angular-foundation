@@ -24,7 +24,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
       var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
 
       scope.$watch('$location.path', function() { closeMenu(); });
-      element.bind('click', function (event) { 
+      element.bind('click', function (event) {
         dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
         var elementWasOpen = (element === openElement);
 
@@ -48,10 +48,6 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
 
           openElement = element;
           closeMenu = function (event) {
-            if (event) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
             $document.unbind('click', closeMenu);
             dropdown.css('display', 'none');
             closeMenu = angular.noop;
