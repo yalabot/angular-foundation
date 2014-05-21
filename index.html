@@ -12,7 +12,7 @@
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
-  <script src="mm-foundation-tpls-0.2.0.js"></script>
+  <script src="mm-foundation-tpls-0.2.1.js"></script>
   <script src="assets/plunker.js"></script>
   <script src="assets/app.js"></script>
 
@@ -82,7 +82,7 @@
             <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.2.8)</li>
             <li><a href="http://foundation.zurb.com"
               target="_blank">Foundation CSS</a> (tested with version 5.0.2).
-              This version of the library (0.2.0) works only with
+              This version of the library (0.2.1) works only with
               Foundation CSS in version 5.x.
             </li>
           </ul>
@@ -148,7 +148,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'accordion')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'accordion')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -261,7 +261,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'alert')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'alert')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -353,7 +353,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'buttons')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'buttons')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -424,20 +424,27 @@
             <div class="row">
               <div class="columns medium-6 show-grid">
                 <div ng-controller="DropdownCtrl">
-  <a dropdown-toggle="#dropdown-example-1">Click me for a dropdown, yo!</a>
+  <p>
+    <a dropdown-toggle="#dropdown-example-1">Click me for a dropdown, yo!</a>
+  </p>
   <ul id="dropdown-example-1" class="f-dropdown">
     <li ng-repeat="choice in items">
       <a>{{choice}}</a>
     </li>
   </ul>
-  <br>
-  <br>
+
+  <a class="button dropdown" dropdown-toggle="#dropdown-example-2">Dropdowns can also have links!</a>
+  <ul id="dropdown-example-2" class="f-dropdown">
+    <li ng-repeat="(label, url) in linkItems">
+      <a href="{{url}}" target="_blank">{{label}}</a>
+    </li>
+  </ul>
 
   <a class="button split">
     Split Button
-    <span dropdown-toggle="#dropdown-example-2"></span>
+    <span dropdown-toggle="#dropdown-example-3"></span>
   </a>
-  <ul id="dropdown-example-2" class="f-dropdown">
+  <ul id="dropdown-example-3" class="f-dropdown">
     <li ng-repeat="choice in items">
       <a>{{choice}}</a>
     </li>
@@ -453,26 +460,33 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'dropdownToggle')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'dropdownToggle')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
                     <div plunker-content="markup">
                       <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;DropdownCtrl&quot;&gt;
-  &lt;a dropdown-toggle=&quot;#dropdown-example-1&quot;&gt;Click me for a dropdown, yo!&lt;/a&gt;
+  &lt;p&gt;
+    &lt;a dropdown-toggle=&quot;#dropdown-example-1&quot;&gt;Click me for a dropdown, yo!&lt;/a&gt;
+  &lt;/p&gt;
   &lt;ul id=&quot;dropdown-example-1&quot; class=&quot;f-dropdown&quot;&gt;
     &lt;li ng-repeat=&quot;choice in items&quot;&gt;
       &lt;a&gt;{{choice}}&lt;/a&gt;
     &lt;/li&gt;
   &lt;/ul&gt;
-  &lt;br&gt;
-  &lt;br&gt;
+
+  &lt;a class=&quot;button dropdown&quot; dropdown-toggle=&quot;#dropdown-example-2&quot;&gt;Dropdowns can also have links!&lt;/a&gt;
+  &lt;ul id=&quot;dropdown-example-2&quot; class=&quot;f-dropdown&quot;&gt;
+    &lt;li ng-repeat=&quot;(label, url) in linkItems&quot;&gt;
+      &lt;a href=&quot;{{url}}&quot; target=&quot;_blank&quot;&gt;{{label}}&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
 
   &lt;a class=&quot;button split&quot;&gt;
     Split Button
-    &lt;span dropdown-toggle=&quot;#dropdown-example-2&quot;&gt;&lt;/span&gt;
+    &lt;span dropdown-toggle=&quot;#dropdown-example-3&quot;&gt;&lt;/span&gt;
   &lt;/a&gt;
-  &lt;ul id=&quot;dropdown-example-2&quot; class=&quot;f-dropdown&quot;&gt;
+  &lt;ul id=&quot;dropdown-example-3&quot; class=&quot;f-dropdown&quot;&gt;
     &lt;li ng-repeat=&quot;choice in items&quot;&gt;
       &lt;a&gt;{{choice}}&lt;/a&gt;
     &lt;/li&gt;
@@ -489,6 +503,10 @@
     &quot;And another choice for you.&quot;,
     &quot;but wait! A third!&quot;
   ];
+  $scope.linkItems = {
+    &quot;Google&quot;: &quot;http://google.com&quot;,
+    &quot;AltaVista&quot;: &quot;http://altavista.com&quot;
+  };
 }
 </code></pre>
                     </div>
@@ -503,6 +521,10 @@
     "And another choice for you.",
     "but wait! A third!"
   ];
+  $scope.linkItems = {
+    "Google": "http://google.com",
+    "AltaVista": "http://altavista.com"
+  };
 }
 </script>
         
@@ -568,7 +590,7 @@ Those methods make it easy to close a modal window without a need to create a de
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'modal')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'modal')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -756,7 +778,7 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'offcanvas')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'offcanvas')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -919,7 +941,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'pagination')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'pagination')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1060,7 +1082,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'popover')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'popover')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1182,7 +1204,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'progressbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'progressbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1343,7 +1365,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'rating')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'rating')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1491,7 +1513,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'tabs')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'tabs')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1675,7 +1697,7 @@ appendToBody: false
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'tooltip')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'tooltip')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1803,7 +1825,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'tour')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'tour')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1932,7 +1954,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.0', 'typeahead')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.1', 'typeahead')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -2114,7 +2136,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
   </div>
   <div class="modal-footer">
     <a class="button" ng-click="cancel()">Cancel</a>
-    <a class="button" ng-click="download('0.2.0')"><i class="fa fa-download"></i> Download 0.2.0</a>
+    <a class="button" ng-click="download('0.2.1')"><i class="fa fa-download"></i> Download 0.2.1</a>
   </div>
 </script>
 
