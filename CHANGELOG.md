@@ -1,3 +1,11 @@
+<a name="v0.2.1"></a>
+### v0.2.1 (2014-05-20)
+
+
+#### Bug Fixes
+
+* **dropdownToggle:** Fix issue with prevent event defaults. ([49a079c5](http://github.com/madmimi/angular-foundation/commit/49a079c54c15cd5db04fa3c1bbdf435c4bdd390c), closes [#47](http://github.com/madmimi/angular-foundation/issues/47))
+
 # 0.2.0 (2014-05-05)
 
 ## Features

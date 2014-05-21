@@ -1,7 +1,7 @@
 {
   "author": "https://github.com/madmimi/angular-foundation/graphs/contributors",
   "name": "angular-mm-foundation",
-  "version": "0.2.1-SNAPSHOT",
+  "version": "0.2.1",
   "homepage": "http://madmimi.github.io/angular-foundation/",
   "dependencies": {},
   "devDependencies": {
