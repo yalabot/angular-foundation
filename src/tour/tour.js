@@ -47,7 +47,7 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
   };
 }])
 
-.directive( 'stepPopup', ['$tour', function ( $tour ) {
+.directive( 'stepTextPopup', ['$tour', function ( $tour ) {
   return {
     restrict: 'EA',
     replace: true,
@@ -98,9 +98,9 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
         return true;
       }
     }
-
+    
     return false;
   }
 
-  return $tooltip( 'step', 'step', show );
+  return $tooltip( 'stepText', 'step', show );
 }]);
