@@ -9,18 +9,12 @@ Angular Foundation comes in several flavors:
 
 `SNAPSHOT` distributions are unreleased, unstable builds. 
 
-## Releases
+You can view the release changelog [here](https://github.com/madmimi/angular-foundation/blob/master/CHANGELOG.md).
 
-### 0.1.0 (Latest)
+## We're on Bower too
 
-* [mm-foundation-tpls-0.1.0.js](https://raw.githubusercontent.com/madmimi/angular-foundation/gh-pages/mm-foundation-tpls-0.1.0.js)
-* [mm-foundation-0.1.0.js](https://raw.githubusercontent.com/madmimi/angular-foundation/gh-pages/mm-foundation-0.1.0.js)
-* [mm-foundation-tpls-0.1.0.min.js](https://raw.githubusercontent.com/madmimi/angular-foundation/gh-pages/mm-foundation-tpls-0.1.0.min.js)
-* [mm-foundation-0.1.0.min.js](https://raw.githubusercontent.com/madmimi/angular-foundation/gh-pages/mm-foundation-0.1.0.min.js)
+You can also download Angular Foundation via bower:
 
-### 0.0.0
-
-* [mm-foundation-tpls-0.0.0.js](https://raw.githubusercontent.com/madmimi/angular-foundation/gh-pages/mm-foundation-tpls-0.0.0.js)
-* [mm-foundation-0.0.0.js](https://raw.githubusercontent.com/madmimi/angular-foundation/gh-pages/mm-foundation-0.0.0.js)
-* [mm-foundation-tpls-0.0.0.min.js](https://raw.githubusercontent.com/madmimi/angular-foundation/gh-pages/mm-foundation-tpls-0.0.0.min.js)
-* [mm-foundation-0.0.0.min.js](https://raw.githubusercontent.com/madmimi/angular-foundation/gh-pages/mm-foundation-0.0.0.min.js)
+```
+$ bower install angular-foundation
+```
