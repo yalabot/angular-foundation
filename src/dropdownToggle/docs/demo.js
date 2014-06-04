@@ -4,4 +4,8 @@ function DropdownCtrl($scope) {
     "And another choice for you.",
     "but wait! A third!"
   ];
+  $scope.linkItems = {
+    "Google": "http://google.com",
+    "AltaVista": "http://altavista.com"
+  };
 }
