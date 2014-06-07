@@ -120,13 +120,13 @@ describe('topbar directive', function () {
     expect($('#top-section', element)[0].style.left).toEqual('-100%');
   }));
 
-  it('has f-topbar-fixed class on body after link is clicked on a fixed mobile topbar', inject(function($window) {
-    setMobile($window);
-    $('#menu-toggle', element).trigger('click');
-    expect($window.matchMedia).toHaveBeenCalled();
-    $('#dropdown', element).trigger('click');
-    $('#alink', element).trigger('click');
-    expect($('body', $document)).toHaveClass('f-topbar-fixed');
-  }));
+  // it('has f-topbar-fixed class on body after link is clicked on a fixed mobile topbar', inject(function($window) {
+  //   setMobile($window);
+  //   $('#menu-toggle', element).trigger('click');
+  //   expect($window.matchMedia).toHaveBeenCalled();
+  //   $('#dropdown', element).trigger('click');
+  //   $('#alink', element).trigger('click');
+  //   expect($('body', $document)).toHaveClass('f-topbar-fixed');
+  // }));
 
 });

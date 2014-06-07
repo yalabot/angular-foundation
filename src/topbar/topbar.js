@@ -112,10 +112,10 @@ angular.module("mm.foundation.topbar", [])
                     if (true) {
                         if (win.scrollTop() > distance && !$class.hasClass('fixed')) {
                             $class.addClass('fixed');
-                            body.addClass('f-topbar-fixed');
+                            body.css('padding-top', $scope.original_height + 'px');
                         } else if (win.scrollTop() <= distance && $class.hasClass('fixed')) {
                             $class.removeClass('fixed');
-                            body.removeClass('f-topbar-fixed');
+                            body.css('padding-top', '');
                         }
                     }  
                 };
@@ -138,11 +138,11 @@ angular.module("mm.foundation.topbar", [])
                         if (!expand && topbar.hasClass('fixed')) {
                             topbar.parent().addClass('fixed');
                             topbar.removeClass('fixed');
-                            body.addClass('f-topbar-fixed');
+                            body.css('padding-top', $scope.original_height + 'px');
                         } else if (expand && topbar.parent().hasClass('fixed')) {
                             topbar.parent().removeClass('fixed');
                             topbar.addClass('fixed');
-                            body.removeClass('f-topbar-fixed');
+                            body.css('padding-top', '');
                             $window.scrollTo(0,0);
                         }
                     } else {
@@ -158,7 +158,7 @@ angular.module("mm.foundation.topbar", [])
                             } else {
                                 topbar.addClass('fixed');
                                 topbar.parent().addClass('expanded');
-                                body.addClass('f-topbar-fixed');
+                                body.css('padding-top', $scope.original_height + 'px');
                             }
                         }
                     }
@@ -181,9 +181,6 @@ angular.module("mm.foundation.topbar", [])
                         topbar.css('height', '');
                     }
                 });
-                
-                // Pad body when sticky (scrolled) or fixed.
-                head.append('<style>.f-topbar-fixed { padding-top: ' + $scope.original_height + 'px }</style>');
 
                 win.bind('resize', function(){
                     var sections = angular.element(topbar[0].querySelectorAll('section'));
@@ -207,7 +204,7 @@ angular.module("mm.foundation.topbar", [])
                 });
 
                 if (topbarContainer.hasClass('fixed')) {
-                    body.addClass('f-topbar-fixed');
+                    body.css('padding-top', $scope.original_height + 'px');
                 }
 
             },
