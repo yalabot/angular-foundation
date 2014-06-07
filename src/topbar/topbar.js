@@ -5,9 +5,7 @@ angular.module("mm.foundation.topbar", [])
             var matchesSelector = function (node, selector) {
                 var nodes = (node.parentNode || node.document).querySelectorAll(selector);
                 var i = -1;
-         
                 while (nodes[++i] && nodes[i] != node){}
-         
                 return !!nodes[i];
             };
 
@@ -66,12 +64,12 @@ angular.module("mm.foundation.topbar", [])
         return {
             scope: {
                 stickyClass : '@',
-                customBackText: '@',
                 backText: '@',
+                stickyOn : '&',
+                customBackText: '&',
                 isHover: '&',
-                mobileShowParentLink: '@',
+                mobileShowParentLink: '&',
                 scrolltop : '&',
-                stickyOn : '&'
             },
             restrict: 'EA',
             replace: true,
@@ -217,12 +215,13 @@ angular.module("mm.foundation.topbar", [])
             
                 $scope.settings = {};
                 $scope.settings.stickyClass = $scope.stickyClass || 'sticky';
-                $scope.settings.customBackText = $scope.customBackText || true;
                 $scope.settings.backText = $scope.backText || 'Back';
-                $scope.settings.isHover = $scope.isHover || true;
-                $scope.settings.mobileShowParentLink = $scope.mobileShowParentLink || true;
-                $scope.settings.scrolltop = $scope.scrolltop || true; // jump to top when sticky nav menu toggle is clicked
                 $scope.settings.stickyOn = $scope.stickyOn || 'all';
+
+                $scope.settings.customBackText = ($scope.customBackText === undefined && true) || $scope.customBackText;
+                $scope.settings.isHover = ($scope.isHover === undefined && true) || $scope.isHover;
+                $scope.settings.mobileShowParentLink = ($scope.mobileShowParentLink === undefined && true) || $scope.mobileShowParentLink;
+                $scope.settings.scrolltop = ($scope.scrolltop === undefined && true) || $scope.scrolltop; // jump to top when sticky nav menu toggle is clicked
 
                 this.settings = $scope.settings;
 
@@ -466,7 +465,7 @@ angular.module("mm.foundation.topbar", [])
                 };
 
                 // Add back link
-                if (topBar.settings.customBackText === true) {
+                if (topBar.settings.customBackText) {
                     $scope.backText = topBar.settings.backText;
                 } else {
                     $scope.backText = '&laquo; ' + $link.html();
