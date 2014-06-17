@@ -78,16 +78,17 @@ angular.module("mm.foundation.topbar", [])
             link: function ($scope, element, attrs) {
                 var topbar = $scope.topbar = element;
                 var topbarContainer = topbar.parent();
-                var media_queries = $scope.media_queries = {
-                    topbar: getComputedStyle(head[0].querySelector('meta.foundation-mq-topbar')).fontFamily.replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-                    small : getComputedStyle(head[0].querySelector('meta.foundation-mq-small')).fontFamily.replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-                    medium : getComputedStyle(head[0].querySelector('meta.foundation-mq-medium')).fontFamily.replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, ''),
-                    large : getComputedStyle(head[0].querySelector('meta.foundation-mq-large')).fontFamily.replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '')
+                var regex = /^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g;
+                var mediaQueries = $scope.mediaQueries = {
+                    topbar: getComputedStyle(head[0].querySelector('meta.foundation-mq-topbar')).fontFamily.replace(regex, ''),
+                    small : getComputedStyle(head[0].querySelector('meta.foundation-mq-small')).fontFamily.replace(regex, ''),
+                    medium : getComputedStyle(head[0].querySelector('meta.foundation-mq-medium')).fontFamily.replace(regex, ''),
+                    large : getComputedStyle(head[0].querySelector('meta.foundation-mq-large')).fontFamily.replace(regex, '')
                 };
                 var body = angular.element($document[0].querySelector('body'));
 
 
-                var is_sticky = $scope.is_sticky = function () {
+                var isSticky = $scope.isSticky = function () {
                     var sticky = topbarContainer.hasClass($scope.settings.stickyClass);
                     if (sticky && $scope.settings.stickyOn === 'all') {
                         return true;
@@ -101,8 +102,8 @@ angular.module("mm.foundation.topbar", [])
                     return false;
                 };
 
-                var update_sticky_positioning = function(){
-                    if (!$scope.sticky_topbar || !$scope.is_sticky()) {
+                var updateStickyPositioning = function(){
+                    if (!$scope.stickyTopbar || !$scope.isSticky()) {
                         return;
                     }
                     
@@ -112,7 +113,7 @@ angular.module("mm.foundation.topbar", [])
                     if (true) {
                         if (win.scrollTop() > distance && !$class.hasClass('fixed')) {
                             $class.addClass('fixed');
-                            body.css('padding-top', $scope.original_height + 'px');
+                            body.css('padding-top', $scope.originalHeight + 'px');
                         } else if (win.scrollTop() <= distance && $class.hasClass('fixed')) {
                             $class.removeClass('fixed');
                             body.css('padding-top', '');
@@ -138,7 +139,7 @@ angular.module("mm.foundation.topbar", [])
                         if (!expand && topbar.hasClass('fixed')) {
                             topbar.parent().addClass('fixed');
                             topbar.removeClass('fixed');
-                            body.css('padding-top', $scope.original_height + 'px');
+                            body.css('padding-top', $scope.originalHeight + 'px');
                         } else if (expand && topbar.parent().hasClass('fixed')) {
                             topbar.parent().removeClass('fixed');
                             topbar.addClass('fixed');
@@ -146,7 +147,7 @@ angular.module("mm.foundation.topbar", [])
                             $window.scrollTo(0,0);
                         }
                     } else {
-                        if(is_sticky()) {
+                        if(isSticky()) {
                             topbar.parent().addClass('fixed');
                         }
 
@@ -154,25 +155,25 @@ angular.module("mm.foundation.topbar", [])
                             if (!expand) {
                                 topbar.removeClass('fixed');
                                 topbar.parent().removeClass('expanded');
-                                update_sticky_positioning();
+                                updateStickyPositioning();
                             } else {
                                 topbar.addClass('fixed');
                                 topbar.parent().addClass('expanded');
-                                body.css('padding-top', $scope.original_height + 'px');
+                                body.css('padding-top', $scope.originalHeight + 'px');
                             }
                         }
                     }
                 };
 
-                if(topbarContainer.hasClass('fixed') || is_sticky() ) {
-                    $scope.sticky_topbar = true;
+                if(topbarContainer.hasClass('fixed') || isSticky() ) {
+                    $scope.stickyTopbar = true;
                     $scope.height = topbarContainer[0].offsetHeight;
                     var stickyoffset = topbarContainer[0].getBoundingClientRect().top;
                 } else {
                     $scope.height = topbar[0].offsetHeight;
                 }
 
-                $scope.original_height = $scope.height;
+                $scope.originalHeight = $scope.height;
 
                 $scope.$watch('height', function(h){
                     if(h){
@@ -194,7 +195,7 @@ angular.module("mm.foundation.topbar", [])
 
                 // update sticky positioning
                 win.bind("scroll", function() {
-                    update_sticky_positioning();
+                    updateStickyPositioning();
                     $scope.$apply();
                 });
 
@@ -204,7 +205,7 @@ angular.module("mm.foundation.topbar", [])
                 });
 
                 if (topbarContainer.hasClass('fixed')) {
-                    body.css('padding-top', $scope.original_height + 'px');
+                    body.css('padding-top', $scope.originalHeight + 'px');
                 }
 
             },
@@ -233,19 +234,19 @@ angular.module("mm.foundation.topbar", [])
                 };
 
                 var breakpoint = $scope.breakpoint = this.breakpoint = function () {
-                    return !matchMedia($scope.media_queries.topbar).matches;
+                    return !matchMedia($scope.mediaQueries.topbar).matches;
                 };
 
                 var small = function () {
-                    return $matchMedia($scope.media_queries.small).matches;
+                    return $matchMedia($scope.mediaQueries.small).matches;
                 };
 
                 var medium = function () {
-                    return $matchMedia($scope.media_queries.medium).matches;
+                    return $matchMedia($scope.mediaQueries.medium).matches;
                 };
 
                 var large = function () {
-                    return $matchMedia($scope.media_queries.large).matches;
+                    return $matchMedia($scope.mediaQueries.large).matches;
                 };
 
                 var sections = [];
@@ -292,7 +293,7 @@ angular.module("mm.foundation.topbar", [])
                     if($scope.index === 0){
                         $scope.height = '';
                     } else {
-                        $scope.height = $scope.original_height + outerHeight($previousLevelUl[0]);
+                        $scope.height = $scope.originalHeight + outerHeight($previousLevelUl[0]);
                     }
 
                     $timeout(function () {
@@ -308,7 +309,7 @@ angular.module("mm.foundation.topbar", [])
                     var $link = angular.element(event.currentTarget);
                     var $selectedLi = closest($link, 'li');
                     $selectedLi.addClass('moved');
-                    $scope.height = $scope.original_height + outerHeight($link.parent()[0].querySelector('ul'));
+                    $scope.height = $scope.originalHeight + outerHeight($link.parent()[0].querySelector('ul'));
                     $scope.index = $scope.index + 1;
                     $scope.$apply();
                 };
@@ -401,9 +402,9 @@ angular.module("mm.foundation.topbar", [])
                 var topBar = ctrls[0];
                 var topBarSection = ctrls[1];
 
-                $scope.trigger_link = element.children('a')[0];
+                $scope.triggerLink = element.children('a')[0];
 
-                var $link = angular.element($scope.trigger_link);
+                var $link = angular.element($scope.triggerLink);
 
                 $link.bind('click', function(event){
                     topBar.forward(event);
@@ -435,7 +436,7 @@ angular.module("mm.foundation.topbar", [])
                 });
             },
             controller: ['$window', '$scope', function($window, $scope) {
-                this.trigger_link = $scope.trigger_link;
+                this.triggerLink = $scope.triggerLink;
             }]
         };
     }])
@@ -452,10 +453,10 @@ angular.module("mm.foundation.topbar", [])
                 var topBar = ctrls[0];
                 var hasDropdown = ctrls[1];
 
-                var $link = angular.element(hasDropdown.trigger_link);
+                var $link = angular.element(hasDropdown.triggerLink);
                 var url = $link.attr('href');
 
-                $scope.link_text = $link.text();
+                $scope.linkText = $link.text();
 
                 $scope.back = function(event){
                     topBar.back(event);
@@ -473,7 +474,7 @@ angular.module("mm.foundation.topbar", [])
                     $titleLi = angular.element('<li class="title back js-generated">' +
                         '<h5><a href="#" ng-click="back($event);">{{backText}}</a></h5></li>' +
                         '<li><a class="parent-link js-generated" href="' +
-                        url + '">{{link_text}}</a></li>');
+                        url + '">{{linkText}}</a></li>');
                 } else {
                     $titleLi = angular.element('<li class="title back js-generated">' +
                         '<h5><a href="" ng-click="back($event);">{{backText}}</a></h5></li>');

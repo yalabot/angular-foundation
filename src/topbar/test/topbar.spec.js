@@ -113,10 +113,10 @@ describe('topbar directive', function () {
     setMobile($window);
     $('#menu-toggle', element).trigger('click');
     expect($window.matchMedia).toHaveBeenCalled();
-    var before_height = $('.top-bar', element)[0].style.height;
+    var beforeHeight = $('.top-bar', element)[0].style.height;
     $('#dropdown', element).trigger('click');
-    var after_height = $('.top-bar', element)[0].style.height;
-    expect(after_height).toNotEqual(before_height);
+    var afterHeight = $('.top-bar', element)[0].style.height;
+    expect(afterHeight).toNotEqual(beforeHeight);
     expect($('#top-section', element)[0].style.left).toEqual('-100%');
   }));
 

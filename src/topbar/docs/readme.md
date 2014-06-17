@@ -6,7 +6,7 @@ The following settings can be applied as attributes to the ```top-bar``` element
 
 - `sticky-class`: Class name that will trigger sticky behavior.
 - `custom-back-text`: Set this to false and it will pull the top level link name as the back text.
-- `back-text`: Define what you want your custom back text to be if custom_back_text.
+- `back-text`: Define what you want your custom back text to be if custom-back-text is set.
 - `is-hover`: Toggle drop down menus on hover.
 - `mobile-show-parent-link`: will copy parent links into dropdowns for mobile navigation.
 - `scrolltop`: jump to top when sticky nav menu toggle is clicked
