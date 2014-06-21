@@ -1,0 +1,28 @@
+<div ng-controller="TopBarDemoCtrl">
+  <top-bar>
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="#">My Site</a></h1>
+      </li>
+      <li toggle-top-bar class="menu-icon"><a href="#">Menu</a></li>
+    </ul>
+
+    <top-bar-section>
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="active"><a href="#">Active</a></li>
+        <li has-dropdown>
+          <a href="#">Dropdown</a>
+          <ul top-bar-dropdown>
+            <li><a href="#">First link in dropdown</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li><a href="#">Left</a></li>
+      </ul>
+    </top-bar-section>
+  </top-bar>
+</div>
