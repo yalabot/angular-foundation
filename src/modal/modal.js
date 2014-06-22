@@ -73,10 +73,12 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
 
         scope.close = function (evt) {
           var modal = $modalStack.getTop();
-          if (modal && modal.value.backdrop && modal.value.backdrop != 'static' && (evt.target === evt.currentTarget)) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            $modalStack.dismiss(modal.key, 'backdrop click');
+          if (modal && !modal.value.disableClose) {
+              if (modal && modal.value.backdrop && modal.value.backdrop != 'static' && (evt.target === evt.currentTarget)) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                $modalStack.dismiss(modal.key, 'backdrop click');
+              }
           }
         };
       }
@@ -209,6 +211,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
           deferred: modal.deferred,
           modalScope: modal.scope,
           backdrop: modal.backdrop,
+          disableClose: modal.disableClose,
           keyboard: modal.keyboard
         });
 
@@ -349,6 +352,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
                 deferred: modalResultDeferred,
                 content: tplAndVars[0],
                 backdrop: modalOptions.backdrop,
+                disableClose:modalOptions.disableClose,
                 keyboard: modalOptions.keyboard,
                 windowClass: modalOptions.windowClass
               });
