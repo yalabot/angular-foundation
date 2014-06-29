@@ -141,15 +141,17 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         openedWindows.remove(modalInstance);
 
         //remove window DOM element
-        removeAfterAnimate(modalWindow.modalDomEl, modalWindow.modalScope, 300, checkRemoveBackdrop);
+        removeAfterAnimate(modalWindow.modalDomEl, modalWindow.modalScope, modalWindow.windowEmulateTime, function () {
+            checkRemoveBackdrop(modalWindow.backdropEmulateTime);
+        });
         body.toggleClass(OPENED_MODAL_CLASS, openedWindows.length() > 0);
       }
 
-      function checkRemoveBackdrop() {
+      function checkRemoveBackdrop(emulateTime) {
           //remove backdrop if no longer needed
           if (backdropDomEl && backdropIndex() == -1) {
             var backdropScopeRef = backdropScope;
-            removeAfterAnimate(backdropDomEl, backdropScope, 150, function () {
+            removeAfterAnimate(backdropDomEl, backdropScope, emulateTime, function () {
               backdropScopeRef.$destroy();
               backdropScopeRef = null;
             });
@@ -270,7 +272,9 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
     var $modalProvider = {
       options: {
         backdrop: true, //can be also false or 'static'
-        keyboard: true
+        keyboard: true,
+        removeWindowEmulateTime: 300,
+        removeBackdropEmulateTime: 150
       },
       $get: ['$injector', '$rootScope', '$q', '$http', '$templateCache', '$controller', '$modalStack',
         function ($injector, $rootScope, $q, $http, $templateCache, $controller, $modalStack) {
@@ -350,6 +354,8 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
                 content: tplAndVars[0],
                 backdrop: modalOptions.backdrop,
                 keyboard: modalOptions.keyboard,
+                windowEmulateTime: modalOptions.removeWindowEmulateTime,
+                backdropEmulateTime: modalOptions.removeBackdropEmulateTime,
                 windowClass: modalOptions.windowClass
               });
 
