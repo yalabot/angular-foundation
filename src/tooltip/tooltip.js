@@ -173,16 +173,18 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
             // TODO add ability to start tooltip opened
             scope.tt_isOpen = false;
 
-            function toggleTooltipBind () {
+            function toggleTooltipBind (event) {
               if ( ! scope.tt_isOpen ) {
-                showTooltipBind();
+                showTooltipBind(event);
               } else {
                 hideTooltipBind();
               }
             }
 
             // Show the tooltip with delay if specified, otherwise show it immediately
-            function showTooltipBind() {
+            function showTooltipBind(event) {
+              event.stopPropagation();
+
               if(hasEnableExp && !scope.$eval(attrs[prefix+'Enable'])) {
                 return;
               }
@@ -327,6 +329,10 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
                   element.bind( triggers.show, showTooltipBind );
                   element.bind( triggers.hide, hideTooltipBind );
                 }
+
+                $document.on('click', function() {
+                  hideTooltipBind();
+                });
               }
 
               hasRegisteredTriggers = true;
