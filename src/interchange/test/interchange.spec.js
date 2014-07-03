@@ -3,7 +3,6 @@ describe("interchange", function () {
   var scope, $compile, domObj;
   var element;
 
-  beforeEach(module('template/interchange/interchange.html'));
   beforeEach(function () {
     domObj = domObj || document.createElement('style');
     domObj.innerHTML = 'meta.foundation-mq-small {font-family: "/only screen and (max-width:40em)/";}' +
@@ -181,7 +180,7 @@ describe("interchange", function () {
 
       it('should insert the correct picture for the good window size', function () {
         element = angular.element('<img data-interchange="[default.jpg, (small)], [large.jpg, (large)]">');
-        
+
         matchMediaMock = 'only screen and (max-width:40em)';
         $compile(element)(scope);
         scope.$digest();
@@ -195,7 +194,7 @@ describe("interchange", function () {
 
       it('should insert the correct picture for the custom media size', function () {
         element = angular.element('<img data-interchange="[default.jpg, (small)], [large.jpg, (only print)]">');
-        
+
         matchMediaMock = 'only print';
         $compile(element)(scope);
         scope.$digest();
@@ -205,7 +204,7 @@ describe("interchange", function () {
 
       it('should set up noting', function () {
         element = angular.element('<img data-interchange="">');
-        
+
         $compile(element)(scope);
         scope.$digest();
         expect(element.attr('src')).toBeUndefined();
