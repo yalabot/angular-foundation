@@ -330,8 +330,10 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
                   element.bind( triggers.hide, hideTooltipBind );
                 }
 
-                $document.on('click', function() {
-                  hideTooltipBind();
+                $document.on('click', function(event) {
+                  if (!angular.element(event.target).is(element)) {
+                    hideTooltipBind();
+                  }
                 });
               }
 
