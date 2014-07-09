@@ -48,6 +48,11 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
 
           openElement = element;
           closeMenu = function (event) {
+            if (dropdown.attr('dropdown-content') !== undefined && dropdown.attr('data-dropdown-content') !== 'false') {
+              if (dropdown.html().indexOf(event.target.outerHTML) > -1) {
+                return;
+              }
+            }
             $document.unbind('click', closeMenu);
             dropdown.css('display', 'none');
             closeMenu = angular.noop;
