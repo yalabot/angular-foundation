@@ -13,11 +13,11 @@ angular.module('mm.foundation.interchange', [])
    * @name mm.foundation.interchange.interchageQuery
    * @function interchageQuery
    * @description
-   * 
+   *
    * this service inject meta tags objects in the head
    * to get the list of media queries from Foundation
    * stylesheets.
-   * 
+   *
    * @return {object} Queries list name => mediaQuery
    */
   .factory('interchangeQueries', ['$document', function ($document) {
@@ -37,7 +37,7 @@ angular.module('mm.foundation.interchange', [])
     classPrefix = 'foundation-mq-',
     classList = ['small', 'medium', 'large', 'xlarge', 'xxlarge'],
     head = angular.element($document[0].querySelector('head'));
-    
+
     for (var i = 0; i < classList.length; i++) {
       head.append('<meta class="' + classPrefix + classList[i] + '" />');
       element = getComputedStyle(head[0].querySelector('meta.' + classPrefix + classList[i]));
@@ -52,7 +52,7 @@ angular.module('mm.foundation.interchange', [])
    * @name mm.foundation.interchange.interchangeQueriesManager
    * @function interchangeQueriesManager
    * @description
-   * 
+   *
    * interface to add and remove named queries
    * in the interchangeQueries list
    */
@@ -63,11 +63,11 @@ angular.module('mm.foundation.interchange', [])
        * @name interchangeQueriesManager#add
        * @methodOf mm.foundation.interchange.interchangeQueriesManager
        * @description
-       * 
+       *
        * Add a custom media query in the `interchangeQueries`
        * factory. This method does not allow to update an existing
        * media query.
-       * 
+       *
        * @param {string} name MediaQuery name
        * @param {string} media MediaQuery
        * @returns {boolean} True if the insert is a success
@@ -89,7 +89,7 @@ angular.module('mm.foundation.interchange', [])
    * @name mm.foundation.interchange.interchangeTools
    * @function interchangeTools
    * @description
-   * 
+   *
    * Tools to help with the `interchange` module.
    */
   .factory('interchangeTools', ['$window', 'interchangeQueries', function ($window, namedQueries) {
@@ -99,7 +99,7 @@ angular.module('mm.foundation.interchange', [])
      * @name interchangeTools#parseAttribute
      * @methodOf mm.foundation.interchange.interchangeTools
      * @description
-     * 
+     *
      * Attribute parser to transform an `interchange` attribute
      * value to an object with media query (name or query) as key,
      * and file to use as value.
@@ -110,7 +110,7 @@ angular.module('mm.foundation.interchange', [])
      *   large: 'bridge-1200.jpg'
      * }
      * ```
-     * 
+     *
      * @param {string} value Interchange query string
      * @returns {object} Attribute parsed
      */
@@ -137,7 +137,7 @@ angular.module('mm.foundation.interchange', [])
      * @name interchangeTools#findCurrentMediaFile
      * @methodOf mm.foundation.interchange.interchangeTools
      * @description
-     * 
+     *
      * Find the current item to display from a file list
      * (object returned by `parseAttribute`) and the
      * current page dimensions.
@@ -148,7 +148,7 @@ angular.module('mm.foundation.interchange', [])
      *   large: 'bridge-1200.jpg'
      * }
      * ```
-     * 
+     *
      * @param {object} files Parsed version of `interchange` attribute
      * @returns {string} File to display (or `undefined`)
      */
@@ -178,7 +178,7 @@ angular.module('mm.foundation.interchange', [])
    * @priority 450
    * @scope true
    * @description
-   * 
+   *
    * Interchange directive, following the same features as
    * ZURB documentation. The directive is splitted in 3 parts.
    *
@@ -220,12 +220,12 @@ angular.module('mm.foundation.interchange', [])
           pre: function preLink($scope, $element, attrs) {},
           post: function postLink($scope, $element, attrs) {
             var currentFile, nodeName;
-            
+
             // Set up the attribute to update
             nodeName = $element && $element[0] && $element[0].nodeName;
             $scope.fileMap = interchangeTools.parseAttribute(attrs.interchange);
 
-            // Find the type of interchange 
+            // Find the type of interchange
             switch (nodeName) {
             case 'DIV':
               // If the tag is a div, we test the current file to see if it's picture
@@ -271,7 +271,7 @@ angular.module('mm.foundation.interchange', [])
                 $scope.$apply();
               }
             };
-            
+
             // Start
             replace();
             $window.addEventListener('resize', replace);

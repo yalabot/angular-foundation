@@ -129,12 +129,16 @@ describe("interchange", function () {
 
     describe("interchange directive", function () {
 
-      var element, $httpBackend;
+      var element, $httpBackend, $window;
 
-      beforeEach(inject(function ($rootScope, _$httpBackend_, _$compile_, $controller) {
+      beforeEach(inject(function ($rootScope, _$window_, _$httpBackend_, _$compile_, $controller) {
+        if (element) {
+          element.remove();
+        }
         scope = $rootScope;
         $httpBackend = _$httpBackend_;
         $compile = _$compile_;
+        $window = _$window_;
       }));
 
       it('should insert the correct template for the good window size', function () {
@@ -209,6 +213,19 @@ describe("interchange", function () {
         scope.$digest();
         expect(element.attr('src')).toBeUndefined();
         expect(element.children().length).toEqual(0);
+      });
+
+      it('should clear listeners when the scope is destroyed', function () {
+        spyOn($window, 'removeEventListener');
+        element = angular.element('<img data-interchange="[default.jpg, (small)], [large.jpg, (large)]">');
+
+        matchMediaMock = 'only screen and (max-width:40em)';
+        $compile(element)(scope);
+        scope.$digest();
+
+        element.scope().$destroy();
+        scope.$digest();
+        expect($window.removeEventListener).toHaveBeenCalledWith('resize', jasmine.any(Function));
       });
     });
   });
