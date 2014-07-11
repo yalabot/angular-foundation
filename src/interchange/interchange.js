@@ -206,11 +206,6 @@ angular.module('mm.foundation.interchange', [])
       scope: true,
       priority: 450,
       compile: function compile($element, attrs) {
-        // Test if the attribute used is 'data-interchange'
-        if (attrs.$attr.interchange !== 'data-interchange') {
-          return;
-        }
-
         // Set up the attribute to update
         if ($element[0].nodeName === 'DIV' && !pictureFilePattern.test(attrs.interchange)) {
           $element.html('<ng-include src="currentFile"></ng-include>');
