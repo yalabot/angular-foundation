@@ -160,8 +160,8 @@ module.exports = function(grunt) {
       //We use %version% and evluate it at run-time, because <%= pkg.version %>
       //is only evaluated once
       'release-prepare': [
-        'grunt before-test after-test',
         'grunt version', //remove "-SNAPSHOT"
+        'grunt before-test after-test',
         'grunt changelog'
       ],
       'release-complete': [
