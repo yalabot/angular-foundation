@@ -8,15 +8,15 @@
   <meta name="description" content="AngularJS (Angular) native
   directives for Foundation. Small footprint (5kB gzipped!),
   no 3rd party JS dependencies (jQuery, Foundation JS) required!
-  Widgets: Accordion, Alert, Buttons, Dropdown Toggle, Modal, Offcanvas, Pagination, Popover, Progressbar, Rating, Tabs, Tooltip, Tour, Typeahead, ">
+  Widgets: Accordion, Alert, Buttons, Dropdown Toggle, Interchange, Modal, Offcanvas, Pagination, Popover, Progressbar, Rating, Tabs, Tooltip, Topbar, Tour, Typeahead, ">
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
-  <script src="mm-foundation-tpls-0.2.2.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+  <script src="mm-foundation-tpls-0.3.0.js"></script>
   <script src="assets/plunker.js"></script>
   <script src="assets/app.js"></script>
 
-  <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.0.2/css/foundation.min.css" rel="stylesheet"/>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.0/css/foundation.min.css" rel="stylesheet"/>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/rainbow.css"/>
   <link rel="stylesheet" href="assets/demo.css"/>
@@ -24,25 +24,27 @@
 </head>
 <body class="ng-cloak" ng-controller="MainCtrl">
 <div class="fixed">
-  <nav class="top-bar">
+  <top-bar scrolltop="false">
     <ul class="title-area">
       <li class="name">
+        <h1><a href="#">Angular Foundation</a></h1>
       </li>
+      <li toggle-top-bar class="menu-icon"><a href="#">Menu</a></li>
     </ul>
     
-    <section class="top-bar-section">
-      <ul class="left">
+    <top-bar-section>
+      <ul class="right">
         <li><a href="#getting_started">Getting started</a></li>
-        <li class="has-dropdown">
-          <a dropdown-toggle="#directives-list">Directives</a>
-          <ul id="directives-list" class="dropdown">
-            <li><a href="#accordion">Accordion</a></li><li><a href="#alert">Alert</a></li><li><a href="#buttons">Buttons</a></li><li><a href="#dropdownToggle">Dropdown Toggle</a></li><li><a href="#modal">Modal</a></li><li><a href="#offcanvas">Offcanvas</a></li><li><a href="#pagination">Pagination</a></li><li><a href="#popover">Popover</a></li><li><a href="#progressbar">Progressbar</a></li><li><a href="#rating">Rating</a></li><li><a href="#tabs">Tabs</a></li><li><a href="#tooltip">Tooltip</a></li><li><a href="#tour">Tour</a></li><li><a href="#typeahead">Typeahead</a></li>
+        <li has-dropdown>
+          <a href="#">Directives</a>
+          <ul id="directives-list" top-bar-dropdown>
+            <li><a href="#accordion">Accordion</a></li><li><a href="#alert">Alert</a></li><li><a href="#buttons">Buttons</a></li><li><a href="#dropdownToggle">Dropdown Toggle</a></li><li><a href="#interchange">Interchange</a></li><li><a href="#modal">Modal</a></li><li><a href="#offcanvas">Offcanvas</a></li><li><a href="#pagination">Pagination</a></li><li><a href="#popover">Popover</a></li><li><a href="#progressbar">Progressbar</a></li><li><a href="#rating">Rating</a></li><li><a href="#tabs">Tabs</a></li><li><a href="#tooltip">Tooltip</a></li><li><a href="#topbar">Topbar</a></li><li><a href="#tour">Tour</a></li><li><a href="#typeahead">Typeahead</a></li>
           </ul>
         </li>
         <li><a href="#animations">Animations</a></li>
       </ul>
-    </section>
-  </nav>
+    </top-bar-section>
+  </topbar>
 </div>
 <div class="header-placeholder"></div>
 <div role="main">
@@ -79,10 +81,10 @@
             JavaScript is required. The <strong>only required dependencies</strong> are:
           </p>
           <ul>
-            <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.2.8)</li>
+            <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.2.15)</li>
             <li><a href="http://foundation.zurb.com"
-              target="_blank">Foundation CSS</a> (tested with version 5.0.2).
-              This version of the library (0.2.2) works only with
+              target="_blank">Foundation CSS</a> (tested with version 5.2.0).
+              This version of the library (0.3.0) works only with
               Foundation CSS in version 5.x.
             </li>
           </ul>
@@ -148,7 +150,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'accordion')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'accordion')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -261,7 +263,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'alert')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'alert')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -353,7 +355,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'buttons')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'buttons')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -460,7 +462,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'dropdownToggle')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'dropdownToggle')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -528,6 +530,71 @@
 }
 </script>
         
+          <section class="demo" id="interchange">
+            <div class="page-header">
+              <h1>Interchange<small>
+                (<a target="_blank" href="https://github.com/madmimi/angular-foundation/tree/master/src/interchange">mm.foundation.interchange</a>)
+              </small></h1>
+            </div>
+            <div class="row">
+              <div class="columns medium-6 show-grid">
+                <img interchange="[assets/img/space-small.jpg, (small)],
+                  [assets/img/space-medium.jpg, (medium)],
+                  [assets/img/space-large.jpg, (large)]"
+     src="assets/img/space-small.jpg">
+
+<p class="panel">Resize the window to update the content</p>
+
+              </div>
+              <div class="columns medium-6">
+                <p>Interchange uses media queries to dynamically load responsive content that is appropriate for different screen sizes.</p>
+
+<p>You can use Interchange with different content types:</p>
+
+<ul>
+<li><em>HTML templates:</em> by linking a rule with html files to a <code>div</code> tag</li>
+<li><em>Images:</em> through an interchange rule to an <code>img</code> tag</li>
+<li><em>Background-images</em> through linking a rule with picture files to a <code>div</code> tag</li>
+</ul>
+
+<p>Custom named queries are available via the method <code>add</code> of the <code>interchangeQueriesManager</code> factory. You just need to provide the name and media type desired.</p>
+
+<p>Like the original, <code>replace</code> events are available when an Interchange element switch to another media query.</p>
+
+<p>For more information, check out <a href="http://foundation.zurb.com/docs/components/interchange.html">the docs for the original Interchange component</a>.</p>
+
+<p><em>Images courtesy of the official ZURB Foundation documentation.</em></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row code">
+              <div class="columns medium-12" ng-controller="PlunkerCtrl">
+                <div class="right">
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'interchange')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                </div>
+                <tabset>
+                  <tab heading="Markup">
+                    <div plunker-content="markup">
+                      <pre ng-non-bindable><code data-language="html">&lt;img interchange=&quot;[assets/img/space-small.jpg, (small)],
+                  [assets/img/space-medium.jpg, (medium)],
+                  [assets/img/space-large.jpg, (large)]&quot;
+     src=&quot;assets/img/space-small.jpg&quot;&gt;
+
+&lt;p class=&quot;panel&quot;&gt;Resize the window to update the content&lt;/p&gt;
+</code></pre>
+                    </div>
+                  </tab>
+                  <tab heading="JavaScript">
+                    <div plunker-content="javascript">
+                      <pre ng-non-bindable><code data-language="javascript">// No controller required</code></pre>
+                    </div>
+                  </tab>
+                </tabset>
+              </div>
+            </div>
+          </section>
+          <script>// No controller required</script>
+        
           <section class="demo" id="modal">
             <div class="page-header">
               <h1>Modal<small>
@@ -590,7 +657,7 @@ Those methods make it easy to close a modal window without a need to create a de
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'modal')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'modal')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -778,7 +845,7 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'offcanvas')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'offcanvas')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -941,7 +1008,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'pagination')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'pagination')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1026,12 +1093,10 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
     
     <hr />
     <h4>Positional</h4>
-    <div>
-      <button popover-placement="top" popover="On the Top!" class="button">Top</button>
-      <button popover-placement="left" popover="On the Left!" class="button">Left</button>
-      <button popover-placement="right" popover="On the Right!" class="button">Right</button>
-      <button popover-placement="bottom" popover="On the Bottom!" class="button">Bottom</button>
-    </div>
+    <button popover-placement="top" popover="On the Top!" class="button">Top</button>
+    <button popover-placement="left" popover="On the Left!" class="button">Left</button>
+    <button popover-placement="right" popover="On the Right!" class="button">Right</button>
+    <button popover-placement="bottom" popover="On the Bottom!" class="button">Bottom</button>
     
     <hr />
     <h4>Triggers</h4>
@@ -1042,10 +1107,8 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
 
     <hr />
     <h4>Other</h4>
-    <div>
-      <button Popover-animation="true" popover="I fade in and out!" class="button">fading</button>
-      <button popover="I have a title!" popover-title="The title." class="button">title</button>
-    </div>
+    <button Popover-animation="true" popover="I fade in and out!" class="button">fading</button>
+    <button popover="I have a title!" popover-title="The title." class="button">title</button>
 </div>
 
               </div>
@@ -1082,7 +1145,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'popover')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'popover')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1102,12 +1165,10 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     
     &lt;hr /&gt;
     &lt;h4&gt;Positional&lt;/h4&gt;
-    &lt;div&gt;
-      &lt;button popover-placement=&quot;top&quot; popover=&quot;On the Top!&quot; class=&quot;button&quot;&gt;Top&lt;/button&gt;
-      &lt;button popover-placement=&quot;left&quot; popover=&quot;On the Left!&quot; class=&quot;button&quot;&gt;Left&lt;/button&gt;
-      &lt;button popover-placement=&quot;right&quot; popover=&quot;On the Right!&quot; class=&quot;button&quot;&gt;Right&lt;/button&gt;
-      &lt;button popover-placement=&quot;bottom&quot; popover=&quot;On the Bottom!&quot; class=&quot;button&quot;&gt;Bottom&lt;/button&gt;
-    &lt;/div&gt;
+    &lt;button popover-placement=&quot;top&quot; popover=&quot;On the Top!&quot; class=&quot;button&quot;&gt;Top&lt;/button&gt;
+    &lt;button popover-placement=&quot;left&quot; popover=&quot;On the Left!&quot; class=&quot;button&quot;&gt;Left&lt;/button&gt;
+    &lt;button popover-placement=&quot;right&quot; popover=&quot;On the Right!&quot; class=&quot;button&quot;&gt;Right&lt;/button&gt;
+    &lt;button popover-placement=&quot;bottom&quot; popover=&quot;On the Bottom!&quot; class=&quot;button&quot;&gt;Bottom&lt;/button&gt;
     
     &lt;hr /&gt;
     &lt;h4&gt;Triggers&lt;/h4&gt;
@@ -1118,10 +1179,8 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
 
     &lt;hr /&gt;
     &lt;h4&gt;Other&lt;/h4&gt;
-    &lt;div&gt;
-      &lt;button Popover-animation=&quot;true&quot; popover=&quot;I fade in and out!&quot; class=&quot;button&quot;&gt;fading&lt;/button&gt;
-      &lt;button popover=&quot;I have a title!&quot; popover-title=&quot;The title.&quot; class=&quot;button&quot;&gt;title&lt;/button&gt;
-    &lt;/div&gt;
+    &lt;button Popover-animation=&quot;true&quot; popover=&quot;I fade in and out!&quot; class=&quot;button&quot;&gt;fading&lt;/button&gt;
+    &lt;button popover=&quot;I have a title!&quot; popover-title=&quot;The title.&quot; class=&quot;button&quot;&gt;title&lt;/button&gt;
 &lt;/div&gt;
 </code></pre>
                     </div>
@@ -1204,7 +1263,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'progressbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'progressbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1365,7 +1424,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'rating')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'rating')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1513,7 +1572,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'tabs')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'tabs')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1697,7 +1756,7 @@ appendToBody: false
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'tooltip')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'tooltip')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1758,6 +1817,118 @@ appendToBody: false
   $scope.dynamicTooltip = "Hello, World!";
   $scope.dynamicTooltipText = "dynamic";
   $scope.htmlTooltip = "I've been made <b>bold</b>!";
+};
+</script>
+        
+          <section class="demo" id="topbar">
+            <div class="page-header">
+              <h1>Topbar<small>
+                (<a target="_blank" href="https://github.com/madmimi/angular-foundation/tree/master/src/topbar">mm.foundation.topbar</a>)
+              </small></h1>
+            </div>
+            <div class="row">
+              <div class="columns medium-6 show-grid">
+                <div ng-controller="TopBarDemoCtrl">
+  <top-bar>
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="#">My Site</a></h1>
+      </li>
+      <li toggle-top-bar class="menu-icon"><a href="#">Menu</a></li>
+    </ul>
+
+    <top-bar-section>
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="active"><a href="#">Active</a></li>
+        <li has-dropdown>
+          <a href="#">Dropdown</a>
+          <ul top-bar-dropdown>
+            <li><a href="#">First link in dropdown</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li><a href="#">Left</a></li>
+      </ul>
+    </top-bar-section>
+  </top-bar>
+</div>
+              </div>
+              <div class="columns medium-6">
+                <p>A directive that provides the <a href="http://foundation.zurb.com/docs/components/topbar.html">Foundation Top Bar</a> component.</p>
+
+<p>The directive has virtually identical behavior to Foundation Top Bar. The markup however, is slightly different. The top bar consist of a root <code>top-bar</code> element with nested <code>top-bar-section</code> elements that encapsulate menus. The <code>title-area</code> list is also a direct descendant of the root element. The mobile menu toggle is created by adding the <code>toggle-top-bar</code> attribute to a <code>li</code> element inside the title area. Applying <code>menu-icon</code> class to this element will trigger the icon as determined by the Foundation CSS. <code>li</code> elements that contain nested menus need to have the <code>has-dropdown</code> attribute. The nested list itself should have the <code>top-bar-dropdown</code> attribute.</p>
+
+<p>The following settings can be applied as attributes to the <code>top-bar</code> element:</p>
+
+<ul>
+<li><code>sticky-class</code>: Class name that will trigger sticky behavior.</li>
+<li><code>custom-back-text</code>: Set this to false and it will pull the top level link name as the back text.</li>
+<li><code>back-text</code>: Define what you want your custom back text to be if custom-back-text is set.</li>
+<li><code>is-hover</code>: Toggle drop down menus on hover.</li>
+<li><code>mobile-show-parent-link</code>: will copy parent links into dropdowns for mobile navigation.</li>
+<li><code>scrolltop</code>: jump to top when sticky nav menu toggle is clicked</li>
+</ul>
+
+<p>See the demo page for example on how to use this and visit the <a href="http://foundation.zurb.com/docs/components/topbar.html">Foundation docs</a> for more details.</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row code">
+              <div class="columns medium-12" ng-controller="PlunkerCtrl">
+                <div class="right">
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'topbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                </div>
+                <tabset>
+                  <tab heading="Markup">
+                    <div plunker-content="markup">
+                      <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;TopBarDemoCtrl&quot;&gt;
+  &lt;top-bar&gt;
+    &lt;ul class=&quot;title-area&quot;&gt;
+      &lt;li class=&quot;name&quot;&gt;
+        &lt;h1&gt;&lt;a href=&quot;#&quot;&gt;My Site&lt;/a&gt;&lt;/h1&gt;
+      &lt;/li&gt;
+      &lt;li toggle-top-bar class=&quot;menu-icon&quot;&gt;&lt;a href=&quot;#&quot;&gt;Menu&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;top-bar-section&gt;
+      &lt;!-- Right Nav Section --&gt;
+      &lt;ul class=&quot;right&quot;&gt;
+        &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#&quot;&gt;Active&lt;/a&gt;&lt;/li&gt;
+        &lt;li has-dropdown&gt;
+          &lt;a href=&quot;#&quot;&gt;Dropdown&lt;/a&gt;
+          &lt;ul top-bar-dropdown&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;First link in dropdown&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+
+      &lt;!-- Left Nav Section --&gt;
+      &lt;ul class=&quot;left&quot;&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Left&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/top-bar-section&gt;
+  &lt;/top-bar&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                  </tab>
+                  <tab heading="JavaScript">
+                    <div plunker-content="javascript">
+                      <pre ng-non-bindable><code data-language="javascript">var TopBarDemoCtrl = function ($scope) {
+
+};
+</code></pre>
+                    </div>
+                  </tab>
+                </tabset>
+              </div>
+            </div>
+          </section>
+          <script>var TopBarDemoCtrl = function ($scope) {
+
 };
 </script>
         
@@ -1832,7 +2003,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'tour')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'tour')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1961,7 +2132,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.8', '5.0.2', '0.2.2', 'typeahead')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.3.0', 'typeahead')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -2143,7 +2314,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
   </div>
   <div class="modal-footer">
     <a class="button" ng-click="cancel()">Cancel</a>
-    <a class="button" ng-click="download('0.2.2')"><i class="fa fa-download"></i> Download 0.2.2</a>
+    <a class="button" ng-click="download('0.3.0')"><i class="fa fa-download"></i> Download 0.3.0</a>
   </div>
 </script>
 
