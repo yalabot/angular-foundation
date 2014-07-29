@@ -432,7 +432,6 @@ angular.module("mm.foundation.topbar", [])
                     element.unbind('click');
                     element.unbind('mouseenter');
                     element.unbind('mouseleave');
-                    topBarSection.removeDropdown($scope);
                 });
             },
             controller: ['$window', '$scope', function($window, $scope) {
