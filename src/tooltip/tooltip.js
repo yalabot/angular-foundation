@@ -132,6 +132,49 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               ttWidth = tooltip.prop( 'offsetWidth' );
               ttHeight = tooltip.prop( 'offsetHeight' );
 
+              // Change tooltop positioning when overflowing the body is unavoidable.
+              // TODO: Check if it's possible to avoid top or bottom overflows by moving the tooltip
+              // down an and repositioning the nub
+
+              var elScreenPos = $position.offset(element),
+                top_overflow,
+                bottom_overflow,
+                right_overflow,
+                left_overflow;
+
+              if ( scope.tt_placement === 'left' || scope.tt_placement === 'right') {
+                  right_overflow = ((elScreenPos.left + position.width + 10) - document.body.clientWidth) > 0;
+                  left_overflow = (elScreenPos.left - ttWidth - 10) < 0;
+                  top_overflow = (elScreenPos.top + position.height / 2 - ttHeight / 2) < 0;
+                  bottom_overflow = (elScreenPos.top + position.height / 2 - ttHeight / 2 + ttHeight - document.body.clientHeight) > 0;
+
+                  // There will be space either at the top or bottom.
+                  // If there is no space at the bottom the page will resize
+                  if(top_overflow){
+                    scope.tt_placement = 'bottom';
+                  } else if(bottom_overflow){
+                    scope.tt_placement = 'top';
+                  } else if (right_overflow && !left_overflow) {
+                    scope.tt_placement = 'left';
+                  } else if (!right_overflow && left_overflow) {
+                    scope.tt_placement = 'right';
+                  }
+
+              } else if ( scope.tt_placement === 'top' || scope.tt_placement === 'bottom') {
+                top_overflow = (elScreenPos.top - ttHeight - 10) < 0;
+
+                // The body can resize to accomodate a bottom tooltip?
+
+                // var bottom_overflow = (elScreenPos.top + position.height + 10 + ttHeight - document.body.clientHeight) > 0;
+                // if(!top_overflow && bottom_overflow) {
+                //   scope.tt_placement = 'top';
+                // } else
+
+                if(top_overflow) {
+                  scope.tt_placement = 'bottom';
+                }
+              }
+
               // Calculate the tooltip's top and left coordinates to center it with
               // this directive.
               switch ( scope.tt_placement ) {
@@ -160,6 +203,21 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
                   };
                   break;
               }
+
+              // Move the tooltip if it overflows to the right or left
+              if(scope.tt_placement === 'bottom' || scope.tt_placement === 'top'){
+                  var overflow = (elScreenPos.left + ttWidth) - document.body.clientWidth;
+
+                  if(overflow > 0){
+                    ttPosition.left -= overflow + 10;
+                    // reposition the nub
+                    var nub = tooltip[0].querySelector('.joyride-nub');
+                    if(nub){
+                      angular.element(nub).css({'left': overflow + 10 + 'px'});
+                    }
+                  }
+              }
+
 
               ttPosition.top += 'px';
               ttPosition.left += 'px';

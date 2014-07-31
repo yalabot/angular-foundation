@@ -11,7 +11,8 @@ The tooltip directives provide several optional attributes to control how they
 will display:
 
 - `tooltip-placement`: Where to place it? Defaults to "top", but also accepts
-  "bottom", "left", "right".
+  "bottom", "left", "right". The specified value will not be honored if there is
+  not enough space on screen.
 - `tooltip-animation`: Should it fade in and out? Defaults to "true".
 - `tooltip-popup-delay`: For how long should the user have to have the mouse
   over the element before the tooltip shows (in milliseconds)? Defaults to 0.

@@ -222,9 +222,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
         resetMatches();
 
         //return focus to the input element if a mach was selected via a mouse click event
-        $timeout(function(){
-            element[0].focus();
-        });
+        element[0].focus();
       };
 
       //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
