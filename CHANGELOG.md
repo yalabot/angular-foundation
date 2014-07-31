@@ -1,14 +1,21 @@
-<a name="v0.2.2"></a>
-### v0.2.2 (2014-05-28)
+<a name="v0.3.0"></a>
+# v0.3.0 (2014-07-14)
 
-#### Bug Fixes
+## Features
+* **topbar:**
+  - New `topbar` component
+* **interchange:**
+  - New `interchange` component
+
+<a name="v0.2.2"></a>
+# v0.2.2 (2014-05-28)
+## Bug Fixes
 * **tour:** Fix tour. It was broken when its primary directive was renamed to `step-text`. ([f92ddf3](https://github.com/madmimi/angular-foundation/commit/f92ddf3b8ea16da762fef1ee4f854ab864d255e3), closes [#50](http://github.com/madmimi/angular-foundation/issues/50))
 * **tour:** Added some basic specs for tour. ([b4ee50fa2](https://github.com/madmimi/angular-foundation/commit/b4ee50fa268d8578d836b898dc6d19015bf1526f))
 
 <a name="v0.2.1"></a>
-### v0.2.1 (2014-05-20)
-
-#### Bug Fixes
+# v0.2.1 (2014-05-20)
+## Bug Fixes
 
 * **dropdownToggle:** Fix issue with prevent event defaults. ([49a079c5](http://github.com/madmimi/angular-foundation/commit/49a079c54c15cd5db04fa3c1bbdf435c4bdd390c), closes [#47](http://github.com/madmimi/angular-foundation/issues/47))
 
@@ -16,18 +23,18 @@
 
 ## Features
 
-- **offcanvas:** 
-  - New offcanvas component ([1f6f3bd9](http://github.com/madmimi/angular-foundation/commit/1f6f3bd9))   
+- **offcanvas:**
+  - New offcanvas component ([1f6f3bd9](http://github.com/madmimi/angular-foundation/commit/1f6f3bd9))
 
 ## Bug Fixes
 
-- **all:** 
+- **all:**
   - fix plunker ([aebade40](http://github.com/madmimi/angular-foundation/commit/aebade40))  
-- **dropdownToggle:** 
+- **dropdownToggle:**
   - Refactor test and fix initial hiding of dropdown target ([26e8c5a0](http://github.com/madmimi/angular-foundation/commit/26e8c5a0))  
-- **offcanvas:** 
+- **offcanvas:**
   - Removed unused isolated scopes that may conflict with other diretives. ([980624cf](http://github.com/madmimi/angular-foundation/commit/980624cf))  
-  - Fix spec ([0fe989ad](http://github.com/madmimi/angular-foundation/commit/0fe989ad))   
+  - Fix spec ([0fe989ad](http://github.com/madmimi/angular-foundation/commit/0fe989ad))
 
 <a name="0.1.0"></a>
 ## 0.1.0 (2014-02-06)

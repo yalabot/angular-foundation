@@ -20,7 +20,7 @@ module.exports = function(grunt) {
       modules: 'angular.module("mm.foundation", [<%= srcModules %>]);',
       tplmodules: 'angular.module("mm.foundation.tpls", [<%= tplModules %>]);',
       all: 'angular.module("mm.foundation", ["mm.foundation.tpls", <%= srcModules %>]);',
-      banner: ['/*', 
+      banner: ['/*',
                ' * <%= pkg.name %>',
                ' * <%= pkg.homepage %>\n',
                ' * Version: <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>',
@@ -156,12 +156,12 @@ module.exports = function(grunt) {
         github: 'madmimi/angular-foundation'
       }
     },
-    shell: {
+    release: {
       //We use %version% and evluate it at run-time, because <%= pkg.version %>
       //is only evaluated once
       'release-prepare': [
-        'grunt before-test after-test',
         'grunt version', //remove "-SNAPSHOT"
+        'grunt before-test after-test',
         'grunt changelog'
       ],
       'release-complete': [
@@ -385,7 +385,7 @@ module.exports = function(grunt) {
     setVersion(this.args[0], this.args[1]);
   });
 
-  grunt.registerMultiTask('shell', 'run shell commands', function() {
+  grunt.registerMultiTask('release', 'release a new version', function() {
     var self = this;
     var sh = require('shelljs');
     self.data.forEach(function(cmd) {

@@ -30,6 +30,7 @@ angular.module('myModule', ['mm.foundation']);
 * Dropdowns
 * Tabs
 * Offcanvas
+* Interchange
 
 We'd gladly accept contributions for any remaining components.
 
