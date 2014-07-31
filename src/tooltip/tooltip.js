@@ -137,40 +137,40 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               // down an and repositioning the nub
 
               var elScreenPos = $position.offset(element),
-                top_overflow,
-                bottom_overflow,
-                right_overflow,
-                left_overflow;
+                topOverflow,
+                bottomOverflow,
+                rightOverflow,
+                leftOverflow;
 
               if ( scope.tt_placement === 'left' || scope.tt_placement === 'right') {
-                  right_overflow = ((elScreenPos.left + position.width + 10) - document.body.clientWidth) > 0;
-                  left_overflow = (elScreenPos.left - ttWidth - 10) < 0;
-                  top_overflow = (elScreenPos.top + position.height / 2 - ttHeight / 2) < 0;
-                  bottom_overflow = (elScreenPos.top + position.height / 2 - ttHeight / 2 + ttHeight - document.body.clientHeight) > 0;
+                  rightOverflow = ((elScreenPos.left + position.width + 10) - document.body.clientWidth) > 0;
+                  leftOverflow = (elScreenPos.left - ttWidth - 10) < 0;
+                  topOverflow = (elScreenPos.top + position.height / 2 - ttHeight / 2) < 0;
+                  bottomOverflow = (elScreenPos.top + position.height / 2 - ttHeight / 2 + ttHeight - document.body.clientHeight) > 0;
 
                   // There will be space either at the top or bottom.
                   // If there is no space at the bottom the page will resize
-                  if(top_overflow){
+                  if(topOverflow){
                     scope.tt_placement = 'bottom';
-                  } else if(bottom_overflow){
+                  } else if(bottomOverflow){
                     scope.tt_placement = 'top';
-                  } else if (right_overflow && !left_overflow) {
+                  } else if (rightOverflow && !leftOverflow) {
                     scope.tt_placement = 'left';
-                  } else if (!right_overflow && left_overflow) {
+                  } else if (!rightOverflow && leftOverflow) {
                     scope.tt_placement = 'right';
                   }
 
               } else if ( scope.tt_placement === 'top' || scope.tt_placement === 'bottom') {
-                top_overflow = (elScreenPos.top - ttHeight - 10) < 0;
+                topOverflow = (elScreenPos.top - ttHeight - 10) < 0;
 
                 // The body can resize to accomodate a bottom tooltip?
 
-                // var bottom_overflow = (elScreenPos.top + position.height + 10 + ttHeight - document.body.clientHeight) > 0;
-                // if(!top_overflow && bottom_overflow) {
+                // var bottomOverflow = (elScreenPos.top + position.height + 10 + ttHeight - document.body.clientHeight) > 0;
+                // if(!topOverflow && bottomOverflow) {
                 //   scope.tt_placement = 'top';
                 // } else
 
-                if(top_overflow) {
+                if(topOverflow) {
                   scope.tt_placement = 'bottom';
                 }
               }
