@@ -112,6 +112,16 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
           var tooltipLinker = $compile( template );
 
           return function link ( scope, element, attrs ) {
+
+            // Specify a tooltip for another element via css selectors
+            if(attrs.selector){
+              var target = $document[0].querySelector(attrs.selector);
+              if(!target){
+                throw new Error("Unable to locate: " + attrs.selector);
+              }
+              element = angular.element(target);
+            }
+
             var tooltip;
             var transitionTimeout;
             var popupTimeout;

@@ -26,6 +26,12 @@
       I can even contain HTML. <a href="#" class="has-tip" tooltip-html-unsafe="{{htmlTooltip}}">Check me out!</a>
     </p>
 
+    <p>
+        <a href="#" id="tooltip-id" class="has-tip">My tooltip is specified via selector attribute on another element.</a>
+    </p>
+
+    <span tooltip="I'm specified elsewhere." tooltip-placement="right" selector="#tooltip-id"></span>
+
     <form role="form">
       <div class="form-group">
         <label>Or use custom triggers, like focus: </label>

@@ -18,6 +18,7 @@ will display:
 - `tooltip-trigger`: What should trigger a show of the tooltip?
 - `tooltip-append-to-body`: Should the tooltip be appended to `$body` instead of
   the parent element?
+- `selector`: CSS selector that specifies the element that should display the tooltip.
 
 The tooltip directives require the `$position` service.
 
