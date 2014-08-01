@@ -65,7 +65,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
    * TODO support multiple triggers
    */
   this.$get = [ '$window', '$compile', '$timeout', '$parse', '$document', '$position', '$interpolate', function ( $window, $compile, $timeout, $parse, $document, $position, $interpolate ) {
-    return function $tooltip ( type, prefix, defaultTriggerShow ) {
+    return function $tooltip ( type, prefix, defaultTriggerShow) {
       var options = angular.extend( {}, defaultOptions, globalOptions );
 
       /**
@@ -230,6 +230,20 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
             // By default, the tooltip is not open.
             // TODO add ability to start tooltip opened
             scope.tt_isOpen = false;
+
+            // Reposition tooltip on resize
+            var resizeFn = function() {
+              if(scope.tt_isOpen){
+                positionTooltip();
+              }
+            };
+
+            var win = angular.element($window);
+            win.bind('resize', resizeFn);
+
+            scope.$on('$destroy', function(){
+              win.unbind('resize', resizeFn);
+            });
 
             function toggleTooltipBind () {
               if ( ! scope.tt_isOpen ) {
