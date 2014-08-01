@@ -111,10 +111,10 @@ angular.module("mm.foundation.topbar", [])
 
                     var distance = stickyoffset;
                     if (true) {
-                        if (win.scrollTop() > distance && !$class.hasClass('fixed')) {
+                        if ($window.scrollY > distance && !$class.hasClass('fixed')) {
                             $class.addClass('fixed');
                             body.css('padding-top', $scope.originalHeight + 'px');
-                        } else if (win.scrollTop() <= distance && $class.hasClass('fixed')) {
+                        } else if ($window.scrollY <= distance && $class.hasClass('fixed')) {
                             $class.removeClass('fixed');
                             body.css('padding-top', '');
                         }
