@@ -113,14 +113,19 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
 
           return function link ( scope, element, attrs ) {
 
-            // Specify a tooltip for another element via css selectors
-            if(attrs.selector){
+            // Dom manipulations may result in finding the wrong element with selectors.
+            // A getter function lets us postpone the search.
+            var getElement = function(){
+              if(!attrs.selector){
+                return element;
+              }
+
               var target = $document[0].querySelector(attrs.selector);
               if(!target){
                 throw new Error("Unable to locate: " + attrs.selector);
               }
-              element = angular.element(target);
-            }
+              return angular.element(target);
+            };
 
             var tooltip;
             var transitionTimeout;
@@ -131,6 +136,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
             var hasEnableExp = angular.isDefined(attrs[prefix+'Enable']);
 
             var positionTooltip = function (){
+              var element = getElement();
               var position,
                 ttWidth,
                 ttHeight,
@@ -212,7 +218,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
 
             // Show the tooltip popup element.
             function show() {
-
+              var element = getElement();
 
               // Don't show empty tooltips.
               if ( ! scope.tt_content ) {
