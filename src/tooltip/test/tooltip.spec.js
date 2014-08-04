@@ -49,11 +49,6 @@ describe('tooltip', function() {
     expect( elmScope.tt_animation ).toBe( false );
   }));
 
-  // it('should have default placement of "top"', inject(function() {
-  //   elm.trigger( 'mouseenter' );
-  //   expect( elmScope.tt_placement ).toBe( "top" );
-  // }));
-
   it('should allow specification of placement', inject( function( $compile ) {
     elm = $compile( angular.element( 
       '<span tooltip="tooltip text" tooltip-placement="bottom">Selector Text</span>' 
