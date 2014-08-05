@@ -99,8 +99,15 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         $timeout(function () {
           // trigger CSS transitions
           scope.animate = true;
-          // focus a freshly-opened modal
-          element[0].focus();
+
+          // If the modal contains any autofocus elements refocus onto the first one
+          if (element[0].querySelectorAll('[autofocus]').length > 0) {
+            element[0].querySelectorAll('[autofocus]')[0].focus();
+          }
+          else{
+          // otherwise focus the freshly-opened modal
+            element[0].focus();
+          }
         });
       }
     };
