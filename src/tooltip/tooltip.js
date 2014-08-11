@@ -158,7 +158,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
                     scope.tt_placement = 'left';
                   } else if (!rightOverflow && leftOverflow) {
                     scope.tt_placement = 'right';
-                  } else if (right_overflow && left_overflow) {
+                  } else if (rightOverflow && leftOverflow) {
                     scope.tt_placement = 'bottom';
                   }
 
