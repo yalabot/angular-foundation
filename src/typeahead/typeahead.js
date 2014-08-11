@@ -12,7 +12,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
   return {
     parse:function (input) {
 
-      var match = input.match(TYPEAHEAD_REGEXP), modelMapper, viewMapper, source;
+      var match = input.match(TYPEAHEAD_REGEXP);
       if (!match) {
         throw new Error(
           "Expected typeahead specification in form of '_modelValue_ (as _label_)? for _item_ in _collection_'" +
@@ -141,7 +141,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
       //we need to propagate user's query so we can higlight matches
       scope.query = undefined;
 
-      //Declare the timeout promise var outside the function scope so that stacked calls can be cancelled later 
+      //Declare the timeout promise var outside the function scope so that stacked calls can be cancelled later
       var timeoutPromise;
 
       //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
