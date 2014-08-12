@@ -38,6 +38,10 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
     require:'ngModel',
     link:function (originalScope, element, attrs, modelCtrl) {
 
+      // If typehead is applied to a non input element, find the first child input
+      var inputEl = element[0].querySelector('input');
+      inputEl = inputEl && angular.element(inputEl) || element;
+
       //SUPPORTED ATTRIBUTES (OPTIONS)
 
       //minimal no of characters that needs to be entered before typeahead kicks-in
@@ -122,7 +126,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
               //position pop-up with matches - we need to re-calculate its position each time we are opening a window
               //with matches as a pop-up might be absolute-positioned and position of an input might have changed on a page
               //due to other elements being rendered
-              scope.position = appendToBody ? $position.offset(element) : $position.position(element);
+              scope.position = appendToBody ? $position.offset(inputEl) : $position.position(inputEl);
               scope.position.top = scope.position.top + element.prop('offsetHeight');
 
             } else {
@@ -220,11 +224,11 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
         resetMatches();
 
         //return focus to the input element if a mach was selected via a mouse click event
-        element[0].focus();
+        inputEl[0].focus();
       };
 
       //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
-      element.bind('keydown', function (evt) {
+      inputEl.bind('keydown', function (evt) {
 
         //typeahead is open and an "interesting" key was pressed
         if (scope.matches.length === 0 || HOT_KEYS.indexOf(evt.which) === -1) {
@@ -254,17 +258,17 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
         }
       });
 
-      element.bind('blur', function (evt) {
+      inputEl.bind('blur', function (evt) {
         hasFocus = false;
       });
 
-      element.bind('focus', function (evt) {
+      inputEl.bind('focus', function (evt) {
         hasFocus = true;
       });
 
       // Keep reference to click handler to unbind it.
       var dismissClickHandler = function (evt) {
-        if (element[0] !== evt.target) {
+        if (inputEl[0] !== evt.target) {
           resetMatches();
           scope.$digest();
         }
@@ -280,7 +284,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
       if ( appendToBody ) {
         $document.find('body').append($popup);
       } else {
-        element.after($popup);
+        inputEl.after($popup);
       }
     }
   };
