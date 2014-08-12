@@ -12,7 +12,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
   return {
     parse:function (input) {
 
-      var match = input.match(TYPEAHEAD_REGEXP), modelMapper, viewMapper, source;
+      var match = input.match(TYPEAHEAD_REGEXP);
       if (!match) {
         throw new Error(
           "Expected typeahead specification in form of '_modelValue_ (as _label_)? for _item_ in _collection_'" +
@@ -141,14 +141,12 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
       //we need to propagate user's query so we can higlight matches
       scope.query = undefined;
 
-      //Declare the timeout promise var outside the function scope so that stacked calls can be cancelled later 
+      //Declare the timeout promise var outside the function scope so that stacked calls can be cancelled later
       var timeoutPromise;
 
       //plug into $parsers pipeline to open a typeahead on view changes initiated from DOM
       //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
       modelCtrl.$parsers.unshift(function (inputValue) {
-
-        hasFocus = true;
 
         if (inputValue && inputValue.length >= minSearch) {
           if (waitTime > 0) {
@@ -222,9 +220,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
         resetMatches();
 
         //return focus to the input element if a mach was selected via a mouse click event
-        $timeout(function(){
-            element[0].focus();
-        });
+        element[0].focus();
       };
 
       //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
@@ -260,6 +256,10 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
 
       element.bind('blur', function (evt) {
         hasFocus = false;
+      });
+
+      element.bind('focus', function (evt) {
+        hasFocus = true;
       });
 
       // Keep reference to click handler to unbind it.
