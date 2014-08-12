@@ -141,8 +141,13 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
                 rightOverflow,
                 leftOverflow;
 
+              var isSmall = document.body.clientWidth < 800;
+
               // Deal with right and left oveflows
-              if ( scope.tt_placement === 'left' || scope.tt_placement === 'right') {
+              if(isSmall){
+                  scope.tt_placement = 'bottom';
+              }
+              else if (scope.tt_placement === 'left' || scope.tt_placement === 'right') {
                   rightOverflow = ((elScreenPos.left + position.width + 10) - document.body.scrollWidth) > 0;
                   leftOverflow = (elScreenPos.left - ttWidth - 10) < 0;
                   topOverflow = (elScreenPos.top + position.height / 2 - ttHeight / 2) < 0;
