@@ -113,8 +113,8 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
     };
   }])
 
-  .factory('$modalStack', ['$transition', '$timeout', '$document', '$compile', '$rootScope', '$$stackedMap',
-    function ($transition, $timeout, $document, $compile, $rootScope, $$stackedMap) {
+  .factory('$modalStack', ['$window', '$transition', '$timeout', '$document', '$compile', '$rootScope', '$$stackedMap',
+    function ($window, $transition, $timeout, $document, $compile, $rootScope, $$stackedMap) {
 
       var OPENED_MODAL_CLASS = 'modal-open';
 
@@ -229,7 +229,9 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
           body.append(backdropDomEl);
         }
           
-        var angularDomEl = angular.element('<div modal-window></div>');
+        var openAt = window.outerWidth > 800 ? $window.scrollY + 100 : $window.scrollY;
+
+        var angularDomEl = angular.element('<div modal-window style="top:' + openAt +'px;"></div>');
         angularDomEl.attr('window-class', modal.windowClass);
         angularDomEl.attr('index', openedWindows.length() - 1);
         angularDomEl.attr('animate', 'animate');
