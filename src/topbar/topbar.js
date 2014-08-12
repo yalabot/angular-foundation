@@ -183,15 +183,29 @@ angular.module("mm.foundation.topbar", [])
                     }
                 });
 
+                var lastBreakpoint;
+                $timeout(function(){
+                    lastBreakpoint = $scope.breakpoint();
+                });                
+
                 win.bind('resize', function(){
+                    var currentBreakpoint = $scope.breakpoint();
+                    if(lastBreakpoint === currentBreakpoint){
+                        return;
+                    }
+                    lastBreakpoint = $scope.breakpoint();
+
+                    topbar.removeClass('expanded');
+                    topbar.parent().removeClass('expanded');
+                    $scope.height = '';
+
                     var sections = angular.element(topbar[0].querySelectorAll('section'));
                     angular.forEach(sections, function(section){
                         angular.element(section.querySelectorAll('li.moved')).removeClass('moved');
                     });
-                    topbar.removeClass('expanded');
-                    $scope.height = '';
+
                     $scope.$apply();
-                });
+                 });
 
                 // update sticky positioning
                 win.bind("scroll", function() {
