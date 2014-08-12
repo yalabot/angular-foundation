@@ -143,10 +143,10 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
 
               // Deal with right and left oveflows
               if ( scope.tt_placement === 'left' || scope.tt_placement === 'right') {
-                  rightOverflow = ((elScreenPos.left + position.width + 10) - document.body.clientWidth) > 0;
+                  rightOverflow = ((elScreenPos.left + position.width + 10) - document.body.scrollWidth) > 0;
                   leftOverflow = (elScreenPos.left - ttWidth - 10) < 0;
                   topOverflow = (elScreenPos.top + position.height / 2 - ttHeight / 2) < 0;
-                  bottomOverflow = (elScreenPos.top + position.height / 2 - ttHeight / 2 + ttHeight - document.body.clientHeight) > 0;
+                  bottomOverflow = (elScreenPos.top + position.height / 2 - ttHeight / 2 + ttHeight - document.body.scrollHeight) > 0;
 
                   // There will be space either at the top or bottom.
                   // If there is no space at the bottom the page will resize
@@ -211,7 +211,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
 
               // Move the tooltip if it overflows to the right or left
               if(scope.tt_placement === 'bottom' || scope.tt_placement === 'top'){
-                  var overflow = (elScreenPos.left + ttWidth) - document.body.clientWidth;
+                  var overflow = (elScreenPos.left + ttWidth) - document.body.scrollWidth;
 
                   if(overflow > 0){
                     // Move the tooltip
