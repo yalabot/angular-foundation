@@ -116,13 +116,13 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
             // Dom manipulations may result in finding the wrong element with selectors.
             // A getter function lets us postpone the search.
             var getElement = function(){
-              if(!attrs.selector){
+              if(!attrs.attachTo){
                 return element;
               }
 
-              var target = $document[0].querySelector(attrs.selector);
+              var target = $document[0].querySelector(attrs.attachTo);
               if(!target){
-                throw new Error("Unable to locate: " + attrs.selector);
+                throw new Error("Unable to locate: " + attrs.attachTo);
               }
               return angular.element(target);
             };
@@ -317,6 +317,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
 
             var unregisterTriggers = function() {
               if (hasRegisteredTriggers) {
+                var element = getElement();
                 element.unbind( triggers.show, showTooltipBind );
                 element.unbind( triggers.hide, hideTooltipBind );
               }
@@ -325,6 +326,8 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
             var unregisterTriggerFunction = function () {};
 
             attrs.$observe( prefix+'Trigger', function ( val ) {
+              var element = getElement();
+              
               unregisterTriggers();
               unregisterTriggerFunction();
 
