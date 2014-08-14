@@ -106,7 +106,7 @@ angular.module("mm.foundation.topbar", [])
                     if (!$scope.stickyTopbar || !$scope.isSticky()) {
                         return;
                     }
-                    
+
                     var $class = angular.element($document[0].querySelector('.' + $scope.settings.stickyClass));
 
                     var distance = stickyoffset;
@@ -118,14 +118,14 @@ angular.module("mm.foundation.topbar", [])
                             $class.removeClass('fixed');
                             body.css('padding-top', '');
                         }
-                    }  
+                    }
                 };
 
                 $scope.toggle = function(on) {
                     if(!$scope.breakpoint()){
                         return false;
                     }
-                    
+
                     var expand = (on === undefined) ? !topbar.hasClass('expanded') : on;
 
                     if (expand){
@@ -210,7 +210,7 @@ angular.module("mm.foundation.topbar", [])
 
             },
             controller: ['$window', '$scope', 'closest', function($window, $scope, closest) {
-            
+
                 $scope.settings = {};
                 $scope.settings.stickyClass = $scope.stickyClass || 'sticky';
                 $scope.settings.backText = $scope.backText || 'Back';
@@ -284,7 +284,7 @@ angular.module("mm.foundation.topbar", [])
                     if($scope.index < 1 || !breakpoint()){
                         return;
                     }
-                    
+
                     var $link = angular.element(event.currentTarget);
                     var $movedLi = closest($link, 'li.moved');
                     var $previousLevelUl = $movedLi.parent();
@@ -349,7 +349,7 @@ angular.module("mm.foundation.topbar", [])
             transclude: true,
             link: function ($scope, element, attrs, topBar) {
                 var section = element;
-                
+
                 $scope.reset = function(){
                     angular.element(section[0].querySelectorAll('li.moved')).removeClass('moved');
                 };
@@ -393,15 +393,12 @@ angular.module("mm.foundation.topbar", [])
     .directive('hasDropdown', [function () {
         return {
             scope: {},
-            require: ['^topBar'],
+            require: '^topBar',
             restrict: 'A',
             templateUrl: 'template/topbar/has-dropdown.html',
             replace: true,
             transclude: true,
-            link: function ($scope, element, attrs, ctrls) {
-                var topBar = ctrls[0];
-                var topBarSection = ctrls[1];
-
+            link: function ($scope, element, attrs, topBar) {
                 $scope.triggerLink = element.children('a')[0];
 
                 var $link = angular.element($scope.triggerLink);
@@ -423,7 +420,7 @@ angular.module("mm.foundation.topbar", [])
                         element.toggleClass('not-click');
                     }
                 });
-                
+
                 element.bind('mouseleave', function() {
                     element.removeClass('not-click');
                 });
