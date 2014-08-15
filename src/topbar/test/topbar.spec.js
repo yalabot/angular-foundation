@@ -1,5 +1,5 @@
 describe('topbar directive', function () {
-  var $rootScope, element, $document, $window;
+  var $rootScope, element, $document;
 
   var setMobile = function(windowMock){
     windowMock.matchMedia.andReturn({matches: false});
