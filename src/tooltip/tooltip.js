@@ -123,7 +123,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               var target = $document[0].querySelector(attrs.attachTo);
               if(!target){
                 //throw new Error("Unable to locate: " + attrs.attachTo);
-                console.warn("Tooltip error: unable to locate " + attrs.attachTo)
+                console.warn("Tooltip error: unable to locate " + attrs.attachTo);
               }
               return angular.element(target);
             };
