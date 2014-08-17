@@ -1,5 +1,63 @@
 
 angular.module("mm.foundation.topbar", [])
+    .factory('mediaQueries', ['$document', '$window', function($document, $window){
+        var head = angular.element($document[0].querySelector('head'));
+        head.append('<meta class="foundation-mq-topbar" />');
+        head.append('<meta class="foundation-mq-small" />');
+        head.append('<meta class="foundation-mq-medium" />');
+        head.append('<meta class="foundation-mq-large" />');
+
+        // MatchMedia for IE <= 9
+        var matchMedia = $window.matchMedia || (function(doc, undefined){
+            var bool,
+                docElem = doc.documentElement,
+                refNode = docElem.firstElementChild || docElem.firstChild,
+                // fakeBody required for <FF4 when executed in <head>
+                fakeBody = doc.createElement("body"),
+                div = doc.createElement("div");
+
+            div.id = "mq-test-1";
+            div.style.cssText = "position:absolute;top:-100em";
+            fakeBody.style.background = "none";
+            fakeBody.appendChild(div);
+
+            return function (q) {
+                div.innerHTML = "&shy;<style media=\"" + q + "\"> #mq-test-1 { width: 42px; }</style>";
+                docElem.insertBefore(fakeBody, refNode);
+                bool = div.offsetWidth === 42;
+                docElem.removeChild(fakeBody);
+                return {
+                    matches: bool,
+                    media: q
+                };
+            };
+
+        }($document[0]));
+
+        var regex = /^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g;
+        var queries = {
+            topbar: getComputedStyle(head[0].querySelector('meta.foundation-mq-topbar')).fontFamily.replace(regex, ''),
+            small : getComputedStyle(head[0].querySelector('meta.foundation-mq-small')).fontFamily.replace(regex, ''),
+            medium : getComputedStyle(head[0].querySelector('meta.foundation-mq-medium')).fontFamily.replace(regex, ''),
+            large : getComputedStyle(head[0].querySelector('meta.foundation-mq-large')).fontFamily.replace(regex, '')
+        };
+
+        return {
+            topbarBreakpoint: function () {
+                return !matchMedia(queries.topbar).matches;
+            },
+            small: function () {
+                return matchMedia(queries.small).matches;
+            },
+            medium: function () {
+                return matchMedia(queries.medium).matches;
+            },
+            large: function () {
+                return matchMedia(queries.large).matches;
+            }
+        };
+
+    }])
     .factory('closest', [function(){
         return function(el, selector) {
             var matchesSelector = function (node, selector) {
@@ -20,47 +78,8 @@ angular.module("mm.foundation.topbar", [])
             return false;
         };
     }])
-    .directive('topBar', ['$timeout','$compile', '$window', '$document',
-        function ($timeout, $compile, $window, $document) {
-
-        var win = angular.element($window);
-        var head = angular.element($document[0].querySelector('head'));
-
-        head.append('<meta class="foundation-mq-topbar" />');
-        head.append('<meta class="foundation-mq-small" />');
-        head.append('<meta class="foundation-mq-medium" />');
-        head.append('<meta class="foundation-mq-large" />');
-
-        // MatchMedia for IE < 9
-        var matchMedia = $window.matchMedia || (function( doc, undefined ) {
-            var bool,
-                docElem = doc.documentElement,
-                refNode = docElem.firstElementChild || docElem.firstChild,
-                // fakeBody required for <FF4 when executed in <head>
-                fakeBody = doc.createElement( "body" ),
-                div = doc.createElement( "div" );
-
-            div.id = "mq-test-1";
-            div.style.cssText = "position:absolute;top:-100em";
-            fakeBody.style.background = "none";
-            fakeBody.appendChild(div);
-
-            return function (q) {
-                div.innerHTML = "&shy;<style media=\"" + q + "\"> #mq-test-1 { width: 42px; }</style>";
-
-                docElem.insertBefore( fakeBody, refNode );
-                bool = div.offsetWidth === 42;
-                docElem.removeChild( fakeBody );
-
-                return {
-                    matches: bool,
-                    media: q
-                };
-
-            };
-
-        }( $document[0] ));
-
+    .directive('topBar', ['$timeout','$compile', '$window', '$document', 'mediaQueries',
+            function ($timeout, $compile, $window, $document, mediaQueries) {
         return {
             scope: {
                 stickyClass : '@',
@@ -78,25 +97,17 @@ angular.module("mm.foundation.topbar", [])
             link: function ($scope, element, attrs) {
                 var topbar = $scope.topbar = element;
                 var topbarContainer = topbar.parent();
-                var regex = /^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g;
-                var mediaQueries = $scope.mediaQueries = {
-                    topbar: getComputedStyle(head[0].querySelector('meta.foundation-mq-topbar')).fontFamily.replace(regex, ''),
-                    small : getComputedStyle(head[0].querySelector('meta.foundation-mq-small')).fontFamily.replace(regex, ''),
-                    medium : getComputedStyle(head[0].querySelector('meta.foundation-mq-medium')).fontFamily.replace(regex, ''),
-                    large : getComputedStyle(head[0].querySelector('meta.foundation-mq-large')).fontFamily.replace(regex, '')
-                };
                 var body = angular.element($document[0].querySelector('body'));
-
 
                 var isSticky = $scope.isSticky = function () {
                     var sticky = topbarContainer.hasClass($scope.settings.stickyClass);
                     if (sticky && $scope.settings.stickyOn === 'all') {
                         return true;
-                    } else if (sticky && small() && $scope.settings.stickyOn === 'small') {
+                    } else if (sticky && mediaQueries.small() && $scope.settings.stickyOn === 'small') {
                         return true;
-                    } else if (sticky && medium() && $scope.settings.stickyOn === 'medium') {
+                    } else if (sticky && mediaQueries.medium() && $scope.settings.stickyOn === 'medium') {
                         return true;
-                    } else if (sticky && large() && $scope.settings.stickyOn === 'large') {
+                    } else if (sticky && mediaQueries.large() && $scope.settings.stickyOn === 'large') {
                         return true;
                     }
                     return false;
@@ -108,21 +119,19 @@ angular.module("mm.foundation.topbar", [])
                     }
 
                     var $class = angular.element($document[0].querySelector('.' + $scope.settings.stickyClass));
-
                     var distance = stickyoffset;
-                    if (true) {
-                        if ($window.scrollY > distance && !$class.hasClass('fixed')) {
-                            $class.addClass('fixed');
-                            body.css('padding-top', $scope.originalHeight + 'px');
-                        } else if ($window.scrollY <= distance && $class.hasClass('fixed')) {
-                            $class.removeClass('fixed');
-                            body.css('padding-top', '');
-                        }
+
+                    if ($window.scrollY > distance && !$class.hasClass('fixed')) {
+                        $class.addClass('fixed');
+                        body.css('padding-top', $scope.originalHeight + 'px');
+                    } else if ($window.scrollY <= distance && $class.hasClass('fixed')) {
+                        $class.removeClass('fixed');
+                        body.css('padding-top', '');
                     }
                 };
 
                 $scope.toggle = function(on) {
-                    if(!$scope.breakpoint()){
+                    if(!mediaQueries.topbarBreakpoint()){
                         return false;
                     }
 
@@ -183,25 +192,36 @@ angular.module("mm.foundation.topbar", [])
                     }
                 });
 
-                win.bind('resize', function(){
+                var lastBreakpoint = mediaQueries.topbarBreakpoint();             
+
+                angular.element($window).bind('resize', function(){
+                    var currentBreakpoint = mediaQueries.topbarBreakpoint();
+                    if(lastBreakpoint === currentBreakpoint){
+                        return;
+                    }
+                    lastBreakpoint = mediaQueries.topbarBreakpoint();
+
+                    topbar.removeClass('expanded');
+                    topbar.parent().removeClass('expanded');
+                    $scope.height = '';
+
                     var sections = angular.element(topbar[0].querySelectorAll('section'));
                     angular.forEach(sections, function(section){
                         angular.element(section.querySelectorAll('li.moved')).removeClass('moved');
                     });
-                    topbar.removeClass('expanded');
-                    $scope.height = '';
+
                     $scope.$apply();
-                });
+                 });
 
                 // update sticky positioning
-                win.bind("scroll", function() {
+                angular.element($window).bind("scroll", function() {
                     updateStickyPositioning();
                     $scope.$apply();
                 });
 
                 $scope.$on('$destroy', function(){
-                    win.unbind("scroll");
-                    win.unbind("resize");
+                    angular.element($window).unbind("scroll");
+                    angular.element($window).unbind("resize");
                 });
 
                 if (topbarContainer.hasClass('fixed')) {
@@ -210,7 +230,6 @@ angular.module("mm.foundation.topbar", [])
 
             },
             controller: ['$window', '$scope', 'closest', function($window, $scope, closest) {
-
                 $scope.settings = {};
                 $scope.settings.stickyClass = $scope.stickyClass || 'sticky';
                 $scope.settings.backText = $scope.backText || 'Back';
@@ -233,21 +252,6 @@ angular.module("mm.foundation.topbar", [])
                     return height;
                 };
 
-                var breakpoint = $scope.breakpoint = this.breakpoint = function () {
-                    return !matchMedia($scope.mediaQueries.topbar).matches;
-                };
-
-                var small = function () {
-                    return $matchMedia($scope.mediaQueries.small).matches;
-                };
-
-                var medium = function () {
-                    return $matchMedia($scope.mediaQueries.medium).matches;
-                };
-
-                var large = function () {
-                    return $matchMedia($scope.mediaQueries.large).matches;
-                };
 
                 var sections = [];
 
@@ -281,7 +285,7 @@ angular.module("mm.foundation.topbar", [])
                 };
 
                 this.back = function(event) {
-                    if($scope.index < 1 || !breakpoint()){
+                    if($scope.index < 1 || !mediaQueries.topbarBreakpoint()){
                         return;
                     }
 
@@ -302,7 +306,7 @@ angular.module("mm.foundation.topbar", [])
                 };
 
                 this.forward = function(event) {
-                    if(!breakpoint()){
+                    if(!mediaQueries.topbarBreakpoint()){
                         return false;
                     }
 
@@ -390,7 +394,7 @@ angular.module("mm.foundation.topbar", [])
             }
         };
     }])
-    .directive('hasDropdown', [function () {
+    .directive('hasDropdown', ['mediaQueries', function (mediaQueries) {
         return {
             scope: {},
             require: '^topBar',
@@ -411,12 +415,12 @@ angular.module("mm.foundation.topbar", [])
                 });
 
                 element.bind('mouseenter', function() {
-                    if(topBar.settings.isHover && !topBar.breakpoint()){
+                    if(topBar.settings.isHover && !mediaQueries.topbarBreakpoint()){
                         element.addClass('not-click');
                     }
                 });
                 element.bind('click', function(event) {
-                    if(!topBar.settings.isHover && !topBar.breakpoint()){
+                    if(!topBar.settings.isHover && !mediaQueries.topbarBreakpoint()){
                         element.toggleClass('not-click');
                     }
                 });
