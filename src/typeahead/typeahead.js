@@ -148,8 +148,6 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
       //$parsers kick-in on all the changes coming from the view as well as manually triggered by $setViewValue
       modelCtrl.$parsers.unshift(function (inputValue) {
 
-        hasFocus = true;
-
         if (inputValue && inputValue.length >= minSearch) {
           if (waitTime > 0) {
             if (timeoutPromise) {
@@ -258,6 +256,10 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
 
       element.bind('blur', function (evt) {
         hasFocus = false;
+      });
+
+      element.bind('focus', function (evt) {
+        hasFocus = true;
       });
 
       // Keep reference to click handler to unbind it.

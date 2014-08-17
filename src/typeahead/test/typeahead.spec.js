@@ -30,6 +30,7 @@ describe('typeahead tests', function () {
     $timeout = _$timeout_;
     changeInputValueTo = function (element, value) {
       var inputEl = findInput(element);
+      inputEl.focus();
       inputEl.val(value);
       inputEl.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
       $scope.$digest();
@@ -73,7 +74,7 @@ describe('typeahead tests', function () {
         return typeaheadEl.css('display') === 'none' && findMatches(this.actual).length === 0;
 
       }, toBeOpenWithActive: function (noOfMatches, activeIdx) {
-
+        
         var typeaheadEl = findDropDown(this.actual);
         var liEls = findMatches(this.actual);
 
