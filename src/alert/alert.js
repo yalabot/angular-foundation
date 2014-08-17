@@ -14,6 +14,11 @@ angular.module("mm.foundation.alert", [])
     scope: {
       type: '=',
       close: '&'
+    },
+    link: function (scope, elem) {
+      scope.removeAlert = function () {
+        elem.remove();
+      };
     }
   };
 });
