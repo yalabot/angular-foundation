@@ -43,7 +43,7 @@ function MainCtrl($scope, $http, $document, $modal, orderByFilter) {
     });
 
     modalInstance.result.then(function(options) {
-      var downloadUrl = ['http://madmimi.github.io/angular-foundation/mm-foundation-'];
+      var downloadUrl = ['http://pineconellc.github.io/angular-foundation/mm-foundation-'];
       if (options.tpls) {
         downloadUrl.push('tpls-');
       }

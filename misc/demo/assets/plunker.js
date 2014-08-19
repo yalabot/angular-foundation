@@ -16,7 +16,7 @@ angular.module('plunker', [])
           '<html ng-app="plunker">\n' +
           '  <head>\n' +
           '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular.js"></script>\n' +
-          '    <script src="//madmimi.github.io/angular-foundation/mm-foundation-tpls-'+version+'.js"></script>\n' +
+          '    <script src="//pineconellc.github.io/angular-foundation/mm-foundation-tpls-'+version+'.js"></script>\n' +
           '    <script src="example.js"></script>\n' +
           '    <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/'+fdVersion+'/css/foundation.css" rel="stylesheet">\n' +
           '  </head>\n' +
@@ -34,7 +34,7 @@ angular.module('plunker', [])
         return "angular.module('plunker', ['mm.foundation']);" + "\n" + content;
       };
 
-      addField('description', 'http://madmimi.github.io/angular-foundation/');
+      addField('description', 'http://pineconellc.github.io/angular-foundation/');
       addField('files[index.html]', indexContent(content.markup, version));
       addField('files[example.js]', scriptContent(content.javascript));
 

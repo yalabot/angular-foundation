@@ -153,7 +153,7 @@ module.exports = function(grunt) {
       options: {
         dest: 'CHANGELOG.md',
         templateFile: 'misc/changelog.tpl.md',
-        github: 'madmimi/angular-foundation'
+        github: 'pineconellc/angular-foundation'
       }
     },
     release: {
