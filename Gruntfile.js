@@ -158,14 +158,14 @@ module.exports = function(grunt) {
       }
     },
     release: {
-      //We use %version% and evluate it at run-time, because <%= pkg.version %>
+      //We use %version% and evaluate it at run-time, because <%= pkg.version %>
       //is only evaluated once
       'release-prepare': [
         'grunt version', //remove "-SNAPSHOT"
         'grunt before-test after-test'
       ],
       'release-complete': [
-        'git commit CHANGELOG.md package.json -m "chore(release): v%version%"',
+        'git commit package.json -m "chore(release): v%version%"',
         'git tag %version%'
       ],
       'release-start': [
