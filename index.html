@@ -12,7 +12,7 @@
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-  <script src="mm-foundation-tpls-0.4.0-SNAPSHOT.js"></script>
+  <script src="mm-foundation-tpls-0.3.0.js"></script>
   <script src="assets/plunker.js"></script>
   <script src="assets/app.js"></script>
 
@@ -102,7 +102,7 @@
           </p>
           <p>You can fork one of the plunkers from this page to see a working example of what is described here.</p>
         </section>
-        
+
           <section class="demo" id="accordion">
             <div class="page-header">
               <h1>Accordion<small>
@@ -237,7 +237,7 @@
   };
 }
 </script>
-        
+
           <section class="demo" id="alert">
             <div class="page-header">
               <h1>Alert<small>
@@ -316,7 +316,7 @@
 
 }
 </script>
-        
+
           <section class="demo" id="buttons">
             <div class="page-header">
               <h1>Buttons<small>
@@ -417,7 +417,7 @@
     right: false
   };
 };</script>
-        
+
           <section class="demo" id="dropdownToggle">
             <div class="page-header">
               <h1>Dropdown Toggle<small>
@@ -530,7 +530,7 @@
   };
 }
 </script>
-        
+
           <section class="demo" id="interchange">
             <div class="page-header">
               <h1>Interchange<small>
@@ -595,7 +595,7 @@
             </div>
           </section>
           <script>// No controller required</script>
-        
+
           <section class="demo" id="modal">
             <div class="page-header">
               <h1>Modal<small>
@@ -774,7 +774,7 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
     $modalInstance.dismiss('cancel');
   };
 };</script>
-        
+
           <section class="demo" id="offcanvas">
             <div class="page-header">
               <h1>Offcanvas<small>
@@ -908,7 +908,7 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
 
 };
 </script>
-        
+
           <section class="demo" id="pagination">
             <div class="page-header">
               <h1>Pagination<small>
@@ -1042,7 +1042,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
   $scope.totalItems = 64;
   $scope.currentPage = 4;
   $scope.maxSize = 5;
-  
+
   $scope.setPage = function (pageNo) {
     $scope.currentPage = pageNo;
   };
@@ -1061,7 +1061,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
   $scope.totalItems = 64;
   $scope.currentPage = 4;
   $scope.maxSize = 5;
-  
+
   $scope.setPage = function (pageNo) {
     $scope.currentPage = pageNo;
   };
@@ -1070,7 +1070,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
   $scope.bigCurrentPage = 1;
 };
 </script>
-        
+
           <section class="demo" id="popover">
             <div class="page-header">
               <h1>Popover<small>
@@ -1091,14 +1091,14 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
     </div>
     <button popover="{{dynamicPopover}}"
       popover-title="{{dynamicPopoverTitle}}" class="button">Dynamic Popover</button>
-    
+
     <hr />
     <h4>Positional</h4>
     <button popover-placement="top" popover="On the Top!" class="button">Top</button>
     <button popover-placement="left" popover="On the Left!" class="button">Left</button>
     <button popover-placement="right" popover="On the Right!" class="button">Right</button>
     <button popover-placement="bottom" popover="On the Bottom!" class="button">Bottom</button>
-    
+
     <hr />
     <h4>Triggers</h4>
     <p>
@@ -1163,14 +1163,14 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     &lt;/div&gt;
     &lt;button popover=&quot;{{dynamicPopover}}&quot;
       popover-title=&quot;{{dynamicPopoverTitle}}&quot; class=&quot;button&quot;&gt;Dynamic Popover&lt;/button&gt;
-    
+
     &lt;hr /&gt;
     &lt;h4&gt;Positional&lt;/h4&gt;
     &lt;button popover-placement=&quot;top&quot; popover=&quot;On the Top!&quot; class=&quot;button&quot;&gt;Top&lt;/button&gt;
     &lt;button popover-placement=&quot;left&quot; popover=&quot;On the Left!&quot; class=&quot;button&quot;&gt;Left&lt;/button&gt;
     &lt;button popover-placement=&quot;right&quot; popover=&quot;On the Right!&quot; class=&quot;button&quot;&gt;Right&lt;/button&gt;
     &lt;button popover-placement=&quot;bottom&quot; popover=&quot;On the Bottom!&quot; class=&quot;button&quot;&gt;Bottom&lt;/button&gt;
-    
+
     &lt;hr /&gt;
     &lt;h4&gt;Triggers&lt;/h4&gt;
     &lt;p&gt;
@@ -1204,7 +1204,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
   $scope.dynamicPopoverTitle = "Title";
 };
 </script>
-        
+
           <section class="demo" id="progressbar">
             <div class="page-header">
               <h1>Progressbar<small>
@@ -1225,7 +1225,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     <hr />
     <h3>Dynamic <button class="button small" type="button" ng-click="random()">Randomize</button></h3>
     <progressbar max="max" value="dynamic"><span style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span></progressbar>
-    
+
     <small><em>No animation</em></small>
     <progressbar animate="false" value="dynamic" type="success"><b>{{dynamic}}%</b></progressbar>
 
@@ -1281,7 +1281,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     &lt;hr /&gt;
     &lt;h3&gt;Dynamic &lt;button class=&quot;button small&quot; type=&quot;button&quot; ng-click=&quot;random()&quot;&gt;Randomize&lt;/button&gt;&lt;/h3&gt;
     &lt;progressbar max=&quot;max&quot; value=&quot;dynamic&quot;&gt;&lt;span style=&quot;color:black; white-space:nowrap;&quot;&gt;{{dynamic}} / {{max}}&lt;/span&gt;&lt;/progressbar&gt;
-    
+
     &lt;small&gt;&lt;em&gt;No animation&lt;/em&gt;&lt;/small&gt;
     &lt;progressbar animate=&quot;false&quot; value=&quot;dynamic&quot; type=&quot;success&quot;&gt;&lt;b&gt;{{dynamic}}%&lt;/b&gt;&lt;/progressbar&gt;
 
@@ -1295,7 +1295,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
                       <pre ng-non-bindable><code data-language="javascript">var ProgressDemoCtrl = function ($scope) {
-  
+
   $scope.max = 200;
 
   $scope.random = function() {
@@ -1327,7 +1327,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             </div>
           </section>
           <script>var ProgressDemoCtrl = function ($scope) {
-  
+
   $scope.max = 200;
 
   $scope.random = function() {
@@ -1352,7 +1352,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
   $scope.random();
 };
 </script>
-        
+
           <section class="demo" id="rating">
             <div class="page-header">
               <h1>Rating<small>
@@ -1500,7 +1500,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
   ];
 };
 </script>
-        
+
           <section class="demo" id="tabs">
             <div class="page-header">
               <h1>Tabs<small>
@@ -1645,7 +1645,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
   };
 };
 </script>
-        
+
           <section class="demo" id="tooltip">
             <div class="page-header">
               <h1>Tooltip<small>
@@ -1666,13 +1666,13 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     <p>
       Pellentesque <a href="#" class="has-tip" tooltip="{{dynamicTooltip}}">{{dynamicTooltipText}}</a>,
       sit amet venenatis urna cursus eget nunc scelerisque viverra mauris, in
-      aliquam. Tincidunt lobortis feugiat vivamus at 
+      aliquam. Tincidunt lobortis feugiat vivamus at
       <a href="#" class="has-tip" tooltip-placement="left" tooltip="On the Left!">left</a> eget
       arcu dictum varius duis at consectetur lorem. Vitae elementum curabitur
-      <a href="#" class="has-tip" tooltip-placement="right" tooltip="On the Right!">right</a> 
-      nunc sed velit dignissim sodales ut eu sem integer vitae. Turpis egestas 
-      <a href="#" class="has-tip" tooltip-placement="bottom" tooltip="On the Bottom!">bottom</a> 
-      pharetra convallis posuere morbi leo urna, 
+      <a href="#" class="has-tip" tooltip-placement="right" tooltip="On the Right!">right</a>
+      nunc sed velit dignissim sodales ut eu sem integer vitae. Turpis egestas
+      <a href="#" class="has-tip" tooltip-placement="bottom" tooltip="On the Bottom!">bottom</a>
+      pharetra convallis posuere morbi leo urna,
       <a href="#" class="has-tip" tooltip-animation="false" tooltip="I don't fade. :-(">fading</a>
       at elementum eu, facilisis sed odio morbi quis commodo odio. In cursus
       <a href="#" class="has-tip" tooltip-popup-delay='1000' tooltip='appears with delay'>delayed</a> turpis massa tincidunt dui ut.
@@ -1774,13 +1774,13 @@ appendToBody: false
     &lt;p&gt;
       Pellentesque &lt;a href=&quot;#&quot; class=&quot;has-tip&quot; tooltip=&quot;{{dynamicTooltip}}&quot;&gt;{{dynamicTooltipText}}&lt;/a&gt;,
       sit amet venenatis urna cursus eget nunc scelerisque viverra mauris, in
-      aliquam. Tincidunt lobortis feugiat vivamus at 
+      aliquam. Tincidunt lobortis feugiat vivamus at
       &lt;a href=&quot;#&quot; class=&quot;has-tip&quot; tooltip-placement=&quot;left&quot; tooltip=&quot;On the Left!&quot;&gt;left&lt;/a&gt; eget
       arcu dictum varius duis at consectetur lorem. Vitae elementum curabitur
-      &lt;a href=&quot;#&quot; class=&quot;has-tip&quot; tooltip-placement=&quot;right&quot; tooltip=&quot;On the Right!&quot;&gt;right&lt;/a&gt; 
-      nunc sed velit dignissim sodales ut eu sem integer vitae. Turpis egestas 
-      &lt;a href=&quot;#&quot; class=&quot;has-tip&quot; tooltip-placement=&quot;bottom&quot; tooltip=&quot;On the Bottom!&quot;&gt;bottom&lt;/a&gt; 
-      pharetra convallis posuere morbi leo urna, 
+      &lt;a href=&quot;#&quot; class=&quot;has-tip&quot; tooltip-placement=&quot;right&quot; tooltip=&quot;On the Right!&quot;&gt;right&lt;/a&gt;
+      nunc sed velit dignissim sodales ut eu sem integer vitae. Turpis egestas
+      &lt;a href=&quot;#&quot; class=&quot;has-tip&quot; tooltip-placement=&quot;bottom&quot; tooltip=&quot;On the Bottom!&quot;&gt;bottom&lt;/a&gt;
+      pharetra convallis posuere morbi leo urna,
       &lt;a href=&quot;#&quot; class=&quot;has-tip&quot; tooltip-animation=&quot;false&quot; tooltip=&quot;I don&#x27;t fade. :-(&quot;&gt;fading&lt;/a&gt;
       at elementum eu, facilisis sed odio morbi quis commodo odio. In cursus
       &lt;a href=&quot;#&quot; class=&quot;has-tip&quot; tooltip-popup-delay=&#x27;1000&#x27; tooltip=&#x27;appears with delay&#x27;&gt;delayed&lt;/a&gt; turpis massa tincidunt dui ut.
@@ -1820,7 +1820,7 @@ appendToBody: false
   $scope.htmlTooltip = "I've been made <b>bold</b>!";
 };
 </script>
-        
+
           <section class="demo" id="topbar">
             <div class="page-header">
               <h1>Topbar<small>
@@ -1932,7 +1932,7 @@ appendToBody: false
 
 };
 </script>
-        
+
           <section class="demo" id="tour">
             <div class="page-header">
               <h1>Tour<small>
@@ -2048,7 +2048,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
   $scope.startTour = $tour.start;
 };
 </script>
-        
+
           <section class="demo" id="typeahead">
             <div class="page-header">
               <h1>Typeahead<small>
@@ -2214,7 +2214,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
 
   $scope.statesWithFlags = [{"name":"Alabama","flag":"5/5c/Flag_of_Alabama.svg/45px-Flag_of_Alabama.svg.png"},{"name":"Alaska","flag":"e/e6/Flag_of_Alaska.svg/43px-Flag_of_Alaska.svg.png"},{"name":"Arizona","flag":"9/9d/Flag_of_Arizona.svg/45px-Flag_of_Arizona.svg.png"},{"name":"Arkansas","flag":"9/9d/Flag_of_Arkansas.svg/45px-Flag_of_Arkansas.svg.png"},{"name":"California","flag":"0/01/Flag_of_California.svg/45px-Flag_of_California.svg.png"},{"name":"Colorado","flag":"4/46/Flag_of_Colorado.svg/45px-Flag_of_Colorado.svg.png"},{"name":"Connecticut","flag":"9/96/Flag_of_Connecticut.svg/39px-Flag_of_Connecticut.svg.png"},{"name":"Delaware","flag":"c/c6/Flag_of_Delaware.svg/45px-Flag_of_Delaware.svg.png"},{"name":"Florida","flag":"f/f7/Flag_of_Florida.svg/45px-Flag_of_Florida.svg.png"},{"name":"Georgia","flag":"5/54/Flag_of_Georgia_%28U.S._state%29.svg/46px-Flag_of_Georgia_%28U.S._state%29.svg.png"},{"name":"Hawaii","flag":"e/ef/Flag_of_Hawaii.svg/46px-Flag_of_Hawaii.svg.png"},{"name":"Idaho","flag":"a/a4/Flag_of_Idaho.svg/38px-Flag_of_Idaho.svg.png"},{"name":"Illinois","flag":"0/01/Flag_of_Illinois.svg/46px-Flag_of_Illinois.svg.png"},{"name":"Indiana","flag":"a/ac/Flag_of_Indiana.svg/45px-Flag_of_Indiana.svg.png"},{"name":"Iowa","flag":"a/aa/Flag_of_Iowa.svg/44px-Flag_of_Iowa.svg.png"},{"name":"Kansas","flag":"d/da/Flag_of_Kansas.svg/46px-Flag_of_Kansas.svg.png"},{"name":"Kentucky","flag":"8/8d/Flag_of_Kentucky.svg/46px-Flag_of_Kentucky.svg.png"},{"name":"Louisiana","flag":"e/e0/Flag_of_Louisiana.svg/46px-Flag_of_Louisiana.svg.png"},{"name":"Maine","flag":"3/35/Flag_of_Maine.svg/45px-Flag_of_Maine.svg.png"},{"name":"Maryland","flag":"a/a0/Flag_of_Maryland.svg/45px-Flag_of_Maryland.svg.png"},{"name":"Massachusetts","flag":"f/f2/Flag_of_Massachusetts.svg/46px-Flag_of_Massachusetts.svg.png"},{"name":"Michigan","flag":"b/b5/Flag_of_Michigan.svg/45px-Flag_of_Michigan.svg.png"},{"name":"Minnesota","flag":"b/b9/Flag_of_Minnesota.svg/46px-Flag_of_Minnesota.svg.png"},{"name":"Mississippi","flag":"4/42/Flag_of_Mississippi.svg/45px-Flag_of_Mississippi.svg.png"},{"name":"Missouri","flag":"5/5a/Flag_of_Missouri.svg/46px-Flag_of_Missouri.svg.png"},{"name":"Montana","flag":"c/cb/Flag_of_Montana.svg/45px-Flag_of_Montana.svg.png"},{"name":"Nebraska","flag":"4/4d/Flag_of_Nebraska.svg/46px-Flag_of_Nebraska.svg.png"},{"name":"Nevada","flag":"f/f1/Flag_of_Nevada.svg/45px-Flag_of_Nevada.svg.png"},{"name":"New Hampshire","flag":"2/28/Flag_of_New_Hampshire.svg/45px-Flag_of_New_Hampshire.svg.png"},{"name":"New Jersey","flag":"9/92/Flag_of_New_Jersey.svg/45px-Flag_of_New_Jersey.svg.png"},{"name":"New Mexico","flag":"c/c3/Flag_of_New_Mexico.svg/45px-Flag_of_New_Mexico.svg.png"},{"name":"New York","flag":"1/1a/Flag_of_New_York.svg/46px-Flag_of_New_York.svg.png"},{"name":"North Carolina","flag":"b/bb/Flag_of_North_Carolina.svg/45px-Flag_of_North_Carolina.svg.png"},{"name":"North Dakota","flag":"e/ee/Flag_of_North_Dakota.svg/38px-Flag_of_North_Dakota.svg.png"},{"name":"Ohio","flag":"4/4c/Flag_of_Ohio.svg/46px-Flag_of_Ohio.svg.png"},{"name":"Oklahoma","flag":"6/6e/Flag_of_Oklahoma.svg/45px-Flag_of_Oklahoma.svg.png"},{"name":"Oregon","flag":"b/b9/Flag_of_Oregon.svg/46px-Flag_of_Oregon.svg.png"},{"name":"Pennsylvania","flag":"f/f7/Flag_of_Pennsylvania.svg/45px-Flag_of_Pennsylvania.svg.png"},{"name":"Rhode Island","flag":"f/f3/Flag_of_Rhode_Island.svg/32px-Flag_of_Rhode_Island.svg.png"},{"name":"South Carolina","flag":"6/69/Flag_of_South_Carolina.svg/45px-Flag_of_South_Carolina.svg.png"},{"name":"South Dakota","flag":"1/1a/Flag_of_South_Dakota.svg/46px-Flag_of_South_Dakota.svg.png"},{"name":"Tennessee","flag":"9/9e/Flag_of_Tennessee.svg/46px-Flag_of_Tennessee.svg.png"},{"name":"Texas","flag":"f/f7/Flag_of_Texas.svg/45px-Flag_of_Texas.svg.png"},{"name":"Utah","flag":"f/f6/Flag_of_Utah.svg/45px-Flag_of_Utah.svg.png"},{"name":"Vermont","flag":"4/49/Flag_of_Vermont.svg/46px-Flag_of_Vermont.svg.png"},{"name":"Virginia","flag":"4/47/Flag_of_Virginia.svg/44px-Flag_of_Virginia.svg.png"},{"name":"Washington","flag":"5/54/Flag_of_Washington.svg/46px-Flag_of_Washington.svg.png"},{"name":"West Virginia","flag":"2/22/Flag_of_West_Virginia.svg/46px-Flag_of_West_Virginia.svg.png"},{"name":"Wisconsin","flag":"2/22/Flag_of_Wisconsin.svg/45px-Flag_of_Wisconsin.svg.png"},{"name":"Wyoming","flag":"b/bc/Flag_of_Wyoming.svg/43px-Flag_of_Wyoming.svg.png"}];
 }</script>
-        
+
         <section id="animations">
           <div class="page-header">
             <h1>Animations</h1>
