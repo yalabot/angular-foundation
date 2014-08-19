@@ -25,6 +25,7 @@ module.exports = function(grunt) {
                ' * <%= pkg.homepage %>\n',
                ' * Version: <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>',
                ' * License: <%= pkg.license %>',
+               ' * (c) <%= pkg.author %>',
                ' */\n'].join('\n')
     },
     delta: {
@@ -161,8 +162,7 @@ module.exports = function(grunt) {
       //is only evaluated once
       'release-prepare': [
         'grunt version', //remove "-SNAPSHOT"
-        'grunt before-test after-test',
-        'grunt changelog'
+        'grunt before-test after-test'
       ],
       'release-complete': [
         'git commit CHANGELOG.md package.json -m "chore(release): v%version%"',
