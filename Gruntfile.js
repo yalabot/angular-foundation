@@ -164,11 +164,11 @@ module.exports = function(grunt) {
         'grunt version', //remove "-SNAPSHOT"
         'grunt before-test after-test'
       ],
-      'release-complete': [
+      'release-start': [
         'git commit package.json -m "chore(release): v%version%"',
         'git tag %version%'
       ],
-      'release-start': [
+      'release-complete': [
         'grunt version:minor:"SNAPSHOT"',
         'git commit package.json -m "chore(release): Starting v%version%"'
       ]
