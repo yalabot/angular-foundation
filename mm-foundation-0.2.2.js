@@ -1,6 +1,6 @@
 /*
  * angular-mm-foundation
- * http://madmimi.github.io/angular-foundation/
+ * http://pineconellc.github.io/angular-foundation/
 
  * Version: 0.2.2 - 2014-05-28
  * License: MIT

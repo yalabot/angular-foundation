@@ -9,7 +9,7 @@ Angular Foundation comes in several flavors:
 
 `SNAPSHOT` distributions are unreleased, unstable builds. 
 
-You can view the release changelog [here](https://github.com/madmimi/angular-foundation/blob/master/CHANGELOG.md).
+You can view the release changelog [here](https://github.com/pineconellc/angular-foundation/blob/master/CHANGELOG.md).
 
 ## We're on Bower too
 
