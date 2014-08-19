@@ -1,3 +1,18 @@
+<a name="v0.3.1"></a>
+# v0.3.1 (2014-08-19)
+## Bug Fixes
+* **topbar**
+  - Fix reference to non-existant topBarSection controller on destroy
+  - Use `$window.scrollY` instead of `scrollTop()` for sticky
+  - Fix resize when breakpoint doesn't change (fixes #85)
+* **typeahead**
+  - Fixes non-interactive dropdown opening for asynchronous data
+* **modal**
+  - Fix autofocus elements on model opening
+
+## Other
+* The angular-foundation project has moved from Mad Mimi to Pinecone so references have been updated.
+
 <a name="v0.3.0"></a>
 # v0.3.0 (2014-07-14)
 
