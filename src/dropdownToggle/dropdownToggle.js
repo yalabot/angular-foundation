@@ -10,9 +10,9 @@
      </li>
    </ul>
  */
-angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
+angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.foundation.mediaQueries' ])
 
-.directive('dropdownToggle', ['$document', '$location', '$position', function ($document, $location, $position) {
+.directive('dropdownToggle', ['$document', '$location', '$position', 'mediaQueries', function ($document, $location, $position, mediaQueries) {
   var openElement = null,
       closeMenu   = angular.noop;
   return {
@@ -41,10 +41,27 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
           var offset = $position.offset(element);
           var parentOffset = $position.offset(angular.element(dropdown[0].offsetParent));
 
-          dropdown.css({
-            left: offset.left - parentOffset.left + 'px',
-            top: offset.top - parentOffset.top + offset.height + 'px'
-          });
+          var offsetTop = offset.top - parentOffset.top + offset.height + 'px';
+
+          if (mediaQueries.small() && !mediaQueries.medium()) {
+            var dropdownWidth = dropdown.prop('offsetWidth');
+            var offsetLeft = Math.max((parentOffset.width - dropdownWidth) / 2, 8);
+            dropdown.css({
+              position: 'absolute',
+              width: '95%',
+              'max-width': 'none',
+              top: offsetTop,
+              left: offsetLeft + 'px'
+            });
+          }
+          else {
+            dropdown.css({
+              position: null,
+              'max-width': null,
+              left: offset.left - parentOffset.left + 'px',
+              top: offsetTop
+            });
+          }
 
           openElement = element;
           closeMenu = function (event) {
