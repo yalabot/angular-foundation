@@ -12,7 +12,13 @@
  */
 angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.foundation.mediaQueries' ])
 
-.directive('dropdownToggle', ['$document', '$location', '$position', 'mediaQueries', function ($document, $location, $position, mediaQueries) {
+.controller('DropdownToggleController', ['$scope', '$attrs', 'mediaQueries', function($scope, $attrs, mediaQueries) {
+  this.small = function() {
+    return mediaQueries.small() && !mediaQueries.medium();
+  }
+}])
+
+.directive('dropdownToggle', ['$document', '$window', '$location', '$position', function ($document, $window, $location, $position) {
   var openElement = null,
       closeMenu   = angular.noop;
   return {
@@ -20,7 +26,8 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
     scope: {
       dropdownToggle: '@'
     },
-    link: function(scope, element, attrs) {
+    controller: 'DropdownToggleController',
+    link: function(scope, element, attrs, controller) {
       var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
 
       scope.$watch('$location.path', function() { closeMenu(); });
@@ -42,9 +49,9 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           var parentOffset = $position.offset(angular.element(dropdown[0].offsetParent));
 
           var offsetTop = offset.top - parentOffset.top + offset.height + 'px';
+          var dropdownWidth = dropdown.prop('offsetWidth');
 
-          if (mediaQueries.small() && !mediaQueries.medium()) {
-            var dropdownWidth = dropdown.prop('offsetWidth');
+          if (controller.small()) {
             var offsetLeft = Math.max((parentOffset.width - dropdownWidth) / 2, 8);
             dropdown.css({
               position: 'absolute',
@@ -55,10 +62,16 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             });
           }
           else {
+            var offsetLeft = Math.round(offset.left - parentOffset.left);
+            var rightThreshold = $window.innerWidth - dropdownWidth - 8;
+            if (offsetLeft > rightThreshold) {
+                offsetLeft = rightThreshold;
+                dropdown.removeClass('left').addClass('right');
+            }
             dropdown.css({
               position: null,
               'max-width': null,
-              left: offset.left - parentOffset.left + 'px',
+              left: offsetLeft + 'px',
               top: offsetTop
             });
           }
