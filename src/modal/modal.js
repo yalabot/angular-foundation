@@ -83,7 +83,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
     };
   }])
 
-  .directive('modalWindow', ['$modalStack', '$timeout', function ($modalStack, $timeout) {
+  .directive('modalWindow', ['$modalStack', '$timeout', '$window', function ($modalStack, $timeout, $window) {
     return {
       restrict: 'EA',
       scope: {
@@ -95,10 +95,29 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
       templateUrl: 'template/modal/window.html',
       link: function (scope, element, attrs) {
         scope.windowClass = attrs.windowClass || '';
+        scope.modalClass = 'reveal-modal';
+
+        // Create a faux modal div just to measure its
+        // distance to top
+        var body = angular.element($window.document.body);
+        var faux = angular.element('<div class="' + scope.modalClass + '" style="z-index:-1""></div>');
+        body.append(faux[0]);
+        var marginTop = parseInt(getComputedStyle(faux[0]).top);
+        faux.remove();
+
+        var resize = function() {
+            var height = $window.innerHeight - (marginTop * 2);
+            element.css({
+                'max-height': height + 'px',
+                'overflow-y': 'auto'
+            });
+        }
 
         $timeout(function () {
           // trigger CSS transitions
           scope.animate = true;
+
+          resize();
 
           // If the modal contains any autofocus elements refocus onto the first one
           if (element[0].querySelectorAll('[autofocus]').length > 0) {
@@ -109,6 +128,8 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
             element[0].focus();
           }
         });
+
+        angular.element($window).bind('resize', resize);
       }
     };
   }])
