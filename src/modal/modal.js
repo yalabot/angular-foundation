@@ -229,9 +229,16 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
           body.append(backdropDomEl);
         }
           
-        var openAt = window.outerWidth > 800 ? $window.scrollY + 100 : $window.scrollY;
+        // Create a faux modal div just to measure its
+        // distance to top
+        var faux = angular.element('<div class="reveal-modal" style="z-index:-1""></div>');
+        body.append(faux[0]);
+        var marginTop = parseInt(getComputedStyle(faux[0]).top);
+        faux.remove();
 
-        var angularDomEl = angular.element('<div modal-window style="top:' + openAt +'px;"></div>');
+        var openAt = $window.scrollY + marginTop;
+
+        var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>');
         angularDomEl.attr('window-class', modal.windowClass);
         angularDomEl.attr('index', openedWindows.length() - 1);
         angularDomEl.attr('animate', 'animate');
