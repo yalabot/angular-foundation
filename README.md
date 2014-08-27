@@ -1,5 +1,6 @@
 # Angular Components for [Foundation](http://foundation.zurb.com/)
-
+[![Build Status](https://semaphoreapp.com/api/v1/projects/670cabb5-3c50-4197-9df5-e75cf62c9d20/237671/badge.png)](https://semaphoreapp.com/pinecone/angular-foundation)
+[![Latest Version](https://badge.fury.io/bo/angular-foundation.svg)](https://github.com/pineconellc/angular-foundation-bower)
 ***
 
 This project is a port of the AngularUI team's excellent [angular-bootstrap](https://github.com/angular-ui/bootstrap) project for use in the [Foundation](http://foundation.zurb.com/) framework.
