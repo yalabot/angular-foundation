@@ -1,16 +1,5 @@
 describe('dropdownToggle', function() {
-  var $compile, $rootScope, $document, $location, elm, toggleElm, targetElm;
-
-  beforeEach(module('mm.foundation.dropdownToggle'));
-
-  beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$location_) {
-    $compile = _$compile_;
-    $rootScope = _$rootScope_;
-    $document = _$document_;
-    $location = _$location_;
-    $scope = $rootScope.$new();
-
-  }));
+  var $compile, $rootScope, $document, $location, $window, elm, toggleElm, targetElm;
 
   function dropdown(id) {
     if (!id) {
@@ -28,6 +17,17 @@ describe('dropdownToggle', function() {
       elm.remove();
     }
   });
+
+  beforeEach(module('mm.foundation.dropdownToggle'));
+
+  beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$location_, _$window_) {
+    $compile = _$compile_;
+    $rootScope = _$rootScope_;
+    $document = _$document_;
+    $window = _$window_;
+    $location = _$location_;
+    $scope = $rootScope.$new();
+  }));
 
   describe('with a single dropdown', function() {
     beforeEach(function() {
@@ -81,5 +81,29 @@ describe('dropdownToggle', function() {
       elm2.remove();
     });
   });
+
+  describe('on a mobile device', function() {
+    var trueFn = Boolean.bind(null, true);
+    var falseFn = Boolean.bind(null, false);
+
+    angular.module('mm.foundation.dropdownToggle')
+      .factory('mediaQueries', function() {
+        return {small: trueFn, medium: falseFn, large: falseFn };
+      });
+
+    it('should be full-width', function() {
+      elm = dropdown('responsive');
+      toggleElm = elm.find('a');
+      targetElm = elm.find('ul');
+
+      toggleElm.click();
+
+      expect(targetElm.css('position')).toBe('absolute');
+      expect(targetElm.css('max-width')).toBe('none');
+
+      var expectedWidth = Math.round($window.innerWidth * 0.95);
+      expect(targetElm.css('width')).toBe(expectedWidth + 'px');
+    });
+  });
 });
-  
+
