@@ -16,9 +16,8 @@ describe('topbar directive', function () {
   beforeEach(module('template/topbar/top-bar-dropdown.html'));
 
   beforeEach(module('mm.foundation.topbar', function($provide){
-    window.matchMedia = jasmine.createSpy('matchMedia');
+    window.matchMedia = jasmine.createSpy('matchMedia').andReturn({matches: false});
     $provide.value('$window', window);
-    $provide.value('$document', angular.element(document));
   }));
 
   beforeEach(inject(function(_$compile_, _$rootScope_, _$document_) {

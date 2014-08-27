@@ -1,18 +1,19 @@
 # Angular Components for [Foundation](http://foundation.zurb.com/)
-
+[![Build Status](https://semaphoreapp.com/api/v1/projects/670cabb5-3c50-4197-9df5-e75cf62c9d20/237671/badge.png)](https://semaphoreapp.com/pinecone/angular-foundation)
+[![Latest Version](https://badge.fury.io/bo/angular-foundation.svg)](https://github.com/pineconellc/angular-foundation-bower)
 ***
 
 This project is a port of the AngularUI team's excellent [angular-bootstrap](https://github.com/angular-ui/bootstrap) project for use in the [Foundation](http://foundation.zurb.com/) framework.
 
 ## Demo
 
-Do you want to see this in action? Visit http://madmimi.github.io/angular-foundation/
+Do you want to see this in action? Visit http://pineconellc.github.io/angular-foundation/
 
 ## Installation
 
 Installation is easy as angular-mm-foundation has minimal dependencies - only the AngularJS and Foundation's CSS are required.
 After downloading dependencies (or better yet, referencing them from your favourite CDN) you need to download build version of this project. All the files and their purposes are described here: 
-https://github.com/madmimi/angular-foundation/tree/gh-pages
+https://github.com/pineconellc/angular-foundation/tree/gh-pages
 Don't worry, if you are not sure which file to take, opt for `mm-foundation-tpls-[version].min.js`.
 
 When you are done downloading all the dependencies and project files the only remaining part is to add dependencies on the `mm.foundation` AngularJS module:
