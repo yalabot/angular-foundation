@@ -106,7 +106,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
           }
           else{
           // otherwise focus the freshly-opened modal
-            element[0].focus();
+            element[0].querySelector('div').focus();
           }
         });
       }
