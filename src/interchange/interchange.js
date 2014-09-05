@@ -6,7 +6,7 @@
  * Package containing all services and directives
  * about the `interchange` module
  */
-angular.module('mm.foundation.interchange', [])
+angular.module('mm.foundation.interchange', ['mm.foundation.mediaQueries'])
 
   /**
    * @ngdoc function
@@ -92,7 +92,7 @@ angular.module('mm.foundation.interchange', [])
    *
    * Tools to help with the `interchange` module.
    */
-  .factory('interchangeTools', ['$window', 'interchangeQueries', function ($window, namedQueries) {
+  .factory('interchangeTools', ['$window', 'matchMedia', 'interchangeQueries', function ($window, matchMedia, namedQueries) {
 
     /**
      * @ngdoc method
@@ -156,7 +156,7 @@ angular.module('mm.foundation.interchange', [])
       var file, media, match;
       for (file in files) {
         media = namedQueries[file] || file;
-        match = $window.matchMedia(media);
+        match = matchMedia(media);
         if (match.matches) {
           return files[file];
         }
