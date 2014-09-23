@@ -17,38 +17,54 @@ angular.module('mm.foundation.stylesheets', [])
     var rulesAsTextContent = function(rules) {
         var textContent = '';
         for (var selector in rules) {
-            var props = rules[selector];
-            textContent += selector + ' {\n';
+          var props = rules[selector];
+          textContent += selector + ' {\n';
             for (var prop in props) {
-                textContent += '\t' + prop + ': ' + props[prop] + ';\n';
+              textContent += '\t' + prop + ': ' + props[prop] + ';\n';
             }
-            textContent += '}\n';
+          textContent += '}\n';
         }
-        return textContent;
+        return textContent.slice(0, -1);
     };
     return function Stylesheet(element) {
-        if (!element) {
-            element = $document[0].createElement('style');
-            element = angular.element(element);
-            angular.element($document[0].querySelector('head')).append(element);
+      var $head = angular.element($document[0].querySelector('head'));
+      if (!element) {
+        element = $document[0].createElement('style');
+        element = angular.element(element);
+      }
+      var currentContent = element.text();
+      var write = function(textContent) {
+        if (textContent !== currentContent) {
+          currentContent = textContent;
+          element.text(textContent);
+          if (currentContent === '') {
+            element.remove();
+          }
+          else if (!$head[0].contains(element[0])) {
+            $head.append(element);
+          }
         }
-        var write = function(textContent) {
-            element.html(textContent);
-        };
+      };
 
-        var rules = {};
-        return {
-            element: function() { return element; },
-            css: function(selector, content) {
-                if (selector in rules) {
-                    if (content == rules[selector]) {
-                        return;
-                    }
-                }
-                rules[selector] = content;
-                write(rulesAsTextContent(rules));
-                return this;
-            }
-        };
+      var rules = {};
+      return {
+        element: function() { return element; },
+        css: function(selector, content) {
+          var exists = selector in rules;
+          if (typeof content === 'undefined') {
+            return exists ? rules[selector] : null;
+          }
+          if (!exists || content != rules[selector]) {
+            if (content === null)
+              delete rules[selector];
+            else
+              rules[selector] = content;
+          }
+          return this;
+        },
+        sync: function() {
+          write(rulesAsTextContent(rules));
+        }
+      };
     };
-}]);
+  }]);
