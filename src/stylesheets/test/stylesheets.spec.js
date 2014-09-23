@@ -13,12 +13,30 @@ describe('stylesheets', function() {
 
   it('should create and inject new stylesheet', function() {
     var sheetId = 'stylesheets-test';
+    var selector = '#id:before';
+    var prop = 'color';
+    var value = 'red';
+
+    var content = {};
+    content[prop] = value;
+
     var sheet = stylesheetFactory();
-    sheet.css('#id:before', {color:'red'});
     sheet.element().attr('id', sheetId);
 
-    var $sheet = $document.find('#' + sheetId);
-    expect($sheet.text()).toEqual(sheet.element().text());
+    var cssEquals = function(expected) {
+      var $sheet = $document.find('#' + sheetId);
+      expect($sheet.text()).toEqual(expected);
+      expect(sheet.element().text()).toEqual(expected);
+    };
+
+    sheet.css(selector, content).sync();
+    cssEquals('#id:before {\n\tcolor: red;\n}');
+
+    content[prop] = 'green';
+    sheet.css(selector, content).sync();
+    cssEquals('#id:before {\n\tcolor: green;\n}');
+
+    sheet.css(selector, null).sync();
+    cssEquals('');
   });
 });
-
