@@ -55,10 +55,12 @@ angular.module('mm.foundation.stylesheets', [])
             return exists ? rules[selector] : null;
           }
           if (!exists || content != rules[selector]) {
-            if (content === null)
+            if (content === null) {
               delete rules[selector];
-            else
+            }
+            else {
               rules[selector] = content;
+            }
           }
           return this;
         },
