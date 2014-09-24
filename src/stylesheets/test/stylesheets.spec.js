@@ -13,7 +13,7 @@ describe('stylesheets', function() {
 
   it('should create and inject new stylesheet', function() {
     var sheetId = 'stylesheets-test';
-    var selector = '#id:before';
+    var selector = '#id::before';
     var prop = 'color';
     var value = 'red';
 
@@ -30,11 +30,11 @@ describe('stylesheets', function() {
     };
 
     sheet.css(selector, content).sync();
-    cssEquals('#id:before {\n\tcolor: red;\n}');
+    cssEquals('#id::before {\n\tcolor: red;\n}');
 
     content[prop] = 'green';
     sheet.css(selector, content).sync();
-    cssEquals('#id:before {\n\tcolor: green;\n}');
+    cssEquals('#id::before {\n\tcolor: green;\n}');
 
     sheet.css(selector, null).sync();
     cssEquals('');

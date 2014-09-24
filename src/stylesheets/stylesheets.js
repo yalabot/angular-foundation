@@ -2,14 +2,13 @@
  * stylesheets - Manipulate sheets in style
  * @example:
 
-    angular.module('mine', ['mm.foundation.stylesheets'])
-    .controller(function(stylesheetFactory) {
+    function(stylesheetFactory) {
         var element = angular.element(document.head).find('styles');
         stylesheetFactory(element).css('#myid:before', {
             'background-color': 'red',
             width: '500px'
         });
-    });
+    }
  */
 angular.module('mm.foundation.stylesheets', [])
 
