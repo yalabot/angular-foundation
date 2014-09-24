@@ -10,7 +10,7 @@
      </li>
    </ul>
  */
-angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.foundation.mediaQueries' ])
+angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.foundation.mediaQueries', 'mm.foundation.stylesheets' ])
 
 .controller('DropdownToggleController', ['$scope', '$attrs', 'mediaQueries', function($scope, $attrs, mediaQueries) {
   this.small = function() {
@@ -18,7 +18,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
   };
 }])
 
-.directive('dropdownToggle', ['$document', '$window', '$location', '$position', function ($document, $window, $location, $position) {
+.directive('dropdownToggle', ['$document', '$window', '$location', '$position', 'stylesheetFactory', function ($document, $window, $location, $position, stylesheetFactory) {
   var openElement = null,
       closeMenu   = angular.noop;
   return {
@@ -29,6 +29,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
     controller: 'DropdownToggleController',
     link: function(scope, element, attrs, controller) {
       var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
+      var sheet = stylesheetFactory();
 
       scope.$watch('$location.path', function() { closeMenu(); });
       element.bind('click', function (event) {
@@ -73,6 +74,17 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           }
 
           dropdown.css(css);
+
+          var dropdownLeft = $position.offset(dropdown).left;
+          var pipWidth = parseInt(
+            getComputedStyle(dropdown[0], '::before').getPropertyValue('width'), 10
+          );
+          var pipLeft = offset.left - dropdownLeft + Math.round((offset.width - pipWidth) / 2);
+          var rules = {left: pipLeft + 'px'};
+          sheet
+            .css('#' + dropdown[0].id + '::before', rules)
+            .css('#' + dropdown[0].id + '::after', rules)
+            .sync();
 
           openElement = element;
           closeMenu = function (event) {
