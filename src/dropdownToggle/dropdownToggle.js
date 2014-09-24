@@ -80,10 +80,9 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             getComputedStyle(dropdown[0], '::before').getPropertyValue('width'), 10
           );
           var pipLeft = offset.left - dropdownLeft + Math.round((offset.width - pipWidth) / 2);
-          var rules = {left: pipLeft + 'px'};
           sheet
-            .css('#' + dropdown[0].id + '::before', rules)
-            .css('#' + dropdown[0].id + '::after', rules)
+            .css('#' + dropdown[0].id + '::before', {left: pipLeft + 'px'})
+            .css('#' + dropdown[0].id + '::after', {left: pipLeft - 1 + 'px'})
             .sync();
 
           openElement = element;
