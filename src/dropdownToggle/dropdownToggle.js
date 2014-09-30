@@ -92,6 +92,14 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             closeMenu = angular.noop;
             openElement = null;
           };
+
+          if (dropdown.hasClass('content')) {
+            dropdown.bind('click', function(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+            });
+          }
+
           $document.bind('click', closeMenu);
         }
       });
