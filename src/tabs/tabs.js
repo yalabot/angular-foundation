@@ -201,19 +201,19 @@ angular.module('mm.foundation.tabs', [])
         }
 
         scope.$watch('active', function(active) {
-			/**
-			 * The issue https://github.com/pineconellc/angular-foundation/issues/61 was hard to replicate.
-			 * To replicate it, you need to have a very large page, with lots of data and controllers 
-			 * (I had around 25 controllers who each inherits the same main profile controller )
-			 * On initialization, attrs.active is true
-			 * But the active attributes was a complex expression that takes time to parse because of the large amount of controllers on the page
-			 * The getActive = $parse(attrs.active); expression takes time to parse, but at the same time, the $watch is triggered.
-			 * This means the setActive is undefined in this specific case.
-			 * 
-			 */
-			 if(typeof  setActive !== 'function'){
-				 return;
-			 }
+		/**
+		 * The issue https://github.com/pineconellc/angular-foundation/issues/61 was hard to replicate.
+		 * To replicate it, you need to have a very large page, with lots of data and controllers 
+		 * (I had around 25 controllers who each inherits the same main profile controller )
+		 * On initialization, attrs.active is true
+		 * But the active attributes was a complex expression that takes time to parse because of the large amount of controllers on the page
+		 * The getActive = $parse(attrs.active); expression takes time to parse, but at the same time, the $watch is triggered.
+		 * This means the setActive is undefined in this specific case.
+		 * 
+		 */
+		 if(typeof  setActive !== 'function'){
+			 return;
+		 }
 			
           // Note this watcher also initializes and assigns scope.active to the
           // attrs.active expression.          
