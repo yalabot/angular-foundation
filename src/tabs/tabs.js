@@ -201,10 +201,10 @@ angular.module('mm.foundation.tabs', [])
         }
 
         scope.$watch('active', function(active) {		
-		  if( angular.isFunction(setActive) ){
-		    return;
-		  }			
-		  // Note this watcher also initializes and assigns scope.active to the
+	  if( angular.isFunction(setActive) ){
+	    return;
+	  }			
+	  // Note this watcher also initializes and assigns scope.active to the
           // attrs.active expression.          
           setActive(scope.$parent, active);
           if (active) {
