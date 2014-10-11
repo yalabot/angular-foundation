@@ -91,9 +91,14 @@ describe("interchange", function () {
     }));
 
     beforeEach(function () {
-      spyOn(window, 'matchMedia').andCallFake(function (media) {
-        var isMatching = (matchMediaMock === media);
-        return isMatching ? {matches: true} : {};
+      angular.module('mm.foundation.interchange')
+        .factory('matchMedia', function() {
+          return function(media) {
+            return {
+              matches: (matchMediaMock === media),
+              media: media
+            };
+          };
       });
     });
 

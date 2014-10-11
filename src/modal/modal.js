@@ -106,15 +106,15 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
           }
           else{
           // otherwise focus the freshly-opened modal
-            element[0].focus();
+            element[0].querySelector('div').focus();
           }
         });
       }
     };
   }])
 
-  .factory('$modalStack', ['$transition', '$timeout', '$document', '$compile', '$rootScope', '$$stackedMap',
-    function ($transition, $timeout, $document, $compile, $rootScope, $$stackedMap) {
+  .factory('$modalStack', ['$window', '$transition', '$timeout', '$document', '$compile', '$rootScope', '$$stackedMap',
+    function ($window, $transition, $timeout, $document, $compile, $rootScope, $$stackedMap) {
 
       var OPENED_MODAL_CLASS = 'modal-open';
 
@@ -229,7 +229,16 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
           body.append(backdropDomEl);
         }
           
-        var angularDomEl = angular.element('<div modal-window></div>');
+        // Create a faux modal div just to measure its
+        // distance to top
+        var faux = angular.element('<div class="reveal-modal" style="z-index:-1""></div>');
+        body.append(faux[0]);
+        var marginTop = parseInt(getComputedStyle(faux[0]).top);
+        faux.remove();
+
+        var openAt = $window.scrollY + marginTop;
+
+        var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>');
         angularDomEl.attr('window-class', modal.windowClass);
         angularDomEl.attr('index', openedWindows.length() - 1);
         angularDomEl.attr('animate', 'animate');
