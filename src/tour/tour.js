@@ -48,7 +48,13 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
     endCallbacks.forEach(function (callback) {
       callback.call();
     });
-  }
+  };
+
+  this.onEnd = function ( callback ) {
+    if ( typeof(callback) === 'function' ) {
+      endCallbacks.push(callback);
+    }
+  };
 }
 
 .directive( 'stepTextPopup', ['$tour', function ( $tour ) {
