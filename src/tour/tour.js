@@ -4,6 +4,7 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
   var currentIndex = getCurrentStep();
   var ended = false;
   var steps = {};
+  var endCallbacks = [];
 
   function getCurrentStep() {
     return parseInt( $window.localStorage.getItem( 'mm.tour.step' ), 10 );
@@ -44,8 +45,11 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
 
   this.end = function () {
     setCurrentStep( 0 );
-  };
-}])
+    endCallbacks.forEach(function (callback) {
+      callback.call();
+    });
+  }
+}
 
 .directive( 'stepTextPopup', ['$tour', function ( $tour ) {
   return {
@@ -98,7 +102,7 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
         return true;
       }
     }
-    
+
     return false;
   }
 
