@@ -55,7 +55,8 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
       endCallbacks.push(callback);
     }
   };
-}
+
+}]);
 
 .directive( 'stepTextPopup', ['$tour', function ( $tour ) {
   return {
