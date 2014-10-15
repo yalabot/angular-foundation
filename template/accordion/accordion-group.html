@@ -1,4 +1,4 @@
 <dd>
-  <a ng-click="isOpen = !isOpen" accordion-transclude="heading">{{heading}}</a>
+  <a ng-click="isOpen = !isOpen" ng-class="{ active: isOpen }"  accordion-transclude="heading">{{heading}}</a>
   <div class="content" ng-style="isOpen ? {display: 'block'} : {}" ng-transclude></div>
 </dd>
