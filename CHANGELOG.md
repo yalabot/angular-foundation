@@ -1,5 +1,5 @@
 <a name="v0.4.0"></a>
-# v0.4.0 (unreleased)
+# v0.4.0 (2014-10-15)
 ## Bug Fixes
 * **modal**
   - Fixes an issue where modal input elements could not be focused if ngTouch was enabled. ([c359d0b](https://github.com/pineconellc/angular-foundation/commit/c359d0bc4b61d6d5b9a4c1a516443231f334e91f))
