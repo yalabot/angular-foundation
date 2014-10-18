@@ -501,13 +501,10 @@ describe('tabs', function() {
     }));
 
     it('when disabledFlag is true, tab can not be active on click ', function() {
+      scope.disabledFlag = true;
       titles().eq(1).find('a').click();
       expect(titles().eq(1)).not.toHaveClass('active');
       expect(titles().eq(0)).toHaveClass('active');
-      scope.disabledFlag = false;
-      scope.$apply();
-      titles().eq(1).find('a').click();
-      expect(contents().eq(1)).toHaveClass('active');
     });
 
     it('when disabledFlag is false, tab will be active on click', function() {
