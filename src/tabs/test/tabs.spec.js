@@ -500,18 +500,17 @@ describe('tabs', function() {
       scope.$apply();
     }));
 
-    it('when disabledFlag is true, tab can not be active on click ', function() {
-      scope.disabledFlag = true;
+    it('does not activate on click when disabledFlag is true', function() {
       titles().eq(1).find('a').click();
       expect(titles().eq(1)).not.toHaveClass('active');
       expect(titles().eq(0)).toHaveClass('active');
     });
 
-    it('when disabledFlag is false, tab will be active on click', function() {
+    it('activates on click when disabledFlag is false', function() {
       scope.disabledFlag = false;
       scope.$apply();
       titles().eq(1).find('a').click();
-      expect(contents().eq(1)).toHaveClass('active');
+      expect(titles().eq(1)).toHaveClass('active');
       expect(titles().eq(0)).not.toHaveClass('active');
     });
   });
