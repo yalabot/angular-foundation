@@ -55,8 +55,8 @@ describe('dropdownToggle', function() {
       expect(targetElm.css('display')).toBe('none');
     });
       
-    it('should not close on content elm click', function() {
-        targetElm.addClass('content');
+    it('should not close on click if elm has show-on-click attribute', function() {
+        targetElm.attr('show-on-click', '');
         toggleElm.click();
         expect(targetElm.css('display')).toBe('block');
     });

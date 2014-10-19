@@ -93,7 +93,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             openElement = null;
           };
 
-          if (dropdown.hasClass('content')) {
+          if (dropdown.attr('show-on-click')) {
             dropdown.bind('click', function(evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
