@@ -491,6 +491,30 @@ describe('tabs', function() {
     });
   });
 
+
+  describe('disabled', function() {
+    beforeEach(inject(function($compile, $rootScope) {
+      scope = $rootScope.$new();
+      scope.disabledFlag = true;
+      elm = $compile('<tabset><tab></tab><tab disabled="disabledFlag"></tab></tabset>')(scope);
+      scope.$apply();
+    }));
+
+    it('does not activate on click when disabledFlag is true', function() {
+      titles().eq(1).find('a').click();
+      expect(titles().eq(1)).not.toHaveClass('active');
+      expect(titles().eq(0)).toHaveClass('active');
+    });
+
+    it('activates on click when disabledFlag is false', function() {
+      scope.disabledFlag = false;
+      scope.$apply();
+      titles().eq(1).find('a').click();
+      expect(titles().eq(1)).toHaveClass('active');
+      expect(titles().eq(0)).not.toHaveClass('active');
+    });
+  });
+
   //https://github.com/angular-ui/bootstrap/issues/631
   describe('ng-options in content', function() {
     var elm;
