@@ -20,7 +20,7 @@ describe('offcanvas directive', function () {
             '</section>' +
           '</nav>' +
           '<aside class="left-off-canvas-menu">' +
-            '<ul class="off-canvas-list">' +
+            '<ul class="off-canvas-list" close-on-click="false">' +
               '<li><a href="#">Left Sidebar</a></li>' +
             '</ul>' +
           '</aside>' +
@@ -76,6 +76,13 @@ describe('offcanvas directive', function () {
     expect(element).rightOpen();
     $('.off-canvas-list', element).trigger('click');
     expect(element).isClosed();
+  });
+
+  it('does not close after clicking on a list item with close-on-click=false', function() {
+    $('.left-off-canvas-toggle', element).trigger('click');
+    expect(element).leftOpen();
+    $('.left-off-canvas-menu > .off-canvas-list', element).trigger('click');
+    expect(element).leftOpen();
   });
 
 });

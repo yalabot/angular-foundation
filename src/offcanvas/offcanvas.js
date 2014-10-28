@@ -70,11 +70,16 @@ angular.module("mm.foundation.offcanvas", [])
     }])
     .directive('offCanvasList', [function () {
         return {
+            scope: {
+                closeOnClick: "="
+            },
             require: '^offCanvasWrap',
             restrict: 'C',
             link: function ($scope, element, attrs, offCanvasWrap) {
                 element.on('click', function () {
-                    offCanvasWrap.hide();
+                    if ($scope.closeOnClick !== false) {
+                        offCanvasWrap.hide();
+                    }
                 });
             }
         };
