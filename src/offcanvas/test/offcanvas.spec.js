@@ -22,11 +22,25 @@ describe('offcanvas directive', function () {
           '<aside class="left-off-canvas-menu">' +
             '<ul class="off-canvas-list">' +
               '<li><a href="#">Left Sidebar</a></li>' +
+              '<li class="has-submenu"><a href="#">Link 2 w/ submenu</a>' +
+              '<ul class="left-submenu">' +
+                '<li class="back"><a href="#">Back</a></li>' +
+                '<li><label>Level 2</label></li>' +
+                '<li><a href="#">...</a></li>' +
+              '</ul>' +
+              '</li>' +
             '</ul>' +
           '</aside>' +
           '<aside class="right-off-canvas-menu">' +
             '<ul class="off-canvas-list">' +
               '<li><a href="#">Right Sidebar</a></li>' +
+              '<li class="has-submenu"><a href="#">Link 2 w/ submenu</a>' +
+                '<ul class="right-submenu">' +
+                  '<li class="back"><a href="#">Back</a></li>' +
+                  '<li><label>Level 2 Right</label></li>' +
+                  '<li><a href="#">...</a></li>' +
+                '</ul>' +
+              '</li>' +
             '</ul>' +
           '</aside>' +
           '<section class="main-section">' +
@@ -64,18 +78,34 @@ describe('offcanvas directive', function () {
     expect(element).rightOpen();
   });
 
-  it('is closes after clicking on the overlay', function() {
+  it('is closed after clicking on the overlay', function() {
     $('.right-off-canvas-toggle', element).trigger('click');
     expect(element).rightOpen();
     $('.exit-off-canvas', element).trigger('click');
     expect(element).isClosed();
   });
 
-  it('is closes after clicking on a list item', function() {
+  it('is closed after clicking on a list item', function() {
     $('.right-off-canvas-toggle', element).trigger('click');
     expect(element).rightOpen();
-    $('.off-canvas-list', element).trigger('click');
+    $('.off-canvas-list li:not(.has-submenu, .back)', element).trigger('click');
     expect(element).isClosed();
   });
 
+  it('submenu is open after clicking a submenu item', function() {
+    $('.off-canvas-list .has-submenu', element).trigger('click');
+    if (element.children().hasClass('.left-submenu')) {
+      expect('.left-submenu').leftOpen();
+    }
+    if (element.children().hasClass('.right-submenu')) {
+      expect('.right-submenu').rightOpen();
+    }
+  });
+
+  it('submenu is closed after clicking a back item', function() {
+    $('.off-canvas-list .back', element).trigger('click');
+    expect($('.off-canvas-list .back').closest('.left-submenu')).isClosed();
+    $('.off-canvas-list .right-submenu .back', element).trigger('click');
+    expect($('.off-canvas-list .back').closest('.right-submenu')).isClosed();
+  });
 });
