@@ -207,6 +207,19 @@ describe('$modal', function () {
       expect(modal.opened).toBeRejectedWith(false);
     });
 
+    it('should destroy modal scope on close', function () {
+      expect($rootScope.$$childTail).toEqual(null);
+
+      var modal = open({template: '<div>Content</div>'});
+      expect($rootScope.$$childTail).toNotEqual(null);
+
+      close(modal, 'closed ok');
+      waitForBackdropAnimation();
+      expect($document).toHaveModalsOpen(0);
+
+      $timeout.flush();
+      expect($rootScope.$$childTail).toEqual(null);
+    });
   });
 
   describe('default options can be changed in a provider', function () {
