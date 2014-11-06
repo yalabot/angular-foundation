@@ -10,9 +10,15 @@
      </li>
    </ul>
  */
-angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
+angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.foundation.mediaQueries' ])
 
-.directive('dropdownToggle', ['$document', '$location', '$position', function ($document, $location, $position) {
+.controller('DropdownToggleController', ['$scope', '$attrs', 'mediaQueries', function($scope, $attrs, mediaQueries) {
+  this.small = function() {
+    return mediaQueries.small() && !mediaQueries.medium();
+  };
+}])
+
+.directive('dropdownToggle', ['$document', '$window', '$location', '$position', function ($document, $window, $location, $position) {
   var openElement = null,
       closeMenu   = angular.noop;
   return {
@@ -20,7 +26,8 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
     scope: {
       dropdownToggle: '@'
     },
-    link: function(scope, element, attrs) {
+    controller: 'DropdownToggleController',
+    link: function(scope, element, attrs, controller) {
       var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
 
       scope.$watch('$location.path', function() { closeMenu(); });
@@ -41,10 +48,31 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position' ])
           var offset = $position.offset(element);
           var parentOffset = $position.offset(angular.element(dropdown[0].offsetParent));
 
-          dropdown.css({
-            left: offset.left - parentOffset.left + 'px',
-            top: offset.top - parentOffset.top + offset.height + 'px'
-          });
+          var dropdownWidth = dropdown.prop('offsetWidth');
+
+          var css = {
+              top: offset.top - parentOffset.top + offset.height + 'px'
+          };
+
+          if (controller.small()) {
+            css.left = Math.max((parentOffset.width - dropdownWidth) / 2, 8) + 'px';
+            css.position = 'absolute';
+            css.width = '95%';
+            css['max-width'] = 'none';
+          }
+          else {
+            var left = Math.round(offset.left - parentOffset.left);
+            var rightThreshold = $window.innerWidth - dropdownWidth - 8;
+            if (left > rightThreshold) {
+                left = rightThreshold;
+                dropdown.removeClass('left').addClass('right');
+            }
+            css.left = left + 'px';
+            css.position = null;
+            css['max-width'] = null;
+          }
+
+          dropdown.css(css);
 
           openElement = element;
           closeMenu = function (event) {

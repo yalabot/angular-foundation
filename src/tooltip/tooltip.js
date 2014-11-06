@@ -317,10 +317,14 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
             });
 
             var unregisterTriggers = function() {
-              if (hasRegisteredTriggers) {
-                var element = getElement();
-                element.unbind( triggers.show, showTooltipBind );
-                element.unbind( triggers.hide, hideTooltipBind );
+              if ( hasRegisteredTriggers ) {
+                if ( angular.isFunction( triggers.show ) ) {
+                  unregisterTriggerFunction();
+                } else {
+                  var element = getElement();
+                  element.unbind( triggers.show, showTooltipBind );
+                  element.unbind( triggers.hide, hideTooltipBind );
+                }
               }
             };
 

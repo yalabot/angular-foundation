@@ -1,11 +1,11 @@
 {
-  "author": "https://github.com/madmimi/angular-foundation/graphs/contributors",
+  "author": "Pinecone, LLC",
   "name": "angular-mm-foundation",
-  "version": "0.4.0-SNAPSHOT",
-  "homepage": "http://madmimi.github.io/angular-foundation/",
+  "version": "0.5.0-SNAPSHOT",
+  "homepage": "http://pineconellc.github.io/angular-foundation/",
   "repository": {
     "type": "git",
-    "url": "git://github.com/madmimi/angular-foundation.git"
+    "url": "git://github.com/pineconellc/angular-foundation.git"
   },
   "dependencies": {},
   "devDependencies": {

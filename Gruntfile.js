@@ -25,6 +25,7 @@ module.exports = function(grunt) {
                ' * <%= pkg.homepage %>\n',
                ' * Version: <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>',
                ' * License: <%= pkg.license %>',
+               ' * (c) <%= pkg.author %>',
                ' */\n'].join('\n')
     },
     delta: {
@@ -153,22 +154,21 @@ module.exports = function(grunt) {
       options: {
         dest: 'CHANGELOG.md',
         templateFile: 'misc/changelog.tpl.md',
-        github: 'madmimi/angular-foundation'
+        github: 'pineconellc/angular-foundation'
       }
     },
     release: {
-      //We use %version% and evluate it at run-time, because <%= pkg.version %>
+      //We use %version% and evaluate it at run-time, because <%= pkg.version %>
       //is only evaluated once
       'release-prepare': [
         'grunt version', //remove "-SNAPSHOT"
-        'grunt before-test after-test',
-        'grunt changelog'
-      ],
-      'release-complete': [
-        'git commit CHANGELOG.md package.json -m "chore(release): v%version%"',
-        'git tag %version%'
+        'grunt before-test after-test'
       ],
       'release-start': [
+        'git commit package.json -m "chore(release): v%version%"',
+        'git tag %version%'
+      ],
+      'release-complete': [
         'grunt version:minor:"SNAPSHOT"',
         'git commit package.json -m "chore(release): Starting v%version%"'
       ]
