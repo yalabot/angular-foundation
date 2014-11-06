@@ -290,26 +290,18 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               scope.tt_title = val;
             });
 
-            var setPlacement = function ( val ) {
-              scope.tt_placement = angular.isDefined( val ) ? val : options.placement;
-            };
+            attrs[prefix+'Placement'] = attrs[prefix+'Placement'] || null;
 
-            if(!attrs[prefix+'Placement']){
-              setPlacement();
-            }
+            attrs.$observe( prefix+'Placement', function ( val ) {
+              scope.tt_placement = angular.isDefined( val ) && val ? val : options.placement;
+            });
 
-            attrs.$observe( prefix+'Placement', setPlacement);
+            attrs[prefix+'PopupDelay'] = attrs[prefix+'PopupDelay'] || null;
 
-            var setPopupDelay = function ( val ) {
+            attrs.$observe( prefix+'PopupDelay', function ( val ) {
               var delay = parseInt( val, 10 );
               scope.tt_popupDelay = ! isNaN(delay) ? delay : options.popupDelay;
-            };
-
-            if(!attrs[prefix+'PopupDelay']){
-              setPopupDelay();
-            }
-
-            attrs.$observe( prefix+'PopupDelay', setPopupDelay);
+            });
 
             var unregisterTriggers = function() {
               if ( hasRegisteredTriggers ) {
@@ -324,7 +316,9 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
 
             var unregisterTriggerFunction = function () {};
 
-            var setUpTrigger = function ( val ) {
+            attrs[prefix+'Trigger'] = attrs[prefix+'Trigger'] || null;
+
+            attrs.$observe( prefix+'Trigger', function ( val ) {
               unregisterTriggers();
               unregisterTriggerFunction();
 
@@ -346,15 +340,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               }
 
               hasRegisteredTriggers = true;
-            };
-
-
-            if(!attrs[prefix+'Trigger']){
-              setUpTrigger();
-            }
-            
-            attrs.$observe( prefix+'Trigger', setUpTrigger);
-
+            });
 
             var animation = scope.$eval(attrs[prefix + 'Animation']);
             scope.tt_animation = angular.isDefined(animation) ? !!animation : options.animation;
