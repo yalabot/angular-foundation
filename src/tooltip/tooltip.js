@@ -36,9 +36,9 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
    *     $tooltipProvider.options( { placement: 'left' } );
    *   });
    */
-	this.options = function( value ) {
-		angular.extend( globalOptions, value );
-	};
+  this.options = function( value ) {
+    angular.extend( globalOptions, value );
+  };
 
   /**
    * This allows you to extend the set of trigger mappings available. E.g.:
@@ -290,14 +290,26 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               scope.tt_title = val;
             });
 
-            attrs.$observe( prefix+'Placement', function ( val ) {
+            var setPlacement = function ( val ) {
               scope.tt_placement = angular.isDefined( val ) ? val : options.placement;
-            });
+            };
 
-            attrs.$observe( prefix+'PopupDelay', function ( val ) {
+            if(!attrs[prefix+'Placement']){
+              setPlacement();
+            }
+
+            attrs.$observe( prefix+'Placement', setPlacement);
+
+            var setPopupDelay = function ( val ) {
               var delay = parseInt( val, 10 );
               scope.tt_popupDelay = ! isNaN(delay) ? delay : options.popupDelay;
-            });
+            };
+
+            if(!attrs[prefix+'PopupDelay']){
+              setPopupDelay();
+            }
+
+            attrs.$observe( prefix+'PopupDelay', setPopupDelay);
 
             var unregisterTriggers = function() {
               if ( hasRegisteredTriggers ) {
@@ -312,7 +324,7 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
 
             var unregisterTriggerFunction = function () {};
 
-            attrs.$observe( prefix+'Trigger', function ( val ) {
+            var setUpTrigger = function ( val ) {
               unregisterTriggers();
               unregisterTriggerFunction();
 
@@ -334,7 +346,15 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               }
 
               hasRegisteredTriggers = true;
-            });
+            };
+
+
+            if(!attrs[prefix+'Trigger']){
+              setUpTrigger();
+            }
+            
+            attrs.$observe( prefix+'Trigger', setUpTrigger);
+
 
             var animation = scope.$eval(attrs[prefix + 'Animation']);
             scope.tt_animation = angular.isDefined(animation) ? !!animation : options.animation;
