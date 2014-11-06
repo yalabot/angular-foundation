@@ -1,3 +1,3 @@
-var TopBarDemoCtrl = function ($scope) {
+angular.module('foundationDemoApp').controller('TopBarDemoCtrl', function ($scope) {
 
-};
+});

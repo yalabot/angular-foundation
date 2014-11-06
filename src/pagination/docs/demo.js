@@ -1,4 +1,4 @@
-var PaginationDemoCtrl = function ($scope) {
+angular.module('foundationDemoApp').controller('PaginationDemoCtrl', function ($scope) {
   $scope.totalItems = 64;
   $scope.currentPage = 4;
   $scope.maxSize = 5;
@@ -9,4 +9,4 @@ var PaginationDemoCtrl = function ($scope) {
 
   $scope.bigTotalItems = 175;
   $scope.bigCurrentPage = 1;
-};
+});

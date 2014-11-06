@@ -1,4 +1,4 @@
-var RatingDemoCtrl = function ($scope) {
+angular.module('foundationDemoApp').controller('RatingDemoCtrl', function ($scope) {
   $scope.rate = 7;
   $scope.max = 10;
   $scope.isReadonly = false;
@@ -15,4 +15,4 @@ var RatingDemoCtrl = function ($scope) {
     {stateOn: 'fa-heart'},
     {stateOff: 'fa-power-off'}
   ];
-};
+});
