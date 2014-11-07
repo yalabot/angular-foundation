@@ -290,9 +290,13 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
               scope.tt_title = val;
             });
 
+            attrs[prefix+'Placement'] = attrs[prefix+'Placement'] || null;
+
             attrs.$observe( prefix+'Placement', function ( val ) {
-              scope.tt_placement = angular.isDefined( val ) ? val : options.placement;
+              scope.tt_placement = angular.isDefined( val ) && val ? val : options.placement;
             });
+
+            attrs[prefix+'PopupDelay'] = attrs[prefix+'PopupDelay'] || null;
 
             attrs.$observe( prefix+'PopupDelay', function ( val ) {
               var delay = parseInt( val, 10 );
@@ -311,6 +315,8 @@ angular.module( 'mm.foundation.tooltip', [ 'mm.foundation.position', 'mm.foundat
             };
 
             var unregisterTriggerFunction = function () {};
+
+            attrs[prefix+'Trigger'] = attrs[prefix+'Trigger'] || null;
 
             attrs.$observe( prefix+'Trigger', function ( val ) {
               unregisterTriggers();

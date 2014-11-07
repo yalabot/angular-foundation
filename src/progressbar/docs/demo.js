@@ -1,4 +1,4 @@
-var ProgressDemoCtrl = function ($scope) {
+angular.module('foundationDemoApp').controller('ProgressDemoCtrl', function ($scope) {
   
   $scope.max = 200;
 
@@ -22,4 +22,4 @@ var ProgressDemoCtrl = function ($scope) {
     $scope.type = type;
   };
   $scope.random();
-};
+});

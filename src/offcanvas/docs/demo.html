@@ -1,38 +1,40 @@
-<div class="off-canvas-wrap" ng-controller="OffCanvasDemoCtrl">
-    <div class="inner-wrap">
-        <nav class="tab-bar">
-            <section class="left-small">
-                <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+<div ng-controller="OffCanvasDemoCtrl">
+    <div class="off-canvas-wrap">
+        <div class="inner-wrap">
+            <nav class="tab-bar">
+                <section class="left-small">
+                    <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+                </section>
+
+                <section class="middle tab-bar-section">
+                    <h1 class="title">OffCanvas</h1>
+                </section>
+
+                <section class="right-small">
+                    <a class="right-off-canvas-toggle menu-icon" ><span></span></a>
+                </section>
+
+            </nav>
+
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li><a href="#">Left Sidebar</a></li>
+                </ul>
+            </aside>
+            <aside class="right-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li><a href="#">Right Sidebar</a></li>
+                </ul>
+            </aside>
+            <section class="main-section">
+                <div class="small-12 columns">
+                    <h1>How to use</h1>
+                    <p>Just use the standard layout for an offcanvas page as documented in the <a href="http://foundation.zurb.com/docs/components/offcanvas.html">foundation docs</a></p>
+                    <p>As long as you include mm.foundation.offcanvas it should simply work</p>
+                </div>
             </section>
 
-            <section class="middle tab-bar-section">
-                <h1 class="title">OffCanvas</h1>
-            </section>
-
-            <section class="right-small">
-                <a class="right-off-canvas-toggle menu-icon" ><span></span></a>
-            </section>
-
-        </nav>
-
-        <aside class="left-off-canvas-menu">
-            <ul class="off-canvas-list">
-                <li><a href="#">Left Sidebar</a></li>
-            </ul>
-        </aside>
-        <aside class="right-off-canvas-menu">
-            <ul class="off-canvas-list">
-                <li><a href="#">Right Sidebar</a></li>
-            </ul>
-        </aside>
-        <section class="main-section">
-            <div class="small-12 columns">
-                <h1>How to use</h1>
-                <p>Just use the standard layout for an offcanvas page as documented in the <a href="http://foundation.zurb.com/docs/components/offcanvas.html">foundation docs</a></p>
-                <p>As long as you include mm.foundation.offcanvas it should simply work</p>
-            </div>
-        </section>
-
-        <a class="exit-off-canvas"></a>
+            <a class="exit-off-canvas"></a>
+        </div>
     </div>
 </div>

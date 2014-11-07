@@ -1,4 +1,4 @@
-var ButtonsCtrl = function ($scope) {
+angular.module('foundationDemoApp').controller('ButtonsCtrl', function ($scope) {
 
   $scope.singleModel = 1;
 
@@ -9,4 +9,4 @@ var ButtonsCtrl = function ($scope) {
     middle: true,
     right: false
   };
-};
+});
