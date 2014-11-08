@@ -86,21 +86,39 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             .sync();
 
           openElement = element;
-          closeMenu = function (event) {
-            $document.unbind('click', closeMenu);
-            dropdown.css('display', 'none');
-            closeMenu = angular.noop;
-            openElement = null;
-          };
+	  var shouldUnbind = true;
+	  closeMenu = function (event) {
+	      if (shouldUnbind) {
+		$document.unbind('click', closeMenu);
+		dropdown.css('display', 'none');
+		closeMenu = angular.noop;
+		openElement = null;
+	      }
+	      shouldUnbind = true;
+	  };
 
-          if (dropdown.attr('show-on-click')) {
-            dropdown.bind('click', function(evt) {
-                evt.preventDefault();
-                evt.stopPropagation();
-            });
-          }
+	  if (dropdown.attr('show-on-click')) {
+	    dropdown.bind('click', function(evt) {
+	      shouldUnbind = false;
+	      dropdown.css('display', 'block');
+	    });
+	  }
 
-          $document.bind('click', closeMenu);
+	  var closeButton = angular.element($document[0].querySelector('.close.button'));
+	  closeButton.bind('click', function(e) {
+	      shouldUnbind = true;
+	      dropdown.unbind('click');
+	      closeMenu();
+	  });
+
+	  var sendButton = angular.element($document[0].querySelector('.send.button'));
+	  sendButton.bind('click', function(e) {
+	      shouldUnbind = true;
+	      dropdown.unbind('click');
+	      closeMenu();
+	  });
+          
+	  $document.bind('click', closeMenu);
         }
       });
 
