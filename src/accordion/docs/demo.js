@@ -1,4 +1,4 @@
-function AccordionDemoCtrl($scope) {
+angular.module('foundationDemoApp').controller('AccordionDemoCtrl', function($scope) {
   $scope.oneAtATime = true;
 
   $scope.groups = [
@@ -18,4 +18,4 @@ function AccordionDemoCtrl($scope) {
     var newItemNo = $scope.items.length + 1;
     $scope.items.push('Item ' + newItemNo);
   };
-}
+});
