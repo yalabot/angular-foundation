@@ -8,9 +8,9 @@ module.exports = function(grunt) {
   grunt.util.linefeed = '\n';
 
   grunt.initConfig({
-    ngversion: '1.2.15',
-    fdversion: '5.2.0',
-    faversion: '4.0.3',
+    ngversion: '1.3.1',
+    fdversion: '5.4.7',
+    faversion: '4.2.0',
     modules: [],//to be filled in by build task
     pkg: grunt.file.readJSON('package.json'),
     dist: 'dist',
@@ -25,6 +25,7 @@ module.exports = function(grunt) {
                ' * <%= pkg.homepage %>\n',
                ' * Version: <%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>',
                ' * License: <%= pkg.license %>',
+               ' * (c) <%= pkg.author %>',
                ' */\n'].join('\n')
     },
     delta: {
@@ -153,22 +154,21 @@ module.exports = function(grunt) {
       options: {
         dest: 'CHANGELOG.md',
         templateFile: 'misc/changelog.tpl.md',
-        github: 'madmimi/angular-foundation'
+        github: 'pineconellc/angular-foundation'
       }
     },
     release: {
-      //We use %version% and evluate it at run-time, because <%= pkg.version %>
+      //We use %version% and evaluate it at run-time, because <%= pkg.version %>
       //is only evaluated once
       'release-prepare': [
         'grunt version', //remove "-SNAPSHOT"
-        'grunt before-test after-test',
-        'grunt changelog'
-      ],
-      'release-complete': [
-        'git commit CHANGELOG.md package.json -m "chore(release): v%version%"',
-        'git tag %version%'
+        'grunt before-test after-test'
       ],
       'release-start': [
+        'git commit package.json -m "chore(release): v%version%"',
+        'git tag %version%'
+      ],
+      'release-complete': [
         'grunt version:minor:"SNAPSHOT"',
         'git commit package.json -m "chore(release): Starting v%version%"'
       ]

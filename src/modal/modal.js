@@ -99,15 +99,22 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         $timeout(function () {
           // trigger CSS transitions
           scope.animate = true;
-          // focus a freshly-opened modal
-          element[0].focus();
+
+          // If the modal contains any autofocus elements refocus onto the first one
+          if (element[0].querySelectorAll('[autofocus]').length > 0) {
+            element[0].querySelectorAll('[autofocus]')[0].focus();
+          }
+          else{
+          // otherwise focus the freshly-opened modal
+            element[0].querySelector('div').focus();
+          }
         });
       }
     };
   }])
 
-  .factory('$modalStack', ['$transition', '$timeout', '$document', '$compile', '$rootScope', '$$stackedMap',
-    function ($transition, $timeout, $document, $compile, $rootScope, $$stackedMap) {
+  .factory('$modalStack', ['$window', '$transition', '$timeout', '$document', '$compile', '$rootScope', '$$stackedMap',
+    function ($window, $transition, $timeout, $document, $compile, $rootScope, $$stackedMap) {
 
       var OPENED_MODAL_CLASS = 'modal-open';
 
@@ -133,7 +140,6 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
       });
 
       function removeModalWindow(modalInstance) {
-
         var body = $document.find('body').eq(0);
         var modalWindow = openedWindows.get(modalInstance).value;
 
@@ -141,8 +147,11 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         openedWindows.remove(modalInstance);
 
         //remove window DOM element
-        removeAfterAnimate(modalWindow.modalDomEl, modalWindow.modalScope, 300, checkRemoveBackdrop);
-        body.toggleClass(OPENED_MODAL_CLASS, openedWindows.length() > 0);
+        removeAfterAnimate(modalWindow.modalDomEl, modalWindow.modalScope, 300, function() {
+          modalWindow.modalScope.$destroy();
+          body.toggleClass(OPENED_MODAL_CLASS, openedWindows.length() > 0);
+          checkRemoveBackdrop();
+        });
       }
 
       function checkRemoveBackdrop() {
@@ -221,8 +230,17 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
           backdropDomEl = $compile('<div modal-backdrop></div>')(backdropScope);
           body.append(backdropDomEl);
         }
-          
-        var angularDomEl = angular.element('<div modal-window></div>');
+
+        // Create a faux modal div just to measure its
+        // distance to top
+        var faux = angular.element('<div class="reveal-modal" style="z-index:-1""></div>');
+        body.append(faux[0]);
+        var marginTop = parseInt(getComputedStyle(faux[0]).top);
+        faux.remove();
+
+        var openAt = $window.scrollY + marginTop;
+
+        var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>');
         angularDomEl.attr('window-class', modal.windowClass);
         angularDomEl.attr('index', openedWindows.length() - 1);
         angularDomEl.attr('animate', 'animate');

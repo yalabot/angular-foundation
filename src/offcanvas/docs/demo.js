@@ -1,3 +1,3 @@
-var OffCanvasDemoCtrl = function ($scope) {
+angular.module('foundationDemoApp').controller('OffCanvasDemoCtrl', function ($scope) {
 
-};
+});

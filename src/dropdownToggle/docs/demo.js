@@ -1,4 +1,4 @@
-function DropdownCtrl($scope) {
+angular.module('foundationDemoApp').controller('DropdownCtrl', function($scope) {
   $scope.items = [
     "The first choice!",
     "And another choice for you.",
@@ -8,4 +8,4 @@ function DropdownCtrl($scope) {
     "Google": "http://google.com",
     "AltaVista": "http://altavista.com"
   };
-}
+});
