@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     ngversion: '1.3.2',
-    fdversion: '5.4.7',
+    fdversion: '5.2.0',
     faversion: '4.2.0',
     modules: [],//to be filled in by build task
     pkg: grunt.file.readJSON('package.json'),
