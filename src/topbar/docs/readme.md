@@ -11,4 +11,6 @@ The following settings can be applied as attributes to the ```top-bar``` element
 - `mobile-show-parent-link`: will copy parent links into dropdowns for mobile navigation.
 - `scrolltop`: jump to top when sticky nav menu toggle is clicked
 
+The has-dropdown directive can be disabled by setting the attribute to false.
+
 See the demo page for example on how to use this and visit the [Foundation docs](http://foundation.zurb.com/docs/components/topbar.html) for more details.

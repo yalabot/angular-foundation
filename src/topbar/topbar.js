@@ -320,7 +320,8 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
                 angular.forEach(links, function(link){
                     var $link = angular.element(link);
                     var li = closest($link, 'li');
-                    if(li.hasClass('has-dropdown') || li.hasClass('back') || li.hasClass('title')){
+
+                    if(angular.isDefined(li.attr('has-dropdown')) || li.hasClass('back') || li.hasClass('title')){
                         return;
                     }
 
@@ -338,7 +339,9 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
     }])
     .directive('hasDropdown', ['mediaQueries', function (mediaQueries) {
         return {
-            scope: {},
+            scope: {
+                hasDropdown: "@"
+            },
             require: '^topBar',
             restrict: 'A',
             templateUrl: 'template/topbar/has-dropdown.html',
