@@ -160,7 +160,7 @@ describe('$modal', function () {
 
           var modal = open({template: '<div>Content</div>'});
           expect($document).toHaveModalsOpen(1);
-          expect($document).toHaveModalOpenWithStyle('top', '400px')
+          expect($document).toHaveModalOpenWithStyle('top', '400px');
         });
 
         it('should create the modal at the correct location based on window y position for IE', function () {
@@ -170,7 +170,7 @@ describe('$modal', function () {
 
           var modal = open({template: '<div>Content</div>'});
           expect($document).toHaveModalsOpen(1);
-          expect($document).toHaveModalOpenWithStyle('top', '300px')
+          expect($document).toHaveModalOpenWithStyle('top', '300px');
         });
 
         it('should create the modal at the location 0 based on undefined scrollY and pageYOffset positions', function () {
@@ -180,7 +180,7 @@ describe('$modal', function () {
 
           var modal = open({template: '<div>Content</div>'});
           expect($document).toHaveModalsOpen(1);
-          expect($document).toHaveModalOpenWithStyle('top', '0px')
+          expect($document).toHaveModalOpenWithStyle('top', '0px');
         });
       });
 
