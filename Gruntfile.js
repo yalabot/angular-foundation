@@ -133,6 +133,19 @@ module.exports = function(grunt) {
       continuous: {
         singleRun: true
       },
+      legacy: {
+        singleRun: true,
+        options: {
+          files: [
+            'bower_components/jquery/jquery.js',
+            'bower_components/angular-legacy/angular.js',
+            'bower_components/angular-mocks-legacy/angular-mocks.js',
+            'misc/test-lib/helpers.js',
+            'src/**/*.js',
+            'template/**/*.js'
+          ]
+        }
+      },
       jenkins: {
         singleRun: true,
         colors: false,
@@ -356,7 +369,7 @@ module.exports = function(grunt) {
         grunt.util._.extend(karmaOptions, coverageOpts);
         grunt.config.set('karma.options', karmaOptions);
       }
-      grunt.task.run(this.args.length ? 'karma:jenkins' : 'karma:continuous');
+      grunt.task.run(this.args.length ? 'karma:jenkins' : ['karma:continuous', 'karma:legacy']);
     }
   });
 
