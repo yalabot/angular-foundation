@@ -11,13 +11,13 @@
   Widgets: Accordion, Alert, Buttons, Dropdown Toggle, Interchange, Modal, Offcanvas, Pagination, Popover, Progressbar, Rating, Tabs, Tooltip, Topbar, Tour, Typeahead, ">
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-  <script src="mm-foundation-tpls-0.4.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+  <script src="mm-foundation-tpls-0.5.0.js"></script>
   <script src="assets/plunker.js"></script>
   <script src="assets/app.js"></script>
 
   <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.0/css/foundation.min.css" rel="stylesheet"/>
-  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet"/>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/rainbow.css"/>
   <link rel="stylesheet" href="assets/demo.css"/>
   <link rel="author" href="https://github.com/pineconellc/angular-foundation/graphs/contributors">
@@ -82,10 +82,10 @@
             JavaScript is required. The <strong>only required dependencies</strong> are:
           </p>
           <ul>
-            <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.2.15)</li>
+            <li><a href="http://angularjs.org" target="_blank">AngularJS</a> (requires AngularJS 1.2.x, tested with 1.3.3)</li>
             <li><a href="http://foundation.zurb.com"
               target="_blank">Foundation CSS</a> (tested with version 5.2.0).
-              This version of the library (0.4.0) works only with
+              This version of the library (0.5.0) works only with
               Foundation CSS in version 5.x.
             </li>
           </ul>
@@ -151,7 +151,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'accordion')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'accordion')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -187,7 +187,7 @@
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">function AccordionDemoCtrl($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;AccordionDemoCtrl&#x27;, function($scope) {
   $scope.oneAtATime = true;
 
   $scope.groups = [
@@ -207,7 +207,7 @@
     var newItemNo = $scope.items.length + 1;
     $scope.items.push(&#x27;Item &#x27; + newItemNo);
   };
-}
+});
 </code></pre>
                     </div>
                   </tab>
@@ -215,7 +215,7 @@
               </div>
             </div>
           </section>
-          <script>function AccordionDemoCtrl($scope) {
+          <script>angular.module('foundationDemoApp').controller('AccordionDemoCtrl', function($scope) {
   $scope.oneAtATime = true;
 
   $scope.groups = [
@@ -235,7 +235,7 @@
     var newItemNo = $scope.items.length + 1;
     $scope.items.push('Item ' + newItemNo);
   };
-}
+});
 </script>
         
           <section class="demo" id="alert">
@@ -264,7 +264,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'alert')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'alert')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -278,7 +278,7 @@
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">function AlertDemoCtrl($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;AlertDemoCtrl&#x27;, function($scope) {
   $scope.alerts = [
     { type: &#x27;danger&#x27;, msg: &#x27;Oh snap! Change a few things up and try submitting again.&#x27; },
     { type: &#x27;success round&#x27;, msg: &#x27;Well done! You successfully read this important alert message.&#x27; }
@@ -292,7 +292,7 @@
     $scope.alerts.splice(index, 1);
   };
 
-}
+});
 </code></pre>
                     </div>
                   </tab>
@@ -300,7 +300,7 @@
               </div>
             </div>
           </section>
-          <script>function AlertDemoCtrl($scope) {
+          <script>angular.module('foundationDemoApp').controller('AlertDemoCtrl', function($scope) {
   $scope.alerts = [
     { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
     { type: 'success round', msg: 'Well done! You successfully read this important alert message.' }
@@ -314,7 +314,7 @@
     $scope.alerts.splice(index, 1);
   };
 
-}
+});
 </script>
         
           <section class="demo" id="buttons">
@@ -356,7 +356,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'buttons')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'buttons')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -387,7 +387,7 @@
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var ButtonsCtrl = function ($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;ButtonsCtrl&#x27;, function ($scope) {
 
   $scope.singleModel = 1;
 
@@ -398,14 +398,14 @@
     middle: true,
     right: false
   };
-};</code></pre>
+});</code></pre>
                     </div>
                   </tab>
                 </tabset>
               </div>
             </div>
           </section>
-          <script>var ButtonsCtrl = function ($scope) {
+          <script>angular.module('foundationDemoApp').controller('ButtonsCtrl', function ($scope) {
 
   $scope.singleModel = 1;
 
@@ -416,7 +416,7 @@
     middle: true,
     right: false
   };
-};</script>
+});</script>
         
           <section class="demo" id="dropdownToggle">
             <div class="page-header">
@@ -463,7 +463,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'dropdownToggle')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'dropdownToggle')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -500,7 +500,7 @@
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">function DropdownCtrl($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;DropdownCtrl&#x27;, function($scope) {
   $scope.items = [
     &quot;The first choice!&quot;,
     &quot;And another choice for you.&quot;,
@@ -510,7 +510,7 @@
     &quot;Google&quot;: &quot;http://google.com&quot;,
     &quot;AltaVista&quot;: &quot;http://altavista.com&quot;
   };
-}
+});
 </code></pre>
                     </div>
                   </tab>
@@ -518,7 +518,7 @@
               </div>
             </div>
           </section>
-          <script>function DropdownCtrl($scope) {
+          <script>angular.module('foundationDemoApp').controller('DropdownCtrl', function($scope) {
   $scope.items = [
     "The first choice!",
     "And another choice for you.",
@@ -528,7 +528,7 @@
     "Google": "http://google.com",
     "AltaVista": "http://altavista.com"
   };
-}
+});
 </script>
         
           <section class="demo" id="interchange">
@@ -571,7 +571,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'interchange')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'interchange')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -658,7 +658,7 @@ Those methods make it easy to close a modal window without a need to create a de
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'modal')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'modal')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -684,7 +684,7 @@ Those methods make it easy to close a modal window without a need to create a de
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var ModalDemoCtrl = function ($scope, $modal, $log) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;ModalDemoCtrl&#x27;, function ($scope, $modal, $log) {
 
   $scope.items = [&#x27;item1&#x27;, &#x27;item2&#x27;, &#x27;item3&#x27;];
 
@@ -692,7 +692,7 @@ Those methods make it easy to close a modal window without a need to create a de
 
     var modalInstance = $modal.open({
       templateUrl: &#x27;myModalContent.html&#x27;,
-      controller: ModalInstanceCtrl,
+      controller: &#x27;ModalInstanceCtrl&#x27;,
       resolve: {
         items: function () {
           return $scope.items;
@@ -706,12 +706,12 @@ Those methods make it easy to close a modal window without a need to create a de
       $log.info(&#x27;Modal dismissed at: &#x27; + new Date());
     });
   };
-};
+});
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
+angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;ModalInstanceCtrl&#x27;, function ($scope, $modalInstance, items) {
 
   $scope.items = items;
   $scope.selected = {
@@ -725,14 +725,14 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
   $scope.cancel = function () {
     $modalInstance.dismiss(&#x27;cancel&#x27;);
   };
-};</code></pre>
+});</code></pre>
                     </div>
                   </tab>
                 </tabset>
               </div>
             </div>
           </section>
-          <script>var ModalDemoCtrl = function ($scope, $modal, $log) {
+          <script>angular.module('foundationDemoApp').controller('ModalDemoCtrl', function ($scope, $modal, $log) {
 
   $scope.items = ['item1', 'item2', 'item3'];
 
@@ -740,7 +740,7 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
 
     var modalInstance = $modal.open({
       templateUrl: 'myModalContent.html',
-      controller: ModalInstanceCtrl,
+      controller: 'ModalInstanceCtrl',
       resolve: {
         items: function () {
           return $scope.items;
@@ -754,12 +754,12 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
       $log.info('Modal dismissed at: ' + new Date());
     });
   };
-};
+});
 
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
+angular.module('foundationDemoApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
   $scope.items = items;
   $scope.selected = {
@@ -773,7 +773,7 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
-};</script>
+});</script>
         
           <section class="demo" id="offcanvas">
             <div class="page-header">
@@ -783,45 +783,46 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
             </div>
             <div class="row">
               <div class="columns medium-6 show-grid">
-                <div class="off-canvas-wrap" ng-controller="OffCanvasDemoCtrl">
-    <div class="inner-wrap">
-        <nav class="tab-bar">
-            <section class="left-small">
-                <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+                <div ng-controller="OffCanvasDemoCtrl">
+    <div class="off-canvas-wrap">
+        <div class="inner-wrap">
+            <nav class="tab-bar">
+                <section class="left-small">
+                    <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+                </section>
+
+                <section class="middle tab-bar-section">
+                    <h1 class="title">OffCanvas</h1>
+                </section>
+
+                <section class="right-small">
+                    <a class="right-off-canvas-toggle menu-icon" ><span></span></a>
+                </section>
+
+            </nav>
+
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li><a href="#">Left Sidebar</a></li>
+                </ul>
+            </aside>
+            <aside class="right-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li><a href="#">Right Sidebar</a></li>
+                </ul>
+            </aside>
+            <section class="main-section">
+                <div class="small-12 columns">
+                    <h1>How to use</h1>
+                    <p>Just use the standard layout for an offcanvas page as documented in the <a href="http://foundation.zurb.com/docs/components/offcanvas.html">foundation docs</a></p>
+                    <p>As long as you include mm.foundation.offcanvas it should simply work</p>
+                </div>
             </section>
 
-            <section class="middle tab-bar-section">
-                <h1 class="title">OffCanvas</h1>
-            </section>
-
-            <section class="right-small">
-                <a class="right-off-canvas-toggle menu-icon" ><span></span></a>
-            </section>
-
-        </nav>
-
-        <aside class="left-off-canvas-menu">
-            <ul class="off-canvas-list">
-                <li><a href="#">Left Sidebar</a></li>
-            </ul>
-        </aside>
-        <aside class="right-off-canvas-menu">
-            <ul class="off-canvas-list">
-                <li><a href="#">Right Sidebar</a></li>
-            </ul>
-        </aside>
-        <section class="main-section">
-            <div class="small-12 columns">
-                <h1>How to use</h1>
-                <p>Just use the standard layout for an offcanvas page as documented in the <a href="http://foundation.zurb.com/docs/components/offcanvas.html">foundation docs</a></p>
-                <p>As long as you include mm.foundation.offcanvas it should simply work</p>
-            </div>
-        </section>
-
-        <a class="exit-off-canvas"></a>
+            <a class="exit-off-canvas"></a>
+        </div>
     </div>
 </div>
-
               </div>
               <div class="columns medium-6">
                 <p>A lightweight directive that provides the <a href="http://foundation.zurb.com/docs/components/offcanvas.html">Foundation Offcanvas</a> component.</p>
@@ -846,57 +847,58 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'offcanvas')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'offcanvas')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
                     <div plunker-content="markup">
-                      <pre ng-non-bindable><code data-language="html">&lt;div class=&quot;off-canvas-wrap&quot; ng-controller=&quot;OffCanvasDemoCtrl&quot;&gt;
-    &lt;div class=&quot;inner-wrap&quot;&gt;
-        &lt;nav class=&quot;tab-bar&quot;&gt;
-            &lt;section class=&quot;left-small&quot;&gt;
-                &lt;a class=&quot;left-off-canvas-toggle menu-icon&quot; &gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;
+                      <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;OffCanvasDemoCtrl&quot;&gt;
+    &lt;div class=&quot;off-canvas-wrap&quot;&gt;
+        &lt;div class=&quot;inner-wrap&quot;&gt;
+            &lt;nav class=&quot;tab-bar&quot;&gt;
+                &lt;section class=&quot;left-small&quot;&gt;
+                    &lt;a class=&quot;left-off-canvas-toggle menu-icon&quot; &gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;
+                &lt;/section&gt;
+
+                &lt;section class=&quot;middle tab-bar-section&quot;&gt;
+                    &lt;h1 class=&quot;title&quot;&gt;OffCanvas&lt;/h1&gt;
+                &lt;/section&gt;
+
+                &lt;section class=&quot;right-small&quot;&gt;
+                    &lt;a class=&quot;right-off-canvas-toggle menu-icon&quot; &gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;
+                &lt;/section&gt;
+
+            &lt;/nav&gt;
+
+            &lt;aside class=&quot;left-off-canvas-menu&quot;&gt;
+                &lt;ul class=&quot;off-canvas-list&quot;&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Left Sidebar&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/aside&gt;
+            &lt;aside class=&quot;right-off-canvas-menu&quot;&gt;
+                &lt;ul class=&quot;off-canvas-list&quot;&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Right Sidebar&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/aside&gt;
+            &lt;section class=&quot;main-section&quot;&gt;
+                &lt;div class=&quot;small-12 columns&quot;&gt;
+                    &lt;h1&gt;How to use&lt;/h1&gt;
+                    &lt;p&gt;Just use the standard layout for an offcanvas page as documented in the &lt;a href=&quot;http://foundation.zurb.com/docs/components/offcanvas.html&quot;&gt;foundation docs&lt;/a&gt;&lt;/p&gt;
+                    &lt;p&gt;As long as you include mm.foundation.offcanvas it should simply work&lt;/p&gt;
+                &lt;/div&gt;
             &lt;/section&gt;
 
-            &lt;section class=&quot;middle tab-bar-section&quot;&gt;
-                &lt;h1 class=&quot;title&quot;&gt;OffCanvas&lt;/h1&gt;
-            &lt;/section&gt;
-
-            &lt;section class=&quot;right-small&quot;&gt;
-                &lt;a class=&quot;right-off-canvas-toggle menu-icon&quot; &gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;
-            &lt;/section&gt;
-
-        &lt;/nav&gt;
-
-        &lt;aside class=&quot;left-off-canvas-menu&quot;&gt;
-            &lt;ul class=&quot;off-canvas-list&quot;&gt;
-                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Left Sidebar&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/aside&gt;
-        &lt;aside class=&quot;right-off-canvas-menu&quot;&gt;
-            &lt;ul class=&quot;off-canvas-list&quot;&gt;
-                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Right Sidebar&lt;/a&gt;&lt;/li&gt;
-            &lt;/ul&gt;
-        &lt;/aside&gt;
-        &lt;section class=&quot;main-section&quot;&gt;
-            &lt;div class=&quot;small-12 columns&quot;&gt;
-                &lt;h1&gt;How to use&lt;/h1&gt;
-                &lt;p&gt;Just use the standard layout for an offcanvas page as documented in the &lt;a href=&quot;http://foundation.zurb.com/docs/components/offcanvas.html&quot;&gt;foundation docs&lt;/a&gt;&lt;/p&gt;
-                &lt;p&gt;As long as you include mm.foundation.offcanvas it should simply work&lt;/p&gt;
-            &lt;/div&gt;
-        &lt;/section&gt;
-
-        &lt;a class=&quot;exit-off-canvas&quot;&gt;&lt;/a&gt;
+            &lt;a class=&quot;exit-off-canvas&quot;&gt;&lt;/a&gt;
+        &lt;/div&gt;
     &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+&lt;/div&gt;</code></pre>
                     </div>
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var OffCanvasDemoCtrl = function ($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;OffCanvasDemoCtrl&#x27;, function ($scope) {
 
-};
+});
 </code></pre>
                     </div>
                   </tab>
@@ -904,9 +906,9 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
               </div>
             </div>
           </section>
-          <script>var OffCanvasDemoCtrl = function ($scope) {
+          <script>angular.module('foundationDemoApp').controller('OffCanvasDemoCtrl', function ($scope) {
 
-};
+});
 </script>
         
           <section class="demo" id="pagination">
@@ -1009,7 +1011,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'pagination')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'pagination')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1038,7 +1040,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var PaginationDemoCtrl = function ($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;PaginationDemoCtrl&#x27;, function ($scope) {
   $scope.totalItems = 64;
   $scope.currentPage = 4;
   $scope.maxSize = 5;
@@ -1049,7 +1051,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
 
   $scope.bigTotalItems = 175;
   $scope.bigCurrentPage = 1;
-};
+});
 </code></pre>
                     </div>
                   </tab>
@@ -1057,7 +1059,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
               </div>
             </div>
           </section>
-          <script>var PaginationDemoCtrl = function ($scope) {
+          <script>angular.module('foundationDemoApp').controller('PaginationDemoCtrl', function ($scope) {
   $scope.totalItems = 64;
   $scope.currentPage = 4;
   $scope.maxSize = 5;
@@ -1068,7 +1070,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
 
   $scope.bigTotalItems = 175;
   $scope.bigCurrentPage = 1;
-};
+});
 </script>
         
           <section class="demo" id="popover">
@@ -1146,7 +1148,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'popover')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'popover')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1188,10 +1190,10 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var PopoverDemoCtrl = function ($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;PopoverDemoCtrl&#x27;, function ($scope) {
   $scope.dynamicPopover = &quot;Hello, World!&quot;;
   $scope.dynamicPopoverTitle = &quot;Title&quot;;
-};
+});
 </code></pre>
                     </div>
                   </tab>
@@ -1199,10 +1201,10 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
               </div>
             </div>
           </section>
-          <script>var PopoverDemoCtrl = function ($scope) {
+          <script>angular.module('foundationDemoApp').controller('PopoverDemoCtrl', function ($scope) {
   $scope.dynamicPopover = "Hello, World!";
   $scope.dynamicPopoverTitle = "Title";
-};
+});
 </script>
         
           <section class="demo" id="progressbar">
@@ -1264,7 +1266,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'progressbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'progressbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1294,7 +1296,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var ProgressDemoCtrl = function ($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;ProgressDemoCtrl&#x27;, function ($scope) {
   
   $scope.max = 200;
 
@@ -1318,7 +1320,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     $scope.type = type;
   };
   $scope.random();
-};
+});
 </code></pre>
                     </div>
                   </tab>
@@ -1326,7 +1328,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
               </div>
             </div>
           </section>
-          <script>var ProgressDemoCtrl = function ($scope) {
+          <script>angular.module('foundationDemoApp').controller('ProgressDemoCtrl', function ($scope) {
   
   $scope.max = 200;
 
@@ -1350,7 +1352,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     $scope.type = type;
   };
   $scope.random();
-};
+});
 </script>
         
           <section class="demo" id="rating">
@@ -1425,7 +1427,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'rating')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'rating')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1456,7 +1458,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var RatingDemoCtrl = function ($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;RatingDemoCtrl&#x27;, function ($scope) {
   $scope.rate = 7;
   $scope.max = 10;
   $scope.isReadonly = false;
@@ -1473,7 +1475,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     {stateOn: &#x27;fa-heart&#x27;},
     {stateOff: &#x27;fa-power-off&#x27;}
   ];
-};
+});
 </code></pre>
                     </div>
                   </tab>
@@ -1481,7 +1483,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
               </div>
             </div>
           </section>
-          <script>var RatingDemoCtrl = function ($scope) {
+          <script>angular.module('foundationDemoApp').controller('RatingDemoCtrl', function ($scope) {
   $scope.rate = 7;
   $scope.max = 10;
   $scope.isReadonly = false;
@@ -1498,7 +1500,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     {stateOn: 'fa-heart'},
     {stateOff: 'fa-power-off'}
   ];
-};
+});
 </script>
         
           <section class="demo" id="tabs">
@@ -1573,7 +1575,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'tabs')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'tabs')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1613,7 +1615,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var TabsDemoCtrl = function ($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;TabsDemoCtrl&#x27;, function ($scope) {
   $scope.tabs = [
     { title:&quot;Dynamic Title 1&quot;, content:&quot;Dynamic content 1&quot; },
     { title:&quot;Dynamic Title 2&quot;, content:&quot;Dynamic content 2&quot; }
@@ -1624,7 +1626,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
       alert(&quot;You&#x27;ve selected the alert tab!&quot;);
     });
   };
-};
+});
 </code></pre>
                     </div>
                   </tab>
@@ -1632,7 +1634,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
               </div>
             </div>
           </section>
-          <script>var TabsDemoCtrl = function ($scope) {
+          <script>angular.module('foundationDemoApp').controller('TabsDemoCtrl', function ($scope) {
   $scope.tabs = [
     { title:"Dynamic Title 1", content:"Dynamic content 1" },
     { title:"Dynamic Title 2", content:"Dynamic content 2" }
@@ -1643,7 +1645,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
       alert("You've selected the alert tab!");
     });
   };
-};
+});
 </script>
         
           <section class="demo" id="tooltip">
@@ -1757,7 +1759,7 @@ appendToBody: false
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'tooltip')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'tooltip')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1802,11 +1804,11 @@ appendToBody: false
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var TooltipDemoCtrl = function ($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;TooltipDemoCtrl&#x27;, function ($scope) {
   $scope.dynamicTooltip = &quot;Hello, World!&quot;;
   $scope.dynamicTooltipText = &quot;dynamic&quot;;
   $scope.htmlTooltip = &quot;I&#x27;ve been made &lt;b&gt;bold&lt;/b&gt;!&quot;;
-};
+});
 </code></pre>
                     </div>
                   </tab>
@@ -1814,11 +1816,11 @@ appendToBody: false
               </div>
             </div>
           </section>
-          <script>var TooltipDemoCtrl = function ($scope) {
+          <script>angular.module('foundationDemoApp').controller('TooltipDemoCtrl', function ($scope) {
   $scope.dynamicTooltip = "Hello, World!";
   $scope.dynamicTooltipText = "dynamic";
   $scope.htmlTooltip = "I've been made <b>bold</b>!";
-};
+});
 </script>
         
           <section class="demo" id="topbar">
@@ -1881,7 +1883,7 @@ appendToBody: false
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'topbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'topbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1918,9 +1920,9 @@ appendToBody: false
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var TopBarDemoCtrl = function ($scope) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;TopBarDemoCtrl&#x27;, function ($scope) {
 
-};
+});
 </code></pre>
                     </div>
                   </tab>
@@ -1928,9 +1930,9 @@ appendToBody: false
               </div>
             </div>
           </section>
-          <script>var TopBarDemoCtrl = function ($scope) {
+          <script>angular.module('foundationDemoApp').controller('TopBarDemoCtrl', function ($scope) {
 
-};
+});
 </script>
         
           <section class="demo" id="tour">
@@ -2004,7 +2006,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'tour')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'tour')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -2034,9 +2036,9 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">var TourDemoCtrl = function ($scope, $tour) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;TourDemoCtrl&#x27;, function ($scope, $tour) {
   $scope.startTour = $tour.start;
-};
+});
 </code></pre>
                     </div>
                   </tab>
@@ -2044,9 +2046,9 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
               </div>
             </div>
           </section>
-          <script>var TourDemoCtrl = function ($scope, $tour) {
+          <script>angular.module('foundationDemoApp').controller('TourDemoCtrl', function ($scope, $tour) {
   $scope.startTour = $tour.start;
-};
+});
 </script>
         
           <section class="demo" id="typeahead">
@@ -2133,7 +2135,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.2.15', '5.2.0', '0.4.0', 'typeahead')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.3.3', '5.2.0', '0.5.0', 'typeahead')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -2164,7 +2166,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
                   </tab>
                   <tab heading="JavaScript">
                     <div plunker-content="javascript">
-                      <pre ng-non-bindable><code data-language="javascript">function TypeaheadCtrl($scope, $http) {
+                      <pre ng-non-bindable><code data-language="javascript">angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;TypeaheadCtrl&#x27;, function($scope, $http) {
 
   $scope.selected = undefined;
   $scope.states = [&#x27;Alabama&#x27;, &#x27;Alaska&#x27;, &#x27;Arizona&#x27;, &#x27;Arkansas&#x27;, &#x27;California&#x27;, &#x27;Colorado&#x27;, &#x27;Connecticut&#x27;, &#x27;Delaware&#x27;, &#x27;Florida&#x27;, &#x27;Georgia&#x27;, &#x27;Hawaii&#x27;, &#x27;Idaho&#x27;, &#x27;Illinois&#x27;, &#x27;Indiana&#x27;, &#x27;Iowa&#x27;, &#x27;Kansas&#x27;, &#x27;Kentucky&#x27;, &#x27;Louisiana&#x27;, &#x27;Maine&#x27;, &#x27;Maryland&#x27;, &#x27;Massachusetts&#x27;, &#x27;Michigan&#x27;, &#x27;Minnesota&#x27;, &#x27;Mississippi&#x27;, &#x27;Missouri&#x27;, &#x27;Montana&#x27;, &#x27;Nebraska&#x27;, &#x27;Nevada&#x27;, &#x27;New Hampshire&#x27;, &#x27;New Jersey&#x27;, &#x27;New Mexico&#x27;, &#x27;New York&#x27;, &#x27;North Dakota&#x27;, &#x27;North Carolina&#x27;, &#x27;Ohio&#x27;, &#x27;Oklahoma&#x27;, &#x27;Oregon&#x27;, &#x27;Pennsylvania&#x27;, &#x27;Rhode Island&#x27;, &#x27;South Carolina&#x27;, &#x27;South Dakota&#x27;, &#x27;Tennessee&#x27;, &#x27;Texas&#x27;, &#x27;Utah&#x27;, &#x27;Vermont&#x27;, &#x27;Virginia&#x27;, &#x27;Washington&#x27;, &#x27;West Virginia&#x27;, &#x27;Wisconsin&#x27;, &#x27;Wyoming&#x27;];
@@ -2185,14 +2187,14 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
   };
 
   $scope.statesWithFlags = [{&quot;name&quot;:&quot;Alabama&quot;,&quot;flag&quot;:&quot;5/5c/Flag_of_Alabama.svg/45px-Flag_of_Alabama.svg.png&quot;},{&quot;name&quot;:&quot;Alaska&quot;,&quot;flag&quot;:&quot;e/e6/Flag_of_Alaska.svg/43px-Flag_of_Alaska.svg.png&quot;},{&quot;name&quot;:&quot;Arizona&quot;,&quot;flag&quot;:&quot;9/9d/Flag_of_Arizona.svg/45px-Flag_of_Arizona.svg.png&quot;},{&quot;name&quot;:&quot;Arkansas&quot;,&quot;flag&quot;:&quot;9/9d/Flag_of_Arkansas.svg/45px-Flag_of_Arkansas.svg.png&quot;},{&quot;name&quot;:&quot;California&quot;,&quot;flag&quot;:&quot;0/01/Flag_of_California.svg/45px-Flag_of_California.svg.png&quot;},{&quot;name&quot;:&quot;Colorado&quot;,&quot;flag&quot;:&quot;4/46/Flag_of_Colorado.svg/45px-Flag_of_Colorado.svg.png&quot;},{&quot;name&quot;:&quot;Connecticut&quot;,&quot;flag&quot;:&quot;9/96/Flag_of_Connecticut.svg/39px-Flag_of_Connecticut.svg.png&quot;},{&quot;name&quot;:&quot;Delaware&quot;,&quot;flag&quot;:&quot;c/c6/Flag_of_Delaware.svg/45px-Flag_of_Delaware.svg.png&quot;},{&quot;name&quot;:&quot;Florida&quot;,&quot;flag&quot;:&quot;f/f7/Flag_of_Florida.svg/45px-Flag_of_Florida.svg.png&quot;},{&quot;name&quot;:&quot;Georgia&quot;,&quot;flag&quot;:&quot;5/54/Flag_of_Georgia_%28U.S._state%29.svg/46px-Flag_of_Georgia_%28U.S._state%29.svg.png&quot;},{&quot;name&quot;:&quot;Hawaii&quot;,&quot;flag&quot;:&quot;e/ef/Flag_of_Hawaii.svg/46px-Flag_of_Hawaii.svg.png&quot;},{&quot;name&quot;:&quot;Idaho&quot;,&quot;flag&quot;:&quot;a/a4/Flag_of_Idaho.svg/38px-Flag_of_Idaho.svg.png&quot;},{&quot;name&quot;:&quot;Illinois&quot;,&quot;flag&quot;:&quot;0/01/Flag_of_Illinois.svg/46px-Flag_of_Illinois.svg.png&quot;},{&quot;name&quot;:&quot;Indiana&quot;,&quot;flag&quot;:&quot;a/ac/Flag_of_Indiana.svg/45px-Flag_of_Indiana.svg.png&quot;},{&quot;name&quot;:&quot;Iowa&quot;,&quot;flag&quot;:&quot;a/aa/Flag_of_Iowa.svg/44px-Flag_of_Iowa.svg.png&quot;},{&quot;name&quot;:&quot;Kansas&quot;,&quot;flag&quot;:&quot;d/da/Flag_of_Kansas.svg/46px-Flag_of_Kansas.svg.png&quot;},{&quot;name&quot;:&quot;Kentucky&quot;,&quot;flag&quot;:&quot;8/8d/Flag_of_Kentucky.svg/46px-Flag_of_Kentucky.svg.png&quot;},{&quot;name&quot;:&quot;Louisiana&quot;,&quot;flag&quot;:&quot;e/e0/Flag_of_Louisiana.svg/46px-Flag_of_Louisiana.svg.png&quot;},{&quot;name&quot;:&quot;Maine&quot;,&quot;flag&quot;:&quot;3/35/Flag_of_Maine.svg/45px-Flag_of_Maine.svg.png&quot;},{&quot;name&quot;:&quot;Maryland&quot;,&quot;flag&quot;:&quot;a/a0/Flag_of_Maryland.svg/45px-Flag_of_Maryland.svg.png&quot;},{&quot;name&quot;:&quot;Massachusetts&quot;,&quot;flag&quot;:&quot;f/f2/Flag_of_Massachusetts.svg/46px-Flag_of_Massachusetts.svg.png&quot;},{&quot;name&quot;:&quot;Michigan&quot;,&quot;flag&quot;:&quot;b/b5/Flag_of_Michigan.svg/45px-Flag_of_Michigan.svg.png&quot;},{&quot;name&quot;:&quot;Minnesota&quot;,&quot;flag&quot;:&quot;b/b9/Flag_of_Minnesota.svg/46px-Flag_of_Minnesota.svg.png&quot;},{&quot;name&quot;:&quot;Mississippi&quot;,&quot;flag&quot;:&quot;4/42/Flag_of_Mississippi.svg/45px-Flag_of_Mississippi.svg.png&quot;},{&quot;name&quot;:&quot;Missouri&quot;,&quot;flag&quot;:&quot;5/5a/Flag_of_Missouri.svg/46px-Flag_of_Missouri.svg.png&quot;},{&quot;name&quot;:&quot;Montana&quot;,&quot;flag&quot;:&quot;c/cb/Flag_of_Montana.svg/45px-Flag_of_Montana.svg.png&quot;},{&quot;name&quot;:&quot;Nebraska&quot;,&quot;flag&quot;:&quot;4/4d/Flag_of_Nebraska.svg/46px-Flag_of_Nebraska.svg.png&quot;},{&quot;name&quot;:&quot;Nevada&quot;,&quot;flag&quot;:&quot;f/f1/Flag_of_Nevada.svg/45px-Flag_of_Nevada.svg.png&quot;},{&quot;name&quot;:&quot;New Hampshire&quot;,&quot;flag&quot;:&quot;2/28/Flag_of_New_Hampshire.svg/45px-Flag_of_New_Hampshire.svg.png&quot;},{&quot;name&quot;:&quot;New Jersey&quot;,&quot;flag&quot;:&quot;9/92/Flag_of_New_Jersey.svg/45px-Flag_of_New_Jersey.svg.png&quot;},{&quot;name&quot;:&quot;New Mexico&quot;,&quot;flag&quot;:&quot;c/c3/Flag_of_New_Mexico.svg/45px-Flag_of_New_Mexico.svg.png&quot;},{&quot;name&quot;:&quot;New York&quot;,&quot;flag&quot;:&quot;1/1a/Flag_of_New_York.svg/46px-Flag_of_New_York.svg.png&quot;},{&quot;name&quot;:&quot;North Carolina&quot;,&quot;flag&quot;:&quot;b/bb/Flag_of_North_Carolina.svg/45px-Flag_of_North_Carolina.svg.png&quot;},{&quot;name&quot;:&quot;North Dakota&quot;,&quot;flag&quot;:&quot;e/ee/Flag_of_North_Dakota.svg/38px-Flag_of_North_Dakota.svg.png&quot;},{&quot;name&quot;:&quot;Ohio&quot;,&quot;flag&quot;:&quot;4/4c/Flag_of_Ohio.svg/46px-Flag_of_Ohio.svg.png&quot;},{&quot;name&quot;:&quot;Oklahoma&quot;,&quot;flag&quot;:&quot;6/6e/Flag_of_Oklahoma.svg/45px-Flag_of_Oklahoma.svg.png&quot;},{&quot;name&quot;:&quot;Oregon&quot;,&quot;flag&quot;:&quot;b/b9/Flag_of_Oregon.svg/46px-Flag_of_Oregon.svg.png&quot;},{&quot;name&quot;:&quot;Pennsylvania&quot;,&quot;flag&quot;:&quot;f/f7/Flag_of_Pennsylvania.svg/45px-Flag_of_Pennsylvania.svg.png&quot;},{&quot;name&quot;:&quot;Rhode Island&quot;,&quot;flag&quot;:&quot;f/f3/Flag_of_Rhode_Island.svg/32px-Flag_of_Rhode_Island.svg.png&quot;},{&quot;name&quot;:&quot;South Carolina&quot;,&quot;flag&quot;:&quot;6/69/Flag_of_South_Carolina.svg/45px-Flag_of_South_Carolina.svg.png&quot;},{&quot;name&quot;:&quot;South Dakota&quot;,&quot;flag&quot;:&quot;1/1a/Flag_of_South_Dakota.svg/46px-Flag_of_South_Dakota.svg.png&quot;},{&quot;name&quot;:&quot;Tennessee&quot;,&quot;flag&quot;:&quot;9/9e/Flag_of_Tennessee.svg/46px-Flag_of_Tennessee.svg.png&quot;},{&quot;name&quot;:&quot;Texas&quot;,&quot;flag&quot;:&quot;f/f7/Flag_of_Texas.svg/45px-Flag_of_Texas.svg.png&quot;},{&quot;name&quot;:&quot;Utah&quot;,&quot;flag&quot;:&quot;f/f6/Flag_of_Utah.svg/45px-Flag_of_Utah.svg.png&quot;},{&quot;name&quot;:&quot;Vermont&quot;,&quot;flag&quot;:&quot;4/49/Flag_of_Vermont.svg/46px-Flag_of_Vermont.svg.png&quot;},{&quot;name&quot;:&quot;Virginia&quot;,&quot;flag&quot;:&quot;4/47/Flag_of_Virginia.svg/44px-Flag_of_Virginia.svg.png&quot;},{&quot;name&quot;:&quot;Washington&quot;,&quot;flag&quot;:&quot;5/54/Flag_of_Washington.svg/46px-Flag_of_Washington.svg.png&quot;},{&quot;name&quot;:&quot;West Virginia&quot;,&quot;flag&quot;:&quot;2/22/Flag_of_West_Virginia.svg/46px-Flag_of_West_Virginia.svg.png&quot;},{&quot;name&quot;:&quot;Wisconsin&quot;,&quot;flag&quot;:&quot;2/22/Flag_of_Wisconsin.svg/45px-Flag_of_Wisconsin.svg.png&quot;},{&quot;name&quot;:&quot;Wyoming&quot;,&quot;flag&quot;:&quot;b/bc/Flag_of_Wyoming.svg/43px-Flag_of_Wyoming.svg.png&quot;}];
-}</code></pre>
+});</code></pre>
                     </div>
                   </tab>
                 </tabset>
               </div>
             </div>
           </section>
-          <script>function TypeaheadCtrl($scope, $http) {
+          <script>angular.module('foundationDemoApp').controller('TypeaheadCtrl', function($scope, $http) {
 
   $scope.selected = undefined;
   $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
@@ -2213,7 +2215,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
   };
 
   $scope.statesWithFlags = [{"name":"Alabama","flag":"5/5c/Flag_of_Alabama.svg/45px-Flag_of_Alabama.svg.png"},{"name":"Alaska","flag":"e/e6/Flag_of_Alaska.svg/43px-Flag_of_Alaska.svg.png"},{"name":"Arizona","flag":"9/9d/Flag_of_Arizona.svg/45px-Flag_of_Arizona.svg.png"},{"name":"Arkansas","flag":"9/9d/Flag_of_Arkansas.svg/45px-Flag_of_Arkansas.svg.png"},{"name":"California","flag":"0/01/Flag_of_California.svg/45px-Flag_of_California.svg.png"},{"name":"Colorado","flag":"4/46/Flag_of_Colorado.svg/45px-Flag_of_Colorado.svg.png"},{"name":"Connecticut","flag":"9/96/Flag_of_Connecticut.svg/39px-Flag_of_Connecticut.svg.png"},{"name":"Delaware","flag":"c/c6/Flag_of_Delaware.svg/45px-Flag_of_Delaware.svg.png"},{"name":"Florida","flag":"f/f7/Flag_of_Florida.svg/45px-Flag_of_Florida.svg.png"},{"name":"Georgia","flag":"5/54/Flag_of_Georgia_%28U.S._state%29.svg/46px-Flag_of_Georgia_%28U.S._state%29.svg.png"},{"name":"Hawaii","flag":"e/ef/Flag_of_Hawaii.svg/46px-Flag_of_Hawaii.svg.png"},{"name":"Idaho","flag":"a/a4/Flag_of_Idaho.svg/38px-Flag_of_Idaho.svg.png"},{"name":"Illinois","flag":"0/01/Flag_of_Illinois.svg/46px-Flag_of_Illinois.svg.png"},{"name":"Indiana","flag":"a/ac/Flag_of_Indiana.svg/45px-Flag_of_Indiana.svg.png"},{"name":"Iowa","flag":"a/aa/Flag_of_Iowa.svg/44px-Flag_of_Iowa.svg.png"},{"name":"Kansas","flag":"d/da/Flag_of_Kansas.svg/46px-Flag_of_Kansas.svg.png"},{"name":"Kentucky","flag":"8/8d/Flag_of_Kentucky.svg/46px-Flag_of_Kentucky.svg.png"},{"name":"Louisiana","flag":"e/e0/Flag_of_Louisiana.svg/46px-Flag_of_Louisiana.svg.png"},{"name":"Maine","flag":"3/35/Flag_of_Maine.svg/45px-Flag_of_Maine.svg.png"},{"name":"Maryland","flag":"a/a0/Flag_of_Maryland.svg/45px-Flag_of_Maryland.svg.png"},{"name":"Massachusetts","flag":"f/f2/Flag_of_Massachusetts.svg/46px-Flag_of_Massachusetts.svg.png"},{"name":"Michigan","flag":"b/b5/Flag_of_Michigan.svg/45px-Flag_of_Michigan.svg.png"},{"name":"Minnesota","flag":"b/b9/Flag_of_Minnesota.svg/46px-Flag_of_Minnesota.svg.png"},{"name":"Mississippi","flag":"4/42/Flag_of_Mississippi.svg/45px-Flag_of_Mississippi.svg.png"},{"name":"Missouri","flag":"5/5a/Flag_of_Missouri.svg/46px-Flag_of_Missouri.svg.png"},{"name":"Montana","flag":"c/cb/Flag_of_Montana.svg/45px-Flag_of_Montana.svg.png"},{"name":"Nebraska","flag":"4/4d/Flag_of_Nebraska.svg/46px-Flag_of_Nebraska.svg.png"},{"name":"Nevada","flag":"f/f1/Flag_of_Nevada.svg/45px-Flag_of_Nevada.svg.png"},{"name":"New Hampshire","flag":"2/28/Flag_of_New_Hampshire.svg/45px-Flag_of_New_Hampshire.svg.png"},{"name":"New Jersey","flag":"9/92/Flag_of_New_Jersey.svg/45px-Flag_of_New_Jersey.svg.png"},{"name":"New Mexico","flag":"c/c3/Flag_of_New_Mexico.svg/45px-Flag_of_New_Mexico.svg.png"},{"name":"New York","flag":"1/1a/Flag_of_New_York.svg/46px-Flag_of_New_York.svg.png"},{"name":"North Carolina","flag":"b/bb/Flag_of_North_Carolina.svg/45px-Flag_of_North_Carolina.svg.png"},{"name":"North Dakota","flag":"e/ee/Flag_of_North_Dakota.svg/38px-Flag_of_North_Dakota.svg.png"},{"name":"Ohio","flag":"4/4c/Flag_of_Ohio.svg/46px-Flag_of_Ohio.svg.png"},{"name":"Oklahoma","flag":"6/6e/Flag_of_Oklahoma.svg/45px-Flag_of_Oklahoma.svg.png"},{"name":"Oregon","flag":"b/b9/Flag_of_Oregon.svg/46px-Flag_of_Oregon.svg.png"},{"name":"Pennsylvania","flag":"f/f7/Flag_of_Pennsylvania.svg/45px-Flag_of_Pennsylvania.svg.png"},{"name":"Rhode Island","flag":"f/f3/Flag_of_Rhode_Island.svg/32px-Flag_of_Rhode_Island.svg.png"},{"name":"South Carolina","flag":"6/69/Flag_of_South_Carolina.svg/45px-Flag_of_South_Carolina.svg.png"},{"name":"South Dakota","flag":"1/1a/Flag_of_South_Dakota.svg/46px-Flag_of_South_Dakota.svg.png"},{"name":"Tennessee","flag":"9/9e/Flag_of_Tennessee.svg/46px-Flag_of_Tennessee.svg.png"},{"name":"Texas","flag":"f/f7/Flag_of_Texas.svg/45px-Flag_of_Texas.svg.png"},{"name":"Utah","flag":"f/f6/Flag_of_Utah.svg/45px-Flag_of_Utah.svg.png"},{"name":"Vermont","flag":"4/49/Flag_of_Vermont.svg/46px-Flag_of_Vermont.svg.png"},{"name":"Virginia","flag":"4/47/Flag_of_Virginia.svg/44px-Flag_of_Virginia.svg.png"},{"name":"Washington","flag":"5/54/Flag_of_Washington.svg/46px-Flag_of_Washington.svg.png"},{"name":"West Virginia","flag":"2/22/Flag_of_West_Virginia.svg/46px-Flag_of_West_Virginia.svg.png"},{"name":"Wisconsin","flag":"2/22/Flag_of_Wisconsin.svg/45px-Flag_of_Wisconsin.svg.png"},{"name":"Wyoming","flag":"b/bc/Flag_of_Wyoming.svg/43px-Flag_of_Wyoming.svg.png"}];
-}</script>
+});</script>
         
         <section id="animations">
           <div class="page-header">
@@ -2315,7 +2317,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
   </div>
   <div class="modal-footer">
     <a class="button" ng-click="cancel()">Cancel</a>
-    <a class="button" ng-click="download('0.4.0')"><i class="fa fa-download"></i> Download 0.4.0</a>
+    <a class="button" ng-click="download('0.5.0')"><i class="fa fa-download"></i> Download 0.5.0</a>
   </div>
 </script>
 

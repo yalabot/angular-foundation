@@ -1,9 +1,9 @@
-angular.module('foundationDemoApp', ['mm.foundation', 'plunker'], function($httpProvider){
+var app = angular.module('foundationDemoApp', ['mm.foundation', 'plunker'], function($httpProvider){
   FastClick.attach(document.body);
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
 
-function MainCtrl($scope, $http, $document, $modal, orderByFilter) {
+app.controller('MainCtrl', function($scope, $http, $document, $modal, orderByFilter) {
   var url = "http://50.116.42.77:3001";
   //iFrame for downloading
   var $iframe = angular.element('<iframe>').css('display','none');
@@ -56,9 +56,9 @@ function MainCtrl($scope, $http, $document, $modal, orderByFilter) {
       downloadFileFromUrl(downloadUrl.join(''));
     });
   };
-}
+});
 
-var SelectModulesCtrl = function($scope, $modalInstance, modules) {
+app.controller('SelectModulesCtrl', function($scope, $modalInstance, modules) {
 
   $scope.selectedModules = [];
   $scope.modules = modules;
@@ -78,9 +78,9 @@ var SelectModulesCtrl = function($scope, $modalInstance, modules) {
   $scope.cancel = function () {
     $modalInstance.dismiss();
   };
-};
+});
 
-var DownloadCtrl = function($scope, $modalInstance) {
+app.controller('DownloadCtrl', function($scope, $modalInstance) {
   $scope.options = {
     minified: true,
     tpls: true
@@ -94,4 +94,4 @@ var DownloadCtrl = function($scope, $modalInstance) {
   $scope.cancel = function () {
     $modalInstance.dismiss();
   };
-}
+});
