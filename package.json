@@ -8,7 +8,6 @@
     "url": "git://github.com/pineconellc/angular-foundation.git"
   },
   "devDependencies": {
-    "bower": "~1.3.12",
     "karma": "~0.12.0",
     "karma-jasmine": "~0.1.0",
     "karma-chrome-launcher": "~0.1",
