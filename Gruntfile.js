@@ -178,7 +178,7 @@ module.exports = function(grunt) {
         'grunt before-test after-test'
       ],
       'release-start': [
-        'git commit package.json -m "chore(release): v%version%"',
+        'git commit package.json -m "chore(release): v%version% :shipit:"',
         'git tag %version%'
       ],
       'release-complete': [
@@ -398,7 +398,7 @@ module.exports = function(grunt) {
     setVersion(this.args[0], this.args[1]);
   });
 
-  grunt.registerMultiTask('release', 'release a new version', function() {
+  grunt.registerMultiTask('release', 'Release a new version', function() {
     var self = this;
     var sh = require('shelljs');
     self.data.forEach(function(cmd) {
