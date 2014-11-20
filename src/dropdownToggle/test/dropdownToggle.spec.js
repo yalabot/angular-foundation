@@ -11,7 +11,7 @@ describe('dropdownToggle', function() {
     ).appendTo('body');
     return $compile(element)($scope);
   }
-  
+
   afterEach(function() {
     if (elm) {
       elm.remove();
@@ -103,6 +103,26 @@ describe('dropdownToggle', function() {
 
       var expectedWidth = Math.round($window.innerWidth * 0.95);
       expect(targetElm.css('width')).toBe(expectedWidth + 'px');
+    });
+  });
+
+  describe('when the parent element has a "has-dropdown" class', function() {
+    beforeEach(function() {
+      element = angular.element(
+        '<div class="has-dropdown"><a dropdown-toggle="#target">Trigger</a>' +
+          '<ul id="target"><li>hello</li></ul>' +
+        '</div>'
+      ).appendTo('body');
+      elm = $compile(element)($scope);
+      $scope.$digest();
+      toggleElm = elm.find('a');
+      targetElm = elm.find('ul');
+    });
+
+    it('adds the "hover" class to the containing has-dropdown element', function() {
+      toggleElm.click();
+      $scope.$digest();
+      expect(elm.hasClass('hover')).toBe(true);
     });
   });
 });
