@@ -253,18 +253,29 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
       };
 
       $modalStack.close = function (modalInstance, result) {
-        var modalWindow = openedWindows.get(modalInstance).value;
-        if (modalWindow) {
+        var modalWindow = openedWindows.get(modalInstance).value,
+            scope = modalWindow.modalScope,
+            evt = scope.$broadcast('close:modal:fndtn', modalWindow);
+
+        if (modalWindow && !evt.defaultPrevented) {
           modalWindow.deferred.resolve(result);
           removeModalWindow(modalInstance);
+
+          scope.$broadcast('closed:modal:fndtn', modalWindow);
         }
       };
 
       $modalStack.dismiss = function (modalInstance, reason) {
-        var modalWindow = openedWindows.get(modalInstance).value;
-        if (modalWindow) {
+
+        var modalWindow = openedWindows.get(modalInstance).value,
+            scope = modalWindow.modalScope,
+            evt = scope.$broadcast('dismiss:modal:fndtn', modalWindow);
+
+        if (modalWindow && !evt.defaultPrevented) {
           modalWindow.deferred.reject(reason);
           removeModalWindow(modalInstance);
+
+          scope.$broadcast('dismissed:modal:fndtn', modalWindow);
         }
       };
 
