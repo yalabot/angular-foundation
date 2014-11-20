@@ -30,8 +30,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
     link: function(scope, element, attrs, controller) {
       var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
 
-      scope.$watch('$location.path', function() { closeMenu(); });
-      element.bind('click', function (event) {
+      var onClick = function (event) {
         dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
         var elementWasOpen = (element === openElement);
 
@@ -76,18 +75,25 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
 
           openElement = element;
           closeMenu = function (event) {
-            $document.unbind('click', closeMenu);
+            $document.off('click', closeMenu);
             dropdown.css('display', 'none');
             closeMenu = angular.noop;
             openElement = null;
           };
-          $document.bind('click', closeMenu);
+          $document.on('click', closeMenu);
         }
-      });
+      }
 
       if (dropdown) {
         dropdown.css('display', 'none');
       }
+
+      scope.$watch('$location.path', function() { closeMenu(); });
+
+      element.on('click', onClick);
+      element.on('$destroy', function() {
+        element.off('click', onClick);
+      });
     }
   };
 }]);
