@@ -21,3 +21,8 @@ node_modules
 npm-debug.log
 
 template/**/*.js
+misc/test-lib/angular-legacy
+misc/test-lib/angular-mocks-legacy
+misc/test-lib/angular-mocks
+misc/test-lib/angular
+misc/test-lib/jquery

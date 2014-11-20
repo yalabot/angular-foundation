@@ -8,8 +8,8 @@ module.exports = function(grunt) {
   grunt.util.linefeed = '\n';
 
   grunt.initConfig({
-    ngversion: '1.3.1',
-    fdversion: '5.4.7',
+    ngversion: '1.3.2',
+    fdversion: '5.2.0',
     faversion: '4.2.0',
     modules: [],//to be filled in by build task
     pkg: grunt.file.readJSON('package.json'),
@@ -27,6 +27,15 @@ module.exports = function(grunt) {
                ' * License: <%= pkg.license %>',
                ' * (c) <%= pkg.author %>',
                ' */\n'].join('\n')
+    },
+    bower: {
+      install: {
+        options: {
+          targetDir: './misc/test-lib',
+          verbose: true,
+          copy: false
+        }
+      }
     },
     delta: {
       docs: {
@@ -209,7 +218,7 @@ module.exports = function(grunt) {
 
   //register before and after test tasks so we've don't have to change cli
   //options on the goole's CI server
-  grunt.registerTask('before-test', ['enforce', 'jshint', 'html2js']);
+  grunt.registerTask('before-test', ['bower:install', 'enforce', 'jshint', 'html2js']);
   grunt.registerTask('after-test', ['build', 'copy']);
 
   //Rename our watch task to 'delta', then make actual 'watch'
