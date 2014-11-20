@@ -8,7 +8,7 @@ module.exports = function(grunt) {
   grunt.util.linefeed = '\n';
 
   grunt.initConfig({
-    ngversion: '1.3.2',
+    ngversion: '1.3.3',
     fdversion: '5.2.0',
     faversion: '4.2.0',
     modules: [],//to be filled in by build task
