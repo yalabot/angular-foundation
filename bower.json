@@ -1,10 +1,8 @@
 {
   "name": "angular-foundation",
-  "version": "0.3.0",
   "homepage": "http://pineconellc.github.io/angular-foundation/",
   "authors": [
-    "Pinecone",
-    "LLC"
+    "Pinecone, LLC"
   ],
   "license": "MIT",
   "private": true,

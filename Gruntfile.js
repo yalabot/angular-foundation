@@ -28,15 +28,6 @@ module.exports = function(grunt) {
                ' * (c) <%= pkg.author %>',
                ' */\n'].join('\n')
     },
-    bower: {
-      install: {
-        options: {
-          targetDir: './misc/test-lib',
-          verbose: true,
-          copy: false
-        }
-      }
-    },
     delta: {
       docs: {
         files: ['misc/demo/**', 'src/**/docs/**'],
@@ -218,7 +209,7 @@ module.exports = function(grunt) {
 
   //register before and after test tasks so we've don't have to change cli
   //options on the goole's CI server
-  grunt.registerTask('before-test', ['bower:install', 'enforce', 'jshint', 'html2js']);
+  grunt.registerTask('before-test', ['enforce', 'jshint', 'html2js']);
   grunt.registerTask('after-test', ['build', 'copy']);
 
   //Rename our watch task to 'delta', then make actual 'watch'
