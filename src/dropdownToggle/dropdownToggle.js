@@ -74,6 +74,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           }
 
           dropdown.css(css);
+          element.addClass('expanded');
 
           if (parentHasDropdown()) {
             parent.addClass('hover');
@@ -84,6 +85,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           closeMenu = function (event) {
             $document.off('click', closeMenu);
             dropdown.css('display', 'none');
+            element.removeClass('expanded');
             closeMenu = angular.noop;
             openElement = null;
             if (parent.hasClass('hover')) {
