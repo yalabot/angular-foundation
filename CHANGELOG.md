@@ -1,3 +1,9 @@
+<a name="v0.5.1"></a>
+# v0.5.1 (2014-11-29)
+## Bug Fixes
+* **topbar and modal**
+  - Fixes an issue where page offset would not be calculated correctly in IE. ([#151](https://github.com/pineconellc/angular-foundation/pull/151))
+
 <a name="v0.5.0"></a>
 # v0.5.0 (2014-11-20)
 ## Bug Fixes
