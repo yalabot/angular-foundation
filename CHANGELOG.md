@@ -1,3 +1,26 @@
+<a name="v0.5.0"></a>
+# v0.5.0 (2014-11-20)
+## Bug Fixes
+* **dropdownToggle**
+  - Fixes an issue where a dropdown within a topbar would not display properly. ([#153](https://github.com/pineconellc/angular-foundation/issues/153))
+  - Unbind click handler on `$destroy` ([095a0d4](https://github.com/pineconellc/angular-foundation/commit/095a0d4dc191cf548276ade38dd5202125dae93d))
+* **tabs**
+  - Fixes an issue where the active attribute would not be set properly ([#125](https://github.com/pineconellc/angular-foundation/pull/125))
+* **modal**
+  - Destroy modal scope on close ([#139](https://github.com/pineconellc/angular-foundation/pull/139))
+
+## Features
+* **all**
+  - Angular 1.3 support ([#144](https://github.com/pineconellc/angular-foundation/pull/144))
+
+## Other
+* **all**
+  - Add editorconfig ([#134](https://github.com/pineconellc/angular-foundation/pull/134))
+  - Upgrade Karma to 0.12.x
+  - Use bower to pull in test dependencies ([#149](https://github.com/pineconellc/angular-foundation/pull/149) and [#154](https://github.com/pineconellc/angular-foundation/pull/154))
+* **tabs**
+  - Improved tests ([#132](https://github.com/pineconellc/angular-foundation/pull/132))
+
 <a name="v0.4.0"></a>
 # v0.4.0 (2014-10-15)
 ## Bug Fixes

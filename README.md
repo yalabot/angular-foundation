@@ -85,9 +85,10 @@ We are always looking for the quality contributions! Please check the [CONTRIBUT
 
 ### Development
 #### Prepare your environment
-* Install [Node.js](http://nodejs.org/) and NPM (should come with)
-* Install global dev dependencies: `npm install -g grunt-cli karma`
+* Install [Node.js](http://nodejs.org/) which should include `npm`
+* Install global dev dependencies: `npm install -g grunt-cli karma bower`
 * Instal local dev dependencies: `npm install` while current directory is foundation repo
+* Install test dependencies: `bower install`
 
 #### Build
 * Build the whole project: `grunt` - this will run `lint`, `test`, and `concat` targets

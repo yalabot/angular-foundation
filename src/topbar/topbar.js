@@ -63,10 +63,10 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
                     var $class = angular.element($document[0].querySelector('.' + $scope.settings.stickyClass));
                     var distance = stickyoffset;
 
-                    if ($window.scrollY > distance && !$class.hasClass('fixed')) {
+                    if ($window.pageYOffset > distance && !$class.hasClass('fixed')) {
                         $class.addClass('fixed');
                         body.css('padding-top', $scope.originalHeight + 'px');
-                    } else if ($window.scrollY <= distance && $class.hasClass('fixed')) {
+                    } else if ($window.pageYOffset <= distance && $class.hasClass('fixed')) {
                         $class.removeClass('fixed');
                         body.css('padding-top', '');
                     }
@@ -134,7 +134,7 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
                     }
                 });
 
-                var lastBreakpoint = mediaQueries.topbarBreakpoint();             
+                var lastBreakpoint = mediaQueries.topbarBreakpoint();
 
                 angular.element($window).bind('resize', function(){
                     var currentBreakpoint = mediaQueries.topbarBreakpoint();
