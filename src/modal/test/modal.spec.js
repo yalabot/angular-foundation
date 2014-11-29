@@ -1,6 +1,7 @@
 describe('$modal', function () {
-  var $rootScope, $document, $compile, $templateCache, $timeout, $q;
+  var $rootScope, $document, $compile, $templateCache, $timeout, $q, $window, $provide;
   var $modal, $modalProvider;
+  var mockWindow = {};
 
   var triggerKeyDown = function (element, keyCode) {
     var e = $.Event("keydown");
@@ -19,12 +20,25 @@ describe('$modal', function () {
   beforeEach(module('mm.foundation.modal'));
   beforeEach(module('template/modal/backdrop.html'));
   beforeEach(module('template/modal/window.html'));
-  beforeEach(module(function(_$controllerProvider_, _$modalProvider_){
+  beforeEach(module(function(_$controllerProvider_, _$modalProvider_, $provide){
     $controllerProvider = _$controllerProvider_;
     $modalProvider = _$modalProvider_;
+
+    var mockdocument = angular.element(document);
+    $provide.value('$document', mockdocument);
+
+    mockwindow = {
+      location: "val",
+      document: mockdocument,
+      pageYOffset: 4,
+      scrollY: 111,
+      this_is_a_mock_window: true
+    };
+    $provide.value('$window', mockwindow);
+
   }));
 
-  beforeEach(inject(function (_$rootScope_, _$document_, _$compile_, _$templateCache_, _$timeout_, _$q_, _$modal_) {
+  beforeEach(inject(function (_$rootScope_, _$document_, _$compile_, _$templateCache_, _$timeout_, _$q_, _$modal_, _$window_) {
     $rootScope = _$rootScope_;
     $document = _$document_;
     $compile = _$compile_;
@@ -32,6 +46,7 @@ describe('$modal', function () {
     $timeout = _$timeout_;
     $q = _$q_;
     $modal = _$modal_;
+    $window = _$window_;
   }));
 
   beforeEach(inject(function ($rootScope) {
@@ -61,6 +76,25 @@ describe('$modal', function () {
         $rootScope.$digest();
 
         return rejected === value;
+      },
+
+    /**
+     * If you have  <div class="reveal-modal ..." style="... ; mystyle: fred ...">
+     *
+     *  call toHaveModalOpenWithStyle('mystyle', 'fred')
+     *
+     *  @param style style name to find in target div
+     *  @param value style value to test in target div
+     *  @return true when style="mystyle" value is correct.
+     *
+     */
+     toHaveModalOpenWithStyle: function(style, value) {
+
+        var modalDomEls = this.actual.find('body > div.reveal-modal');
+        this.message = function() {
+          return "Expected '" + angular.mock.dump(modalDomEls) + "' to have a style " + style + " with value " + value + ".";
+        };
+        return modalDomEls.css(style) === value;
       },
 
       toHaveModalOpenWithContent: function(content, selector) {
@@ -116,6 +150,39 @@ describe('$modal', function () {
     $timeout.flush();
     $rootScope.$digest();
   }
+
+  describe('modal invoked with y offsets', function () {
+
+        it('should create the modal at the correct location based on window y position for WebKit', function () {
+          // WebKit browsers supply both scrollY and pageYOffset
+          $window.scrollY = 400;
+          $window.pageYOffset = 400;
+
+          var modal = open({template: '<div>Content</div>'});
+          expect($document).toHaveModalsOpen(1);
+          expect($document).toHaveModalOpenWithStyle('top', '400px');
+        });
+
+        it('should create the modal at the correct location based on window y position for IE', function () {
+          // IE browsers supply ONLY pageYOffset - scrollY is undefined
+          $window.scrollY = undefined;
+          $window.pageYOffset = 300;
+
+          var modal = open({template: '<div>Content</div>'});
+          expect($document).toHaveModalsOpen(1);
+          expect($document).toHaveModalOpenWithStyle('top', '300px');
+        });
+
+        it('should create the modal at the location 0 based on undefined scrollY and pageYOffset positions', function () {
+          // hypothetical useless browser supplies NEITHER pageYOffset or scrollY
+          $window.scrollY = undefined;
+          $window.pageYOffset = undefined;
+
+          var modal = open({template: '<div>Content</div>'});
+          expect($document).toHaveModalsOpen(1);
+          expect($document).toHaveModalOpenWithStyle('top', '0px');
+        });
+      });
 
   describe('basic scenarios with default options', function () {
 
