@@ -31,7 +31,6 @@ describe('$modal', function () {
       location: "val",
       document: mockdocument,
       pageYOffset: 4,
-      scrollY: 111,
       this_is_a_mock_window: true
     };
     $provide.value('$window', mockwindow);
@@ -153,9 +152,7 @@ describe('$modal', function () {
 
   describe('modal invoked with y offsets', function () {
 
-        it('should create the modal at the correct location based on window y position for WebKit', function () {
-          // WebKit browsers supply both scrollY and pageYOffset
-          $window.scrollY = 400;
+        it('should create the modal at the correct location based on window y position', function () {
           $window.pageYOffset = 400;
 
           var modal = open({template: '<div>Content</div>'});
@@ -163,25 +160,6 @@ describe('$modal', function () {
           expect($document).toHaveModalOpenWithStyle('top', '400px');
         });
 
-        it('should create the modal at the correct location based on window y position for IE', function () {
-          // IE browsers supply ONLY pageYOffset - scrollY is undefined
-          $window.scrollY = undefined;
-          $window.pageYOffset = 300;
-
-          var modal = open({template: '<div>Content</div>'});
-          expect($document).toHaveModalsOpen(1);
-          expect($document).toHaveModalOpenWithStyle('top', '300px');
-        });
-
-        it('should create the modal at the location 0 based on undefined scrollY and pageYOffset positions', function () {
-          // hypothetical useless browser supplies NEITHER pageYOffset or scrollY
-          $window.scrollY = undefined;
-          $window.pageYOffset = undefined;
-
-          var modal = open({template: '<div>Content</div>'});
-          expect($document).toHaveModalsOpen(1);
-          expect($document).toHaveModalOpenWithStyle('top', '0px');
-        });
       });
 
   describe('basic scenarios with default options', function () {

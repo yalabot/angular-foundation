@@ -238,14 +238,8 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         var marginTop = parseInt(getComputedStyle(faux[0]).top) || 0;
         faux.remove();
 
-        // IE9 does not define window.scrollY, but does define window.pageYOffset
-        // Supposedly, they are synonyms. If not defined, use the other. Seems to work.
-        var scrollY = 0;
-        if (!angular.isUndefined($window.pageYOffset)) {
-          scrollY = $window.pageYOffset;
-        } else {
-          scrollY = $window.scrollY || 0;   // if neither is defined -- unlikely -- force 0
-        }
+        // Using pageYOffset instead of scrollY to ensure compatibility with IE
+        var scrollY = $window.pageYOffset || 0;
         var openAt = scrollY + marginTop;
 
         var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>');
