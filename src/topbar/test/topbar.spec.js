@@ -48,6 +48,12 @@ describe('topbar directive', function () {
                           '<li><a id="alink" href="#">First link in dropdown</a></li>' +
                         '</ul>' +
                       '</li>' +
+                      '<li has-dropdown="false">' +
+                        '<a id="disabled-dropdown" href="#">Disabled dropdown</a>' +
+                        '<ul top-bar-dropdown>' +
+                          '<li><a id="alink2" href="#">First link in disabled dropdown</a></li>' +
+                        '</ul>' +
+                      '</li>' +
                     '</ul>' +
                     '<ul class="left">' +
                       '<li><a href="#">Left</a></li>' +
@@ -78,11 +84,18 @@ describe('topbar directive', function () {
     expect(element.children('nav')).toHaveClass('top-bar');
   });
 
-  it('has a drop down open on large screen', inject(function($window) {
+  it('opens a drop down on a large screen', inject(function($window) {
     setDesktop($window);
     $('#dropdown', element).trigger('mouseenter');
     expect($window.matchMedia).toHaveBeenCalled();
     expect(element).toHaveDropDownsOpen(1);
+  }));
+
+  it('does not open a disabled drop down on a large screen', inject(function($window) {
+    setDesktop($window);
+    $('#disabled-dropdown', element).trigger('mouseenter');
+    expect($window.matchMedia).toHaveBeenCalled();
+    expect(element).toHaveDropDownsOpen(0);
   }));
 
   it('has no drop downs open on small screen', inject(function($window) {
@@ -119,13 +132,12 @@ describe('topbar directive', function () {
     expect($('#top-section', element)[0].style.left).toEqual('-100%');
   }));
 
-  // it('has f-topbar-fixed class on body after link is clicked on a fixed mobile topbar', inject(function($window) {
-  //   setMobile($window);
-  //   $('#menu-toggle', element).trigger('click');
-  //   expect($window.matchMedia).toHaveBeenCalled();
-  //   $('#dropdown', element).trigger('click');
-  //   $('#alink', element).trigger('click');
-  //   expect($('body', $document)).toHaveClass('f-topbar-fixed');
-  // }));
+  it('does not open a disabled submenu on mobile', inject(function($window) {
+    setMobile($window);
+    $('#menu-toggle', element).trigger('click');
+    expect($window.matchMedia).toHaveBeenCalled();
+    $('#disabled-dropdown', element).trigger('click');
+    expect($('#top-section', element)[0].style.left).toEqual('0%');
+  }));
 
 });

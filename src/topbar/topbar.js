@@ -353,6 +353,10 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
                 var $link = angular.element($scope.triggerLink);
 
                 $link.bind('click', function(event){
+                    if($scope.hasDropdown === 'false'){
+                        topBar.toggle(false);
+                        return;
+                    }
                     topBar.forward(event);
                 });
                 $scope.$on('$destroy', function(){
@@ -360,17 +364,20 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
                 });
 
                 element.bind('mouseenter', function() {
-                    if(topBar.settings.isHover && !mediaQueries.topbarBreakpoint()){
+                    if($scope.hasDropdown !== 'false' && topBar.settings.isHover && !mediaQueries.topbarBreakpoint()){
                         element.addClass('not-click');
                     }
                 });
                 element.bind('click', function(event) {
-                    if(!topBar.settings.isHover && !mediaQueries.topbarBreakpoint()){
+                    if($scope.hasDropdown !== 'false' && !topBar.settings.isHover && !mediaQueries.topbarBreakpoint()){
                         element.toggleClass('not-click');
                     }
                 });
 
                 element.bind('mouseleave', function() {
+                    if($scope.hasDropdown === 'false'){
+                        return;
+                    }
                     element.removeClass('not-click');
                 });
 
