@@ -31,7 +31,9 @@ angular.module('plunker', [])
       };
 
       var scriptContent = function(content) {
-        return "angular.module('plunker', ['mm.foundation']);" + "\n" + content;
+        return "angular.module('plunker', ['foundationDemoApp']);\n" +
+          "angular.module('foundationDemoApp', ['mm.foundation']);\n" +
+          content;
       };
 
       addField('description', 'http://pineconellc.github.io/angular-foundation/');
