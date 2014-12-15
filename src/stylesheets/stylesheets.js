@@ -24,27 +24,45 @@ angular.module('mm.foundation.stylesheets', [])
         }
         return textContent.slice(0, -1);
     };
+    var head = $document[0].querySelector('head');
     return function Stylesheet(element) {
-      var $head = angular.element($document[0].querySelector('head'));
       if (!element) {
         element = $document[0].createElement('style');
-        element = angular.element(element);
       }
-      var currentContent = element.text();
       var write = function(textContent) {
-        if (textContent !== currentContent) {
-          currentContent = textContent;
-          element.text(textContent);
-          if (currentContent === '') {
-            element.remove();
-          }
-          else if (!$head[0].contains(element[0])) {
-            $head.append(element);
+        if (textContent === '') {
+          head.removeChild(element);
+          return true;
+        }
+        else if (textContent !== element.textContent) {
+          element.textContent = textContent;
+          if (!head.contains(element)) {
+            head.appendChild(element);
+            return true;
           }
         }
+        return false;
       };
 
       var rules = {};
+      var setRules = function(selector, content) {
+        if (content === null) {
+          delete rules[selector];
+        }
+        else {
+          if (!(selector in rules)) {
+            rules[selector] = {};
+          }
+          for (var _rule in content) {
+            if (content[_rule] === null) {
+              delete rules[selector][_rule];
+            }
+            else {
+              rules[selector][_rule] = content[_rule];
+            }
+          }
+        }
+      };
       return {
         element: function() { return element; },
         css: function(selector, content) {
@@ -53,17 +71,12 @@ angular.module('mm.foundation.stylesheets', [])
             return exists ? rules[selector] : null;
           }
           if (!exists || content != rules[selector]) {
-            if (content === null) {
-              delete rules[selector];
-            }
-            else {
-              rules[selector] = content;
-            }
+            setRules(selector, content);
           }
           return this;
         },
         sync: function() {
-          write(rulesAsTextContent(rules));
+          return write(rulesAsTextContent(rules));
         }
       };
     };

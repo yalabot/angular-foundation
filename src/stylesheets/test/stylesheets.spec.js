@@ -11,6 +11,13 @@ describe('stylesheets', function() {
     $scope = $rootScope.$new();
   }));
 
+  var cssEquals = function(sheet, expected) {
+    var el = sheet.element();
+    var _sheet = $document[0].querySelector('#' + el.id);
+    expect(_sheet.textContent).toEqual(expected);
+    expect(el.textContent).toEqual(expected);
+  };
+
   it('should create and inject new stylesheet', function() {
     var sheetId = 'stylesheets-test';
     var selector = '#id::before';
@@ -21,22 +28,29 @@ describe('stylesheets', function() {
     content[prop] = value;
 
     var sheet = stylesheetFactory();
-    sheet.element().attr('id', sheetId);
-
-    var cssEquals = function(expected) {
-      var $sheet = $document.find('#' + sheetId);
-      expect($sheet.text()).toEqual(expected);
-      expect(sheet.element().text()).toEqual(expected);
-    };
+    sheet.element().id = sheetId;
 
     sheet.css(selector, content).sync();
-    cssEquals('#id::before {\n\tcolor: red;\n}');
+    cssEquals(sheet, '#id::before {\n\tcolor: red;\n}');
 
     content[prop] = 'green';
     sheet.css(selector, content).sync();
-    cssEquals('#id::before {\n\tcolor: green;\n}');
+    cssEquals(sheet, '#id::before {\n\tcolor: green;\n}');
+  });
 
-    sheet.css(selector, null).sync();
-    cssEquals('');
+  it('should detach when syncing empty sheet', function() {
+    var sheetId = 'stylesheets-empty';
+
+    var $style = angular.element($document[0].createElement('style'));
+    $style.attr('id', sheetId);
+    $style.text('body{color:green;}');
+    angular.element($document[0].querySelector('head')).append($style);
+
+    var sheet = stylesheetFactory($style[0]);
+    sheet.css('body', null).sync();
+
+    // Test if sheet is removed from dom
+    var sheet = $document[0].querySelector('#' + sheetId);
+    expect(sheet).toEqual(null);
   });
 });
