@@ -46,11 +46,9 @@ describe('stylesheets', function() {
     $style.text('body{color:green;}');
     angular.element($document[0].querySelector('head')).append($style);
 
-    var sheet = stylesheetFactory($style[0]);
-    sheet.css('body', null).sync();
+    stylesheetFactory($style[0]).css('body', null).sync();
 
     // Test if sheet is removed from dom
-    var sheet = $document[0].querySelector('#' + sheetId);
-    expect(sheet).toEqual(null);
+    expect($document[0].querySelector('#' + sheetId)).toEqual(null);
   });
 });
