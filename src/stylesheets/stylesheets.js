@@ -3,11 +3,10 @@
  * @example:
 
     function(stylesheetFactory) {
-        var element = angular.element(document.head).find('styles');
-        stylesheetFactory(element).css('#myid:before', {
+        stylesheetFactory().css('#myid:before', {
             'background-color': 'red',
             width: '500px'
-        });
+        }).sync();
     }
  */
 angular.module('mm.foundation.stylesheets', [])
