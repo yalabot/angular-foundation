@@ -321,13 +321,25 @@ describe('$modal', function () {
         expect($document).toHaveModalOpenWithContent('Content from ctrl true', 'div');
       });
 
-      it('should accept controllerAs alias', function () {
+      it('should accept controller-as syntax in `controller` option', function () {
         $controllerProvider.register('TestCtrl', function($modalInstance) {
           this.fromCtrl = 'Content from ctrl';
           this.isModalInstance = angular.isObject($modalInstance) && angular.isFunction($modalInstance.close);
         });
 
         var modal = open({template: '<div>{{test.fromCtrl}} {{test.isModalInstance}}</div>', controller: 'TestCtrl as test'});
+        expect($document).toHaveModalOpenWithContent('Content from ctrl true', 'div');
+      });
+
+      it('should accept `controllerAs` option', function () {
+        var modal = open({
+          template: '<div>{{test.fromCtrl}} {{test.isModalInstance}}</div>',
+          controller: function($modalInstance) {
+            this.fromCtrl = 'Content from ctrl';
+            this.isModalInstance = angular.isObject($modalInstance) && angular.isFunction($modalInstance.close);
+          },
+          controllerAs: 'test'
+        });
         expect($document).toHaveModalOpenWithContent('Content from ctrl true', 'div');
       });
 

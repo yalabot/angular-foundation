@@ -7,6 +7,7 @@ The `$modal` service has only one method: `open(options)` where available option
 * `template` - inline template representing the modal's content
 * `scope` - a scope instance to be used for the modal's content (actually the `$modal` service is going to create a child scope of a provided scope). Defaults to `$rootScope`
 * `controller` - a controller for a modal instance - it can initialize scope used by modal. Accepts the "controller-as" syntax, and can be injected with `$modalInstance`
+* `controllerAs` - an alternative to the "controller-as" syntax, matching the API of directive definitions. Requires the `controller` option to be provided as well
 * `resolve` - members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
 * `backdrop` - controls presence of a backdrop. Allowed values: true (default), false (no backdrop), `'static'` - backdrop is present but modal window is not closed when clicking outside of the modal window.
 * `keyboard` - indicates whether the dialog should be closable by hitting the ESC key, defaults to true
