@@ -92,17 +92,26 @@ angular.module('mm.foundation.dropdownToggle', ['mm.foundation.position', 'mm.fo
             })
             .sync();
 
+          if (parentHasDropdown()) {
+            parent.addClass('hover');
+          }
+
           openElement = element;
           var shouldUnbind = true;
           closeMenu = function(event) {
             if (shouldUnbind) {
-              $document.unbind('click', closeMenu);
+              $document.off('click', closeMenu);
               dropdown.css('display', 'none');
               closeMenu = angular.noop;
               openElement = null;
+              if (parent.hasClass('hover')) {
+                parent.removeClass('hover');
+              }
             }
             shouldUnbind = true;
           };
+
+          $document.on('click', closeMenu);
 
           if (dropdown.attr('show-on-click')) {
             dropdown.bind('click', function(evt) {
@@ -124,24 +133,6 @@ angular.module('mm.foundation.dropdownToggle', ['mm.foundation.position', 'mm.fo
             dropdown.unbind('click');
             closeMenu();
           });
-
-          $document.bind('click', closeMenu);
-          if (parentHasDropdown()) {
-            parent.addClass('hover');
-          }
-
-          openElement = element;
-
-          closeMenu = function(event) {
-            $document.off('click', closeMenu);
-            dropdown.css('display', 'none');
-            closeMenu = angular.noop;
-            openElement = null;
-            if (parent.hasClass('hover')) {
-              parent.removeClass('hover');
-            }
-          };
-          $document.on('click', closeMenu);
         }
       };
 
