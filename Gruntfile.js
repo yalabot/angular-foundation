@@ -8,8 +8,8 @@ module.exports = function(grunt) {
   grunt.util.linefeed = '\n';
 
   grunt.initConfig({
-    ngversion: '1.3.1',
-    fdversion: '5.4.7',
+    ngversion: '1.3.3',
+    fdversion: '5.2.0',
     faversion: '4.2.0',
     modules: [],//to be filled in by build task
     pkg: grunt.file.readJSON('package.json'),
@@ -133,6 +133,19 @@ module.exports = function(grunt) {
       continuous: {
         singleRun: true
       },
+      legacy: {
+        singleRun: true,
+        options: {
+          files: [
+            'bower_components/jquery/jquery.js',
+            'bower_components/angular-legacy/angular.js',
+            'bower_components/angular-mocks-legacy/angular-mocks.js',
+            'misc/test-lib/helpers.js',
+            'src/**/*.js',
+            'template/**/*.js'
+          ]
+        }
+      },
       jenkins: {
         singleRun: true,
         colors: false,
@@ -165,7 +178,7 @@ module.exports = function(grunt) {
         'grunt before-test after-test'
       ],
       'release-start': [
-        'git commit package.json -m "chore(release): v%version%"',
+        'git commit package.json -m "chore(release): v%version% :shipit:"',
         'git tag %version%'
       ],
       'release-complete': [
@@ -356,7 +369,7 @@ module.exports = function(grunt) {
         grunt.util._.extend(karmaOptions, coverageOpts);
         grunt.config.set('karma.options', karmaOptions);
       }
-      grunt.task.run(this.args.length ? 'karma:jenkins' : 'karma:continuous');
+      grunt.task.run(this.args.length ? 'karma:jenkins' : ['karma:continuous', 'karma:legacy']);
     }
   });
 
@@ -385,7 +398,7 @@ module.exports = function(grunt) {
     setVersion(this.args[0], this.args[1]);
   });
 
-  grunt.registerMultiTask('release', 'release a new version', function() {
+  grunt.registerMultiTask('release', 'Release a new version', function() {
     var self = this;
     var sh = require('shelljs');
     self.data.forEach(function(cmd) {
