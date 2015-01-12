@@ -9,19 +9,19 @@ Everything is formatted using the [date filter](http://docs.angularjs.org/api/ng
 
 All settings can be provided as attributes in the `datepicker` or globally configured through the `datepickerConfig`.
 
- * `ng-model` <i class="glyphicon glyphicon-eye-open"></i>
+ * `ng-model` <i class="fa fa-eye"></i>
  	:
  	The date object.
 
- * `datepicker-mode` <i class="glyphicon glyphicon-eye-open"></i>
+ * `datepicker-mode` <i class="fa fa-eye"></i>
    _(Defaults: 'day')_ :
    Current mode of the datepicker _(day|month|year)_. Can be used to initialize datepicker to specific mode.
 
- * `min-date` <i class="glyphicon glyphicon-eye-open"></i>
+ * `min-date` <i class="fa fa-eye"></i>
  	_(Default: null)_ :
  	Defines the minimum available date.
 
- * `max-date` <i class="glyphicon glyphicon-eye-open"></i>
+ * `max-date` <i class="fa fa-eye"></i>
  	_(Default: null)_ :
  	Defines the maximum available date.
 
