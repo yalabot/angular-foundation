@@ -11,10 +11,11 @@
         <div class="columns">
             <div class="row collapse">
                 <div class="small-10 columns">
-                    <input type="text" style="height: 2.938rem;" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                    <input type="text" style="height: 2.938rem;" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'"
+                           datepicker-options="dateOptions" close-on-date-selection="true" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
                 </div>
                 <div class="small-2 columns">
-                    <button type="button" class="button small" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+                    <button type="button" class="button small" ng-click="open()"><i class="fa fa-calendar"></i></button>
                 </div>
             </div>
         </div>
@@ -30,4 +31,5 @@
     <button type="button" class="button small secondary" ng-click="dt = '2009-08-24'">2009-08-24</button>
     <button type="button" class="button small alert" ng-click="clear()">Clear</button>
     <button type="button" class="button small secondary" ng-click="toggleMin()" tooltip="After today restriction">Min date</button>
+
 </div>
