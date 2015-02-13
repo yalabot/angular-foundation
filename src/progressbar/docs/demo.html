@@ -1,4 +1,10 @@
 <div ng-controller="ProgressDemoCtrl">
+    <style>
+      .progress .meter {
+        -webkit-transition: width 1s ease-out;
+        transition: width 1s ease-out;
+      }
+    </style>
 
     <h3>Static</h3>
     <div class="row">
@@ -10,7 +16,7 @@
     <hr />
     <h3>Dynamic <button class="button small" type="button" ng-click="random()">Randomize</button></h3>
     <progressbar max="max" value="dynamic"><span style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span></progressbar>
-    
+
     <small><em>No animation</em></small>
     <progressbar animate="false" value="dynamic" type="success"><b>{{dynamic}}%</b></progressbar>
 
