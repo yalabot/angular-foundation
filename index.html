@@ -60,7 +60,7 @@
           <h3>With love, from <a href="http://github.com/pineconellc/">Pinecone</a></h3>
           <hr>
           <p>
-            <a class="button radius large" href="https://github.com/pineconellc/angular-foundation/tree/gh-pages"><i class="fa fa-download"></i> Download</a>
+          <a class="button radius large" href="https://github.com/pineconellc/angular-foundation/tree/gh-pages"><i class="fa fa-download"></i> Download v0.5.1</a>
             <a class="button radius large" href="https://github.com/pineconellc/angular-foundation"><i class="fa fa-github"></i> Contribute</a>
           </p>
         </div>
@@ -89,7 +89,7 @@
               Foundation CSS in version 5.x.
             </li>
           </ul>
-          <h3>Files to download</h3>
+          <h3>Downloading</h3>
           <p>
             Build files for all directives are distributed in several flavours: minified for production usage, un-minified
             for development, with or without templates. All the options are described and can be
@@ -1216,6 +1216,12 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row">
               <div class="columns medium-6 show-grid">
                 <div ng-controller="ProgressDemoCtrl">
+    <style>
+      .progress .meter {
+        -webkit-transition: width 1s ease-out;
+        transition: width 1s ease-out;
+      }
+    </style>
 
     <h3>Static</h3>
     <div class="row">
@@ -1227,7 +1233,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     <hr />
     <h3>Dynamic <button class="button small" type="button" ng-click="random()">Randomize</button></h3>
     <progressbar max="max" value="dynamic"><span style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span></progressbar>
-    
+
     <small><em>No animation</em></small>
     <progressbar animate="false" value="dynamic" type="success"><b>{{dynamic}}%</b></progressbar>
 
@@ -1240,7 +1246,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
               <div class="columns medium-6">
                 <p>A progress bar directive that is focused on providing feedback on the progress of a workflow or action.</p>
 
-<p>It supports multiple (stacked) bars into the same <code>&lt;progress&gt;</code> element or a single <code>&lt;progressbar&gt;</code> elemtnt with optional <code>max</code> attribute and transition animations.</p>
+<p>It supports multiple (stacked) bars into the same <code>&lt;progress&gt;</code> element or a single <code>&lt;progressbar&gt;</code> element with optional <code>max</code> attribute and transition animations.</p>
 
 <h3>Settings</h3>
 
@@ -1258,7 +1264,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
  A number that specifies the total value of bars that is required.</p></li>
 <li><p><code>animate</code>
  <em>(Default: true)</em> :
- Whether bars use transitions to achieve the width change.</p></li>
+ Whether bars use transitions to achieve the width change. <strong>IMPORTANT:</strong> Foundation's CSS does not not apply a <code>transition</code> to progress bars. In order for animations to work, you'll need to apply a <code>transition</code> in your own CSS. See the demo for an example.</p></li>
 </ul>
               </div>
             </div>
@@ -1272,6 +1278,12 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
                   <tab heading="Markup">
                     <div plunker-content="markup">
                       <pre ng-non-bindable><code data-language="html">&lt;div ng-controller=&quot;ProgressDemoCtrl&quot;&gt;
+    &lt;style&gt;
+      .progress .meter {
+        -webkit-transition: width 1s ease-out;
+        transition: width 1s ease-out;
+      }
+    &lt;/style&gt;
 
     &lt;h3&gt;Static&lt;/h3&gt;
     &lt;div class=&quot;row&quot;&gt;
@@ -1283,7 +1295,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
     &lt;hr /&gt;
     &lt;h3&gt;Dynamic &lt;button class=&quot;button small&quot; type=&quot;button&quot; ng-click=&quot;random()&quot;&gt;Randomize&lt;/button&gt;&lt;/h3&gt;
     &lt;progressbar max=&quot;max&quot; value=&quot;dynamic&quot;&gt;&lt;span style=&quot;color:black; white-space:nowrap;&quot;&gt;{{dynamic}} / {{max}}&lt;/span&gt;&lt;/progressbar&gt;
-    
+
     &lt;small&gt;&lt;em&gt;No animation&lt;/em&gt;&lt;/small&gt;
     &lt;progressbar animate=&quot;false&quot; value=&quot;dynamic&quot; type=&quot;success&quot;&gt;&lt;b&gt;{{dynamic}}%&lt;/b&gt;&lt;/progressbar&gt;
 
