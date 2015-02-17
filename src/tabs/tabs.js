@@ -20,13 +20,6 @@ angular.module('mm.foundation.tabs', [])
     tab.active = true;
   };
 
-  ctrl.deselect = function(tab){
-    angular.forEach(tabs, function(tab){
-      tab.active = false;
-    });
-    tab.active = false;
-  };
-
   ctrl.addTab = function addTab(tab) {
     tabs.push(tab);
     if (tabs.length === 1 || tab.active) {
@@ -218,7 +211,6 @@ angular.module('mm.foundation.tabs', [])
             tabsetCtrl.select(scope);
             scope.onSelect();
           } else {
-            tabsetCtrl.deselect(scope);
             scope.onDeselect();
           }
         });
@@ -232,6 +224,7 @@ angular.module('mm.foundation.tabs', [])
 
         scope.deselect = function(){
           if(!scope.disabled){
+            tabsetCtrl.select(scope);
             scope.active = false;
           }
         };
