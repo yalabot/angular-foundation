@@ -193,7 +193,11 @@ angular.module('mm.foundation.tabs', [])
         if (attrs.active) {
           getActive = $parse(attrs.active);
           scope.active = getActive(scope.$parent);
-        } 
+        } else
+        {
+          getActive = angular.noop;
+          setActive = angular.noop;
+        }
         
         scope.$watch('active', function(active) {
 
