@@ -195,17 +195,17 @@ angular.module('mm.foundation.tabs', [])
           setActive = getActive.assign;
           scope.active = getActive(scope.$parent);
         } else {
--          getActive = angular.noop;
+          getActive = angular.noop;
            setActive = getActive;
          }
 
         scope.$watch('active', function(active) {
         if( !angular.isFunction(setActive) ){
--            return;
--          }
--          // Note this watcher also initializes and assigns scope.active to the
--          // attrs.active expression.          
--          setActive(scope.$parent, active);
+             return;
+          }
+          // Note this watcher also initializes and assigns scope.active to the
+          // attrs.active expression.          
+          setActive(scope.$parent, active);
 
           if (active) {
             tabsetCtrl.select(scope);
