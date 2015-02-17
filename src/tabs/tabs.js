@@ -200,7 +200,10 @@ angular.module('mm.foundation.tabs', [])
         }
         
         scope.$watch('active', function(active) {
-
+          if(typeof(active) == "undefined")
+          {
+            setActive(scope.$parent, active);
+          }
           if (active) {
             tabsetCtrl.select(scope);
             scope.onSelect();
