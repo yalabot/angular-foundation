@@ -211,7 +211,6 @@ angular.module('mm.foundation.tabs', [])
             tabsetCtrl.select(scope);
             scope.onSelect();
           } else {
-            scope.active = false;
             scope.onDeselect();
           }
         });
@@ -223,6 +222,12 @@ angular.module('mm.foundation.tabs', [])
           });
         }
 
+        scope.deselect = function(){
+          if(!scope.disabled){
+            scope.active = false;
+          }
+        };
+        
         scope.select = function() {
           if ( ! scope.disabled ) {
             scope.active = true;
