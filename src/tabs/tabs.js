@@ -195,7 +195,8 @@ angular.module('mm.foundation.tabs', [])
           setActive = getActive.assign;
           scope.active = getActive(scope.$parent);
         } else {
--          setActive = getActive = angular.noop;
+-          getActive = angular.noop;
+           setActive = getActive;
          }
 
         scope.$watch('active', function(active) {
