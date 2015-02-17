@@ -13,6 +13,12 @@ angular.module('mm.foundation.tabs', [])
   var ctrl = this,
       tabs = ctrl.tabs = $scope.tabs = [];
 
+  ctrl.deselect = function(scope){
+     angular.forEach(tabs, function(tab) {
+      tab.active = false;
+    });
+    tab.active = false;
+  }
   ctrl.select = function(tab) {
     angular.forEach(tabs, function(tab) {
       tab.active = false;
@@ -211,7 +217,7 @@ angular.module('mm.foundation.tabs', [])
             tabsetCtrl.select(scope);
             scope.onSelect();
           } else {
-            tabsetCtrl.select({});
+            tabsetCtrl.deselect(scope);
             scope.onDeselect();
           }
         });
