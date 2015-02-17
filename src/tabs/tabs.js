@@ -18,7 +18,8 @@ angular.module('mm.foundation.tabs', [])
       tab.active = false;
     });
     tab.active = false;
-  }
+  };
+  
   ctrl.select = function(tab) {
     angular.forEach(tabs, function(tab) {
       tab.active = false;
