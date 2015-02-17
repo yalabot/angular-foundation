@@ -12,12 +12,6 @@ angular.module('mm.foundation.tabs', [])
 .controller('TabsetController', ['$scope', function TabsetCtrl($scope) {
   var ctrl = this,
       tabs = ctrl.tabs = $scope.tabs = [];
-
-  ctrl.deselect = function(){
-     angular.forEach(tabs, function(tab) {
-      tab.active = false;
-    });
-  };
   
   ctrl.select = function(tab) {
     angular.forEach(tabs, function(tab) {
@@ -202,21 +196,21 @@ angular.module('mm.foundation.tabs', [])
           scope.active = getActive(scope.$parent);
         } else {
           getActive = angular.noop;
-           setActive = getActive;
+          setActive = getActive;
          }
 
         scope.$watch('active', function(active) {
-        if(angular.isFunction(setActive) ){
-            // Note this watcher also initializes and assigns scope.active to the
+        if(!angular.isFunction(setActive) ){
+          return;
+          }
+          // Note this watcher also initializes and assigns scope.active to the
           // attrs.active expression.          
           setActive(scope.$parent, active);
-          }
           
           if (active) {
             tabsetCtrl.select(scope);
             scope.onSelect();
           } else {
-            tabsetCtrl.select(scope);
             scope.onDeselect();
           }
         });
