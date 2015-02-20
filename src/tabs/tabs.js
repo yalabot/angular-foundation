@@ -188,25 +188,15 @@ angular.module('mm.foundation.tabs', [])
         //once we use it once to initialize scope.active we don't
         //want to watch it anymore or use it in overriding the selection
         //behavior of end-users.
-         var getActive, setActive;
+        var getActive;
 
         if (attrs.active) {
           getActive = $parse(attrs.active);
-          setActive = getActive.assign;
           scope.active = getActive(scope.$parent);
-        } else {
-          getActive = angular.noop;
-          setActive = getActive;
-         }
+        }
 
         scope.$watch('active', function(active) {
-        if(!angular.isFunction(setActive) ){
-          return;
-          }
-          // Note this watcher also initializes and assigns scope.active to the
-          // attrs.active expression.          
-          setActive(scope.$parent, active);
-          
+
           if (active) {
             tabsetCtrl.select(scope);
             scope.onSelect();
@@ -222,13 +212,6 @@ angular.module('mm.foundation.tabs', [])
           });
         }
 
-        scope.deselect = function(){
-          if(!scope.disabled){
-            tabsetCtrl.select(scope);
-            scope.active = false;
-          }
-        };
-        
         scope.select = function() {
           if ( ! scope.disabled ) {
             scope.active = true;
