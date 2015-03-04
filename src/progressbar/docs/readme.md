@@ -1,6 +1,6 @@
 A progress bar directive that is focused on providing feedback on the progress of a workflow or action.
 
-It supports multiple (stacked) bars into the same `<progress>` element or a single `<progressbar>` elemtnt with optional `max` attribute and transition animations.
+It supports multiple (stacked) bars into the same `<progress>` element or a single `<progressbar>` element with optional `max` attribute and transition animations.
 
 ### Settings ###
 
@@ -20,4 +20,4 @@ It supports multiple (stacked) bars into the same `<progress>` element or a sing
 
  * `animate`
  	_(Default: true)_ :
- 	Whether bars use transitions to achieve the width change.
+ 	Whether bars use transitions to achieve the width change. **IMPORTANT:** Foundation's CSS does not not apply a `transition` to progress bars. In order for animations to work, you'll need to apply a `transition` in your own CSS. See the demo for an example.
