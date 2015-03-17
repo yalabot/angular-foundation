@@ -8,6 +8,10 @@ Foundation version of the tabs directive.
  	_(Defaults: false)_ :
  	Whether tabs appear vertically stacked.
 
+ * `open-first-tab`
+  _(Defaults: true)_ :
+  Whether open the first tab automatically.
+
 #### `<tab>` ####
 
  * `heading` or `<tab-heading>`
