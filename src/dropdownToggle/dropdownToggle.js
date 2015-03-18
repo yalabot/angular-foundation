@@ -10,7 +10,9 @@
      </li>
    </ul>
  */
-angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.foundation.mediaQueries' ])
+angular.module('mm.foundation.dropdownToggle', ['mm.foundation.position', 'mm.foundation.mediaQueries',
+  'mm.foundation.stylesheets'
+])
 
 .controller('DropdownToggleController', ['$scope', '$attrs', 'mediaQueries', function($scope, $attrs, mediaQueries) {
   this.small = function() {
@@ -18,9 +20,10 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
   };
 }])
 
-.directive('dropdownToggle', ['$document', '$window', '$location', '$position', function ($document, $window, $location, $position) {
+.directive('dropdownToggle', ['$document', '$window', '$location', '$position', 'stylesheetFactory', function($document,
+  $window, $location, $position, stylesheetFactory) {
   var openElement = null,
-      closeMenu   = angular.noop;
+    closeMenu = angular.noop;
   return {
     restrict: 'CA',
     scope: {
@@ -30,12 +33,13 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
     link: function(scope, element, attrs, controller) {
       var parent = element.parent();
       var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
+      var sheet = stylesheetFactory();
 
       var parentHasDropdown = function() {
         return parent.hasClass('has-dropdown');
       };
 
-      var onClick = function (event) {
+      var onClick = function(event) {
         dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
         var elementWasOpen = (element === openElement);
 
@@ -60,13 +64,12 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             css.position = 'absolute';
             css.width = '95%';
             css['max-width'] = 'none';
-          }
-          else {
+          } else {
             var left = Math.round(offset.left - parentOffset.left);
             var rightThreshold = $window.innerWidth - dropdownWidth - 8;
             if (left > rightThreshold) {
-                left = rightThreshold;
-                dropdown.removeClass('left').addClass('right');
+              left = rightThreshold;
+              dropdown.removeClass('left').addClass('right');
             }
             css.left = left + 'px';
             css.position = null;
@@ -75,22 +78,61 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
 
           dropdown.css(css);
 
+          var dropdownLeft = $position.offset(dropdown).left;
+          var pipWidth = parseInt(
+            getComputedStyle(dropdown[0], '::before').getPropertyValue('width'), 10
+          );
+          var pipLeft = offset.left - dropdownLeft + Math.round((offset.width - pipWidth) / 2);
+          sheet
+            .css('#' + dropdown[0].id + '::before', {
+              left: pipLeft + 'px'
+            })
+            .css('#' + dropdown[0].id + '::after', {
+              left: pipLeft - 1 + 'px'
+            })
+            .sync();
+
           if (parentHasDropdown()) {
             parent.addClass('hover');
           }
 
           openElement = element;
-
-          closeMenu = function (event) {
-            $document.off('click', closeMenu);
-            dropdown.css('display', 'none');
-            closeMenu = angular.noop;
-            openElement = null;
-            if (parent.hasClass('hover')) {
-              parent.removeClass('hover');
+          var shouldUnbind = true;
+          closeMenu = function(event) {
+            if (shouldUnbind) {
+              $document.off('click', closeMenu);
+              dropdown.css('display', 'none');
+              closeMenu = angular.noop;
+              openElement = null;
+              if (parent.hasClass('hover')) {
+                parent.removeClass('hover');
+              }
             }
+            shouldUnbind = true;
           };
+
           $document.on('click', closeMenu);
+
+          if (dropdown.attr('show-on-click')) {
+            dropdown.bind('click', function(evt) {
+              shouldUnbind = false;
+              dropdown.css('display', 'block');
+            });
+          }
+
+          var closeButton = angular.element($document[0].querySelector('.close.button'));
+          closeButton.bind('click', function(e) {
+            shouldUnbind = true;
+            dropdown.unbind('click');
+            closeMenu();
+          });
+
+          var sendButton = angular.element($document[0].querySelector('.send.button'));
+          sendButton.bind('click', function(e) {
+            shouldUnbind = true;
+            dropdown.unbind('click');
+            closeMenu();
+          });
         }
       };
 
@@ -98,7 +140,9 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
         dropdown.css('display', 'none');
       }
 
-      scope.$watch('$location.path', function() { closeMenu(); });
+      scope.$watch('$location.path', function() {
+        closeMenu();
+      });
 
       element.on('click', onClick);
       element.on('$destroy', function() {

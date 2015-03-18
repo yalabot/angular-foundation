@@ -1,5 +1,5 @@
 describe('dropdownToggle', function() {
-  var $compile, $rootScope, $document, $location, $window, elm, toggleElm, targetElm;
+  var $compile, $rootScope, $document, $location, $window, elm, toggleElm, targetElm, $position;
 
   function dropdown(id) {
     if (!id) {
@@ -20,12 +20,13 @@ describe('dropdownToggle', function() {
 
   beforeEach(module('mm.foundation.dropdownToggle'));
 
-  beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$location_, _$window_) {
+  beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$location_, _$window_, _$position_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     $document = _$document_;
     $window = _$window_;
     $location = _$location_;
+    $position = _$position_;
     $scope = $rootScope.$new();
   }));
 
@@ -52,6 +53,12 @@ describe('dropdownToggle', function() {
       toggleElm.click();
       elm.click();
       expect(targetElm.css('display')).toBe('none');
+    });
+      
+    it('should not close on click if elm has show-on-click attribute', function() {
+        targetElm.attr('show-on-click', '');
+        toggleElm.click();
+        expect(targetElm.css('display')).toBe('block');
     });
 
     it('should close on document click', function() {
@@ -91,18 +98,32 @@ describe('dropdownToggle', function() {
         return {small: trueFn, medium: falseFn, large: falseFn };
       });
 
-    it('should be full-width', function() {
+    beforeEach(function() {
       elm = dropdown('responsive');
       toggleElm = elm.find('a');
       targetElm = elm.find('ul');
 
       toggleElm.click();
+    });
 
+    it('should be full-width', function() {
       expect(targetElm.css('position')).toBe('absolute');
       expect(targetElm.css('max-width')).toBe('none');
 
       var expectedWidth = Math.round($window.innerWidth * 0.95);
       expect(targetElm.css('width')).toBe(expectedWidth + 'px');
+    });
+
+    it('should position pip', function() {
+      var offset = $position.offset(toggleElm);
+      var targetLeftOffset = parseInt($position.offset(targetElm).left, 10);
+
+      // Find whatever left offset it should have
+      var styles = getComputedStyle(targetElm[0], '::before');
+      var left = styles.getPropertyValue('left');
+      var pipWidth = styles.getPropertyValue('width').slice(0, -2);
+      var expectedLeft = Math.round((offset.width - pipWidth) / 2, 10) + offset.left - targetLeftOffset;
+      expect(left).toBe(expectedLeft + 'px');
     });
   });
 
