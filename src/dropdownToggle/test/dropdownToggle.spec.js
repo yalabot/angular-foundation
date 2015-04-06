@@ -67,6 +67,13 @@ describe('dropdownToggle', function() {
       $rootScope.$apply();
       expect(targetElm.css('display')).toBe('none');
     });
+
+    it("should add/remove the 'expanded' class on toggle", function() {
+      toggleElm.click();
+      expect(toggleElm.hasClass('expanded')).toBe(true);
+      toggleElm.click();
+      expect(toggleElm.hasClass('expanded')).toBe(false);
+    });
   });
 
   describe('with multiple dropdowns', function() {
