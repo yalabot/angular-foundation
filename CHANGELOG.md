@@ -1,3 +1,15 @@
+<a name="v0.6.0"></a>
+# v0.6.0 (unreleased)
+## Features
+* **dropdownToggle**
+  - Add 'expanded' class when toggled
+## Bug Fixes
+* **modal**
+  - Fixes focus on model open
+* **tour**
+  - Fixes an issue where tour would stay open when location changed
+  - Prevents a SecurityError from being raised when accessing localStorage
+
 <a name="v0.5.1"></a>
 # v0.5.1 (2014-11-29)
 ## Bug Fixes
