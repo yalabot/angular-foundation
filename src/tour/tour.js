@@ -83,6 +83,8 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
         element.remove();
         $tour.next();
       };
+
+      scope.$on('$locationChangeSuccess', scope.endTour);
     }
   };
 }])

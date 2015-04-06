@@ -79,6 +79,12 @@ describe('tour', function() {
         expect(popup.length).toEqual(1);
         expect(popup.html()).toMatch(/second step content/i);
       });
+
+      it("closes the tour when the location changes", function() {
+        expect($tour.isActive()).toBe(true);
+        scope.$broadcast('$locationChangeSuccess');
+        expect($tour.isActive()).toBe(false);
+      });
     });
   });
 });
