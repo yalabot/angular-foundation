@@ -299,7 +299,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
 
           function getTemplatePromise(options) {
             return options.template ? $q.when(options.template) :
-              $http.get(options.templateUrl, {cache: $templateCache}).then(function (result) {
+              $http.get(options.templateUrl, {cache: $templateCache, headers: { Accept: 'text/html' }}).then(function (result) {
                 return result.data;
               });
           }
