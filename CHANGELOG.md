@@ -3,12 +3,15 @@
 ## Features
 * **dropdownToggle**
   - Add 'expanded' class when toggled
+
 ## Bug Fixes
 * **modal**
   - Fixes focus on model open
 * **tour**
   - Fixes an issue where tour would stay open when location changed
   - Prevents a SecurityError from being raised when accessing localStorage
+* **topbar**
+  - Fix event unbinding
 
 <a name="v0.5.1"></a>
 # v0.5.1 (2014-11-29)
@@ -55,7 +58,7 @@
 * **mediaQueries**
   - Extracted `mediaQueries` factory into its own module so it can be reused. ([#99](https://github.com/pineconellc/angular-foundation/pull/99))
 * **accordion**
-  - Add active class to the open accordion segment ([27e787f](https://github.com/pineconellc/angular-foundation/commit/27e787fad563f70cae79e6c57077daa563a2e8e2)) 
+  - Add active class to the open accordion segment ([27e787f](https://github.com/pineconellc/angular-foundation/commit/27e787fad563f70cae79e6c57077daa563a2e8e2))
 
 <a name="v0.3.1"></a>
 # v0.3.1 (2014-08-19)
