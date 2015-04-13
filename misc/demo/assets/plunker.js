@@ -25,7 +25,7 @@ angular.module('plunker', [])
           '      <div class="small-12.columns">\n' +
                    content + '\n' +
           '      </div>\n' +
-          '    </div>\n'
+          '    </div>\n' +
           '  </body>\n' +
           '</html>\n';
       };
