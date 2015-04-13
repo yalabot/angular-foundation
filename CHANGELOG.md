@@ -3,6 +3,8 @@
 ## Features
 * **dropdownToggle**
   - Add 'expanded' class when toggled
+* **modal**
+  - Add `controllerAs` option ([#176](https://github.com/pineconellc/angular-foundation/pull/176))
 
 ## Bug Fixes
 * **modal**
