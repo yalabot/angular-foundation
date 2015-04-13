@@ -232,7 +232,7 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
         if(topbarContainer.hasClass('fixed') || isSticky() ) {
           scope.stickyTopbar = true;
           scope.height = topbarContainer[0].offsetHeight;
-          var stickyoffset = topbarContainer[0].getBoundingClientRect().top;
+          var stickyoffset = topbarContainer[0].getBoundingClientRect().top + $window.pageYOffset;
         } else {
           scope.height = topbar[0].offsetHeight;
         }
