@@ -242,10 +242,12 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         var scrollY = $window.pageYOffset || 0;
         var openAt = scrollY + marginTop;
 
-        var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>');
-        angularDomEl.attr('window-class', modal.windowClass);
-        angularDomEl.attr('index', openedWindows.length() - 1);
-        angularDomEl.attr('animate', 'animate');
+        var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>')
+          .attr({
+            'window-class': modal.windowClass,
+            'index': openedWindows.length() - 1,
+            'animate': 'animate'
+          });
         angularDomEl.html(modal.content);
 
         var modalDomEl = $compile(angularDomEl)(modal.scope);

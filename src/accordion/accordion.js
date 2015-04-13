@@ -35,7 +35,7 @@ angular.module('mm.foundation.accordion', [])
   this.removeGroup = function(group) {
     var index = this.groups.indexOf(group);
     if ( index !== -1 ) {
-      this.groups.splice(this.groups.indexOf(group), 1);
+      this.groups.splice(index, 1);
     }
   };
 
