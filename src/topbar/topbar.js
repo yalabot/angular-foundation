@@ -247,13 +247,12 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
           }
         });
 
-
         angular.element($window).bind('resize', onResize);
-        angular.element($window).bind("scroll", onScroll);
+        angular.element($window).bind('scroll', onScroll);
 
         scope.$on('$destroy', function() {
-          angular.element($window).unbind("scroll", onResize);
-          angular.element($window).unbind("resize", onScroll);
+          angular.element($window).unbind('scroll', onResize);
+          angular.element($window).unbind('resize', onScroll);
         });
 
         if (topbarContainer.hasClass('fixed')) {

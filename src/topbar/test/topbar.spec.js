@@ -21,7 +21,6 @@ describe('topbar directive', function() {
       $compile = _$compile_;
       $rootScope = _$rootScope_;
       $document = _$document_;
-
     });
   });
 
@@ -77,12 +76,13 @@ describe('topbar directive', function() {
           '</top-bar>' +
           '<div>Content</div>' +
         '</div>';
-      containerElement = $compile(markup)($rootScope);
-      $('body', $document).append(element);
-      $rootScope.$digest();
-      element = containerElement.find("nav");
     }
-  }
+
+    containerElement = $compile(markup)($rootScope);
+    $('body', $document).append(element);
+    $rootScope.$digest();
+    element = containerElement.find("nav");
+  };
 
   describe("basic behavior", function() {
     beforeEach(function() {
@@ -132,5 +132,31 @@ describe('topbar directive', function() {
       expect($window.matchMedia).toHaveBeenCalled();
       expect(element.hasClass("expanded")).toBe(true);
     }));
+  });
+
+  describe("sticky", function() {
+    var markup;
+
+    beforeEach(function() {
+      markup =
+        '<div style="height: 100px"></div>"'
+        '<div class="sticky">' +
+          '<top-bar>' +
+            '<ul class="title-area">' +
+              '<li class="name">' +
+                '<h1><a href="#">My Site</a></h1>' +
+              '</li>' +
+              '<li toggle-top-bar id="menu-toggle" class="menu-icon">' +
+                '<a href="#">Menu</a>' +
+              '</li>' +
+            '</ul>' +
+          '</top-bar>' +
+        '</div>';
+    });
+
+    it('does not apply the fixed class on initial load', function() {
+      compileDirective(markup);
+      expect(containerElement.hasClass('fixed')).toBe(false);
+    });
   });
 });
