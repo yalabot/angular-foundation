@@ -139,7 +139,6 @@ describe('topbar directive', function() {
 
     beforeEach(function() {
       markup =
-        '<div style="height: 100px"></div>"'
         '<div class="sticky">' +
           '<top-bar>' +
             '<ul class="title-area">' +
