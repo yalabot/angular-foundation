@@ -12,6 +12,7 @@
   - Prevents a SecurityError from being raised when accessing localStorage
 * **topbar**
   - Fix event unbinding
+  - Fix sticky topbar when page is refreshed. ([#213](https://github.com/pineconellc/angular-foundation/issues/213))
 
 <a name="v0.5.1"></a>
 # v0.5.1 (2014-11-29)
