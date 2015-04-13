@@ -36,6 +36,8 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
       };
 
       var onClick = function (event) {
+        var windowWidth = $window.innerWidth;
+
         dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
         var elementWasOpen = (element === openElement);
 
@@ -50,27 +52,35 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           dropdown.css('display', 'block'); // We display the element so that offsetParent is populated
           var offset = $position.offset(element);
           var parentOffset = $position.offset(angular.element(dropdown[0].offsetParent));
-          var dropdownWidth = dropdown.prop('offsetWidth');
           var css = {
             top: offset.top - parentOffset.top + offset.height + 'px'
           };
 
           if (controller.small()) {
-            css.left = Math.max((parentOffset.width - dropdownWidth) / 2, 8) + 'px';
             css.position = 'absolute';
             css.width = '95%';
             css['max-width'] = 'none';
           }
+          else
+          {
+            css.width = '';
+            css.position = '';
+            css['max-width'] = '';
+          }
+          dropdown.css(css);
+          var dropdownWidth = dropdown.prop('offsetWidth');
+
+          if (controller.small()) {
+            css.left = Math.max((parentOffset.width - dropdownWidth) / 2, 8) + 'px';
+          }
           else {
             var left = Math.round(offset.left - parentOffset.left);
-            var rightThreshold = $window.innerWidth - dropdownWidth - 8;
+            var rightThreshold = dropdown[0].offsetParent.offsetWidth - dropdownWidth - 8;
             if (left > rightThreshold) {
                 left = rightThreshold;
                 dropdown.removeClass('left').addClass('right');
             }
             css.left = left + 'px';
-            css.position = null;
-            css['max-width'] = null;
           }
 
           dropdown.css(css);
@@ -83,7 +93,11 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           openElement = element;
 
           closeMenu = function (event) {
+            if (event && event.type == 'resize' && event.target.innerWidth == windowWidth) {
+              return;
+            }
             $document.off('click', closeMenu);
+            angular.element($window).unbind('resize', closeMenu);
             dropdown.css('display', 'none');
             element.removeClass('expanded');
             closeMenu = angular.noop;
@@ -93,6 +107,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             }
           };
           $document.on('click', closeMenu);
+          angular.element($window).bind('resize', closeMenu);
         }
       };
 
