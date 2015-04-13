@@ -1,5 +1,5 @@
 <a name="v0.6.0"></a>
-# v0.6.0 (unreleased)
+# v0.6.0 (2015-04-13)
 ## Features
 * **dropdownToggle**
   - Add 'expanded' class when toggled
