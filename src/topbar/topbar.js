@@ -129,6 +129,7 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
         var topbar = scope.topbar = element;
         var topbarContainer = topbar.parent();
         var body = angular.element($document[0].querySelector('body'));
+        var lastBreakpoint = mediaQueries.topbarBreakpoint();
 
         var isSticky = scope.isSticky = function() {
           var sticky = topbarContainer.hasClass(scope.settings.stickyClass);
@@ -159,6 +160,30 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
             $class.removeClass('fixed');
             body.css('padding-top', '');
           }
+        };
+
+        var onResize = function() {
+          var currentBreakpoint = mediaQueries.topbarBreakpoint();
+          if(lastBreakpoint === currentBreakpoint){
+            return;
+          }
+          lastBreakpoint = mediaQueries.topbarBreakpoint();
+
+          topbar.removeClass('expanded');
+          topbar.parent().removeClass('expanded');
+          scope.height = '';
+
+          var sections = angular.element(topbar[0].querySelectorAll('section'));
+          angular.forEach(sections, function(section) {
+            angular.element(section.querySelectorAll('li.moved')).removeClass('moved');
+          });
+
+          scope.$apply();
+        };
+
+        var onScroll = function() {
+          updateStickyPositioning();
+          scope.$apply();
         };
 
         scope.toggle = function(on) {
@@ -223,43 +248,19 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
           }
         });
 
-        var lastBreakpoint = mediaQueries.topbarBreakpoint();
 
-        angular.element($window).bind('resize', function() {
-          var currentBreakpoint = mediaQueries.topbarBreakpoint();
-          if(lastBreakpoint === currentBreakpoint){
-            return;
-          }
-          lastBreakpoint = mediaQueries.topbarBreakpoint();
-
-          topbar.removeClass('expanded');
-          topbar.parent().removeClass('expanded');
-          scope.height = '';
-
-          var sections = angular.element(topbar[0].querySelectorAll('section'));
-          angular.forEach(sections, function(section) {
-            angular.element(section.querySelectorAll('li.moved')).removeClass('moved');
-          });
-
-          scope.$apply();
-        });
-
-        // update sticky positioning
-        angular.element($window).bind("scroll", function() {
-          updateStickyPositioning();
-          scope.$apply();
-        });
+        angular.element($window).bind('resize', onResize);
+        angular.element($window).bind("scroll", onScroll);
 
         scope.$on('$destroy', function() {
-          angular.element($window).unbind("scroll");
-          angular.element($window).unbind("resize");
+          angular.element($window).unbind("scroll", onResize);
+          angular.element($window).unbind("resize", onScroll);
         });
 
         if (topbarContainer.hasClass('fixed')) {
           body.css('padding-top', scope.originalHeight + 'px');
         }
-
-      },
+      }
     };
   }]
 )
