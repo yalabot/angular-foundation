@@ -150,14 +150,13 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
             return;
           }
 
-          var $class = angular.element($document[0].querySelector('.' + scope.settings.stickyClass));
           var distance = stickyoffset;
 
-          if ($window.pageYOffset > distance && !$class.hasClass('fixed')) {
-            $class.addClass('fixed');
+          if ($window.pageYOffset > distance && !topbarContainer.hasClass('fixed')) {
+            topbarContainer.addClass('fixed');
             body.css('padding-top', scope.originalHeight + 'px');
-          } else if ($window.pageYOffset <= distance && $class.hasClass('fixed')) {
-            $class.removeClass('fixed');
+          } else if ($window.pageYOffset <= distance && topbarContainer.hasClass('fixed')) {
+            topbarContainer.removeClass('fixed');
             body.css('padding-top', '');
           }
         };
@@ -193,7 +192,7 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
 
           var expand = (on === undefined) ? !topbar.hasClass('expanded') : on;
 
-          if (expand){
+          if (expand) {
             topbar.addClass('expanded');
           }
           else {
