@@ -59,6 +59,8 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
 
       var appendToBody =  attrs.typeaheadAppendToBody ? $parse(attrs.typeaheadAppendToBody) : false;
 
+      var focusFirst = originalScope.$eval(attrs.typeaheadFocusFirst) !== false;
+
       //INTERNAL VARIABLES
 
       //model setter executed upon match selection
@@ -106,7 +108,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
           if (inputValue === modelCtrl.$viewValue && hasFocus) {
             if (matches.length > 0) {
 
-              scope.activeIdx = 0;
+              scope.activeIdx = focusFirst ? 0 : -1;
               scope.matches.length = 0;
 
               //transform labels
@@ -231,6 +233,11 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
           return;
         }
 
+        // if there's nothing selected (i.e. focusFirst) and enter is hit, don't do anything
+        if (scope.activeIdx == -1 && (evt.which === 13 || evt.which === 9)) {
+          return;
+        }
+
         evt.preventDefault();
 
         if (evt.which === 40) {
@@ -238,7 +245,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
           scope.$digest();
 
         } else if (evt.which === 38) {
-          scope.activeIdx = (scope.activeIdx ? scope.activeIdx : scope.matches.length) - 1;
+          scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
           scope.$digest();
 
         } else if (evt.which === 13 || evt.which === 9) {
