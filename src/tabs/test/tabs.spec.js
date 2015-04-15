@@ -407,8 +407,8 @@ describe('tabs', function() {
         expect(tab1.active).toBe(true);
       });
 
-      it('should not select first tab if $scope.openFirstTab of the controller is false', function() {
-        scope.openFirstTab = false;
+      it('should not select the first tab if $scope.openOnLoad of the controller is false', function() {
+        scope.openOnLoad = false;
         var tab = mockTab();
         ctrl.addTab(tab);
         expect(tab.active).toBe(false);
@@ -483,15 +483,15 @@ describe('tabs', function() {
     });
   });
 
-  describe('open-first-tab', function() {
+  describe('open-on-load', function() {
     beforeEach(inject(function($compile, $rootScope) {
       scope = $rootScope.$new();
-      $compile('<tabset open-first-tab="false"></tabset>')(scope);
+      $compile('<tabset open-on-load="false"></tabset>')(scope);
       scope.$apply();
     }));
 
     it('to show tabs vertically', function() {
-      expect(scope.openFirstTab).toBeFalsy();
+      expect(scope.openOnLoad).toBeFalsy();
     });
   });
 
