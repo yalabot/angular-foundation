@@ -528,6 +528,45 @@ describe('typeahead tests', function () {
       expect($scope.isLoading).toBeFalsy();
     });
 
+    it('should update loading callback when input loses focus', function() {
+      $scope.isLoading = false;
+      $scope.items = function(viewValue) {
+        return $timeout(function() {
+          return [viewValue];
+        });
+      };
+
+      var element = prepareInputEl("<div><input ng-model='result' typeahead='item for item in items($viewValue)' typeahead-loading='isLoading'></div>");
+      changeInputValueTo(element, 'foo');
+
+      expect($scope.isLoading).toBeTruthy();
+
+      findInput(element).blur();
+      $timeout.flush();
+
+      expect($scope.isLoading).toBeFalsy();
+    });
+
+    it('should update loading callback when promise is rejected', inject(function($q) {
+      var element, deferred;
+
+      deferred = $q.defer();
+      $scope.isLoading = false;
+      $scope.items = function(viewValue) {
+        return deferred.promise;
+      };
+
+      element = prepareInputEl("<div><input ng-model='result' typeahead='item for item in items($viewValue)' typeahead-loading='isLoading'></div>");
+      changeInputValueTo(element, 'foo');
+
+      expect($scope.isLoading).toBeTruthy();
+
+      deferred.reject(['bar']);
+      $timeout.flush();
+
+      expect($scope.isLoading).toBeFalsy();
+    }));
+
     it('does not close matches popup on click in input', function () {
       var element = prepareInputEl("<div><input ng-model='result' typeahead='item for item in source | filter:$viewValue'></div>");
       var inputEl = findInput(element);
