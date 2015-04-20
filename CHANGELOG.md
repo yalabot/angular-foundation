@@ -1,10 +1,20 @@
+<a name="v0.7.0"></a>
+# v0.7.0 (unreleased)
+## Features
+* **tabs**
+  - Add an option to not select a tab on initial load. ([#196](https://github.com/pineconellc/angular-foundation/pull/196))
+
+## Bug Fixes
+* **typeahead**
+  - Ensure that the `typeahead-loading` expression is always set to false after asynchronous loads. ([#210](https://github.com/pineconellc/angular-foundation/pull/210))
+
 <a name="v0.6.0"></a>
 # v0.6.0 (2015-04-13)
 ## Features
 * **dropdownToggle**
   - Add 'expanded' class when toggled
 * **modal**
-  - Add `controllerAs` option ([#176](https://github.com/pineconellc/angular-foundation/pull/176))
+  - Add `controllerAs` option. ([#176](https://github.com/pineconellc/angular-foundation/pull/176))
 
 ## Bug Fixes
 * **modal**
