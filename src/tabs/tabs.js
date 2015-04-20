@@ -13,6 +13,8 @@ angular.module('mm.foundation.tabs', [])
   var ctrl = this,
       tabs = ctrl.tabs = $scope.tabs = [];
 
+  if (angular.isUndefined($scope.openOnLoad)) { $scope.openOnLoad = true; }
+
   ctrl.select = function(tab) {
     angular.forEach(tabs, function(tab) {
       tab.active = false;
@@ -22,7 +24,7 @@ angular.module('mm.foundation.tabs', [])
 
   ctrl.addTab = function addTab(tab) {
     tabs.push(tab);
-    if (tabs.length === 1 || tab.active) {
+    if ($scope.openOnLoad && (tabs.length === 1 || tab.active)) {
       ctrl.select(tab);
     }
   };
@@ -74,7 +76,9 @@ angular.module('mm.foundation.tabs', [])
     restrict: 'EA',
     transclude: true,
     replace: true,
-    scope: {},
+    scope: {
+      openOnLoad: '=?'
+    },
     controller: 'TabsetController',
     templateUrl: 'template/tabs/tabset.html',
     link: function(scope, element, attrs) {
