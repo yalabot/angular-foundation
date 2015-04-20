@@ -10,7 +10,7 @@ Foundation version of the tabs directive.
 
  * `open-on-load`
   _(Defaults: true)_ :
-  Whether open an active tab automatically.
+  Whether to open an active tab automatically.
 
 #### `<tab>` ####
 
