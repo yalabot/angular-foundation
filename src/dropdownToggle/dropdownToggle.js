@@ -103,7 +103,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
       scope.$watch('$location.path', function() { closeMenu(); });
 
       element.on('click', onClick);
-      element.on('$destroy', function() {
+      scope.$on('$destroy', function() {
         element.off('click', onClick);
       });
     }
