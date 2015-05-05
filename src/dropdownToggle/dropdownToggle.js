@@ -10,7 +10,7 @@
      </li>
    </ul>
  */
-angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.foundation.mediaQueries' ])
+angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.foundation.mediaQueries', 'mm.foundation.stylesheets' ])
 
 .controller('DropdownToggleController', ['$scope', '$attrs', 'mediaQueries', function($scope, $attrs, mediaQueries) {
   this.small = function() {
@@ -18,7 +18,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
   };
 }])
 
-.directive('dropdownToggle', ['$document', '$window', '$location', '$position', function ($document, $window, $location, $position) {
+.directive('dropdownToggle', ['$document', '$window', '$location', '$position', 'stylesheetFactory', function ($document, $window, $location, $position, stylesheetFactory) {
   var openElement = null,
       closeMenu   = angular.noop;
   return {
@@ -30,6 +30,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
     link: function(scope, element, attrs, controller) {
       var parent = element.parent();
       var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
+      var sheet = stylesheetFactory();
 
       var parentHasDropdown = function() {
         return parent.hasClass('has-dropdown');
@@ -79,6 +80,16 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           if (parentHasDropdown()) {
             parent.addClass('hover');
           }
+
+          var dropdownLeft = $position.offset(dropdown).left;
+          var pipWidth = parseInt(
+            getComputedStyle(dropdown[0], '::before').getPropertyValue('width'), 10
+          );
+          var pipLeft = offset.left - dropdownLeft + Math.round((offset.width - pipWidth) / 2);
+          sheet
+            .css('#' + dropdown[0].id + '::before', {left: pipLeft + 'px'})
+            .css('#' + dropdown[0].id + '::after', {left: pipLeft - 1 + 'px'})
+            .sync();
 
           openElement = element;
 
