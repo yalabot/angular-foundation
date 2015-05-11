@@ -422,4 +422,20 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
       element.prepend($titleLi);
     }
   };
+}])
+.directive('isActive', [ '$location', function($location) {
+  return {
+    restrict: 'A',
+    require: '^topBarSection',
+    link: function(scope, element) {
+      scope.location = $location;
+      scope.$watch('location.path()', function(currentPath) {
+         if('#' + currentPath === element[0].attributes['href'].nodeValue) {
+          element.parent().addClass('active');
+         } else {
+          element.parent().removeClass('active');
+         }
+      });
+    }
+  };
 }]);
