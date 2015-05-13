@@ -23,20 +23,17 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
       closeMenu   = angular.noop;
   return {
     restrict: 'CA',
-    scope: {
-      dropdownToggle: '@'
-    },
     controller: 'DropdownToggleController',
     link: function(scope, element, attrs, controller) {
-      var parent = element.parent();
-      var dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
+      var parent = element.parent(),
+          dropdown = angular.element($document[0].querySelector(attrs.dropdownToggle));
 
       var parentHasDropdown = function() {
         return parent.hasClass('has-dropdown');
       };
 
       var onClick = function (event) {
-        dropdown = angular.element($document[0].querySelector(scope.dropdownToggle));
+        dropdown = angular.element($document[0].querySelector(attrs.dropdownToggle));
         var elementWasOpen = (element === openElement);
 
         event.preventDefault();
