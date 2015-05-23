@@ -89,7 +89,20 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
               parent.removeClass('hover');
             }
           };
-          $document.on('click', closeMenu);
+          $document.on('click', function(event) {
+            // Disable close for click on/in dropdown with .content
+            // Unless target has attr dropdown-close
+            // Use $.contains to test if in dropdown - could test whether
+            // target is parent, but would still have to use $contains
+            // (parent could have children)
+            if (dropdown.hasClass('content')
+              && (event.target == dropdown[0] || $.contains(dropdown[0], event.target))
+              && !event.target.hasAttribute('dropdown-close')) {
+                event.preventDefault();
+                return;
+              }
+            closeMenu();
+          });
         }
       };
 
