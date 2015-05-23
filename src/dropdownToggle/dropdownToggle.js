@@ -95,7 +95,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             // Use $.contains to test if in dropdown - could test whether
             // target is parent, but would still have to use $contains
             // (parent could have children)
-            if (dropdown.hasClass('content')
+            if (dropdown[0].hasAttribute('dropdown-content')
               && (event.target == dropdown[0] || $.contains(dropdown[0], event.target))
               && !event.target.hasAttribute('dropdown-close')) {
                 event.preventDefault();
