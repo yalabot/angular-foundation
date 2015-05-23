@@ -80,29 +80,25 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           openElement = element;
 
           closeMenu = function (event) {
-            $document.off('click', closeMenu);
-            dropdown.css('display', 'none');
-            element.removeClass('expanded');
-            closeMenu = angular.noop;
-            openElement = null;
-            if (parent.hasClass('hover')) {
-              parent.removeClass('hover');
+            // Disable close for click on dropdown or contained element with aria-autoclose="false"
+            // Unless target has attr aria-autoclose="true"
+            if ((event.target == dropdown[0] || $.contains(dropdown[0], event.target))
+              && ($(event.target).attr('aria-autoclose') === 'false' || dropdown.attr('aria-autoclose') === 'false')
+              && $(event.target).attr('aria-autoclose') !== 'true'
+            ) {
+              // do anything? 
+            } else {
+              $document.off('click', closeMenu);
+              dropdown.css('display', 'none');
+              element.removeClass('expanded');
+              closeMenu = angular.noop;
+              openElement = null;
+              if (parent.hasClass('hover')) {
+                parent.removeClass('hover');
+              }
             }
           };
-          $document.on('click', function(event) {
-            // Disable close for click on/in dropdown with .content
-            // Unless target has attr dropdown-close
-            // Use $.contains to test if in dropdown - could test whether
-            // target is parent, but would still have to use $contains
-            // (parent could have children)
-            if (dropdown[0].hasAttribute('dropdown-content')
-              && (event.target == dropdown[0] || $.contains(dropdown[0], event.target))
-              && !event.target.hasAttribute('dropdown-close')) {
-                event.preventDefault();
-                return;
-              }
-            closeMenu();
-          });
+          $document.on('click', closeMenu);
         }
       };
 
