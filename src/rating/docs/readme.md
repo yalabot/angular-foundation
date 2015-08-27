@@ -6,7 +6,7 @@ It uses Font Awesome icons (http://fontawesome.io/) by default.
 
 #### `<rating>` ####
 
- * `value` <i class="fa fa-eye"></i>
+ * `ng-model` <i class="fa fa-eye"></i>
  	:
  	The current rate.
 
@@ -14,9 +14,13 @@ It uses Font Awesome icons (http://fontawesome.io/) by default.
  	_(Defaults: 5)_ :
  	Changes the number of icons.
 
- * `readonly`
+ * `readonly` <i class="fa fa-eye"></i>
  	_(Defaults: false)_ :
  	Prevent user's interaction.
+
+ * `titles`
+ 	_(Defaults: ["one", "two", "three", "four", "five"])_ :
+ 	An array of Strings defining titles for all icons
 
  * `on-hover(value)`
  	:

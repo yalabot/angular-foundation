@@ -3,70 +3,98 @@ angular.module('mm.foundation.rating', [])
 .constant('ratingConfig', {
   max: 5,
   stateOn: null,
-  stateOff: null
+  stateOff: null,
+  titles : ['one', 'two', 'three', 'four', 'five']
 })
 
-.controller('RatingController', ['$scope', '$attrs', '$parse', 'ratingConfig', function($scope, $attrs, $parse, ratingConfig) {
+.controller('RatingController', ['$scope', '$attrs', 'ratingConfig', function($scope, $attrs, ratingConfig) {
+  var ngModelCtrl  = { $setViewValue: angular.noop };
 
-  this.maxRange = angular.isDefined($attrs.max) ? $scope.$parent.$eval($attrs.max) : ratingConfig.max;
+  this.init = function(ngModelCtrl_) {
+    ngModelCtrl = ngModelCtrl_;
+    ngModelCtrl.$render = this.render;
+
+    ngModelCtrl.$formatters.push(function(value) {
+      if (angular.isNumber(value) && value << 0 !== value) {
+        value = Math.round(value);
+      }
+      return value;
+    });
+
   this.stateOn = angular.isDefined($attrs.stateOn) ? $scope.$parent.$eval($attrs.stateOn) : ratingConfig.stateOn;
   this.stateOff = angular.isDefined($attrs.stateOff) ? $scope.$parent.$eval($attrs.stateOff) : ratingConfig.stateOff;
+  var tmpTitles = angular.isDefined($attrs.titles)  ? $scope.$parent.$eval($attrs.titles) : ratingConfig.titles ;
+  this.titles = angular.isArray(tmpTitles) && tmpTitles.length > 0 ?
+    tmpTitles : ratingConfig.titles;
 
-  this.createRateObjects = function(states) {
-    var defaultOptions = {
-      stateOn: this.stateOn,
-      stateOff: this.stateOff
-    };
-
-    for (var i = 0, n = states.length; i < n; i++) {
-      states[i] = angular.extend({ index: i }, defaultOptions, states[i]);
-    }
-    return states;
+  var ratingStates = angular.isDefined($attrs.ratingStates) ?
+    $scope.$parent.$eval($attrs.ratingStates) :
+    new Array(angular.isDefined($attrs.max) ? $scope.$parent.$eval($attrs.max) : ratingConfig.max);
+  $scope.range = this.buildTemplateObjects(ratingStates);
   };
 
-  // Get objects used in template
-  $scope.range = angular.isDefined($attrs.ratingStates) ?  this.createRateObjects(angular.copy($scope.$parent.$eval($attrs.ratingStates))): this.createRateObjects(new Array(this.maxRange));
+  this.buildTemplateObjects = function(states) {
+  for (var i = 0, n = states.length; i < n; i++) {
+    states[i] = angular.extend({ index: i }, { stateOn: this.stateOn, stateOff: this.stateOff, title: this.getTitle(i) }, states[i]);
+  }
+  return states;
+  };
+
+  this.getTitle = function(index) {
+  if (index >= this.titles.length) {
+    return index + 1;
+  } else {
+    return this.titles[index];
+  }
+  };
 
   $scope.rate = function(value) {
-    if ( $scope.value !== value && !$scope.readonly ) {
-      $scope.value = value;
+    if (!$scope.readonly && value >= 0 && value <= $scope.range.length) {
+      ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue === value ? 0 : value);
+      ngModelCtrl.$render();
     }
   };
 
   $scope.enter = function(value) {
-    if ( ! $scope.readonly ) {
-      $scope.val = value;
+    if (!$scope.readonly) {
+      $scope.value = value;
     }
     $scope.onHover({value: value});
   };
 
   $scope.reset = function() {
-    $scope.val = angular.copy($scope.value);
+    $scope.value = ngModelCtrl.$viewValue;
     $scope.onLeave();
   };
 
-  $scope.$watch('value', function(value) {
-    $scope.val = value;
-  });
+  $scope.onKeydown = function(evt) {
+    if (/(37|38|39|40)/.test(evt.which)) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      $scope.rate($scope.value + (evt.which === 38 || evt.which === 39 ? 1 : -1));
+    }
+  };
 
-  $scope.readonly = false;
-  if ($attrs.readonly) {
-    $scope.$parent.$watch($parse($attrs.readonly), function(value) {
-      $scope.readonly = !!value;
-    });
-  }
+  this.render = function() {
+    $scope.value = ngModelCtrl.$viewValue;
+  };
 }])
 
 .directive('rating', function() {
   return {
     restrict: 'EA',
+    require: ['rating', 'ngModel'],
     scope: {
-      value: '=',
+      readonly: '=?',
       onHover: '&',
       onLeave: '&'
     },
     controller: 'RatingController',
     templateUrl: 'template/rating/rating.html',
-    replace: true
+    replace: true,
+    link: function(scope, element, attrs, ctrls) {
+      var ratingCtrl = ctrls[0], ngModelCtrl = ctrls[1];
+      ratingCtrl.init( ngModelCtrl );
+    }
   };
 });
