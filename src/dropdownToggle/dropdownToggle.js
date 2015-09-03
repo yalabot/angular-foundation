@@ -20,13 +20,15 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
 
 .directive('dropdownToggle', ['$document', '$window', '$location', '$position', function ($document, $window, $location, $position) {
   var openElement = null,
-      closeMenu   = angular.noop;
+      closeMenu   = angular.noop,
+      onKeypress  = angular.noop;
   return {
     restrict: 'CA',
     controller: 'DropdownToggleController',
     link: function(scope, element, attrs, controller) {
       var parent = element.parent(),
-          dropdown = angular.element($document[0].querySelector(attrs.dropdownToggle));
+          dropdown = angular.element($document[0].querySelector(attrs.dropdownToggle)),
+          closeOnEnter = typeof attrs.ariaAutoclose !== "undefined" && attrs.ariaAutoclose !== null && String(attrs.ariaAutoclose) === "false";
 
       var parentHasDropdown = function() {
         return parent.hasClass('has-dropdown');
@@ -79,7 +81,19 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
 
           openElement = element;
 
+          if (closeOnEnter) {
+            onKeypress = function (event) {
+              if((event.keyCode || event.which) == 13){
+                closeMenu();
+              }
+            };
+          }
+
+
           closeMenu = function (event) {
+            if (closeOnEnter) {
+              $document.off("keypress", onKeypress);
+            }
             $document.off('click', closeMenu);
             dropdown.css('display', 'none');
             element.removeClass('expanded');
@@ -90,6 +104,9 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             }
           };
           $document.on('click', closeMenu);
+          if (closeOnEnter) {
+            $document.on("keypress", onKeypress);
+          }
         }
       };
 
