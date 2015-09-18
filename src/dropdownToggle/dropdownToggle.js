@@ -90,6 +90,16 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             }
           };
           $document.on('click', closeMenu);
+
+          angular.element($window).bind('resize', function() {
+            if (!!openElement) {
+              var left = $position.position(element).left;
+              if (dropdown.hasClass('right')) {
+                left = left - dropdownWidth + $position.position(element).width;
+              }
+              dropdown.css('left', left);
+            }
+          });
         }
       };
 
