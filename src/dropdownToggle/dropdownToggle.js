@@ -48,6 +48,8 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
 
         if (!elementWasOpen && !element.hasClass('disabled') && !element.prop('disabled')) {
           dropdown.css('display', 'block'); // We display the element so that offsetParent is populated
+          dropdown.addClass('f-open-dropdown');
+          
           var offset = $position.offset(element);
           var parentOffset = $position.offset(angular.element(dropdown[0].offsetParent));
           var dropdownWidth = dropdown.prop('offsetWidth');
@@ -85,6 +87,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           closeMenu = function (event) {
             $document.off('click', closeMenu);
             dropdown.css('display', 'none');
+            dropdown.removeClass('f-open-dropdown');
             element.removeClass('expanded');
             closeMenu = angular.noop;
             openElement = null;
