@@ -41,7 +41,7 @@ img.logo {
 
 /* Some Foundation color overrides */
 
-.top-bar { 
+.top-bar {
   box-shadow: 0 1px #266784, 0 4px #A9C2D0
 }
 
@@ -58,7 +58,7 @@ background-color: #4783A9;
 }
 
 .top-bar-section li:not(.has-form) a:not(.button){
-  background-color: #5592BB;
+  background-color: #5592BB!important;
 }
 
 .top-bar-section li.has-dropdown.not-click>a:not(.button){
@@ -66,7 +66,7 @@ background-color: #4783A9;
 }
 
 .top-bar-section li:not(.has-form) a:not(.button):hover {
-  background-color: #4783A9;
+  background-color: #4783A9!important;
 }
 
 .top-bar-section ul li>a {
@@ -208,11 +208,8 @@ div[role=main] section.demo {
   border-top-right-radius: 0;
 }
 
-
-
-
 .tabs dd.active a {
-  background-color: #FFF; 
+  background-color: #FFF;
 }
 
 .code .tabs-content>.content {
