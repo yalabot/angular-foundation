@@ -1,6 +1,8 @@
 <a name="v0.7.0"></a>
 # v0.7.0 (unreleased)
 ## Features
+* **all**
+  - Support for Angular 1.4. Angular 1.3 support remains but support for Angular 1.2 has been dropped. ([#265](https://github.com/pineconellc/angular-foundation/pull/265))
 * **tabs**
   - Add an option to not select a tab on initial load. ([#196](https://github.com/pineconellc/angular-foundation/pull/196))
 
