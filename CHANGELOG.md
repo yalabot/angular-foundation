@@ -10,6 +10,10 @@
 * **typeahead**
   - Ensure that the `typeahead-loading` expression is always set to false after asynchronous loads. ([#210](https://github.com/pineconellc/angular-foundation/pull/210))
 
+## Other
+* **accordion**
+  - Use Foundation's `active` class for the open accordion section. ([#228](https://github.com/pineconellc/angular-foundation/pull/228))
+
 <a name="v0.6.0"></a>
 # v0.6.0 (2015-04-13)
 ## Features
