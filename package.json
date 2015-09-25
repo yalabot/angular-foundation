@@ -7,6 +7,7 @@
     "type": "git",
     "url": "git://github.com/pineconellc/angular-foundation.git"
   },
+  "main": "dist/mm-foundation-tpls-0.7.0-SNAPSHOT.min.js",
   "scripts": {
     "prepubluish": "grunt html2js && grunt build"
   },
