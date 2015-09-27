@@ -568,4 +568,33 @@ describe('$modal', function () {
       expect(body).not.toHaveClass('modal-open');
     });
   });
+
+  describe('events', function () {
+    it('should not close modal if defaultPrevented', function () {
+      var TestCtrl = function($scope, $modalInstance) {
+        $scope.$on('close:modal:fndtn', function (event) {
+          event.preventDefault();
+        });
+      };
+
+      var modal = open({template: '<div>defaultPrevented</div>', controller: TestCtrl});
+
+      close(modal, 'close');
+
+      expect($document).toHaveModalOpenWithContent('defaultPrevented', 'div');
+    });
+    it('should not dismiss modal if defaultPrevented', function () {
+      var TestCtrl = function($scope, $modalInstance) {
+        $scope.$on('dismiss:modal:fndtn', function (event) {
+          event.preventDefault();
+        });
+      };
+
+      var modal = open({template: '<div>defaultPrevented</div>', controller: TestCtrl});
+
+      close(modal, 'close');
+
+      expect($document).toHaveModalOpenWithContent('defaultPrevented', 'div');
+    });
+  });
 });
