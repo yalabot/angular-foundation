@@ -44,14 +44,24 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
         }
 
         if (!elementWasOpen && !element.hasClass('disabled') && !element.prop('disabled')) {
-          dropdown.css('display', 'block'); // We display the element so that offsetParent is populated
-          var offset = $position.offset(element);
-          var parentOffset = $position.offset(angular.element(dropdown[0].offsetParent));
-          var dropdownWidth = dropdown.prop('offsetWidth');
-          var css = {
-            top: offset.top - parentOffset.top + offset.height + 'px'
-          };
+          // Set default align to bottom
+          var align = 'bottom';
+          var position = 'absolute';
+          var css = {};
 
+          // Check data-options for alignment
+          var options = element.attr('data-options') ? element.attr('data-options').split(';') : [];
+          for (var i = 0; i < options.length; i++) {
+            var split = options[i].split(':');
+            if (split[0] == 'align') {
+              align = split[1];
+            }
+            if (split[0].trim() == 'position') {
+              position = split[1];
+            }
+          }
+
+          // Override positioning in some cases (small device)
           if (controller.small()) {
             css.left = Math.max((parentOffset.width - dropdownWidth) / 2, 8) + 'px';
             css.position = 'absolute';
@@ -59,17 +69,89 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             css['max-width'] = 'none';
           }
           else {
-            var left = Math.round(offset.left - parentOffset.left);
-            var rightThreshold = $window.innerWidth - dropdownWidth - 8;
-            if (left > rightThreshold) {
-                left = rightThreshold;
-                dropdown.removeClass('left').addClass('right');
+            // Set position = fixed if dropdown is fixed via CSS
+            if (dropdown.css('position') == 'fixed') {
+              position = 'fixed';
             }
-            css.left = left + 'px';
-            css.position = null;
+
+            // Get offsets
+            dropdown.css('display', 'block'); // We display the element so that offsetParent is populated
+            var offset = $position.offset(element);
+            if (position != 'fixed') {
+              var offsetParent = angular.element(dropdown[0].offsetParent);
+            } else {
+              // offsetParent doesn't always return body for some reason
+              var offsetParent = $('body');
+            }
+            var parentOffset = $position.offset(offsetParent);
+            var pipWidth = 8;
+            var dropdownWidth = dropdown.prop('offsetWidth') + pipWidth; // (for drop left/right)
+            var dropdownHeight = dropdown.prop('offsetHeight') + pipWidth; // (for drop top/bottom)
+
+            // Set css dependent on alignment
+            var done = false;
+            var tries = 0;
+            while (!done && tries < 2) {
+              tries++;
+              // Start from target element's top left and adjust from there
+              if (position != 'fixed') {
+                css.top = offset.top - parentOffset.top;
+                css.left = offset.left - parentOffset.left;
+              } else {
+                // this isn't exactly right ...
+                css.top = parentOffset.top;
+                css.left = offset.left;
+              }
+              switch (align) {
+                case 'top':
+                  css.top -= dropdownHeight;
+                  if (css.top < 0) {
+                    align = 'bottom';
+                  } else {
+                    done = true;
+                  }
+                  break;
+
+                case 'left':
+                  css.left -= dropdownWidth;
+                  if (css.left < 0) {
+                    align = 'right';
+                  } else {
+                    done = true;
+                  }
+                  break;
+
+                case 'right':
+                  css.left += offset.width + pipWidth;
+                  if (css.left + dropdownWidth > $window.innerWidth) {
+                    align = 'left';
+                  } else {
+                    done = true;
+                  }
+                  break;
+
+                case 'bottom':
+                  css.top += offset.height + pipWidth;
+                  if (css.top + dropdownHeight > $window.innerHeight) {
+                    align = 'top';
+                  } else {
+                    done = true;
+                  }
+                  break;
+              }
+            }
+
+            css.top = css.top + 'px';
+            css.left = css.left + 'px';
+            css.position = position;
             css['max-width'] = null;
           }
 
+          var aligns = ['top', 'left', 'bottom', 'right'];
+          aligns.forEach(function(el) {
+            dropdown.removeClass('drop-' + el);
+          });
+          dropdown.addClass('drop-' + align);
           dropdown.css(css);
           element.addClass('expanded');
 
