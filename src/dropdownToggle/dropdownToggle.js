@@ -80,13 +80,23 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           openElement = element;
 
           closeMenu = function (event) {
-            $document.off('click', closeMenu);
-            dropdown.css('display', 'none');
-            element.removeClass('expanded');
-            closeMenu = angular.noop;
-            openElement = null;
-            if (parent.hasClass('hover')) {
-              parent.removeClass('hover');
+            // Disable close for click on dropdown or contained element with aria-autoclose="false"
+            // Unless target has attr aria-autoclose="true"
+            if (angular.isDefined(event) 
+              && (event.target == dropdown[0] || $.contains(dropdown[0], event.target))
+              && ($(event.target).attr('aria-autoclose') === 'false' || dropdown.attr('aria-autoclose') === 'false')
+              && $(event.target).attr('aria-autoclose') !== 'true'
+            ) {
+              // do anything? 
+            } else {
+              $document.off('click', closeMenu);
+              dropdown.css('display', 'none');
+              element.removeClass('expanded');
+              closeMenu = angular.noop;
+              openElement = null;
+              if (parent.hasClass('hover')) {
+                parent.removeClass('hover');
+              }
             }
           };
           $document.on('click', closeMenu);
