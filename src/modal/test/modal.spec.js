@@ -151,16 +151,14 @@ describe('$modal', function () {
   }
 
   describe('modal invoked with y offsets', function () {
+    it('should create the modal at the correct location based on window y position', function () {
+      $window.pageYOffset = 400;
 
-        it('should create the modal at the correct location based on window y position', function () {
-          $window.pageYOffset = 400;
-
-          var modal = open({template: '<div>Content</div>'});
-          expect($document).toHaveModalsOpen(1);
-          expect($document).toHaveModalOpenWithStyle('top', '400px');
-        });
-
-      });
+      var modal = open({template: '<div>Content</div>'});
+      expect($document).toHaveModalsOpen(1);
+      expect($document).toHaveModalOpenWithStyle('top', '400px');
+    });
+  });
 
   describe('basic scenarios with default options', function () {
 
@@ -265,12 +263,23 @@ describe('$modal', function () {
       $timeout.flush();
       expect($rootScope.$$childTail).toEqual(null);
     });
+
+    describe("$modalInstance.reposition()", function() {
+      it('should re-calculate the modal margin top', function () {
+        $window.pageYOffset = 400;
+        var modal = open({template: '<div>Content</div>'});
+        expect($document).toHaveModalOpenWithStyle('top', '400px');
+
+        $window.pageYOffset = 500;
+        modal.reposition();
+        expect($document).toHaveModalOpenWithStyle('top', '500px');
+      });
+    });
   });
 
   describe('default options can be changed in a provider', function () {
-
+    
     it('should allow overriding default options in a provider', function () {
-
       $modalProvider.options.backdrop = false;
       var modal = open({template: '<div>Content</div>'});
 

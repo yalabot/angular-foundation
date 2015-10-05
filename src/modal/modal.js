@@ -118,7 +118,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
 
       var OPENED_MODAL_CLASS = 'modal-open';
 
-      var backdropDomEl, backdropScope;
+      var backdropDomEl, backdropScope, cssTop;
       var openedWindows = $$stackedMap.createNew();
       var $modalStack = {};
 
@@ -199,6 +199,14 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         }
       }
 
+      function computeModalMarginTop(modalElement, offset) {
+        if (angular.isUndefined(offset)) {
+          offset = 0;
+        }
+        var scrollY = $window.pageYOffset || 0;
+        return offset + scrollY;
+      }
+
       $document.bind('keydown', function (evt) {
         var modal;
 
@@ -235,12 +243,9 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         // distance to top
         var faux = angular.element('<div class="reveal-modal" style="z-index:-1""></div>');
         body.append(faux[0]);
-        var marginTop = parseInt(getComputedStyle(faux[0]).top) || 0;
+        cssTop = parseInt(getComputedStyle(faux[0]).top) || 0;
+        var openAt = computeModalMarginTop(faux, cssTop);
         faux.remove();
-
-        // Using pageYOffset instead of scrollY to ensure compatibility with IE
-        var scrollY = $window.pageYOffset || 0;
-        var openAt = scrollY + marginTop;
 
         var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>')
           .attr({
@@ -254,6 +259,15 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         openedWindows.top().value.modalDomEl = modalDomEl;
         body.append(modalDomEl);
         body.addClass(OPENED_MODAL_CLASS);
+      };
+
+      $modalStack.reposition = function (modalInstance) {
+        var modalWindow = openedWindows.get(modalInstance).value;
+        if (modalWindow) {
+          var modalDomEl = modalWindow.modalDomEl;
+          var top = computeModalMarginTop(modalDomEl, cssTop);
+          modalDomEl.css('top', top + "px");
+        }
       };
 
       $modalStack.close = function (modalInstance, result) {
@@ -330,6 +344,9 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
               },
               dismiss: function (reason) {
                 $modalStack.dismiss(modalInstance, reason);
+              },
+              reposition: function () {
+                $modalStack.reposition(modalInstance);
               }
             };
 
