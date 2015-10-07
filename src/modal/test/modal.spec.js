@@ -437,19 +437,19 @@ describe('$modal', function () {
 
     describe('parent', function () {
       beforeEach(function(){
-        $document.find('body').append('<div id="modal-container"></div>');
+        $document.find('body').append('<modal><modal>');
       });
 
       it('should use an element other than body as the parent if provided', function () {
         open({
           template: '<div>Parent other than body</div>',
-          parent: '#modal-container'
+          parent: 'modal'
         });
-        expect($document).toHaveModalOpenInOtherParent('#modal-container');
+        expect($document).toHaveModalOpenInOtherParent('modal');
       });
 
       afterEach(function(){
-        $document.find('body').find('#modal-container').remove();
+        $document.find('body').find('modal').remove();
       });
     });
 
