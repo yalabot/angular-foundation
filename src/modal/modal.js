@@ -213,13 +213,12 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
       });
 
       $modalStack.open = function (modalInstance, modal) {
-        var parentElem = modal.parent || 'body';
         modalInstance.options = {
           deferred: modal.deferred,
           modalScope: modal.scope,
           backdrop: modal.backdrop,
           keyboard: modal.keyboard,
-          parent: parentElem
+          parent: modal.parent
         };
         openedWindows.add(modalInstance, modalInstance.options);
 
@@ -377,7 +376,8 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
                 content: tplAndVars[0],
                 backdrop: modalOptions.backdrop,
                 keyboard: modalOptions.keyboard,
-                windowClass: modalOptions.windowClass
+                windowClass: modalOptions.windowClass,
+                parent: modalOptions.parent || 'body'
               });
 
             }, function resolveError(reason) {
