@@ -222,7 +222,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         };
         openedWindows.add(modalInstance, modalInstance.options);
 
-        var parent = $document.find(parentElem).eq(0),
+        var parent = $document.find(modal.parent).eq(0),
             currBackdropIndex = backdropIndex();
 
         if (currBackdropIndex >= 0 && !backdropDomEl) {

@@ -122,6 +122,14 @@ describe('$modal', function () {
         };
 
         return backdropDomEls.length === 1;
+      },
+      toHaveModalOpenInOtherParent: function(parentSelector){
+        var modalElem = this.actual.find(parentSelector + ' > .reveal-modal');
+        this.message = function() {
+          return 'Expected modal to be a parent of: ' + parentSelector;
+        };
+
+        return modalElem.length === 1;
       }
     });
   }));
@@ -424,6 +432,24 @@ describe('$modal', function () {
           scope: $scope
         });
         expect($document).toHaveModalOpenWithContent('Content from custom scope', 'div');
+      });
+    });
+
+    describe('parent', function () {
+      beforeEach(function(){
+        $document.find('body').append('<div id="modal-container"></div>');
+      });
+
+      it('should use an element other than body as the parent if provided', function () {
+        open({
+          template: '<div>Parent other than body</div>',
+          parent: '#modal-container'
+        });
+        expect($document).toHaveModalOpenInOtherParent('#modal-container');
+      });
+
+      afterEach(function(){
+        $document.find('body').find('#modal-container').remove();
       });
     });
 
