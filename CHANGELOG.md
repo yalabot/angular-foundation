@@ -10,8 +10,10 @@
   - Prevents a crash when `dismiss()` or `close()` are called on a closed modal. ([#260](https://github.com/pineconellc/angular-foundation/pull/260))
 
 ## Other
+* **all**
+  - Drop advertised support for IE9.
 * **dropdownToggle**
-  - Add `f-open-dropdown` class to opened dropdown content ([#263](https://github.com/pineconellc/angular-foundation/pull/263))
+  - Add `f-open-dropdown` class to opened dropdown content. ([#263](https://github.com/pineconellc/angular-foundation/pull/263))
 
 <a name="v0.7.0"></a>
 # v0.7.0 (2015-09-25)
