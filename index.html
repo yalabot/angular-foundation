@@ -12,7 +12,7 @@
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/0.6.7/fastclick.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
-  <script src="mm-foundation-tpls-0.7.0.js"></script>
+  <script src="mm-foundation-tpls-0.8.0.js"></script>
   <script src="assets/plunker.js"></script>
   <script src="assets/app.js"></script>
 
@@ -60,7 +60,7 @@
           <h3>With love, from <a href="http://github.com/pineconellc/">Pinecone</a></h3>
           <hr>
           <p>
-          <a class="button radius large" href="https://github.com/pineconellc/angular-foundation/tree/gh-pages"><i class="fa fa-download"></i> Download v0.7.0</a>
+          <a class="button radius large" href="https://github.com/pineconellc/angular-foundation/tree/gh-pages"><i class="fa fa-download"></i> Download v0.8.0</a>
             <a class="button radius large" href="https://github.com/pineconellc/angular-foundation"><i class="fa fa-github"></i> Contribute</a>
           </p>
         </div>
@@ -147,7 +147,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'accordion')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'accordion')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -260,7 +260,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'alert')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'alert')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -352,7 +352,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'buttons')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'buttons')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -459,7 +459,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'dropdownToggle')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'dropdownToggle')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -567,7 +567,7 @@
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'interchange')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'interchange')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -609,6 +609,7 @@
       </li>
     </ul>
     <p>Selected: <b>{{ selected.item }}</b></p>
+    <button class="button secondary" ng-click="reposition()">Reset top position</button>
     <button class="button" ng-click="ok()">OK</button>
     <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
   </script>
@@ -634,6 +635,7 @@ Creating custom modals is straightforward: create a partial view, its controller
 <li><code>backdrop</code> - controls presence of a backdrop. Allowed values: true (default), false (no backdrop), <code>'static'</code> - backdrop is present but modal window is not closed when clicking outside of the modal window.</li>
 <li><code>keyboard</code> - indicates whether the dialog should be closable by hitting the ESC key, defaults to true</li>
 <li><code>windowClass</code> - additional CSS class(es) to be added to a modal window template</li>
+<li><code>parent</code> - specify the container element where the modal HTML will be injected. This should be a valid <code>angular.element()</code> selector and defaults to 'body'.</li>
 </ul>
 
 <p>The <code>open</code> method returns a modal instance, an object with the following properties:</p>
@@ -641,21 +643,26 @@ Creating custom modals is straightforward: create a partial view, its controller
 <ul>
 <li><code>close(result)</code> - a method that can be used to close a modal, passing a result</li>
 <li><code>dismiss(reason)</code> - a method that can be used to dismiss a modal, passing a reason</li>
+<li><code>reposition()</code> - recalculates and positions the top position of the modal</li>
 <li><code>result</code> - a promise that is resolved when a modal is closed and rejected when a modal is dismissed</li>
 <li><code>opened</code> - a promise that is resolved when a modal gets opened after downloading content's template and resolving all variables</li>
 </ul>
 
-<p>In addition the scope associated with modal's content is augmented with 2 methods:
-* <code>$close(result)</code>
-* <code>$dismiss(reason)</code>
-Those methods make it easy to close a modal window without a need to create a dedicated controller</p>
+<p>In addition the scope associated with modal's content is augmented with 2 methods:</p>
+
+<ul>
+<li><code>$close(result)</code> - an alias for <code>$modalInstance.close()</code></li>
+<li><code>$dismiss(reason)</code> - an alias for <code>$modalInstance.dismiss()</code></li>
+</ul>
+
+<p>Those methods make it easy to close a modal window without a need to create a dedicated controller</p>
               </div>
             </div>
             <hr>
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'modal')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'modal')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -669,6 +676,7 @@ Those methods make it easy to close a modal window without a need to create a de
       &lt;/li&gt;
     &lt;/ul&gt;
     &lt;p&gt;Selected: &lt;b&gt;{{ selected.item }}&lt;/b&gt;&lt;/p&gt;
+    &lt;button class=&quot;button secondary&quot; ng-click=&quot;reposition()&quot;&gt;Reset top position&lt;/button&gt;
     &lt;button class=&quot;button&quot; ng-click=&quot;ok()&quot;&gt;OK&lt;/button&gt;
     &lt;a class=&quot;close-reveal-modal&quot; ng-click=&quot;cancel()&quot;&gt;&amp;#215;&lt;/a&gt;
   &lt;/script&gt;
@@ -715,6 +723,10 @@ angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;ModalInstanceCtrl
     item: $scope.items[0]
   };
 
+  $scope.reposition = function () {
+    $modalInstance.reposition();
+  };
+
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);
   };
@@ -722,7 +734,8 @@ angular.module(&#x27;foundationDemoApp&#x27;).controller(&#x27;ModalInstanceCtrl
   $scope.cancel = function () {
     $modalInstance.dismiss(&#x27;cancel&#x27;);
   };
-});</code></pre>
+});
+</code></pre>
                     </div>
                   </tab>
                 </tabset>
@@ -763,6 +776,10 @@ angular.module('foundationDemoApp').controller('ModalInstanceCtrl', function ($s
     item: $scope.items[0]
   };
 
+  $scope.reposition = function () {
+    $modalInstance.reposition();
+  };
+
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);
   };
@@ -770,7 +787,8 @@ angular.module('foundationDemoApp').controller('ModalInstanceCtrl', function ($s
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
-});</script>
+});
+</script>
         
           <section class="demo" id="offcanvas">
             <div class="page-header">
@@ -844,7 +862,7 @@ angular.module('foundationDemoApp').controller('ModalInstanceCtrl', function ($s
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'offcanvas')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'offcanvas')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1008,7 +1026,7 @@ For <code>page</code>, <code>total-items</code>, <code>items-per-page</code>, <c
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'pagination')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'pagination')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1145,7 +1163,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'popover')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'popover')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1269,7 +1287,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'progressbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'progressbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1436,7 +1454,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'rating')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'rating')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1587,7 +1605,7 @@ Whether to open an active tab automatically.</p></li>
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'tabs')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'tabs')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1771,7 +1789,7 @@ appendToBody: false
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'tooltip')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'tooltip')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -1895,7 +1913,7 @@ appendToBody: false
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'topbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'topbar')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -2018,7 +2036,7 @@ $tooltipProvider. See the <a href="#tooltip">tooltip</a> section for more inform
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'tour')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'tour')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -2147,7 +2165,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
             <div class="row code">
               <div class="columns medium-12" ng-controller="PlunkerCtrl">
                 <div class="right">
-                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.7.0', 'typeahead')"><i class="fa fa-edit"></i> Edit in plunker</button>
+                  <button class="button secondary" id="plunk-btn" ng-click="edit('1.4.6', '5.5.2', '0.8.0', 'typeahead')"><i class="fa fa-edit"></i> Edit in plunker</button>
                 </div>
                 <tabset>
                   <tab heading="Markup">
@@ -2329,7 +2347,7 @@ Minimal wait time after last character typed before typeahead kicks-in</p></li>
   </div>
   <div class="modal-footer">
     <a class="button" ng-click="cancel()">Cancel</a>
-    <a class="button" ng-click="download('0.7.0')"><i class="fa fa-download"></i> Download 0.7.0</a>
+    <a class="button" ng-click="download('0.8.0')"><i class="fa fa-download"></i> Download 0.8.0</a>
   </div>
 </script>
 
