@@ -1,3 +1,18 @@
+<a name="v0.8.0"></a>
+# v0.8.0 (2015-10-13)
+## Features
+* **modal**
+  - Adds the `parent` option to override where the modal HTML is injected into. ([#270](https://github.com/pineconellc/angular-foundation/pull/270))
+  - Adds a `$modalInstance.reposition()` function to recalculate and reposition the modal window. ([#274](https://github.com/pineconellc/angular-foundation/pull/274))
+
+## Bug Fixes
+* **modal**
+  - Prevents a crash when `dismiss()` or `close()` are called on a closed modal. ([#260](https://github.com/pineconellc/angular-foundation/pull/260))
+
+## Other
+* **dropdownToggle**
+  - Add `f-open-dropdown` class to opened dropdown content ([#263](https://github.com/pineconellc/angular-foundation/pull/263))
+
 <a name="v0.7.0"></a>
 # v0.7.0 (2015-09-25)
 ## Features
