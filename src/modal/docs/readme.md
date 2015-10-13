@@ -18,6 +18,7 @@ The `open` method returns a modal instance, an object with the following propert
 
 * `close(result)` - a method that can be used to close a modal, passing a result
 * `dismiss(reason)` - a method that can be used to dismiss a modal, passing a reason
+* `reposition()` - a method that can be used to re-calculate the top position of the modal
 * `result` - a promise that is resolved when a modal is closed and rejected when a modal is dismissed
 * `opened` - a promise that is resolved when a modal gets opened after downloading content's template and resolving all variables
 
