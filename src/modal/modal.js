@@ -199,7 +199,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         }
       }
 
-      function computeModalMarginTop(modalElement, offset) {
+      function calculateModalTop(modalElement, offset) {
         if (angular.isUndefined(offset)) {
           offset = 0;
         }
@@ -244,8 +244,8 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         // distance to top
         var faux = angular.element('<div class="reveal-modal" style="z-index:-1""></div>');
         parent.append(faux[0]);
-        cssTop = parseInt(getComputedStyle(faux[0]).top) || 0;
-        var openAt = computeModalMarginTop(faux, cssTop);
+        cssTop = parseInt($window.getComputedStyle(faux[0]).top) || 0;
+        var openAt = calculateModalTop(faux, cssTop);
         faux.remove();
 
         var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>')
@@ -266,7 +266,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         var modalWindow = openedWindows.get(modalInstance).value;
         if (modalWindow) {
           var modalDomEl = modalWindow.modalDomEl;
-          var top = computeModalMarginTop(modalDomEl, cssTop);
+          var top = calculateModalTop(modalDomEl, cssTop);
           modalDomEl.css('top', top + "px");
         }
       };

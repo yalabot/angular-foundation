@@ -1,7 +1,7 @@
 describe('$modal', function () {
   var $rootScope, $document, $compile, $templateCache, $timeout, $q, $window, $provide;
   var $modal, $modalProvider;
-  var mockWindow = {};
+  var mockWindow, mockComputedStyle;
 
   var triggerKeyDown = function (element, keyCode) {
     var e = $.Event("keydown");
@@ -27,13 +27,18 @@ describe('$modal', function () {
     var mockdocument = angular.element(document);
     $provide.value('$document', mockdocument);
 
-    mockwindow = {
+    mockComputedStyle = {
+      top: 0
+    };
+
+    mockWindow = {
       location: "val",
       document: mockdocument,
       pageYOffset: 4,
-      this_is_a_mock_window: true
+      this_is_a_mock_window: true,
+      getComputedStyle: jasmine.createSpy("$window.getComputedStyle").andReturn(mockComputedStyle)
     };
-    $provide.value('$window', mockwindow);
+    $provide.value('$window', mockWindow);
 
   }));
 
@@ -317,7 +322,7 @@ describe('$modal', function () {
   });
 
   describe('default options can be changed in a provider', function () {
-    
+
     it('should allow overriding default options in a provider', function () {
       $modalProvider.options.backdrop = false;
       var modal = open({template: '<div>Content</div>'});
