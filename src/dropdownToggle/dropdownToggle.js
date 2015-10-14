@@ -91,7 +91,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
           };
           $document.on('click', closeMenu);
 
-          angular.element($window).bind('resize', function() {
+          repositionMenu = function() {
             if (!!openElement) {
               var left = $position.position(element).left;
               if (dropdown.hasClass('right')) {
@@ -99,7 +99,8 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
               }
               dropdown.css('left', left);
             }
-          });
+          };
+          angular.element($window).on('resize', repositionMenu);
         }
       };
 
@@ -110,8 +111,9 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
       scope.$watch('$location.path', function() { closeMenu(); });
 
       element.on('click', onClick);
-      element.on('$destroy', function() {
+      element.on('$destroy', function(resizeMenu) {
         element.off('click', onClick);
+        $window.removeEventListener('resize', resizeMenu);
       });
     }
   };
