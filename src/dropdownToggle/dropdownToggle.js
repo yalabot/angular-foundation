@@ -111,9 +111,9 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
       scope.$watch('$location.path', function() { closeMenu(); });
 
       element.on('click', onClick);
-      element.on('$destroy', function(resizeMenu) {
+      element.on('$destroy', function() {
         element.off('click', onClick);
-        $window.removeEventListener('resize', resizeMenu);
+        angular.element($window).off('resize', onClick);
       });
     }
   };
