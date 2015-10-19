@@ -12,15 +12,19 @@ The `$modal` service has only one method: `open(options)` where available option
 * `backdrop` - controls presence of a backdrop. Allowed values: true (default), false (no backdrop), `'static'` - backdrop is present but modal window is not closed when clicking outside of the modal window.
 * `keyboard` - indicates whether the dialog should be closable by hitting the ESC key, defaults to true
 * `windowClass` - additional CSS class(es) to be added to a modal window template
+* `parent` - specify the container element where the modal HTML will be injected. This should be a valid `angular.element()` selector and defaults to 'body'.
 
 The `open` method returns a modal instance, an object with the following properties:
 
 * `close(result)` - a method that can be used to close a modal, passing a result
 * `dismiss(reason)` - a method that can be used to dismiss a modal, passing a reason
+* `reposition()` - recalculates and positions the top position of the modal
 * `result` - a promise that is resolved when a modal is closed and rejected when a modal is dismissed
 * `opened` - a promise that is resolved when a modal gets opened after downloading content's template and resolving all variables
 
 In addition the scope associated with modal's content is augmented with 2 methods:
-* `$close(result)`
-* `$dismiss(reason)`
+
+* `$close(result)` - an alias for `$modalInstance.close()`
+* `$dismiss(reason)` - an alias for `$modalInstance.dismiss()`
+
 Those methods make it easy to close a modal window without a need to create a dedicated controller

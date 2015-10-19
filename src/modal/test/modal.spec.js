@@ -1,7 +1,7 @@
 describe('$modal', function () {
   var $rootScope, $document, $compile, $templateCache, $timeout, $q, $window, $provide;
   var $modal, $modalProvider;
-  var mockWindow = {};
+  var mockWindow, mockComputedStyle;
 
   var triggerKeyDown = function (element, keyCode) {
     var e = $.Event("keydown");
@@ -27,13 +27,18 @@ describe('$modal', function () {
     var mockdocument = angular.element(document);
     $provide.value('$document', mockdocument);
 
-    mockwindow = {
+    mockComputedStyle = {
+      top: 0
+    };
+
+    mockWindow = {
       location: "val",
       document: mockdocument,
       pageYOffset: 4,
-      this_is_a_mock_window: true
+      this_is_a_mock_window: true,
+      getComputedStyle: jasmine.createSpy("$window.getComputedStyle").andReturn(mockComputedStyle)
     };
-    $provide.value('$window', mockwindow);
+    $provide.value('$window', mockWindow);
 
   }));
 
@@ -122,6 +127,14 @@ describe('$modal', function () {
         };
 
         return backdropDomEls.length === 1;
+      },
+      toHaveModalOpenInOtherParent: function(parentSelector){
+        var modalElem = this.actual.find(parentSelector + ' > .reveal-modal');
+        this.message = function() {
+          return 'Expected modal to be a parent of: ' + parentSelector;
+        };
+
+        return modalElem.length === 1;
       }
     });
   }));
@@ -151,16 +164,14 @@ describe('$modal', function () {
   }
 
   describe('modal invoked with y offsets', function () {
+    it('should create the modal at the correct location based on window y position', function () {
+      $window.pageYOffset = 400;
 
-        it('should create the modal at the correct location based on window y position', function () {
-          $window.pageYOffset = 400;
-
-          var modal = open({template: '<div>Content</div>'});
-          expect($document).toHaveModalsOpen(1);
-          expect($document).toHaveModalOpenWithStyle('top', '400px');
-        });
-
-      });
+      var modal = open({template: '<div>Content</div>'});
+      expect($document).toHaveModalsOpen(1);
+      expect($document).toHaveModalOpenWithStyle('top', '400px');
+    });
+  });
 
   describe('basic scenarios with default options', function () {
 
@@ -178,6 +189,37 @@ describe('$modal', function () {
 
       waitForBackdropAnimation();
       expect($document).not.toHaveBackdrop();
+    });
+
+    it('should not throw an exception on a second dismiss', function () {
+      var modal = open({template: '<div>Content</div>'});
+
+      expect($document).toHaveModalsOpen(1);
+      expect($document).toHaveModalOpenWithContent('Content', 'div');
+      expect($document).toHaveBackdrop();
+
+      dismiss(modal, 'closing in test');
+
+      expect($document).toHaveModalsOpen(0);
+
+      dismiss(modal, 'closing in test');
+    });
+
+    it('should not throw an exception on a second close', function () {
+
+      var modal = open({template: '<div>Content</div>'});
+
+      expect($document).toHaveModalsOpen(1);
+      expect($document).toHaveModalOpenWithContent('Content', 'div');
+      expect($document).toHaveBackdrop();
+
+      modal.close('closing in test');
+      $timeout.flush();
+      $rootScope.$digest();
+
+      expect($document).toHaveModalsOpen(0);
+
+      modal.close('closing in test');
     });
 
     it('should open a modal from templateUrl', function () {
@@ -265,12 +307,23 @@ describe('$modal', function () {
       $timeout.flush();
       expect($rootScope.$$childTail).toEqual(null);
     });
+
+    describe("$modalInstance.reposition()", function() {
+      it('should re-calculate the modal margin top', function () {
+        $window.pageYOffset = 400;
+        var modal = open({template: '<div>Content</div>'});
+        expect($document).toHaveModalOpenWithStyle('top', '400px');
+
+        $window.pageYOffset = 500;
+        modal.reposition();
+        expect($document).toHaveModalOpenWithStyle('top', '500px');
+      });
+    });
   });
 
   describe('default options can be changed in a provider', function () {
 
     it('should allow overriding default options in a provider', function () {
-
       $modalProvider.options.backdrop = false;
       var modal = open({template: '<div>Content</div>'});
 
@@ -424,6 +477,24 @@ describe('$modal', function () {
           scope: $scope
         });
         expect($document).toHaveModalOpenWithContent('Content from custom scope', 'div');
+      });
+    });
+
+    describe('parent', function () {
+      beforeEach(function(){
+        $document.find('body').append('<modal><modal>');
+      });
+
+      it('should use an element other than body as the parent if provided', function () {
+        open({
+          template: '<div>Parent other than body</div>',
+          parent: 'modal'
+        });
+        expect($document).toHaveModalOpenInOtherParent('modal');
+      });
+
+      afterEach(function(){
+        $document.find('body').find('modal').remove();
       });
     });
 

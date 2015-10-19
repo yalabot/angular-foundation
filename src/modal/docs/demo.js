@@ -32,6 +32,10 @@ angular.module('foundationDemoApp').controller('ModalInstanceCtrl', function ($s
     item: $scope.items[0]
   };
 
+  $scope.reposition = function () {
+    $modalInstance.reposition();
+  };
+
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);
   };

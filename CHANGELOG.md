@@ -1,12 +1,35 @@
-<a name="v0.7.0"></a>
-# v0.7.0 (unreleased)
+<a name="v0.8.0"></a>
+# v0.8.0 (2015-10-13)
 ## Features
+* **modal**
+  - Adds the `parent` option to override where the modal HTML is injected into. ([#270](https://github.com/pineconellc/angular-foundation/pull/270))
+  - Adds a `$modalInstance.reposition()` function to recalculate and reposition the modal window. ([#274](https://github.com/pineconellc/angular-foundation/pull/274))
+
+## Bug Fixes
+* **modal**
+  - Prevents a crash when `dismiss()` or `close()` are called on a closed modal. ([#260](https://github.com/pineconellc/angular-foundation/pull/260))
+
+## Other
+* **all**
+  - Drop advertised support for IE9.
+* **dropdownToggle**
+  - Add `f-open-dropdown` class to opened dropdown content. ([#263](https://github.com/pineconellc/angular-foundation/pull/263))
+
+<a name="v0.7.0"></a>
+# v0.7.0 (2015-09-25)
+## Features
+* **all**
+  - Support for Angular 1.4. Angular 1.3 support remains but support for Angular 1.2 has been dropped. ([#265](https://github.com/pineconellc/angular-foundation/pull/265))
 * **tabs**
   - Add an option to not select a tab on initial load. ([#196](https://github.com/pineconellc/angular-foundation/pull/196))
 
 ## Bug Fixes
 * **typeahead**
   - Ensure that the `typeahead-loading` expression is always set to false after asynchronous loads. ([#210](https://github.com/pineconellc/angular-foundation/pull/210))
+
+## Other
+* **accordion**
+  - Use Foundation's `active` class for the open accordion section. ([#228](https://github.com/pineconellc/angular-foundation/pull/228))
 
 <a name="v0.6.0"></a>
 # v0.6.0 (2015-04-13)
