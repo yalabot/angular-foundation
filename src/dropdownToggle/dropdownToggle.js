@@ -64,7 +64,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             var left = Math.round(offset.left - parentOffset.left);
             var rightThreshold = $window.innerWidth - dropdownWidth - 8;
             if (left > rightThreshold) {
-                left = rightThreshold;
+                left = offset.left - parentOffset.left - dropdownWidth + offset.width;
                 dropdown.removeClass('left').addClass('right');
             }
             css.left = left + 'px';
