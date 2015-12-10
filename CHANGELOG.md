@@ -1,3 +1,9 @@
+<a name="v0.9.0"></a>
+# v0.9.0 (unreleased)
+## Bug Fixes
+* **topbar**
+  - Fix incorrect unbinding of resize and scroll events on destroy ([#283](https://github.com/pineconellc/angular-foundation/pull/283))
+
 <a name="v0.8.0"></a>
 # v0.8.0 (2015-10-13)
 ## Features
