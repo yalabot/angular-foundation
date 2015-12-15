@@ -171,11 +171,11 @@ describe("interchange", function () {
         $compile(element)(scope);
         scope.$digest();
         expect(element.attr('src')).toBeUndefined();
-        expect(element.attr('style')).toMatch(/background-image:\ ?url\([a-zA-Z0-9\.\\\/\@\:]*default\.jpg\)/);
+        expect(element.attr('style')).toMatch(/background-image:\ ?url\(\"?[a-zA-Z0-9\.\\\/\@\:]*default\.jpg\"?\)/);
 
         matchMediaMock = 'only screen and (min-width:64.063em)';
         window.dispatchEvent(new Event('resize'));
-        expect(element.attr('style')).toMatch(/background-image:\ ?url\([a-zA-Z0-9\.\\\/\@\:]*large\.TIFF\)/);
+        expect(element.attr('style')).toMatch(/background-image:\ ?url\(\"?[a-zA-Z0-9\.\\\/\@\:]*large\.TIFF\"?\)/);
       });
 
       it('should not change the content when the interchange is for dynamic background', function () {
