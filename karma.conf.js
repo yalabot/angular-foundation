@@ -20,7 +20,8 @@ module.exports = function(config) {
     ],
 
     browsers: [
-      'Chrome'
+      'Chrome',
+      'Firefox'
     ],
 
     // test results reporter to use
