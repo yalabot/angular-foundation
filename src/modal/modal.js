@@ -245,7 +245,8 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         var faux = angular.element('<div class="reveal-modal" style="z-index:-1""></div>');
         parent.append(faux[0]);
         cssTop = parseInt($window.getComputedStyle(faux[0]).top) || 0;
-        var openAt = calculateModalTop(faux, cssTop);
+        var openAt = modal.openAt || calculateModalTop(faux, cssTop);
+		
         faux.remove();
 
         var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>')
@@ -394,6 +395,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
                 backdrop: modalOptions.backdrop,
                 keyboard: modalOptions.keyboard,
                 windowClass: modalOptions.windowClass,
+				openAt: modalOptions.openAt,
                 parent: modalOptions.parent || 'body'
               });
 
