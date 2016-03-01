@@ -106,12 +106,11 @@ describe('accordion', function () {
     var scope, $compile;
     var element, groups;
     var findGroupLink = function (index) {
-      return groups.eq(index).find('a').eq(0);
+      return angular.element(groups[index].querySelector('a'));
     };
     var findGroupBody = function (index) {
-      return groups.eq(index).find('.content').eq(0);
+      return angular.element(groups[index].querySelector('.content'));
     };
-
 
     beforeEach(inject(function(_$rootScope_, _$compile_) {
       scope = _$rootScope_;
@@ -147,21 +146,21 @@ describe('accordion', function () {
       });
 
       it('should change selected element on click', function () {
-        findGroupLink(0).click();
+        findGroupLink(0)[0].click();
         scope.$digest();
         expect(findGroupBody(0).scope().isOpen).toBe(true);
 
-        findGroupLink(1).click();
+        findGroupLink(1)[0].click();
         scope.$digest();
         expect(findGroupBody(0).scope().isOpen).toBe(false);
         expect(findGroupBody(1).scope().isOpen).toBe(true);
       });
 
       it('should toggle element on click', function() {
-        findGroupLink(0).click();
+        findGroupLink(0)[0].click();
         scope.$digest();
         expect(findGroupBody(0).scope().isOpen).toBe(true);
-        findGroupLink(0).click();
+        findGroupLink(0)[0].click();
         scope.$digest();
         expect(findGroupBody(0).scope().isOpen).toBe(false);
       });
@@ -233,11 +232,11 @@ describe('accordion', function () {
       });
 
       it('should toggle variable on element click', function() {
-        findGroupLink(0).click();
+        findGroupLink(0)[0].click();
         scope.$digest();
         expect(scope.open.first).toBe(true);
 
-        findGroupLink(0).click();
+        findGroupLink(0)[0].click();
         scope.$digest();
         expect(scope.open.second).toBe(false);
       });
@@ -267,12 +266,12 @@ describe('accordion', function () {
       });
 
       it('should toggle element on click', function() {
-        findGroupLink(0).click();
+        findGroupLink(0)[0].click();
         scope.$digest();
         expect(findGroupBody(0).scope().isOpen).toBe(true);
         expect(scope.groups[0].open).toBe(true);
 
-        findGroupLink(0).click();
+        findGroupLink(0)[0].click();
         scope.$digest();
         expect(findGroupBody(0).scope().isOpen).toBe(false);
         expect(scope.groups[0].open).toBe(false);
@@ -281,7 +280,7 @@ describe('accordion', function () {
 
     describe('accordion-heading element', function() {
       beforeEach(function() {
-        var tpl = 
+        var tpl =
           '<accordion ng-init="a = [1,2,3]">' +
             '<accordion-group heading="I get overridden">' +
               '<accordion-heading>Heading Element <span ng-repeat="x in a">{{x}}</span> </accordion-heading>' +
@@ -303,7 +302,7 @@ describe('accordion', function () {
 
     describe('accordion-heading attribute', function() {
       beforeEach(function() {
-        var tpl = 
+        var tpl =
           '<accordion ng-init="a = [1,2,3]">' +
             '<accordion-group heading="I get overridden">' +
               '<div accordion-heading>Heading Element <span ng-repeat="x in a">{{x}}</span> </div>' +

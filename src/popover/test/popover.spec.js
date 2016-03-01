@@ -31,8 +31,8 @@ describe('popover', function() {
   }));
 
   it('should open on click', inject(function() {
-    elm.trigger( 'click' );
-    expect( elmScope.tt_isOpen ).toBe( true );
+    elm[0].click();
+    expect(elmScope.tt_isOpen).toBe( true );
 
     // We can only test *that* the popover-popup element was created as the
     // implementation is templated and replaced.
@@ -40,8 +40,8 @@ describe('popover', function() {
   }));
 
   it('should close on second click', inject(function() {
-    elm.trigger( 'click' );
-    elm.trigger( 'click' );
+    elm[0].click();
+    elm[0].click();
     expect( elmScope.tt_isOpen ).toBe( false );
   }));
 
@@ -52,20 +52,20 @@ describe('popover', function() {
     };
 
     elmBody = angular.element(
-      '<div><input popover="Hello!" ng-click="click()" popover-trigger="mouseenter"/></div>'
+      '<div><input popover="Hello!" ng-click="click()" popover-trigger="mouseover"/></div>'
     );
     $compile(elmBody)(scope);
     scope.$digest();
 
     elm = elmBody.find('input');
 
-    elm.trigger( 'mouseenter' );
-    elm.trigger( 'mouseleave' );
+    elm.triggerHandler( 'mouseover' );
+    elm.triggerHandler( 'mouseout' );
     expect(scope.clicked).toBeFalsy();
 
-    elm.click();
+    elm[0].click();
     expect(scope.clicked).toBeTruthy();
   }));
 });
 
-    
+

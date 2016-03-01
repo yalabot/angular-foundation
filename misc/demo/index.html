@@ -16,6 +16,14 @@
   <script src="assets/plunker.js"></script>
   <script src="assets/app.js"></script>
 
+  <script>
+    if(location.hostname === 'localhost'){
+      document.write('<script src="http://'
+        + 'localhost:35729/livereload.js"></'
+        + 'script>')
+    }
+  </script>
+
   <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/<%= fdversion %>/css/foundation.min.css" rel="stylesheet"/>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/<%= faversion %>/css/font-awesome.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="assets/rainbow.css"/>

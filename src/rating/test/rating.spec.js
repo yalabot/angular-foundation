@@ -36,29 +36,29 @@ describe('rating directive', function () {
   });
 
   it('handles correctly the click event', function() {
-    getStar(2).click();
+    getStar(2)[0].click();
     $rootScope.$digest();
     expect(getState()).toEqual([true, true, false, false, false]);
     expect($rootScope.rate).toBe(2);
 
-    getStar(5).click();
+    getStar(5)[0].click();
     $rootScope.$digest();
     expect(getState()).toEqual([true, true, true, true, true]);
     expect($rootScope.rate).toBe(5);
   });
 
   it('handles correctly the hover event', function() {
-    getStar(2).trigger('mouseover');
+    getStar(2).triggerHandler('mouseover');
     $rootScope.$digest();
     expect(getState()).toEqual([true, true, false, false, false]);
     expect($rootScope.rate).toBe(3);
 
-    getStar(5).trigger('mouseover');
+    getStar(5).triggerHandler('mouseover');
     $rootScope.$digest();
     expect(getState()).toEqual([true, true, true, true, true]);
     expect($rootScope.rate).toBe(3);
 
-    element.trigger('mouseout');
+    element.triggerHandler('mouseout');
     expect(getState()).toEqual([true, true, true, false, false]);
     expect($rootScope.rate).toBe(3);
   });
@@ -92,14 +92,14 @@ describe('rating directive', function () {
     expect(getState()).toEqual([true, true, true, false, false]);
 
     var star5 = getStar(5);
-    star5.trigger('mouseover');
+    star5.triggerHandler('mouseover');
     $rootScope.$digest();
     expect(getState()).toEqual([true, true, true, false, false]);
 
     $rootScope.isReadonly = false;
     $rootScope.$digest();
 
-    star5.trigger('mouseover');
+    star5.triggerHandler('mouseover');
     $rootScope.$digest();
     expect(getState()).toEqual([true, true, true, true, true]);
   });
@@ -109,7 +109,7 @@ describe('rating directive', function () {
     element = $compile('<rating value="rate" on-hover="hoveringOver(value)"></rating>')($rootScope);
     $rootScope.$digest();
 
-    getStar(3).trigger('mouseover');
+    getStar(3).triggerHandler('mouseover');
     $rootScope.$digest();
     expect($rootScope.hoveringOver).toHaveBeenCalledWith(3);
   });
@@ -119,7 +119,7 @@ describe('rating directive', function () {
     element = $compile('<rating value="rate" on-leave="leaving()"></rating>')($rootScope);
     $rootScope.$digest();
 
-    element.trigger('mouseleave');
+    element.triggerHandler('mouseout');
     $rootScope.$digest();
     expect($rootScope.leaving).toHaveBeenCalled();
   });

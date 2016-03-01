@@ -17,6 +17,7 @@ dist
 # test coverage files
 coverage/
 
+jspm_packages
 node_modules
 bower_components
 npm-debug.log

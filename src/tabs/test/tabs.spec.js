@@ -3,10 +3,10 @@ describe('tabs', function() {
 
   var elm, scope;
   function titles() {
-    return elm.find('dl.tabs dd');
+    return angular.element(elm[0].querySelectorAll('dl.tabs dd'));
   }
   function contents() {
-    return elm.find('div.tabs-content div.content');
+    return angular.element(elm[0].querySelectorAll('div.tabs-content div.content'));
   }
 
   function expectTitles(titlesArray) {
@@ -52,7 +52,7 @@ describe('tabs', function() {
     }));
 
     it('should pass class and other attributes on to tab template', function() {
-      var tabbable = elm.find('.tabbable');
+      var tabbable = angular.element(elm[0].querySelector('.tabbable'));
       expect(tabbable).toHaveClass('hello');
       expect(tabbable.attr('data-pizza')).toBe('pepperoni');
     });
@@ -62,7 +62,7 @@ describe('tabs', function() {
       expect(t.length).toBe(2);
       expect(t.find('a').eq(0).text()).toBe('First Tab 1');
       //It should put the tab-heading element into the 'a' title
-      expect(t.find('a').eq(1).children().is('tab-heading')).toBe(true);
+      expect(matches(t.find('a')[1].children[0], 'tab-heading')).toBe(true);
       expect(t.find('a').eq(1).children().html()).toBe('<b>Second</b> Tab 2');
     });
 
@@ -75,7 +75,7 @@ describe('tabs', function() {
     });
 
     it('should change active on click', function() {
-      titles().eq(1).find('a').click();
+      titles()[1].querySelector('a').click();
       expect(contents().eq(1)).toHaveClass('active');
       expect(titles().eq(0)).not.toHaveClass('active');
       expect(titles().eq(1)).toHaveClass('active');
@@ -84,9 +84,9 @@ describe('tabs', function() {
     });
 
     it('should call select callback on select', function() {
-      titles().eq(1).find('a').click();
+      titles()[1].querySelector('a').click();
       expect(scope.selectSecond).toHaveBeenCalled();
-      titles().eq(0).find('a').click();
+      titles()[0].querySelector('a').click();
       expect(scope.selectFirst).toHaveBeenCalled();
     });
 
@@ -169,10 +169,14 @@ describe('tabs', function() {
     }));
 
     function titles() {
-      return elm.find('dl.tabs dd');
+      return angular.element(elm[0].querySelectorAll('dl.tabs dd'));
     }
-    function contents() {
-      return elm.find('div.tabs-content div.content');
+    function contents(selectorSuffix) {
+      var selector = 'div.tabs-content div.content';
+      if(selectorSuffix){
+        selector += selectorSuffix;
+      }
+      return angular.element(elm[0].querySelectorAll(selector));
     }
 
     function expectTabActive(activeTab) {
@@ -198,7 +202,7 @@ describe('tabs', function() {
     });
 
     it('should switch active when clicking', function() {
-      titles().eq(3).find('a').click();
+      titles()[3].querySelector('a').click();
       expectTabActive(scope.tabs[3]);
     });
 
@@ -211,7 +215,7 @@ describe('tabs', function() {
       angular.forEach(scope.tabs, function(t) { t.active = false; });
       scope.$apply();
       expectTabActive(null);
-      expect(contents().filter('.active').length).toBe(0);
+      expect(contents('.active').length).toBe(0);
 
       scope.tabs[2].active = true;
       scope.$apply();
@@ -239,7 +243,7 @@ describe('tabs', function() {
     }));
 
     function heading() {
-      return elm.find('dl dd a').children();
+      return angular.element(elm[0].querySelectorAll('dl dd a')).children();
     }
 
     it('should create a heading bound to myHtml', function() {
@@ -302,7 +306,7 @@ describe('tabs', function() {
 
     it('should preserve correct ordering', function() {
       function titles() {
-        return elm.find('dl.tabs dd a');
+        return angular.element(elm[0].querySelectorAll('dl.tabs dd a'));
       }
       scope.$apply();
       expect(titles().length).toBe(9);
@@ -441,7 +445,7 @@ describe('tabs', function() {
       expectContents(['Hello', 'content 1', 'content 2', 'content 3']);
 
       // Select last tab
-      titles().find('a').eq(3).click();
+      titles().find('a')[3].click();
       expect(contents().eq(3)).toHaveClass('active');
       expect(titles().eq(3)).toHaveClass('active');
 
@@ -455,7 +459,7 @@ describe('tabs', function() {
       expect(contents().eq(2)).toHaveClass('active');
 
       // Select 2nd tab ("tab 1")
-      titles().find('a').eq(1).click();
+      titles().find('a')[1].click();
       expect(titles().eq(1)).toHaveClass('active');
       expect(contents().eq(1)).toHaveClass('active');
 
@@ -479,7 +483,7 @@ describe('tabs', function() {
     }));
 
     it('to show tabs vertically', function() {
-      expect(elm.find('dl.tabs')).toHaveClass('vertical');
+      expect(angular.element(elm[0].querySelectorAll('dl.tabs'))).toHaveClass('vertical');
     });
   });
 
@@ -505,7 +509,7 @@ describe('tabs', function() {
     }));
 
     it('should hookup the tab\'s children to the tab with $compile', function() {
-      var tabChild = $('.content', elm).children().first();
+      var tabChild = angular.element(elm[0].querySelector('.content :first-child'));
       expect(tabChild.inheritedData('$tabsetController')).toBeTruthy();
     });
   });
@@ -520,7 +524,7 @@ describe('tabs', function() {
     }));
 
     it('does not activate on click when disabledFlag is true', function() {
-      titles().eq(1).find('a').click();
+      titles()[1].querySelector('a').click();
       expect(titles().eq(1)).not.toHaveClass('active');
       expect(titles().eq(0)).toHaveClass('active');
     });
@@ -528,7 +532,7 @@ describe('tabs', function() {
     it('activates on click when disabledFlag is false', function() {
       scope.disabledFlag = false;
       scope.$apply();
-      titles().eq(1).find('a').click();
+      titles()[1].querySelector('a').click();
       expect(titles().eq(1)).toHaveClass('active');
       expect(titles().eq(0)).not.toHaveClass('active');
     });
@@ -566,10 +570,10 @@ describe('tabs', function() {
       '</tabset></div>')(scope);
       scope.$apply();
 
-      var contents = elm.find('.content');
-      expect(contents.eq(0).text().trim()).toEqual('1,2,3,');
-      expect(contents.eq(1).text().trim()).toEqual('2,3,4,');
-      expect(contents.eq(2).text().trim()).toEqual('3,4,5,');
+      var contents = elm[0].querySelectorAll('.content');
+      expect(contents[0].textContent.trim()).toEqual('1,2,3,');
+      expect(contents[1].textContent.trim()).toEqual('2,3,4,');
+      expect(contents[2].textContent.trim()).toEqual('3,4,5,');
     }));
   });
 
@@ -599,7 +603,7 @@ describe('tabs', function() {
       scope.$apply();
 
       // 1 outside tabset, 2 nested tabsets
-      expect(elm.find('.tabbable').length).toEqual(3);
+      expect(elm[0].querySelectorAll('.tabbable').length).toEqual(3);
     }));
 
     it('should render with the correct scopes', inject(function($compile, $rootScope) {
@@ -635,14 +639,14 @@ describe('tabs', function() {
       ].join('\n'))(scope);
       scope.$apply();
 
-      var outsideTabset = elm.find('.tabbable').eq(0);
-      var nestedTabset = outsideTabset.find('.tabbable');
+      var outsideTabset = elm[0].querySelector('.tabbable');
+      var nestedTabset = outsideTabset.querySelectorAll('.tabbable');
 
-      expect(elm.find('.tabbable').length).toEqual(4);
-      expect(outsideTabset.find('.content').eq(0).find('.tab-1').text().trim()).toEqual(scope.tab1Text);
-      expect(nestedTabset.find('.content').eq(0).text().trim()).toEqual(scope.tab1aText);
-      expect(nestedTabset.find('dl.tabs dd').eq(0).text().trim()).toEqual(scope.tab1aHead);
-      expect(nestedTabset.eq(2).find('.content').eq(0).find('.tab-2aa').text().trim()).toEqual(scope.tab2aaText);
+      expect(elm[0].querySelectorAll('.tabbable').length).toEqual(4);
+      expect(outsideTabset.querySelector('.content').querySelector('.tab-1').textContent.trim()).toEqual(scope.tab1Text);
+      expect(nestedTabset[0].querySelector('.content').textContent.trim()).toEqual(scope.tab1aText);
+      expect(nestedTabset[0].querySelector('dl.tabs dd').textContent.trim()).toEqual(scope.tab1aHead);
+      expect(nestedTabset[2].querySelector('.content').querySelector('.tab-2aa').textContent.trim()).toEqual(scope.tab2aaText);
     }));
 
     it('ng-repeat works with nested tabs', inject(function($compile, $rootScope) {
@@ -676,9 +680,9 @@ describe('tabs', function() {
       ].join('\n'))(scope);
       scope.$apply();
 
-      expect(elm.find('.inner-tab-content').eq(0).text().trim()).toEqual(scope.tabs[0].tabs[0].content);
-      expect(elm.find('.inner-tab-content').eq(1).text().trim()).toEqual(scope.tabs[0].tabs[1].content);
-      expect(elm.find('.outer-tab-content').eq(0).text().trim()).toEqual(scope.tabs[0].content);
+      expect(elm[0].querySelector('.inner-tab-content').textContent.trim()).toEqual(scope.tabs[0].tabs[0].content);
+      expect(elm[0].querySelectorAll('.inner-tab-content')[1].textContent.trim()).toEqual(scope.tabs[0].tabs[1].content);
+      expect(elm[0].querySelector('.outer-tab-content').textContent.trim()).toEqual(scope.tabs[0].content);
     }));
   });
 });

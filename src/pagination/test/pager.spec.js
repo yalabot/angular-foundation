@@ -20,7 +20,7 @@ describe('pager directive', function () {
   }
 
   function clickPaginationEl(index) {
-    getPaginationEl(index).find('a').click();
+    getPaginationEl(index)[0].querySelector('a').click();
   }
 
   function updateCurrentPage(value) {

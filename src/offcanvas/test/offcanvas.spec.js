@@ -39,42 +39,57 @@ describe('offcanvas directive', function () {
   }));
 
   beforeEach(inject(function ($rootScope) {
-    this.addMatchers({
-      leftOpen: function() {
-        return  this.actual.hasClass('move-right');
+    jasmine.addMatchers({
+      leftOpen: function(util, customEqualityTesters) {
+        function compare(actual){
+          return {
+            pass: actual.hasClass('move-right'),
+          };
+        }
+        return {compare: compare};
       },
-      rightOpen: function() {
-        return this.actual.hasClass('move-left');
+      rightOpen: function(util, customEqualityTesters) {
+        function compare(actual){
+          return {
+            pass: actual.hasClass('move-left'),
+          };
+        }
+        return {compare: compare};
       },
-      isClosed: function() {
-        return !this.actual.hasClass('move-left') &&
-            !this.actual.hasClass('move-right');
+      isClosed: function(util, customEqualityTesters) {
+        function compare(actual){
+          return {
+            pass: !actual.hasClass('move-left') &&
+            !actual.hasClass('move-right'),
+          };
+        }
+        return {compare: compare};
       }
     });
   }));
 
 
   it('has left aside open on click', function() {
-    $('.left-off-canvas-toggle', element).trigger('click');
+    element[0].querySelector('.left-off-canvas-toggle').click();
     expect(element).leftOpen();
   });
 
   it('has right aside open on click', function() {
-    $('.right-off-canvas-toggle', element).trigger('click');
+    element[0].querySelector('.right-off-canvas-toggle').click();
     expect(element).rightOpen();
   });
 
   it('is closes after clicking on the overlay', function() {
-    $('.right-off-canvas-toggle', element).trigger('click');
+    element[0].querySelector('.right-off-canvas-toggle').click();
     expect(element).rightOpen();
-    $('.exit-off-canvas', element).trigger('click');
+    element[0].querySelector('.exit-off-canvas').click();
     expect(element).isClosed();
   });
 
   it('is closes after clicking on a list item', function() {
-    $('.right-off-canvas-toggle', element).trigger('click');
+    element[0].querySelector('.right-off-canvas-toggle').click();
     expect(element).rightOpen();
-    $('.off-canvas-list', element).trigger('click');
+    element[0].querySelector('.off-canvas-list').click();
     expect(element).isClosed();
   });
 

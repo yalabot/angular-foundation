@@ -20,7 +20,7 @@ describe('pagination directive', function () {
   }
 
   function clickPaginationEl(index) {
-    getPaginationEl(index).find('a').click();
+    getPaginationEl(index)[0].querySelector('a').click();
   }
 
   function updateCurrentPage(value) {
@@ -186,7 +186,7 @@ describe('pagination directive', function () {
       updateCurrentPage('04');
       expect(getPaginationEl(4)).toHaveClass('current');
     });
-    
+
     it('defaults to 1 if non-numeric', function() {
       updateCurrentPage('pizza');
       expect(getPaginationEl(1)).toHaveClass('current');

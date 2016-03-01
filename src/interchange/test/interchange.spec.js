@@ -78,7 +78,7 @@ describe("interchange", function () {
       var mediaValuePre = interchangeQueries[mediaName];
       expect(interchangeQueriesManager.add(mediaName, mediaValue)).toEqual(false);
       expect(interchangeQueries[mediaName]).toEqual(mediaValuePre);
-      expect(interchangeQueries[mediaName]).toNotEqual(mediaValue);
+      expect(interchangeQueries[mediaName]).not.toEqual(mediaValue);
     });
   });
 

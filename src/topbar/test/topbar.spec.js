@@ -5,7 +5,7 @@ describe('topbar directive', function() {
     $window = angular.extend(window, {
       pageYOffset: 0,
       scrollTo: jasmine.createSpy('scrollTo'),
-      matchMedia: jasmine.createSpy('matchMedia').andReturn({matches: false}),
+      matchMedia: jasmine.createSpy('matchMedia').and.returnValue({matches: false}),
     });
 
     module(
@@ -25,23 +25,33 @@ describe('topbar directive', function() {
   });
 
   beforeEach(inject(function ($rootScope) {
-    this.addMatchers({
-      toHaveDropDownsOpen: function(noOfLevels) {
-        var dropDownDomEls = element.find('li.has-dropdown.not-click');
-        return dropDownDomEls.length === noOfLevels;
+    jasmine.addMatchers({
+      toHaveDropDownsOpen: function(util, customEqualityTesters) {
+        function compare(actual, noOfLevels){
+          var dropDownDomEls = element[0].querySelectorAll('li.has-dropdown.not-click');
+          return {
+            pass: dropDownDomEls.length === noOfLevels,
+          };
+        }
+        return {compare: compare};
       },
-      toHaveMobileMenuOpen: function() {
-        return element.hasClass("expanded");
+      toHaveMobileMenuOpen: function(util, customEqualityTesters) {
+        function compare(actual){
+          return {
+            pass: element.hasClass("expanded"),
+          };
+        }
+        return {compare: compare};
       }
     });
   }));
 
   var setMobile = function() {
-    $window.matchMedia.andReturn({matches: false});
+    $window.matchMedia.and.returnValue({matches: false});
   };
 
   var setDesktop = function() {
-    $window.matchMedia.andReturn({matches: true});
+    $window.matchMedia.and.returnValue({matches: true});
   };
 
   var compileDirective = function(markup) {
@@ -79,7 +89,7 @@ describe('topbar directive', function() {
     }
 
     containerElement = $compile(markup)($rootScope);
-    $('body', $document).append(element);
+    $document.find('body').append(element);
     $rootScope.$digest();
     element = containerElement.find("nav");
   };
@@ -95,42 +105,46 @@ describe('topbar directive', function() {
 
     it('has a drop down open on large screen', inject(function($window) {
       setDesktop();
-      $('#dropdown', element).trigger('mouseenter');
+
+      var evt = document.createEvent('MouseEvents');
+      evt.initMouseEvent('mouseover', true, true, window);
+      element[0].querySelector('#dropdown').dispatchEvent(evt);
+
       expect($window.matchMedia).toHaveBeenCalled();
       expect(element).toHaveDropDownsOpen(1);
     }));
 
     it('has no drop downs open on small screen', inject(function($window) {
       setMobile();
-      $('#dropdown', element).trigger('mouseenter');
+      angular.element(element[0].querySelector('#dropdown')).triggerHandler('mouseover');
       expect($window.matchMedia).toHaveBeenCalled();
       expect(element).toHaveDropDownsOpen(0);
     }));
 
     it('has no mobile menu opening on large screen', inject(function($window) {
-      setDesktop($window);
-      $('#menu-toggle', element).trigger('click');
+      setDesktop();
+      element[0].querySelector('#menu-toggle').click();
       expect($window.matchMedia).toHaveBeenCalled();
       expect(element).not.toHaveMobileMenuOpen();
     }));
 
     it('opens and closes mobile menu on small screen', inject(function($window) {
       setMobile();
-      $('#menu-toggle', element).trigger('click');
+      element[0].querySelector('#menu-toggle').click();
       expect($window.matchMedia).toHaveBeenCalled();
       expect(element).toHaveMobileMenuOpen();
-      $('#menu-toggle', element).trigger('click');
+      element[0].querySelector('#menu-toggle').click();
       expect(element).not.toHaveMobileMenuOpen();
     }));
 
     it('opens the submenu when a dropdown is clicked on mobile', inject(function($window) {
-      var topSection = element.find('#top-section');
-      var menuToggle = element.find('#menu-toggle');
+      var topSection = angular.element(element[0].querySelector('#top-section'));
+      var menuToggle = angular.element(element[0].querySelector('#menu-toggle'));
       setMobile();
-      expect(element.hasClass("expanded")).toBe(false);
-      menuToggle.trigger('click');
+      expect(element).not.toHaveClass('expanded');
+      menuToggle[0].click();
       expect($window.matchMedia).toHaveBeenCalled();
-      expect(element.hasClass("expanded")).toBe(true);
+      expect(element).toHaveClass('expanded');
     }));
   });
 

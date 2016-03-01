@@ -273,7 +273,7 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
     link: function(scope, element, attrs, topBar) {
       element.bind('click', function(event) {
         var li = closest(angular.element(event.currentTarget), 'li');
-        if(!li.hasClass('back') && !li.hasClass('has-dropdown')) {
+        if(li && !li.hasClass('back') && !li.hasClass('has-dropdown')) {
           topBar.toggle();
         }
       });
@@ -354,7 +354,7 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
         $link.unbind('click');
       });
 
-      element.bind('mouseenter', function() {
+      element.bind('mouseover', function(evt) {
         if(topBar.settings.isHover && !mediaQueries.topbarBreakpoint()){
           element.addClass('not-click');
         }
@@ -365,14 +365,14 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
         }
       });
 
-      element.bind('mouseleave', function() {
+      element.bind('mouseout', function() {
         element.removeClass('not-click');
       });
 
       scope.$on('$destroy', function() {
         element.unbind('click');
-        element.unbind('mouseenter');
-        element.unbind('mouseleave');
+        element.unbind('mouseover');
+        element.unbind('mouseout');
       });
     },
     controller: ['$window', '$scope', function($window, $scope) {

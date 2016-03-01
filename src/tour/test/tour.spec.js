@@ -27,7 +27,7 @@ describe('tour', function() {
 
   function findTourPopup(dom, index) {
     index = index || 1;
-    var targetElm = dom.find('[step-index="' + index + '"]');
+    var targetElm = angular.element(dom[0].querySelector('[step-index="' + index + '"]'));
     return targetElm.next('[step-text-popup]');
   }
 

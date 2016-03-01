@@ -4,9 +4,8 @@ describe('$modal', function () {
   var mockWindow, mockComputedStyle;
 
   var triggerKeyDown = function (element, keyCode) {
-    var e = $.Event("keydown");
-    e.which = keyCode;
-    element.trigger(e);
+    var evt = {type: 'keydown', which: keyCode};
+    element.triggerHandler(evt);
   };
 
   var waitForBackdropAnimation = function () {
@@ -36,7 +35,7 @@ describe('$modal', function () {
       document: mockdocument,
       pageYOffset: 4,
       this_is_a_mock_window: true,
-      getComputedStyle: jasmine.createSpy("$window.getComputedStyle").andReturn(mockComputedStyle)
+      getComputedStyle: jasmine.createSpy("$window.getComputedStyle").and.returnValue(mockComputedStyle)
     };
     $provide.value('$window', mockWindow);
 
@@ -54,32 +53,43 @@ describe('$modal', function () {
   }));
 
   beforeEach(inject(function ($rootScope) {
-    this.addMatchers({
+    jasmine.addMatchers({
+      toBeResolvedWith: function(util, customEqualityTesters) {
 
-      toBeResolvedWith: function(value) {
-        var resolved;
-        this.message = function() {
-          return "Expected '" + angular.mock.dump(this.actual) + "' to be resolved with '" + value + "'.";
-        };
-        this.actual.then(function(result){
-          resolved = result;
-        });
-        $rootScope.$digest();
+        function compare(actual, expected){
 
-        return resolved === value;
+          var resolved;
+          actual.then(function(result){
+            resolved = result;
+          });
+          $rootScope.$digest();
+
+          var passed = resolved === expected;
+          return {
+            pass: passed,
+            message: "Expected '" + angular.mock.dump(actual) + "' to be resolved with '" + expected + "'."
+          };
+        }
+
+        return {compare: compare};
       },
+      toBeRejectedWith: function(util, customEqualityTesters) {
 
-      toBeRejectedWith: function(value) {
-        var rejected;
-        this.message = function() {
-          return "Expected '" + angular.mock.dump(this.actual) + "' to be rejected with '" + value + "'.";
-        };
-        this.actual.then(angular.noop, function(reason){
-          rejected = reason;
-        });
-        $rootScope.$digest();
+        function compare(actual, expected){
+          var rejected;
+          actual.then(angular.noop, function(reason){
+            rejected = reason;
+          });
+          $rootScope.$digest();
 
-        return rejected === value;
+          var passed = rejected === expected;
+          return {
+            pass: passed,
+            message: "Expected '" + angular.mock.dump(actual) + "' to be rejected with '" + expected + "'."
+          };
+        }
+
+        return {compare: compare};
       },
 
     /**
@@ -92,58 +102,96 @@ describe('$modal', function () {
      *  @return true when style="mystyle" value is correct.
      *
      */
-     toHaveModalOpenWithStyle: function(style, value) {
 
-        var modalDomEls = this.actual.find('body > div.reveal-modal');
-        this.message = function() {
-          return "Expected '" + angular.mock.dump(modalDomEls) + "' to have a style " + style + " with value " + value + ".";
-        };
-        return modalDomEls.css(style) === value;
+      toHaveModalOpenWithStyle: function(util, customEqualityTesters) {
+
+        function compare(actual, style, expected){
+          var modalDomEls = actual[0].querySelector('body > div.reveal-modal');
+          var passed = getComputedStyle(modalDomEls)[style] === expected;
+          return {
+            pass: passed,
+            message: "Expected '" + angular.mock.dump(modalDomEls) + "' to have a style " + style + " with value " + expected + "."
+          };
+        }
+
+        return {compare: compare};
       },
 
-      toHaveModalOpenWithContent: function(content, selector) {
+      toHaveModalOpenWithContent: function(util, customEqualityTesters) {
 
-        var contentToCompare, modalDomEls = this.actual.find('body > div.reveal-modal > div');
+        function compare(actual, content, selector){
+          var modalDomEls = actual[0].querySelector('body > div.reveal-modal > div');
+          var contentToCompare = selector ? modalDomEls.querySelector(selector) : modalDomEls;
+          var passed = getComputedStyle(modalDomEls)['display'] === 'block' &&  contentToCompare.innerHTML == content;
+          return {
+            pass: passed,
+            message: "Expected '" + angular.mock.dump(modalDomEls) + "' to be open with '" + content + "'."
+          };
+        }
 
-        this.message = function() {
-          return "Expected '" + angular.mock.dump(modalDomEls) + "' to be open with '" + content + "'.";
-        };
-
-        contentToCompare = selector ? modalDomEls.find(selector) : modalDomEls;
-        return modalDomEls.css('display') === 'block' &&  contentToCompare.html() == content;
+        return {compare: compare};
       },
 
-      toHaveModalsOpen: function(noOfModals) {
+      toHaveModalsOpen: function(util, customEqualityTesters) {
 
-        var modalDomEls = this.actual.find('body > div.reveal-modal');
-        return modalDomEls.length === noOfModals;
+        function compare(actual, noOfModals){
+          var modalDomEls = actual[0].querySelectorAll('body > div.reveal-modal');
+          var passed = modalDomEls.length === noOfModals;
+          return {
+            pass: passed
+          };
+        }
+
+        return {compare: compare};
       },
 
-      toHaveBackdrop: function() {
+      toHaveBackdrop: function(util, customEqualityTesters) {
 
-        var backdropDomEls = this.actual.find('body > div.reveal-modal-bg');
-        this.message = function() {
-          return "Expected '" + angular.mock.dump(backdropDomEls) + "' to be a backdrop element'.";
-        };
+        function compare(actual){
+          var backdropDomEls = actual[0].querySelectorAll('body > div.reveal-modal-bg');
 
-        return backdropDomEls.length === 1;
+          var passed = backdropDomEls.length === 1;
+          return {
+            pass: passed,
+            message: "Expected '" + angular.mock.dump(backdropDomEls) + "' to be a backdrop element'."
+          };
+        }
+
+        return {compare: compare};
       },
-      toHaveModalOpenInOtherParent: function(parentSelector){
-        var modalElem = this.actual.find(parentSelector + ' > .reveal-modal');
-        this.message = function() {
-          return 'Expected modal to be a parent of: ' + parentSelector;
-        };
 
-        return modalElem.length === 1;
-      }
+      toHaveModalOpenInOtherParent: function(util, customEqualityTesters) {
+
+        function compare(actual, parentSelector){
+          var modalElem = actual[0].querySelectorAll(parentSelector + ' > .reveal-modal');
+          var passed = modalElem.length === 1;
+          return {
+            pass: passed,
+            message: 'Expected modal to be a parent of: ' + parentSelector
+          };
+        }
+
+        return {compare: compare};
+      },
     });
   }));
 
   afterEach(function () {
-    var body = $document.find('body');
-    body.find('div.reveal-modal').remove();
-    body.find('div.reveal-modal-bg').remove();
-    body.removeClass('modal-open');
+    var body = $document[0].querySelector('body');
+
+    var modals = angular.element(body.querySelectorAll('div.reveal-modal'));
+    var bgs = angular.element(body.querySelectorAll('div.reveal-modal-bg'));
+
+    modals.remove();
+    bgs.remove();
+
+    if (body.classList) {
+      body.classList.remove('modal-open');
+    }
+    else {
+      body.className = body.className.replace(new RegExp('(^|\\b)' + 'modal-open'.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+    }
+
   });
 
   function open(modalOptions) {
@@ -256,7 +304,7 @@ describe('$modal', function () {
       var modal = open({template: '<div>Content</div>'});
       expect($document).toHaveModalsOpen(1);
 
-      $document.find('body > div.reveal-modal-bg').click();
+      $document[0].querySelector('body > div.reveal-modal-bg').click();
       $timeout.flush();
       $rootScope.$digest();
 
@@ -298,7 +346,7 @@ describe('$modal', function () {
       expect($rootScope.$$childTail).toEqual(null);
 
       var modal = open({template: '<div>Content</div>'});
-      expect($rootScope.$$childTail).toNotEqual(null);
+      expect($rootScope.$$childTail).not.toEqual(null);
 
       close(modal, 'closed ok');
       waitForBackdropAnimation();
@@ -535,7 +583,7 @@ describe('$modal', function () {
           backdrop: 'static'
         });
 
-        $document.find('body > div.reveal-modal-bg').click();
+        $document[0].querySelector('body > div.reveal-modal-bg').click();
         $rootScope.$digest();
 
         expect($document).toHaveModalOpenWithContent('Static backdrop', 'div');
@@ -545,7 +593,7 @@ describe('$modal', function () {
       it('should animate backdrop on each modal opening', function () {
 
         var modal = open({ template: '<div>With backdrop</div>' });
-        var backdropEl = $document.find('body > div.reveal-modal-bg');
+        var backdropEl = angular.element($document[0].querySelector('body > div.reveal-modal-bg'));
         expect(backdropEl).not.toHaveClass('in');
 
         $timeout.flush();
@@ -555,7 +603,7 @@ describe('$modal', function () {
         waitForBackdropAnimation();
 
         modal = open({ template: '<div>With backdrop</div>' });
-        backdropEl = $document.find('body > div.reveal-modal-bg');
+        backdropEl = angular.element($document[0].querySelector('body > div.reveal-modal-bg'));
         expect(backdropEl).not.toHaveClass('in');
 
       });
@@ -569,7 +617,7 @@ describe('$modal', function () {
           windowClass: 'additional'
         });
 
-        expect($document.find('div.reveal-modal')).toHaveClass('additional');
+        expect(angular.element($document[0].querySelector('div.reveal-modal'))).toHaveClass('additional');
       });
     });
   });
@@ -602,11 +650,12 @@ describe('$modal', function () {
     });
 
     it('should not close any modals on click if a topmost modal does not have backdrop', function () {
+      expect($document).toHaveModalsOpen(0);
 
       var modal1 = open({template: '<div>Modal1</div>'});
       var modal2 = open({template: '<div>Modal2</div>', backdrop: false});
 
-      $document.find('body > div.reveal-modal-bg').click();
+      $document[0].querySelector('body > div.reveal-modal-bg').click();
       $rootScope.$digest();
 
       expect($document).toHaveModalsOpen(2);

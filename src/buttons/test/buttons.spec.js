@@ -42,11 +42,11 @@ describe('buttons', function () {
       $scope.model = false;
       var btn = compileButton('<button ng-model="model" btn-checkbox>click</button>', $scope);
 
-      btn.click();
+      btn[0].click();
       expect($scope.model).toEqual(true);
       expect(btn).toHaveClass('active');
 
-      btn.click();
+      btn[0].click();
       expect($scope.model).toEqual(false);
       expect(btn).not.toHaveClass('active');
     });
@@ -55,11 +55,11 @@ describe('buttons', function () {
       $scope.model = 0;
       var btn = compileButton('<button ng-model="model" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">click</button>', $scope);
 
-      btn.click();
+      btn[0].click();
       expect($scope.model).toEqual(1);
       expect(btn).toHaveClass('active');
 
-      btn.click();
+      btn[0].click();
       expect($scope.model).toEqual(0);
       expect(btn).not.toHaveClass('active');
     });
@@ -107,12 +107,12 @@ describe('buttons', function () {
       var btns = compileButtons('<button ng-model="model" btn-radio="1">click1</button><button ng-model="model" btn-radio="2">click2</button>', $scope);
       expect($scope.model).toBeUndefined();
 
-      btns.eq(0).click();
+      btns[0].click();
       expect($scope.model).toEqual(1);
       expect(btns.eq(0)).toHaveClass('active');
       expect(btns.eq(1)).not.toHaveClass('active');
 
-      btns.eq(1).click();
+      btns[1].click();
       expect($scope.model).toEqual(2);
       expect(btns.eq(1)).toHaveClass('active');
       expect(btns.eq(0)).not.toHaveClass('active');
@@ -122,12 +122,12 @@ describe('buttons', function () {
       var btns = compileButtons('<button ng-model="model" btn-radio="1">click1</button><button ng-model="model" btn-radio="2">click2</button>', $scope);
       expect($scope.model).toBeUndefined();
 
-      btns.eq(0).click();
+      btns[0].click();
       expect($scope.model).toEqual(1);
       expect(btns.eq(0)).toHaveClass('active');
       expect(btns.eq(1)).not.toHaveClass('active');
 
-      btns.eq(0).click();
+      btns[0].click();
       expect($scope.model).toEqual(1);
       expect(btns.eq(0)).toHaveClass('active');
       expect(btns.eq(1)).not.toHaveClass('active');

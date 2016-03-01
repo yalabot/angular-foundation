@@ -26,7 +26,7 @@ describe('typeaheadPopup - result rendering', function () {
     expect(liElems.eq(2)).not.toHaveClass('active');
   });
 
-  it('should change active item on mouseenter', function () {
+  it('should change active item on mouseover', function () {
 
     scope.matches = ['foo', 'bar', 'baz'];
     scope.active = 1;
@@ -38,7 +38,7 @@ describe('typeaheadPopup - result rendering', function () {
     expect(liElems.eq(1)).toHaveClass('active');
     expect(liElems.eq(2)).not.toHaveClass('active');
 
-    liElems.eq(2).trigger('mouseenter');
+    liElems.eq(2).triggerHandler('mouseover');
 
     expect(liElems.eq(1)).not.toHaveClass('active');
     expect(liElems.eq(2)).toHaveClass('active');
@@ -55,7 +55,7 @@ describe('typeaheadPopup - result rendering', function () {
     $rootScope.$digest();
 
     var liElems = el.find('li');
-    liElems.eq(2).find('a').trigger('click');
+    liElems.eq(2).find('a')[0].click();
     expect($rootScope.select).toHaveBeenCalledWith(2);
   });
 });

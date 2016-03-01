@@ -8,7 +8,8 @@ describe('dropdownToggle', function() {
     var element = angular.element(
       '<div><a dropdown-toggle="#' + id + '">Trigger</a>' +
       '<ul id="' + id + '"><li>Hello</li></ul></div>'
-    ).appendTo('body');
+    );
+    $document.find('body').append(element);
     return $compile(element)($scope);
   }
 
@@ -19,6 +20,27 @@ describe('dropdownToggle', function() {
   });
 
   beforeEach(module('mm.foundation.dropdownToggle'));
+
+  beforeEach(inject(function() {
+    jasmine.addMatchers({
+      // Deal with UAs that do subpixel layout
+      toBeRounded: function(util, customEqualityTesters) {
+        function compare(actual, expected, unit){
+
+          var actualRounded = Math.round(Number(unit ? actual.replace(unit, '') : actual));
+          var expectedRounded = Math.round(Number(unit ? String(expected).replace(unit, '') : expected));
+          var passed = actualRounded === expectedRounded;
+
+          return {
+            pass: passed,
+            message: "Expected '" + angular.mock.dump(actual) + "' to round to '" + expectedRounded + "'."
+          };
+        }
+
+        return {compare: compare};
+      }
+    });
+  }));
 
   beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$location_, _$window_) {
     $compile = _$compile_;
@@ -43,38 +65,45 @@ describe('dropdownToggle', function() {
     it('should toggle on `a` click', function() {
       expect(targetElm.css('display')).toBe('none');
       expect(targetElm.hasClass('f-open-dropdown')).toBe(false);
-      toggleElm.click();
+      toggleElm[0].click();
       expect(targetElm.css('display')).toBe('block');
       expect(targetElm.hasClass('f-open-dropdown')).toBe(true);
-      toggleElm.click();
+      toggleElm[0].click();
       expect(targetElm.css('display')).toBe('none');
       expect(targetElm.hasClass('f-open-dropdown')).toBe(false);
     });
 
     it('should close on elm click', function() {
-      toggleElm.click();
-      elm.click();
+
+      var evt = document.createEvent('HTMLEvents');
+      evt.initEvent('click', true, false);
+      toggleElm[0].dispatchEvent(evt);
+
+      evt = document.createEvent('HTMLEvents');
+      evt.initEvent('click', true, false);
+      elm[0].dispatchEvent(evt);
+
       expect(targetElm.css('display')).toBe('none');
     });
 
-    it('should close on document click', function() {
-      toggleElm.click();
+    it('should close on body click', function() {
+      toggleElm[0].click();
       expect(targetElm.css('display')).toBe('block');
-      $document.click();
+      $document[0].querySelector('body').click();
       expect(targetElm.css('display')).toBe('none');
     });
 
     it('should close on $location change', function() {
-      toggleElm.click();
+      toggleElm[0].click();
       $location.path('/foo');
       $rootScope.$apply();
       expect(targetElm.css('display')).toBe('none');
     });
 
     it("should add/remove the 'expanded' class on toggle", function() {
-      toggleElm.click();
+      toggleElm[0].click();
       expect(toggleElm.hasClass('expanded')).toBe(true);
-      toggleElm.click();
+      toggleElm[0].click();
       expect(toggleElm.hasClass('expanded')).toBe(false);
     });
   });
@@ -83,8 +112,8 @@ describe('dropdownToggle', function() {
     it('should only allow one dropdown to be open at once', function() {
       var elm1 = dropdown('target1');
       var elm2 = dropdown('target2');
-      elm1.find('a').click();
-      elm2.find('a').click();
+      elm1[0].querySelector('a').click();
+      elm2[0].querySelector('a').click();
       expect(elm1.find('ul').css('display')).toBe('none');
       expect(elm2.find('ul').css('display')).toBe('block');
       elm1.remove();
@@ -106,13 +135,13 @@ describe('dropdownToggle', function() {
       toggleElm = elm.find('a');
       targetElm = elm.find('ul');
 
-      toggleElm.click();
+      toggleElm[0].click();
 
-      expect(targetElm.css('position')).toBe('absolute');
-      expect(targetElm.css('max-width')).toBe('none');
+      expect(getComputedStyle(targetElm[0])['position']).toBe('absolute');
+      expect(getComputedStyle(targetElm[0])['max-width']).toBe('none');
 
-      var expectedWidth = Math.round($window.innerWidth * 0.95);
-      expect(targetElm.css('width')).toBe(expectedWidth + 'px');
+      var expectedWidth = $window.innerWidth * 0.95;
+      expect(getComputedStyle(targetElm[0])['width']).toBeRounded(expectedWidth, 'px');
     });
   });
 
@@ -122,7 +151,10 @@ describe('dropdownToggle', function() {
         '<div class="has-dropdown"><a dropdown-toggle="#target">Trigger</a>' +
           '<ul id="target"><li>hello</li></ul>' +
         '</div>'
-      ).appendTo('body');
+      );
+
+      $document.find('body').append(element);
+
       elm = $compile(element)($scope);
       $scope.$digest();
       toggleElm = elm.find('a');
@@ -130,7 +162,7 @@ describe('dropdownToggle', function() {
     });
 
     it('adds the "hover" class to the containing has-dropdown element', function() {
-      toggleElm.click();
+      toggleElm[0].click();
       $scope.$digest();
       expect(elm.hasClass('hover')).toBe(true);
     });

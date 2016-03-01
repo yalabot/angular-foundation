@@ -30,9 +30,9 @@ describe('typeahead tests', function () {
     $timeout = _$timeout_;
     changeInputValueTo = function (element, value) {
       var inputEl = findInput(element);
-      inputEl.focus();
+      inputEl.triggerHandler('focus');
       inputEl.val(value);
-      inputEl.trigger($sniffer.hasEvent('input') ? 'input' : 'change');
+      inputEl.triggerHandler($sniffer.hasEvent('input') ? 'input' : 'change');
       $scope.$digest();
     };
   }));
@@ -49,7 +49,7 @@ describe('typeahead tests', function () {
   };
 
   var findDropDown = function (element) {
-    return element.find('ul.f-dropdown');
+    return angular.element(element[0].querySelector('ul.f-dropdown'));
   };
 
   var findMatches = function (element) {
@@ -58,30 +58,34 @@ describe('typeahead tests', function () {
 
   var triggerKeyDown = function (element, keyCode) {
     var inputEl = findInput(element);
-    var e = $.Event("keydown");
-    e.which = keyCode;
-    inputEl.trigger(e);
+    inputEl.triggerHandler({type: "keydown", which: keyCode});
   };
 
   //custom matchers
   beforeEach(function () {
-    this.addMatchers({
-      toBeClosed: function () {
-        var typeaheadEl = findDropDown(this.actual);
-        this.message = function () {
-          return "Expected '" + angular.mock.dump(this.actual) + "' to be closed.";
-        };
-        return typeaheadEl.css('display') === 'none' && findMatches(this.actual).length === 0;
-
-      }, toBeOpenWithActive: function (noOfMatches, activeIdx) {
-        
-        var typeaheadEl = findDropDown(this.actual);
-        var liEls = findMatches(this.actual);
-
-        this.message = function () {
-          return "Expected '" + this.actual + "' to be opened.";
-        };
-        return typeaheadEl.css('display') === 'block' && liEls.length === noOfMatches && $(liEls[activeIdx]).hasClass('active');
+    jasmine.addMatchers({
+      toBeClosed: function(util, customEqualityTesters) {
+        function compare(actual){
+          var typeaheadEl = findDropDown(actual);
+          var passed = typeaheadEl.css('display') === 'none' && findMatches(actual).length === 0;
+          return {
+            pass: passed,
+            message: "Expected '" + angular.mock.dump(actual) + "' to be closed."
+          };
+        }
+        return {compare: compare};
+      },
+      toBeOpenWithActive: function(util, customEqualityTesters) {
+        function compare(actual, noOfMatches, activeIdx){
+          var typeaheadEl = findDropDown(actual);
+          var liEls = findMatches(actual);
+          var passed = typeaheadEl.css('display') === 'block' && liEls.length === noOfMatches && angular.element(liEls[activeIdx]).hasClass('active');
+          return {
+            pass: passed,
+            message: "Expected '" + this.actual + "' to be opened."
+          };
+        }
+        return {compare: compare};
       }
     });
   });
@@ -258,7 +262,7 @@ describe('typeahead tests', function () {
         return $scope.source;
       };
       var element = prepareInputEl("<div><input ng-model='result' typeahead='item for item in loadMatches($viewValue) | filter:$viewValue' typeahead-wait-ms='200'></div>");
-      
+
       changeInputValueTo(element, 'first');
       $timeout.flush();
 
@@ -324,9 +328,9 @@ describe('typeahead tests', function () {
       var inputEl = findInput(element);
 
       changeInputValueTo(element, 'b');
-      var match = $(findMatches(element)[1]).find('a')[0];
+      var match = angular.element(findMatches(element)[1]).find('a');
 
-      $(match).click();
+      match[0].click();
       $scope.$digest();
 
       expect($scope.result).toEqual('baz');
@@ -403,11 +407,11 @@ describe('typeahead tests', function () {
       expect(element).toBeClosed();
     });
 
-    it('should highlight match on mouseenter', function () {
+    it('should highlight match on mouseover', function () {
       changeInputValueTo(element, 'b');
       expect(element).toBeOpenWithActive(2, 0);
 
-      findMatches(element).eq(1).trigger('mouseenter');
+      findMatches(element).eq(1).triggerHandler('mouseover');
       expect(element).toBeOpenWithActive(2, 1);
     });
 
@@ -452,7 +456,7 @@ describe('typeahead tests', function () {
 
       changeInputValueTo(element, 'b');
 
-      $document.find('body').click();
+      $document[0].querySelector('body').click();
       $scope.$digest();
 
       expect(element).toBeClosed();
@@ -500,7 +504,7 @@ describe('typeahead tests', function () {
       changeInputValueTo(element, 'match');
       $scope.$digest();
 
-      inputEl.blur();
+      inputEl.triggerHandler('blur');
       $timeout.flush();
 
       expect(element).toBeClosed();
@@ -541,7 +545,7 @@ describe('typeahead tests', function () {
 
       expect($scope.isLoading).toBeTruthy();
 
-      findInput(element).blur();
+      findInput(element).triggerHandler('blur');
       $timeout.flush();
 
       expect($scope.isLoading).toBeFalsy();
@@ -572,13 +576,14 @@ describe('typeahead tests', function () {
       var inputEl = findInput(element);
 
       // Note that this bug can only be found when element is in the document
-      $document.find('body').append(element);
+      $document[0].querySelector('body').appendChild(element[0]);
       // Extra teardown for this spec
-      this.after(function () { element.remove(); });
+      // TODO: figure out why this does not work with jasmine 2
+      //this.after(function () { element.remove(); });
 
       changeInputValueTo(element, 'b');
 
-      inputEl.click();
+      inputEl[0].click();
       $scope.$digest();
 
       expect(element).toBeOpenWithActive(2, 0);
@@ -630,7 +635,7 @@ describe('typeahead tests', function () {
     it('append typeahead results to body', function () {
       var element = prepareInputEl("<div><input ng-model='result' typeahead='item for item in source | filter:$viewValue' typeahead-append-to-body='true'></div>");
       changeInputValueTo(element, 'ba');
-      expect($document.find('body')).toBeOpenWithActive(2, 0);
+      expect(angular.element($document[0].querySelector('body'))).toBeOpenWithActive(2, 0);
     });
   });
 

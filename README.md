@@ -78,22 +78,15 @@ We are always looking for the quality contributions! Please check the [CONTRIBUT
 ### Development
 #### Prepare your environment
 * Install [Node.js](http://nodejs.org/) which should include `npm`
-* Install global dev dependencies: `npm install -g grunt-cli karma bower`
+* Install global dev dependencies: `npm install -g gulp`
 * Instal local dev dependencies: `npm install` while current directory is foundation repo
-* Install test dependencies: `bower install`
+* Install test dependencies: `jspm install`
 
 #### Build
-* Build the whole project: `grunt` - this will run `lint`, `test`, and `concat` targets
-* To build modules, first run `grunt html2js` then `grunt build:module1:module2...:moduleN`
+* Build the whole project: `gulp` - this will build the project, demo, start a local server on port 8080 and rebuild when code changes are made
+* To build modules run `gulp build --modules=module1,module2...:moduleN`
 
-You can generate a custom build, containing only needed modules, from the project's homepage.
-Alternativelly you can run local Grunt build from the command line and list needed modules as shown below:
-
-```
-grunt build:modal:tabs:alert:popover:dropdownToggle:buttons:progressbar
-```
-
-Check the Grunt build file for other tasks that are defined for this project.
+Not specifying any modules will build all modules. Check the `gulpfile.js` file for other tasks that are defined for this project.
 
 #### TDD
 * Run test: `grunt watch`
@@ -101,7 +94,7 @@ Check the Grunt build file for other tasks that are defined for this project.
 This will start Karma server and will continously watch files in the project, executing tests upon every change.
 
 #### Test coverage
-Add the `--coverage` option (e.g. `grunt test --coverage`, `grunt watch --coverage`) to see reports on the test coverage. These coverage reports are found in the coverage folder.
+Add the `--coverage` option (e.g. `grunt test --coverage`, `grunt test-legacy --coverage`) to see reports on the test coverage. These coverage reports are found in the coverage folder.
 
 ### Customize templates
 
@@ -111,7 +104,7 @@ templates to match your desired look & feel, add new functionality etc.
 The easiest way to override an individual template is to use the `<script>` directive:
 
 ```javascript
-<script id="template/alert/alert.html" type="text/ng-template">
+<script id="src/alert/alert.html" type="text/ng-template">
     <div class='alert' ng-class='type && "alert-" + type'>
         <button ng-show='closeable' type='button' class='close' ng-click='close()'>Close</button>
         <div ng-transclude></div>
@@ -169,9 +162,9 @@ For more information visit: https://github.com/karlgoldstein/grunt-html2js
 * push changes
 * switch back to the `main branch` and modify `package.json` to bump up version for the next iteration
 * commit (`chore(release): starting [version number]`) and push
-* publish Bower and NuGet packages
+* publish NPM, Bower and NuGet packages
 
-Well done! (If you don't like repeating yourself open a PR with a grunt task taking care of the above!)
+Well done! (If you don't like repeating yourself open a PR with a gulp task taking care of the above!)
 
 ## Credits
 

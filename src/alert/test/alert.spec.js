@@ -12,7 +12,7 @@ describe("alert", function () {
     $compile = _$compile_;
 
     element = angular.element(
-        "<div>" + 
+        "<div>" +
           "<alert ng-repeat='alert in alerts' type='alert.type'" +
             "close='removeAlert($index)'>{{alert.msg}}" +
           "</alert>" +
@@ -29,15 +29,15 @@ describe("alert", function () {
   function createAlerts() {
     $compile(element)(scope);
     scope.$digest();
-    return element.find('.alert-box');
+    return angular.element(element[0].querySelectorAll('.alert-box'));
   }
 
   function findCloseButton(index) {
-    return element.find('.close').eq(index);
+    return angular.element(element[0].querySelectorAll('.close')[index]);
   }
 
   function findContent(index) {
-    return element.find('div > span').eq(index);
+    return angular.element(element[0].querySelectorAll('div > span')[index]);
   }
 
   it("should generate alerts using ng-repeat", function () {
@@ -47,10 +47,10 @@ describe("alert", function () {
 
   it("should use correct classes for different alert types", function () {
     var alerts = createAlerts();
-    expect(alerts.eq(0).is('.alert-box.success')).toBe(true);
-    expect(alerts.eq(1).is('.alert-box.warning.round')).toBe(true);
-    expect(alerts.eq(2).is('.alert-box.info.radius')).toBe(true);
-    expect(alerts.eq(3).is('.alert-box')).toBe(true);
+    expect(matches(alerts[0], '.alert-box.success')).toBe(true);
+    expect(matches(alerts[1], '.alert-box.warning.round')).toBe(true);
+    expect(matches(alerts[2], '.alert-box.info.radius')).toBe(true);
+    expect(matches(alerts[3],'.alert-box')).toBe(true);
   });
 
   it('should show the alert content', function() {
@@ -78,7 +78,7 @@ describe("alert", function () {
     });
 
     expect(findCloseButton(0).css('display')).not.toBe('none');
-    findCloseButton(1).click();
+    findCloseButton(1)[0].click();
 
     expect(scope.removeAlert).toHaveBeenCalledWith(1);
   });
