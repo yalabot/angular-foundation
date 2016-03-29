@@ -83,6 +83,10 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
         popUpEl.attr('template-url', attrs.typeaheadTemplateUrl);
       }
 
+      if (angular.isDefined(attrs.typeaheadPopupTemplateUrl)) {
+        popUpEl.attr('popup-template-url', attrs.typeaheadPopupTemplateUrl);
+      }
+
       //create a child scope for the typeahead directive so we are not polluting original scope
       //with typeahead-specific data (matches, query etc.)
       var scope = originalScope.$new();
@@ -298,7 +302,9 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
         select:'&'
       },
       replace:true,
-      templateUrl:'template/typeahead/typeahead-popup.html',
+      templateUrl: function(element, attrs) {
+        return attrs.popupTemplateUrl || 'template/typeahead/typeahead-popup.html';
+      },
       link:function (scope, element, attrs) {
 
         scope.templateUrl = attrs.templateUrl;
