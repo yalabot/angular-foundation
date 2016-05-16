@@ -5,7 +5,7 @@
   "homepage": "http://pineconellc.github.io/angular-foundation/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/legendarydrew/angular-foundation"
+    "url": "git://github.com/legendarydrew/angular-foundation.git"
   },
   "devDependencies": {
     "karma": "~0.12.0",
