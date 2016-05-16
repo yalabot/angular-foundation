@@ -12,7 +12,7 @@ Do you want to see this in action? Visit http://pineconellc.github.io/angular-fo
 ## Installation
 
 Installation is easy as angular-mm-foundation has minimal dependencies - only the AngularJS and Foundation's CSS are required.
-After downloading dependencies (or better yet, referencing them from your favourite CDN) you need to download build version of this project. All the files and their purposes are described here: 
+After downloading dependencies (or better yet, referencing them from your favourite CDN) you need to download build version of this project. All the files and their purposes are described here:
 https://github.com/pineconellc/angular-foundation/tree/gh-pages
 Don't worry, if you are not sure which file to take, opt for `mm-foundation-tpls-[version].min.js`.
 
@@ -35,27 +35,19 @@ angular.module('myModule', ['mm.foundation']);
 
 We'd gladly accept contributions for any remaining components.
 
-## Supported Browsers 
+## Supported Browsers
 
 Directives **should** work with the following browsers:
 
 * Chrome (stable and canary channel)
 * Firefox
-* IE 9 and 10
+* IE 10 and Edge
 * Opera
 * Safari
 
 Modern mobile browsers should work without problems.
 
-**IE 8 is not officially supported at the moment**. This project is run by volunteers and with the current number of commiters
-we are not in the position to guarantee IE8 support. If you need support for IE8 we would welcome a contributor who would like to take care about IE8.
-Alternativelly you could sponsor this project to guarantee IE8 support.
-
-We believe that most of the directives would work OK after:
-* including relevant shims (for ES5 we recommend https://github.com/kriskowal/es5-shim)
-* taking care of the steps described in http://docs.angularjs.org/guide/ie
-
-We are simply not regularly testing against IE8.
+**IE 8 and 9 are not officially supported.**
 
 ## Project philosophy
 
@@ -105,7 +97,7 @@ Check the Grunt build file for other tasks that are defined for this project.
 
 #### TDD
 * Run test: `grunt watch`
- 
+
 This will start Karma server and will continously watch files in the project, executing tests upon every change.
 
 #### Test coverage

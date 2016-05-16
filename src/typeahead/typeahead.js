@@ -128,10 +128,10 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
             } else {
               resetMatches();
             }
-            isLoadingSetter(originalScope, false);
           }
         }, function(){
           resetMatches();
+        }).finally(function() {
           isLoadingSetter(originalScope, false);
         });
       };

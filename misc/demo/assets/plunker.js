@@ -13,7 +13,7 @@ angular.module('plunker', [])
 
       var indexContent = function (content, version) {
         return '<!doctype html>\n' +
-          '<html ng-app="plunker">\n' +
+          '<html ng-app="foundationDemoApp">\n' +
           '  <head>\n' +
           '    <script src="//ajax.googleapis.com/ajax/libs/angularjs/'+ngVersion+'/angular.js"></script>\n' +
           '    <script src="//pineconellc.github.io/angular-foundation/mm-foundation-tpls-'+version+'.js"></script>\n' +
@@ -25,13 +25,13 @@ angular.module('plunker', [])
           '      <div class="small-12.columns">\n' +
                    content + '\n' +
           '      </div>\n' +
-          '    </div>\n'
+          '    </div>\n' +
           '  </body>\n' +
           '</html>\n';
       };
 
       var scriptContent = function(content) {
-        return "angular.module('plunker', ['mm.foundation']);" + "\n" + content;
+        return "angular.module('foundationDemoApp', ['mm.foundation']);" + "\n" + content;
       };
 
       addField('description', 'http://pineconellc.github.io/angular-foundation/');

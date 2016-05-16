@@ -407,6 +407,13 @@ describe('tabs', function() {
         expect(tab1.active).toBe(true);
       });
 
+      it('should not select the first tab if $scope.openOnLoad of the controller is false', function() {
+        scope.openOnLoad = false;
+        var tab = mockTab();
+        ctrl.addTab(tab);
+        expect(tab.active).toBe(false);
+      });
+
       it('should select a tab added that\'s already active', function() {
         var tab1 = mockTab(), tab2 = mockTab(true);
         ctrl.addTab(tab1);
@@ -473,6 +480,18 @@ describe('tabs', function() {
 
     it('to show tabs vertically', function() {
       expect(elm.find('dl.tabs')).toHaveClass('vertical');
+    });
+  });
+
+  describe('open-on-load', function() {
+    beforeEach(inject(function($compile, $rootScope) {
+      scope = $rootScope.$new();
+      $compile('<tabset open-on-load="false"></tabset>')(scope);
+      scope.$apply();
+    }));
+
+    it('to show tabs vertically', function() {
+      expect(scope.openOnLoad).toBeFalsy();
     });
   });
 

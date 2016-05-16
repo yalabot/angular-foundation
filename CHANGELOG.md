@@ -1,3 +1,60 @@
+<a name="v0.9.0"></a>
+# v0.9.0 (unreleased)
+## Bug Fixes
+* **topbar**
+  - Fix incorrect unbinding of resize and scroll events on destroy ([#283](https://github.com/pineconellc/angular-foundation/pull/283))
+
+<a name="v0.8.0"></a>
+# v0.8.0 (2015-10-13)
+## Features
+* **modal**
+  - Adds the `parent` option to override where the modal HTML is injected into. ([#270](https://github.com/pineconellc/angular-foundation/pull/270))
+  - Adds a `$modalInstance.reposition()` function to recalculate and reposition the modal window. ([#274](https://github.com/pineconellc/angular-foundation/pull/274))
+
+## Bug Fixes
+* **modal**
+  - Prevents a crash when `dismiss()` or `close()` are called on a closed modal. ([#260](https://github.com/pineconellc/angular-foundation/pull/260))
+
+## Other
+* **all**
+  - Drop advertised support for IE9.
+* **dropdownToggle**
+  - Add `f-open-dropdown` class to opened dropdown content. ([#263](https://github.com/pineconellc/angular-foundation/pull/263))
+
+<a name="v0.7.0"></a>
+# v0.7.0 (2015-09-25)
+## Features
+* **all**
+  - Support for Angular 1.4. Angular 1.3 support remains but support for Angular 1.2 has been dropped. ([#265](https://github.com/pineconellc/angular-foundation/pull/265))
+* **tabs**
+  - Add an option to not select a tab on initial load. ([#196](https://github.com/pineconellc/angular-foundation/pull/196))
+
+## Bug Fixes
+* **typeahead**
+  - Ensure that the `typeahead-loading` expression is always set to false after asynchronous loads. ([#210](https://github.com/pineconellc/angular-foundation/pull/210))
+
+## Other
+* **accordion**
+  - Use Foundation's `active` class for the open accordion section. ([#228](https://github.com/pineconellc/angular-foundation/pull/228))
+
+<a name="v0.6.0"></a>
+# v0.6.0 (2015-04-13)
+## Features
+* **dropdownToggle**
+  - Add 'expanded' class when toggled
+* **modal**
+  - Add `controllerAs` option. ([#176](https://github.com/pineconellc/angular-foundation/pull/176))
+
+## Bug Fixes
+* **modal**
+  - Fixes focus on model open
+* **tour**
+  - Fixes an issue where tour would stay open when location changed
+  - Prevents a SecurityError from being raised when accessing localStorage
+* **topbar**
+  - Fix event unbinding
+  - Fix sticky topbar when page is refreshed. ([#213](https://github.com/pineconellc/angular-foundation/issues/213))
+
 <a name="v0.5.1"></a>
 # v0.5.1 (2014-11-29)
 ## Bug Fixes
@@ -43,7 +100,7 @@
 * **mediaQueries**
   - Extracted `mediaQueries` factory into its own module so it can be reused. ([#99](https://github.com/pineconellc/angular-foundation/pull/99))
 * **accordion**
-  - Add active class to the open accordion segment ([27e787f](https://github.com/pineconellc/angular-foundation/commit/27e787fad563f70cae79e6c57077daa563a2e8e2)) 
+  - Add active class to the open accordion segment ([27e787f](https://github.com/pineconellc/angular-foundation/commit/27e787fad563f70cae79e6c57077daa563a2e8e2))
 
 <a name="v0.3.1"></a>
 # v0.3.1 (2014-08-19)

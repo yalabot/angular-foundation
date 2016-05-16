@@ -42,10 +42,13 @@ describe('dropdownToggle', function() {
 
     it('should toggle on `a` click', function() {
       expect(targetElm.css('display')).toBe('none');
+      expect(targetElm.hasClass('f-open-dropdown')).toBe(false);
       toggleElm.click();
       expect(targetElm.css('display')).toBe('block');
+      expect(targetElm.hasClass('f-open-dropdown')).toBe(true);
       toggleElm.click();
       expect(targetElm.css('display')).toBe('none');
+      expect(targetElm.hasClass('f-open-dropdown')).toBe(false);
     });
 
     it('should close on elm click', function() {
@@ -66,6 +69,13 @@ describe('dropdownToggle', function() {
       $location.path('/foo');
       $rootScope.$apply();
       expect(targetElm.css('display')).toBe('none');
+    });
+
+    it("should add/remove the 'expanded' class on toggle", function() {
+      toggleElm.click();
+      expect(toggleElm.hasClass('expanded')).toBe(true);
+      toggleElm.click();
+      expect(toggleElm.hasClass('expanded')).toBe(false);
     });
   });
 
@@ -126,4 +136,3 @@ describe('dropdownToggle', function() {
     });
   });
 });
-

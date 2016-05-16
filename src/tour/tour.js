@@ -1,17 +1,33 @@
 angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation.tooltip' ] )
 
 .service( '$tour', [ '$window', function ( $window ) {
-  var currentIndex = getCurrentStep();
+  var currentIndex = getStoredCurrentStep();
   var ended = false;
   var steps = {};
 
-  function getCurrentStep() {
-    return parseInt( $window.localStorage.getItem( 'mm.tour.step' ), 10 );
+  function getStoredCurrentStep() {
+    try {
+      return parseInt( $window.localStorage.getItem( 'mm.tour.step' ), 10 );
+    } catch(e) {
+      if (e.name !== "SecurityError") {
+        throw e;
+      }
+    }
+  }
+
+  function storeCurrentStep() {
+    try {
+      $window.localStorage.setItem( 'mm.tour.step', currentIndex );
+    } catch(e) {
+      if (e.name !== "SecurityError") {
+        throw e;
+      }
+    }
   }
 
   function setCurrentStep(step) {
     currentIndex = step;
-    $window.localStorage.setItem( 'mm.tour.step', step );
+    storeCurrentStep();
   }
 
   this.add = function ( index, attrs ) {
@@ -67,6 +83,8 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
         element.remove();
         $tour.next();
       };
+
+      scope.$on('$locationChangeSuccess', scope.endTour);
     }
   };
 }])
@@ -98,7 +116,7 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
         return true;
       }
     }
-    
+
     return false;
   }
 
