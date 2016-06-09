@@ -158,4 +158,43 @@ describe('topbar directive', function() {
       expect(containerElement.hasClass('fixed')).toBe(false);
     });
   });
+
+  describe('onScroll', function() {
+    var scope, elm;
+
+    beforeEach(inject(function($compile, $rootScope) {
+      elm = $compile('<top-bar></top-bar>')($rootScope);
+      $rootScope.$digest();
+      scope = elm.isolateScope();
+      scope.$apply = jasmine.createSpy('$apply');
+    }));
+
+    describe('when both stickyTopbar and isSticky are true', function() {
+      it('does not invoke scope.$apply', function() {
+        scope.stickyTopbar = true;
+        scope.isSticky = jasmine.createSpy('isSticky').andReturn(true);
+        angular.element($window).triggerHandler('scroll');
+        expect(scope.$apply).toHaveBeenCalled();
+      });
+    });
+
+    describe('when either stickyTopbar or isSticky is false', function() {
+      it('does not invoke scope.$apply', function () {
+        scope.stickyTopbar = false;
+        scope.isSticky = jasmine.createSpy('isSticky').andReturn(false);
+        angular.element($window).triggerHandler('scroll');
+        expect(scope.$apply).not.toHaveBeenCalled();
+
+        scope.stickyTopbar = true;
+        scope.isSticky = jasmine.createSpy('isSticky').andReturn(false);
+        angular.element($window).triggerHandler('scroll');
+        expect(scope.$apply).not.toHaveBeenCalled();
+
+        scope.stickyTopbar = false;
+        scope.isSticky = jasmine.createSpy('isSticky').andReturn(true);
+        angular.element($window).triggerHandler('scroll');
+        expect(scope.$apply).not.toHaveBeenCalled();
+      });
+    });
+  });
 });
