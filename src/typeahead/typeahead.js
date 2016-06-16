@@ -212,6 +212,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
         model = parserResult.modelMapper(originalScope, locals);
         $setModelValue(originalScope, model);
         modelCtrl.$setValidity('editable', true);
+        modelCtrl.$setValidity('parse', true);
 
         onSelectCallback(originalScope, {
           $item: item,
