@@ -88,13 +88,21 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
       restrict: 'EA',
       scope: {
         index: '@',
-        animate: '='
+        animate: '=',
+        mmTop: '@'
       },
       replace: true,
       transclude: true,
       templateUrl: 'template/modal/window.html',
       link: function (scope, element, attrs) {
         scope.windowClass = attrs.windowClass || '';
+
+        // Set the `top` style using element.css to avoid Content Security Policy
+        // issues when using inline-styles
+        if (scope.mmTop) {
+          element.css('top', scope.mmTop);
+          element.css('visibility', 'visible');
+        }
 
         $timeout(function () {
           // trigger CSS transitions
@@ -241,18 +249,21 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
         }
 
         // Create a faux modal div just to measure its
-        // distance to top
-        var faux = angular.element('<div class="reveal-modal" style="z-index:-1""></div>');
+        // distance to top. Note that we set the style using element.css()
+        // rather than using inline style="..." to avoid issue with Content Security Policy
+        var faux = angular.element('<div class="reveal-modal"></div>');
+        faux.css("z-index", "-1");
         parent.append(faux[0]);
         cssTop = parseInt($window.getComputedStyle(faux[0]).top) || 0;
         var openAt = calculateModalTop(faux, cssTop);
         faux.remove();
 
-        var angularDomEl = angular.element('<div modal-window style="visibility: visible; top:' + openAt +'px;"></div>')
+        var angularDomEl = angular.element('<div modal-window></div>')
           .attr({
             'window-class': modal.windowClass,
             'index': openedWindows.length() - 1,
-            'animate': 'animate'
+            'animate': 'animate',
+            'mm-top': '' + openAt + 'px' // Pass the top position to modal-window directive
           });
         angularDomEl.html(modal.content);
 
