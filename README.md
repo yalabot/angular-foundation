@@ -1,3 +1,5 @@
+### Please see [this issue](https://github.com/pineconellc/angular-foundation/issues/311) for an important update regarding this project.
+
 # Angular Components for [Foundation](http://foundation.zurb.com/)
 [![Build Status](https://semaphoreapp.com/api/v1/projects/670cabb5-3c50-4197-9df5-e75cf62c9d20/237671/badge.png)](https://semaphoreapp.com/pinecone/angular-foundation)
 [![Latest Version](https://badge.fury.io/bo/angular-foundation.svg)](https://github.com/pineconellc/angular-foundation-bower)
