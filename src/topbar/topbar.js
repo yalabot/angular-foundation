@@ -182,7 +182,6 @@ angular.module("mm.foundation.topbar", ['mm.foundation.mediaQueries'])
 
         var onScroll = function() {
           updateStickyPositioning();
-          scope.$apply();
         };
 
         scope.toggle = function(on) {
