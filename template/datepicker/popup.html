@@ -1,0 +1,16 @@
+<script type="text/ng-template" id="myModalDatepicker.html">
+    <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+
+    <ul>
+        <li ng-if="showButtonBar">
+		<span class="button-group left">
+			<button type="button" class="small info" ng-click="select('today')">{{ getText('current') }}</button>
+			<button type="button" class="small alert" ng-click="select(null)">{{ getText('clear') }}</button>
+		</span>
+            <button type="button" class="small success right" ng-click="close()">{{ getText('close') }}</button>
+        </li>
+    </ul>
+
+    <button class="button" ng-click="ok()">OK</button>
+    <a class="close-reveal-modal" ng-click="cancel()">&#215;</a>
+</script>

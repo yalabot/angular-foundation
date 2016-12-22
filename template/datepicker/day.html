@@ -1,0 +1,47 @@
+<div role="grid" aria-labelledby="{{uniqueId}}-title" aria-activedescendant="{{activeDateId}}">
+  <div class="head clearfix">
+    <div class="row">
+      <div class="small-3 columns"><button type="button" class="button small left" ng-click="move(-1)" tabindex="-1"><i class="fa fa-chevron-left"></i></button></div>
+      <div class="small-6 columns"><button id="{{uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="button small" ng-click="toggleMode()" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></div>
+      <div class="small-3 columns"><button type="button" class="button small right" ng-click="move(1)" tabindex="-1"><i class="fa fa-chevron-right"></i></button></div>
+    </div>
+    <div ng-show="showWeeks">
+      <div class="row">
+        <div class="small-12 medium-11 medium-offset-1 columns">
+            <ul class="small-block-grid-7">
+                <li ng-repeat="label in labels track by $index" role="gridcell">
+                    <small aria-label="{{label.full}}">{{label.abbr}}</small>
+                </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div>
+      <div ng-repeat="row in rows track by $index">
+        <div class="row">
+              <div class="hide-for-small-only columns" ng-class="{'small-1': showWeeks}">
+                  <ul ng-show="showWeeks" class="hide-for-small-only small-block-grid-1">
+                      <li><small>{{ weekNumbers[$index] }}</small></li>
+                  </ul>
+              </div>
+              <div class="columns" ng-class="{'small-12 medium-11': showWeeks, 'small-12': !showWeeks}">
+                  <ul class="small-block-grid-7">
+                      <li ng-repeat="dt in row track by dt.date" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}">
+                          <em ng-if="isActive(dt)">
+                              <a style="width:100%;" ng-class="{'success': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1">
+                                  <span ng-class="{'text-muted': dt.secondary, 'text-info': dt.current}">{{dt.label}}</span>
+                              </a>
+                          </em>
+                          <a style="width:100%;" ng-if="!isActive(dt)" ng-class="{'success': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1">
+                              <span ng-class="{'text-muted': dt.secondary, 'text-info': dt.current}">{{dt.label}}</span>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
