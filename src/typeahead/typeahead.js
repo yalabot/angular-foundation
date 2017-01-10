@@ -29,8 +29,8 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
   };
 }])
 
-  .directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser',
-    function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser) {
+  .directive('typeahead', ['$compile', '$parse', '$q', '$timeout', '$document', '$position', 'typeaheadParser', '$rootScope',
+    function ($compile, $parse, $q, $timeout, $document, $position, typeaheadParser, $rootScope) {
 
   var HOT_KEYS = [9, 13, 27, 38, 40];
 
@@ -273,7 +273,10 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
       var dismissClickHandler = function (evt) {
         if (element[0] !== evt.target) {
           resetMatches();
-          scope.$digest();
+
+          if (!$rootScope.$$phase) {
+            scope.$digest();
+          }
         }
       };
 
