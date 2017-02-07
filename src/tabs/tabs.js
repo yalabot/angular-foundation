@@ -187,30 +187,22 @@ angular.module('mm.foundation.tabs', [])
     },
     compile: function(elm, attrs, transclude) {
       return function postLink(scope, elm, attrs, tabsetCtrl) {
-        var getActive, setActive;
+        //if we've provided an active in attrs
+        //we're initializing which tab is selected
+        //once we use it once to initialize scope.active we don't
+        //want to watch it anymore or use it in overriding the selection
+        //behavior of end-users.
+        var getActive;
+
         if (attrs.active) {
           getActive = $parse(attrs.active);
-          setActive = getActive.assign;
-          scope.$parent.$watch(getActive, function updateActive(value, oldVal) {
-            // Avoid re-initializing scope.active as it is already initialized
-            // below. (watcher is called async during init with value ===
-            // oldVal)
-            if (value !== oldVal) {
-              scope.active = !!value;
-            }
-          });
           scope.active = getActive(scope.$parent);
         } else {
-          setActive = getActive = angular.noop;
-        }
+-          setActive = getActive = angular.noop;
+         }
 
         scope.$watch('active', function(active) {
-          if( !angular.isFunction(setActive) ){
-            return;
-          }
-          // Note this watcher also initializes and assigns scope.active to the
-          // attrs.active expression.          
-          setActive(scope.$parent, active);
+
           if (active) {
             tabsetCtrl.select(scope);
             scope.onSelect();
