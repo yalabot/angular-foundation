@@ -22,3 +22,5 @@ bower_components
 npm-debug.log
 
 template/**/*.js
+
+/.idea

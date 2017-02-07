@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git://github.com/pineconellc/angular-foundation.git"
   },
+  "scripts": {
+    "prepubluish": "grunt html2js && grunt build"
+  },
   "devDependencies": {
     "karma": "~0.12.0",
     "karma-jasmine": "~0.1.0",
