@@ -46,12 +46,30 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
         if (!elementWasOpen && !element.hasClass('disabled') && !element.prop('disabled')) {
           dropdown.css('display', 'block'); // We display the element so that offsetParent is populated
           dropdown.addClass('f-open-dropdown');
-          
+
+          var options = element.attr('data-options') ? element.attr('data-options').split(';') : [];
+          var align = null;
+
+          for (var i = 0; i < options.length; i++) {
+            var split = options[i].split(':');
+            if (split[0] === 'align') {
+              align = split[1];
+            }
+          }
           var offset = $position.offset(element);
           var parentOffset = $position.offset(angular.element(dropdown[0].offsetParent));
           var dropdownWidth = dropdown.prop('offsetWidth');
+          var dropdownHeight = dropdown.prop('offsetHeight');
+          var top = offset.top - parentOffset.top + offset.height;
+
+          switch (align) {
+            case 'top-left':
+              top -= dropdownHeight / 2;
+              break;
+          }
+
           var css = {
-            top: offset.top - parentOffset.top + offset.height + 'px'
+            top: top + 'px'
           };
 
           if (controller.small()) {
@@ -66,6 +84,14 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             if (left > rightThreshold) {
                 left = rightThreshold;
                 dropdown.removeClass('left').addClass('right');
+            }
+            switch (align) {
+              case 'left':
+                left -= dropdownWidth;
+                break;
+              case 'top-left':
+                left -= dropdownWidth;
+                break;
             }
             css.left = left + 'px';
             css.position = null;
