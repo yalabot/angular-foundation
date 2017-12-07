@@ -25,7 +25,7 @@
     "grunt-open": "~0.2.3",
     "load-grunt-tasks": "~0.3.0",
     "node-markdown": "0.1.1",
-    "semver": "~2.2.0",
+    "semver": "~4.3.2",
     "shelljs": "~0.2.0"
   },
   "license": "MIT"
