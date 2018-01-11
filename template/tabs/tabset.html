@@ -3,7 +3,7 @@
   <div class="tabs-content" ng-class="{'vertical': vertical}">
     <div class="content" 
       ng-repeat="tab in tabs" 
-      ng-class="{active: tab.active}">
+      ng-class="{active: tab.active, disabled: tab.disabled}">
       <div tab-content-transclude="tab"></div>
     </div>
   </div>
