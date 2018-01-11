@@ -64,7 +64,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             var left = Math.round(offset.left - parentOffset.left);
             var rightThreshold = $window.innerWidth - dropdownWidth - 8;
             if (left > rightThreshold) {
-                left = rightThreshold;
+                left = left - dropdownWidth + $position.position(element).width;
                 dropdown.removeClass('left').addClass('right');
             }
             css.left = left + 'px';
@@ -93,6 +93,17 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
             }
           };
           $document.on('click', closeMenu);
+
+          repositionMenu = function() {
+            if (!!openElement) {
+              var left = $position.position(element).left;
+              if (dropdown.hasClass('right')) {
+                left = left - dropdownWidth + $position.position(element).width;
+              }
+              dropdown.css('left', left);
+            }
+          };
+          angular.element($window).on('resize', repositionMenu);
         }
       };
 
@@ -105,6 +116,7 @@ angular.module('mm.foundation.dropdownToggle', [ 'mm.foundation.position', 'mm.f
       element.on('click', onClick);
       element.on('$destroy', function() {
         element.off('click', onClick);
+        angular.element($window).off('resize', onClick);
       });
     }
   };
