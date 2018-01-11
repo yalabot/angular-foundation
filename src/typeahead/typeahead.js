@@ -71,6 +71,9 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
 
       var hasFocus;
 
+      // Typed Input (before traversing matches)
+      var originalText;
+
       //pop-up element used to display matches
       var popUpEl = angular.element('<div typeahead-popup></div>');
       popUpEl.attr({
@@ -98,6 +101,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
       };
 
       var getMatchesAsync = function(inputValue) {
+        originalText = inputValue;
 
         var locals = {$viewValue: inputValue};
         isLoadingSetter(originalScope, true);
@@ -225,6 +229,21 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
         element[0].focus();
       };
 
+      // Traverse is similar to select but doesn't reset matches or hit onSelectCallback.
+      // It's used for arrowing through matches as opposed to clicking, enter, or tabbing on them.
+      scope.traverse = function(activeIdx) {
+        //called from within the $digest() cycle
+        var locals = {};
+        var model;
+
+        locals[parserResult.itemName] = scope.matches[activeIdx].model;
+        model = parserResult.modelMapper(originalScope, locals);
+        $setModelValue(originalScope, model);
+        modelCtrl.$setValidity('editable', true);
+
+        element[0].focus();
+      };
+
       //bind keyboard events: arrows up(38) / down(40), enter(13) and tab(9), esc(27)
       element.bind('keydown', function (evt) {
 
@@ -241,11 +260,32 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
         evt.preventDefault();
 
         if (evt.which === 40) {
-          scope.activeIdx = (scope.activeIdx + 1) % scope.matches.length;
+          scope.activeIdx = scope.activeIdx + 1 === scope.matches.length ?
+            -1 : (scope.activeIdx + 1) % scope.matches.length;
+
+          if (scope.activeIdx === -1) {
+            //set original text back to input
+            element[0].value = originalText;
+          } else {
+            scope.$apply(function() {
+              scope.traverse(scope.activeIdx);
+            });
+          }
+
           scope.$digest();
 
         } else if (evt.which === 38) {
-          scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
+          scope.activeIdx = (scope.activeIdx > -1 ? scope.activeIdx : scope.matches.length) - 1;
+
+          if (scope.activeIdx === -1) {
+            //set original text back to input
+            element[0].value = originalText;
+          } else {
+            scope.$apply(function() {
+              scope.traverse(scope.activeIdx);
+            });
+          }
+
           scope.$digest();
 
         } else if (evt.which === 13 || evt.which === 9) {
@@ -255,6 +295,9 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
 
         } else if (evt.which === 27) {
           evt.stopPropagation();
+
+          //set original text back to input
+          element[0].value = originalText;
 
           resetMatches();
           scope.$digest();
