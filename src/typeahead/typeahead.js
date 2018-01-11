@@ -106,7 +106,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
           //it might happen that several async queries were in progress if a user were typing fast
           //but we are interested only in responses that correspond to the current view value
           if (inputValue === modelCtrl.$viewValue && hasFocus) {
-            if (matches.length > 0) {
+            if (matches && matches.length > 0) {
 
               scope.activeIdx = focusFirst ? 0 : -1;
               scope.matches.length = 0;
@@ -311,7 +311,7 @@ angular.module('mm.foundation.typeahead', ['mm.foundation.position', 'mm.foundat
         scope.templateUrl = attrs.templateUrl;
 
         scope.isOpen = function () {
-          return scope.matches.length > 0;
+          return scope.matches && scope.matches.length > 0;
         };
 
         scope.isActive = function (matchIdx) {
