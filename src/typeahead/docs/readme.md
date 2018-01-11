@@ -45,6 +45,10 @@ The typeahead directives provide several attributes:
    :
    Set custom item template
 
+* `typeahead-popup-template-url` <i class="glyphicon glyphicon-eye-open"></i>
+   :
+   Set custom results popup template 
+
 * `typeahead-wait-ms` <i class="glyphicon glyphicon-eye-open"></i>
    _(Defaults: 0)_ :
    Minimal wait time after last character typed before typeahead kicks-in
