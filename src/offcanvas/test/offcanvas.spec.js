@@ -27,6 +27,7 @@ describe('offcanvas directive', function () {
           '<aside class="right-off-canvas-menu">' +
             '<ul class="off-canvas-list">' +
               '<li><a href="#">Right Sidebar</a></li>' +
+              '<li class="has-form"><input id="off-canvas-input" type="text"></li>' +
             '</ul>' +
           '</aside>' +
           '<section class="main-section">' +
@@ -49,6 +50,10 @@ describe('offcanvas directive', function () {
       isClosed: function() {
         return !this.actual.hasClass('move-left') &&
             !this.actual.hasClass('move-right');
+      },
+      isOpen: function() {
+        return this.actual.hasClass('move-left') ||
+            this.actual.hasClass('move-right');
       }
     });
   }));
@@ -71,11 +76,18 @@ describe('offcanvas directive', function () {
     expect(element).isClosed();
   });
 
-  it('is closes after clicking on a list item', function() {
+  it('is closes after clicking on a non-input list item', function() {
     $('.right-off-canvas-toggle', element).trigger('click');
     expect(element).rightOpen();
     $('.off-canvas-list', element).trigger('click');
     expect(element).isClosed();
+  });
+
+  it('does not close after clicking on an input in a list item', function() {
+    $('.right-off-canvas-toggle', element).trigger('click');
+    expect(element).rightOpen();
+    $('#off-canvas-input', element).trigger('click');
+    expect(element).isOpen();
   });
 
 });

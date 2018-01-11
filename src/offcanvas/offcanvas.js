@@ -73,8 +73,10 @@ angular.module("mm.foundation.offcanvas", [])
             require: '^offCanvasWrap',
             restrict: 'C',
             link: function ($scope, element, attrs, offCanvasWrap) {
-                element.on('click', function () {
-                    offCanvasWrap.hide();
+                element.on('click', function (e) {
+                  if (e.target.tagName.toLowerCase() != 'input') {
+                      offCanvasWrap.hide();
+                  }
                 });
             }
         };
