@@ -242,7 +242,7 @@ angular.module('mm.foundation.modal', ['mm.foundation.transition'])
 
         // Create a faux modal div just to measure its
         // distance to top
-        var faux = angular.element('<div class="reveal-modal" style="z-index:-1""></div>');
+        var faux = angular.element('<div class="reveal-modal" style="z-index:-1; display: block;"></div>');
         parent.append(faux[0]);
         cssTop = parseInt($window.getComputedStyle(faux[0]).top) || 0;
         var openAt = calculateModalTop(faux, cssTop);
