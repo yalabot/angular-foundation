@@ -56,7 +56,7 @@ Modern mobile browsers should work without problems.
 ### Native, lightweight directives
 
 We are aiming at providing a set of AngularJS directives based on Foundation's markup and CSS. The goal is to provide **native AngularJS directives** without any dependency on jQuery or Foundation's JavaScript.
-It is often better to rewrite an existing JavaScript code and create a new, pure AngularJS directive. Most of the time the resulting directive is smaller as compared to the orginal JavaScript code size and better integrated into the AngularJS ecosystem.
+It is often better to rewrite an existing JavaScript code and create a new, pure AngularJS directive. Most of the time the resulting directive is smaller as compared to the original JavaScript code size and better integrated into the AngularJS ecosystem.
 
 ### Customizability
 
@@ -64,7 +64,7 @@ All the directives in this repository should have their markup externalized as t
 
 ### Take what you need and not more
 
-Each directive has its own AngularJS module without any dependencies on other modules or third-pary JavaScript code. In practice it means that you can **just grab the code for the directives you need** and you are not obliged to drag the whole repository.
+Each directive has its own AngularJS module without any dependencies on other modules or third-party JavaScript code. In practice it means that you can **just grab the code for the directives you need** and you are not obliged to drag the whole repository.
 
 ### Quality and stability
 
@@ -89,7 +89,7 @@ We are always looking for the quality contributions! Please check the [CONTRIBUT
 * To build modules, first run `grunt html2js` then `grunt build:module1:module2...:moduleN`
 
 You can generate a custom build, containing only needed modules, from the project's homepage.
-Alternativelly you can run local Grunt build from the command line and list needed modules as shown below:
+Alternatively you can run local Grunt build from the command line and list needed modules as shown below:
 
 ```
 grunt build:modal:tabs:alert:popover:dropdownToggle:buttons:progressbar
@@ -100,7 +100,7 @@ Check the Grunt build file for other tasks that are defined for this project.
 #### TDD
 * Run test: `grunt watch`
 
-This will start Karma server and will continously watch files in the project, executing tests upon every change.
+This will start Karma server and will continuously watch files in the project, executing tests upon every change.
 
 #### Test coverage
 Add the `--coverage` option (e.g. `grunt test --coverage`, `grunt watch --coverage`) to see reports on the test coverage. These coverage reports are found in the coverage folder.
